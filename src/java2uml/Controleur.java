@@ -2,6 +2,8 @@ package java2uml;
 
 import iut.algo.Console;
 import java2uml.IHM.*;
+import java2uml.IHM.CUI.IHMCUI;
+import java2uml.IHM.GUI.IHMGUI;
 
 public class Controleur
 {

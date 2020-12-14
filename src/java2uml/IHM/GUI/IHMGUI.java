@@ -1,4 +1,4 @@
-package java2uml.IHM;
+package java2uml.IHM.GUI;
 
 import java2uml.Controleur;
 

@@ -1,4 +1,4 @@
-package java2uml.IHM;
+package java2uml.IHM.CUI;
 
 import iut.algo.Clavier;
 import iut.algo.Console;
