@@ -1,4 +1,4 @@
-package java2uml;
+package java2uml.IHM.CUI;
 
 public class TestAffichage
 {
