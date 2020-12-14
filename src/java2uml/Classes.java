@@ -1,9 +1,4 @@
-package java2uml;
-
 import java.lang.reflect.*;
-import java.io.File;
-import java.net.URL;
-import java.net.URLClassLoader;
 
 public class Classes
 {
@@ -16,47 +11,13 @@ public class Classes
     private Method[] tabMeth;
     private Parameter[][] tabParamMethod;
 
+    private boolean afficheMethode;
+    private boolean afficheAttributs;
 
-    public Classes(String classe) {
-    	try
-		{
-
-    		this.nomClasse = classe;
-			/* Permet d'acc�der � un .class dans un autre dossier ici : ./classes/ */
-			File f = new File("./classes/");
-			URL[] cp = {f.toURI().toURL()};
-			URLClassLoader urlcl = new URLClassLoader(cp);
-			Class c = urlcl.loadClass(classe);
-
-			// R�cup�re le nom de la classe
-			this.nomClasse = c.getName();
-
-			//R�cup�re les attributs de la classe
-			this.tabAttribut = c.getDeclaredFields();
-
-			//R�cup�re les constructeurs de la classe
-			this.tabConstruct = c.getConstructors();
-
-			this.tabParamConstruct = new Parameter[tabConstruct.length][];
-			for(int i = 0; i<tabConstruct.length; i++)
-			{ 
-				tabParamConstruct[i] = tabConstruct[i].getParameters();
-			}
-
-			//R�cup�re les m�thodes de la classe
-			this.tabMeth = c.getDeclaredMethods();
-
-			this.tabParamMethod = new Parameter[tabMeth.length][];
-			/*for(int i = 0; i<tabMeth.length; i++)
-			{
-				tabParamMethod[i] = tabMeth[i].getParameters();
-			}*/	
-
-
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+    public Classes()
+    {
+        // CONSTRUCTEUR
+        //initialiser bools ne pas oublier
     }
 
     public String toString()
@@ -78,20 +39,27 @@ public class Classes
         for (int i = 0; i < (int)(taille-nomClasse.length()/2) ; i++) sRet+="";
         sRet+=nomClasse+"\n";
 
-        //SEPARATION TYPE : "---------------------"
-        sRet+=separation;
+        if(afficheAttributs)
+        {
+            //SEPARATION TYPE : "---------------------"
+            sRet+=separation;
 
-        //AJOUT DES ATTRIBUTS TYPE : -int x
-        sRet+=attribut_toString();
+            //AJOUT DES ATTRIBUTS TYPE : -int x
+            sRet+=attribut_toString(taille);
+        }
+       if(afficheMethode)
+       {
+           //SEPARATION TYPE : "---------------------"
+           sRet+=separation;
 
-        //SEPARATION TYPE : "---------------------"
-        sRet+=separation;
+           //AJOUT DES METHODE TYPE : + getX () : int
+           sRet+=methode_toString(taille);
+       }
 
-        //AJOUT DES METHODE TYPE : + getX () : int
-        sRet+=attribut_toString();
+       //SEPARATION TYPE : "---------------------"
+       sRet+=separation;
 
         return  sRet;
-
     }
 
     private String methode_toString(int taille)
@@ -109,7 +77,7 @@ public class Classes
 
     private String attribut_toString(int taille)
     {
-        String sRet = "";
+        String sRet="";
         for(int i = 0; i<tabAttribut.length; i++)
         {
             String att = "";
@@ -137,21 +105,19 @@ public class Classes
 
             att+=tabAttribut[i].getName();
             att+=" : " + typeAtt;
-            if(Modifier.isFinal(tabAttribut[i].getModifiers())) att+=" {gel�}";
+            if(Modifier.isFinal(tabAttribut[i].getModifiers())) att+=" {gelé}";
 
             if(bStatic)
             {
                 att+="\n";
-                for(int j = 0 ; j< sRet.length()-1;j++)
-                    att+="�";
+                for(int l = 0 ; l< sRet.length()-1;l++)
+                    att+="¯";
             }
             sRet += String.format("%-"+String.valueOf(taille),att);
             sRet+="\n";
         }
         return sRet;
     }
-
-
 
     public int size()
     {
@@ -183,20 +149,21 @@ public class Classes
 
             att += tabAttribut[i].getName();
             att += " : " + typeAtt;
-            if (Modifier.isFinal(tabAtt[i].getModifiers())) att += " {gelé}";
+            if (Modifier.isFinal(tabAttribut[i].getModifiers())) att += " {gelé}";
 
-            if(att.length()>taille)taille>att.length();
+            if(att.length()>taille)taille=att.length();
         }
 
         //METHODES
 
-        for(int i = 0; i<tabMet.length; i++)
-             if(tabMeth[i].toString().length()>size)size=tabMeth[i].toString().length();
+        for(int i = 0; i<tabMeth.length; i++)
+             if(tabMeth[i].toString().length()>taille)taille=tabMeth[i].toString().length();
 
         return  taille;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
     }
 }
