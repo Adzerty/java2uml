@@ -1,4 +1,9 @@
+package java2uml;
+
 import java.lang.reflect.*;
+import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 public class Classes
 {
@@ -6,7 +11,8 @@ public class Classes
 
     private Field[] tabAttribut;
 
-    private Constructor[] tabConstruct;
+    @SuppressWarnings("rawtypes")
+	private Constructor[] tabConstruct;
     private Parameter[][] tabParamConstruct;
     private Method[] tabMeth;
     private Parameter[][] tabParamMethod;
@@ -14,10 +20,48 @@ public class Classes
     private boolean afficheMethode;
     private boolean afficheAttributs;
 
-    public Classes()
+    public Classes(String nomClasse)
     {
         // CONSTRUCTEUR
-        //initialiser bools ne pas oublier
+    	try
+		{
+			/* Permet d'accéder à un .class dans un autre dossier ici : ./classes/ */
+			File f = new File("./");
+			URL[] cp = {f.toURI().toURL()};
+			URLClassLoader urlcl = new URLClassLoader(cp);
+			Class c = urlcl.loadClass(nomClasse);
+
+			// Récupère le nom de la classe
+			this.nomClasse = c.getName();
+
+			//Récupère les attributs de la classe
+			this.tabAttribut = c.getDeclaredFields();
+
+			//Récupère les constructeurs de la classe
+			this.tabConstruct = c.getConstructors();
+
+			this.tabParamConstruct = new Parameter[tabConstruct.length][];
+			for(int i = 0; i<tabConstruct.length; i++)
+			{ 
+				tabParamConstruct[i] = tabConstruct[i].getParameters();
+			}
+
+			//Récupère les méthodes de la classe
+			this.tabMeth = c.getDeclaredMethods();
+
+			this.tabParamMethod = new Parameter[tabMeth.length][];
+			/*for(int i = 0; i<tabMeth.length; i++)
+			{
+				tabParamMethod[i] = tabMeth[i].getParameters();
+			}*/	
+
+			this.afficheAttributs = this.afficheMethode =  true;
+			
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
     }
 
     public String toString()
@@ -36,7 +80,7 @@ public class Classes
         sRet+=separation;
 
         //NOM CLASSES
-        for (int i = 0; i < (int)(taille-nomClasse.length()/2) ; i++) sRet+="";
+        for (int i = 0; i < (int)(taille-nomClasse.length())/2 ; i++) sRet+=" ";
         sRet+=nomClasse+"\n";
 
         if(afficheAttributs)
@@ -69,7 +113,7 @@ public class Classes
         for(int i = 0; i<tabMeth.length; i++)
         {
 
-            sRet += String.format("%-"+String.valueOf(taille), tabMeth[i].toString()) ;
+            sRet += String.format("%-"+String.valueOf(taille) + 's', tabMeth[i].toString()) ;
             sRet+="\n";
         }
         return sRet;
@@ -113,7 +157,7 @@ public class Classes
                 for(int l = 0 ; l< sRet.length()-1;l++)
                     att+="¯";
             }
-            sRet += String.format("%-"+String.valueOf(taille),att);
+            sRet += String.format("%-"+String.valueOf(taille) + 's',att);
             sRet+="\n";
         }
         return sRet;
@@ -164,6 +208,7 @@ public class Classes
 
     public static void main(String[] args)
     {
-
+    	Classes c = new Classes("test1");
+    	System.out.println(c.toString());
     }
 }
