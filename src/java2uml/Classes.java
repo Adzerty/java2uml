@@ -16,7 +16,6 @@ public class Classes
 
     public Classes()
     {
-
         // CONSTRUCTEUR
         //initialiser bools
     }
@@ -120,8 +119,6 @@ public class Classes
         return sRet;
     }
 
-
-
     public int size()
     {
         int taille = 0 ;
@@ -165,7 +162,8 @@ public class Classes
         return  taille;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
     }
 }
