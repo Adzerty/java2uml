@@ -211,4 +211,36 @@ public class Classes
     	Classes c = new Classes("test1");
     	System.out.println(c.toString());
     }
+
+	public String getNomClasse() {
+		return nomClasse;
+	}
+
+	public Field[] getTabAttribut() {
+		return tabAttribut;
+	}
+
+	public Constructor[] getTabConstruct() {
+		return tabConstruct;
+	}
+
+	public Parameter[][] getTabParamConstruct() {
+		return tabParamConstruct;
+	}
+
+	public Method[] getTabMeth() {
+		return tabMeth;
+	}
+
+	public Parameter[][] getTabParamMethod() {
+		return tabParamMethod;
+	}
+
+	public boolean isAfficheMethode() {
+		return afficheMethode;
+	}
+
+	public boolean isAfficheAttributs() {
+		return afficheAttributs;
+	}
 }
