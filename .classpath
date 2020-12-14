@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/iut_Console"/>
+	<classpathentry kind="lib" path="C:/JAVA/TP/paquetage_class/iut.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
