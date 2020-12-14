@@ -17,7 +17,7 @@ public class Classes
     public Classes()
     {
         // CONSTRUCTEUR
-        //initialiser bools
+        //initialiser bools ne pas oublier
     }
 
     public String toString()
