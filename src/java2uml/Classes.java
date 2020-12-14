@@ -11,15 +11,14 @@ public class Classes
     private Method[] tabMeth;
     private Parameter[][] tabParamMethod;
 
+    private boolean afficheMethode;
+    private boolean afficheAttributs;
 
-    public Classes(String nomClasse, Field[] tabAttribut, Constructor[] tabConstruct,
-                   Parameter[][] tabParamConstruct, Method[] tabMeth, Parameter[][] tabParamMethod) {
-        this.nomClasse = nomClasse;
-        this.tabAttribut = tabAttribut;
-        this.tabConstruct = tabConstruct;
-        this.tabParamConstruct = tabParamConstruct;
-        this.tabMeth = tabMeth;
-        this.tabParamMethod = tabParamMethod;
+    public Classes()
+    {
+
+        // CONSTRUCTEUR
+        //initialiser bools
     }
 
     public String toString()
@@ -38,30 +37,37 @@ public class Classes
         sRet+=separation;
 
         //NOM CLASSES
-        for (int i = 0; i < (int)(taille-nomClasse/2) ; i++) sRet+="";
+        for (int i = 0; i < (int)(taille-nomClasse.length()/2) ; i++) sRet+="";
         sRet+=nomClasse+"\n";
 
-        //SEPARATION TYPE : "---------------------"
-        sRet+=separation;
+        if(afficheAttributs)
+        {
+            //SEPARATION TYPE : "---------------------"
+            sRet+=separation;
 
-        //AJOUT DES ATTRIBUTS TYPE : -int x
-        sRet+=attribut_toString();
+            //AJOUT DES ATTRIBUTS TYPE : -int x
+            sRet+=attribut_toString(taille);
+        }
+       if(afficheMethode)
+       {
+           //SEPARATION TYPE : "---------------------"
+           sRet+=separation;
 
-        //SEPARATION TYPE : "---------------------"
-        sRet+=separation;
+           //AJOUT DES METHODE TYPE : + getX () : int
+           sRet+=methode_toString(taille);
+       }
 
-        //AJOUT DES METHODE TYPE : + getX () : int
-        sRet+=attribut_toString();
+       //SEPARATION TYPE : "---------------------"
+       sRet+=separation;
 
         return  sRet;
-
     }
 
     private String methode_toString(int taille)
     {
         String sRet="";
 
-        for(int i = 0; i<tabMet.length; i++)
+        for(int i = 0; i<tabMeth.length; i++)
         {
 
             sRet += String.format("%-"+String.valueOf(taille), tabMeth[i].toString()) ;
@@ -70,9 +76,9 @@ public class Classes
         return sRet;
     }
 
-    private String attribut_toString()
+    private String attribut_toString(int taille)
     {
-        String sRet"";
+        String sRet="";
         for(int i = 0; i<tabAttribut.length; i++)
         {
             String att = "";
@@ -100,12 +106,12 @@ public class Classes
 
             att+=tabAttribut[i].getName();
             att+=" : " + typeAtt;
-            if(Modifier.isFinal(tabAtt[i].getModifiers())) att+=" {gelé}";
+            if(Modifier.isFinal(tabAttribut[i].getModifiers())) att+=" {gelé}";
 
             if(bStatic)
             {
                 att+="\n";
-                for(int i = 0 ; i< sRet.length()-1;i++)
+                for(int l = 0 ; l< sRet.length()-1;l++)
                     att+="¯";
             }
             sRet += String.format("%-"+String.valueOf(taille),att);
@@ -146,15 +152,15 @@ public class Classes
 
             att += tabAttribut[i].getName();
             att += " : " + typeAtt;
-            if (Modifier.isFinal(tabAtt[i].getModifiers())) att += " {gelé}";
+            if (Modifier.isFinal(tabAttribut[i].getModifiers())) att += " {gelé}";
 
-            if(att.length()>taille)taille>att.length();
+            if(att.length()>taille)taille=att.length();
         }
 
         //METHODES
 
-        for(int i = 0; i<tabMet.length; i++)
-             if(tabMeth[i].toString().length()>size)size=tabMeth[i].toString().length();
+        for(int i = 0; i<tabMeth.length; i++)
+             if(tabMeth[i].toString().length()>taille)taille=tabMeth[i].toString().length();
 
         return  taille;
     }
