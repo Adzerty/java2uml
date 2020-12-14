@@ -1,23 +1,27 @@
 package java2uml;
 
-public class Controleur {
+import iut.algo.Console;
+import java2uml.IHM.*;
 
+public class Controleur
+{
+	private Object metier;
+	private IHMCUI ihmCUI;
+	private IHMGUI ihmGUI;
+	
+	public Controleur()
+	{ 
+		metier = new Object();
+		this.ihmCUI = new IHMCUI (this);
+		
+		if(this.ihmCUI.choixGraphique() == 'G')	{ this.ihmGUI = new IHMGUI(this); } 
+		else                                    { this.ihmCUI.start(); }
+	}
+	
 	public static void main(String[] args)
 	{
-		Controleur ctrl = new Controleur();
-		ctrl.metier.getLocal().setCoords(RequetesCoord.getCoordonnee(ctrl.metier.getLocal()));
-		ctrl.charger();
+		new Controleur();
 		
-		String ihm;
-		do
-		{
-			Console.print( CouleurConsole.BLANC.getFont () + "\n\t\tAffichage (" +ctrl.col("CUI")+ "/" + ctrl.col("GUI") + ") : ");
-			ihm = Clavier.lireString().toUpperCase();
-		}
-		while( !(ihm.equals("GUI") ^ ihm.equals("CUI")));
-		
-		if( ihm.equals("GUI")) { new IhmGUI(ctrl); }
-		else                   { new IhmCUI(ctrl); }
+		Console.print("\n\t---- FIN DU PROGRAMME ----\n");
 	}
-
 }
