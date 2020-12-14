@@ -8,7 +8,6 @@ public class Classes
 
     private Constructor[] tabConstruct;
     private Parameter[][] tabParamConstruct;
-
     private Method[] tabMeth;
     private Parameter[][] tabParamMethod;
 
