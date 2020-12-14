@@ -1,4 +1,9 @@
+package java2uml;
+
 import java.lang.reflect.*;
+import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 public class Classes
 {
@@ -12,14 +17,46 @@ public class Classes
     private Parameter[][] tabParamMethod;
 
 
-    public Classes(String nomClasse, Field[] tabAttribut, Constructor[] tabConstruct,
-                   Parameter[][] tabParamConstruct, Method[] tabMeth, Parameter[][] tabParamMethod) {
-        this.nomClasse = nomClasse;
-        this.tabAttribut = tabAttribut;
-        this.tabConstruct = tabConstruct;
-        this.tabParamConstruct = tabParamConstruct;
-        this.tabMeth = tabMeth;
-        this.tabParamMethod = tabParamMethod;
+    public Classes(String classe) {
+    	try
+		{
+
+    		this.nomClasse = classe;
+			/* Permet d'acc�der � un .class dans un autre dossier ici : ./classes/ */
+			File f = new File("./classes/");
+			URL[] cp = {f.toURI().toURL()};
+			URLClassLoader urlcl = new URLClassLoader(cp);
+			Class c = urlcl.loadClass(classe);
+
+			// R�cup�re le nom de la classe
+			this.nomClasse = c.getName();
+
+			//R�cup�re les attributs de la classe
+			this.tabAttribut = c.getDeclaredFields();
+
+			//R�cup�re les constructeurs de la classe
+			this.tabConstruct = c.getConstructors();
+
+			this.tabParamConstruct = new Parameter[tabConstruct.length][];
+			for(int i = 0; i<tabConstruct.length; i++)
+			{ 
+				tabParamConstruct[i] = tabConstruct[i].getParameters();
+			}
+
+			//R�cup�re les m�thodes de la classe
+			this.tabMeth = c.getDeclaredMethods();
+
+			this.tabParamMethod = new Parameter[tabMeth.length][];
+			/*for(int i = 0; i<tabMeth.length; i++)
+			{
+				tabParamMethod[i] = tabMeth[i].getParameters();
+			}*/	
+
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
     }
 
     public String toString()
@@ -38,7 +75,7 @@ public class Classes
         sRet+=separation;
 
         //NOM CLASSES
-        for (int i = 0; i < (int)(taille-nomClasse/2) ; i++) sRet+="";
+        for (int i = 0; i < (int)(taille-nomClasse.length()/2) ; i++) sRet+="";
         sRet+=nomClasse+"\n";
 
         //SEPARATION TYPE : "---------------------"
@@ -61,7 +98,7 @@ public class Classes
     {
         String sRet="";
 
-        for(int i = 0; i<tabMet.length; i++)
+        for(int i = 0; i<tabMeth.length; i++)
         {
 
             sRet += String.format("%-"+String.valueOf(taille), tabMeth[i].toString()) ;
@@ -70,9 +107,9 @@ public class Classes
         return sRet;
     }
 
-    private String attribut_toString()
+    private String attribut_toString(int taille)
     {
-        String sRet"";
+        String sRet = "";
         for(int i = 0; i<tabAttribut.length; i++)
         {
             String att = "";
@@ -100,13 +137,13 @@ public class Classes
 
             att+=tabAttribut[i].getName();
             att+=" : " + typeAtt;
-            if(Modifier.isFinal(tabAtt[i].getModifiers())) att+=" {gelé}";
+            if(Modifier.isFinal(tabAttribut[i].getModifiers())) att+=" {gel�}";
 
             if(bStatic)
             {
                 att+="\n";
-                for(int i = 0 ; i< sRet.length()-1;i++)
-                    att+="¯";
+                for(int j = 0 ; j< sRet.length()-1;j++)
+                    att+="�";
             }
             sRet += String.format("%-"+String.valueOf(taille),att);
             sRet+="\n";
