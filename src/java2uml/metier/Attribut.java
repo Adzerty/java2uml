@@ -67,14 +67,25 @@ public class Attribut
     }
 
     @Override
-    public String toString() {
-        return "Attribut{" +
-                "nom='" + nom + '\'' +
-                ", visibilite=" + visibilite +
-                ", estStatique=" + estStatique +
-                ", estFinale=" + estFinale +
-                ", valeurParDefault='" + valeurParDefault + '\'' +
-                ", type='" + type + '\'' +
-                '}';
+    public String toString()
+    {
+        String sRet="";
+        sRet+=visibilite+" ";
+        sRet+=nom + " ";
+
+        if(valeurParDefault.length()>0)
+            sRet+= " = " + valeurParDefault;
+
+        if(estFinale)sRet+="{gelée} ";
+        sRet+= ": " + type;
+        if(estStatique)
+        {
+            String underline="";
+            for (int i = 0; i <sRet.length(); i++) underline+="-";
+            sRet+="\n"+underline;
+        }
+        sRet+="\n";
+       return sRet;
+
     }
 }

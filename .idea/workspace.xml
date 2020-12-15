@@ -7,6 +7,7 @@
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Association.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Association.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Attribut.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Attribut.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Methode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Methode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Parametre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Parametre.java" afterDir="false" />
     </list>
@@ -129,6 +130,9 @@
       <updated>1607937582953</updated>
     </task>
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.config" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

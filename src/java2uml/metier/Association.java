@@ -80,14 +80,7 @@ public class Association
 
     @Override
     public String toString() {
-        return "Association{" +
-                "classeGauche='" + classeGauche + '\'' +
-                ", classeDroite='" + classeDroite + '\'' +
-                ", multipliciteGauche='" + multipliciteGauche + '\'' +
-                ", multipliciteDroite='" + multipliciteDroite + '\'' +
-                ", contrainte='" + contrainte + '\'' +
-                ", typeFleche='" + typeFleche + '\'' +
-                ", typeRelation='" + typeRelation + '\'' +
-                '}';
+        return typeRelation + " " + classeGauche + " " + multipliciteGauche + " " + typeFleche +
+                " " + multipliciteDroite + " "+ classeDroite + " " + contrainte ;
     }
 }

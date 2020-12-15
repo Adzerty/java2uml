@@ -14,7 +14,7 @@ public class ConfigReader
         try
         {
             Scanner sc = new Scanner(new File("./config/"+fichier));
-            while(sc.hasNext())
+            while(sc.hasNextLine())
             {
                 String nomEntite="";
                 ArrayList<Attribut> ensAttribut = new ArrayList<>();
@@ -27,7 +27,7 @@ public class ConfigReader
 
                 //nom Entite
                 String temp = sc.nextLine();
-                while(sc.hasNext() && !temp.contains("Entite :"))
+                while(sc.hasNextLine() && !temp.contains("Entité :"))
                     temp = sc.nextLine();
 
                 for (int i = temp.indexOf(':')+1; i <temp.length(); i++)
@@ -49,16 +49,15 @@ public class ConfigReader
                 entiteEstFinale = temp.contains("final");
                 entiteEstAbstraite = temp.contains("abstract");
 
-                if(temp.contains("Classe mere :"))
-                    for(int i = temp.indexOf("Classe mere :")+13;i<temp.length();i++)
+                if(temp.contains("Classe mère :"))
+                    for(int i = temp.indexOf("Classe mère :")+13;i<temp.length();i++)
                         mere+=temp.charAt(i);
-
                 //ATTRIBUTS
-                while(sc.hasNext() && !temp.contains("Attributs :"))
+                while(sc.hasNextLine() && !temp.contains("Attributs :"))
                     temp = sc.nextLine();
                 temp = sc.nextLine();
 
-                while(sc.hasNext() && temp.length()>1)
+                while(sc.hasNextLine() && temp.length()>1)
                 {
                     if(temp.charAt(0)!='/' && temp.charAt(1)!='/')
                     {
@@ -90,11 +89,11 @@ public class ConfigReader
                     temp = sc.nextLine();
                 }
                 //METHODE
-                while(sc.hasNext() && !temp.contains("Méthodes :"))
+                while(sc.hasNextLine() && !temp.contains("Méthodes :"))
                     temp = sc.nextLine();
                 temp = sc.nextLine();
 
-                while(sc.hasNext() && temp.length()>1)
+                while(sc.hasNextLine() && temp.length()>1)
                 {
                     if(temp.charAt(0)!='/' && temp.charAt(1)!='/')
                     {
@@ -115,29 +114,39 @@ public class ConfigReader
                             cpt++;
                         }
                         cpt++;
-                        while(cpt<temp.length() && temp.charAt(cpt)!=' ')
+                        while(cpt<temp.length() && temp.charAt(cpt)!='(')
                         {
                             nom+=temp.charAt(cpt);
                             cpt++;
                         }
 
                         //ensemblme de parametre
-                        String parametres = temp.substring(temp.indexOf('('),temp.indexOf(')'));
+                        String parametres = temp.substring(temp.indexOf('(')+1,temp.indexOf(')'));
                         if(parametres.length()>1)
                         {
-                            String[] tabParam = parametres.split(",");
-                            String nomVar="";
-                            String typeParam="";
+                            String[] tabParam;
+                            if(parametres.contains(";"))
+                            {
+                               tabParam = parametres.split(";");
+                            }
+                            else
+                            {
+                                tabParam = new String[1];
+                                tabParam[0] = parametres;
+                            }
 
-                            cpt = 0 ;
                             for (String str: tabParam )
                             {
+                                String nomVar="";
+                                String typeParam="";
+                                cpt = 0 ;
+
                                 while(str.charAt(cpt)!=' ')
                                 {
                                     typeParam+=str.charAt(cpt);
                                     cpt++;
                                 }
-                                while(str.charAt(cpt)!=' ')
+                                while(cpt<str.length())
                                 {
                                     nomVar+=str.charAt(cpt);
                                     cpt++;
@@ -154,11 +163,11 @@ public class ConfigReader
                 }
 
                 //ASSOCIATIONS
-                while(sc.hasNext() && !temp.contains("Associations :"))
+                while(sc.hasNextLine() && !temp.contains("Associations :"))
                     temp = sc.nextLine();
 
-                temp = sc.nextLine();
-                while(!temp.contains("Fin") && temp.length()>1)
+                temp=sc.nextLine();
+                while(!temp.contains("Fin") && temp.length()>1 )
                 {
                     String classeGauche="";
                     String classeDroite="";
@@ -218,8 +227,10 @@ public class ConfigReader
                     ensAssociation.add(a);
                     temp=sc.nextLine();
                 }
+
                 Entite e = new Entite(ensMethode,ensAttribut,nomEntite,typeEntite,
                         entiteEstAbstraite,entiteEstFinale,mere,ensAssociation);
+                System.out.println(e);
                 ensEntite.add(e);
             }
 
@@ -243,6 +254,6 @@ public class ConfigReader
 
     public static void main(String[] args) {
        ConfigReader conf = new ConfigReader("test.config");
-       System.out.println(conf);
+       //System.out.println(conf);
     }
 }

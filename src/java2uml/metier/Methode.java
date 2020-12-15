@@ -82,14 +82,32 @@ public class Methode
 
     @Override
     public String toString() {
-        return "Methode{" +
-                "nom='" + nom + '\'' +
-                ", visibilite=" + visibilite +
-                ", typeDeRetour='" + typeDeRetour + '\'' +
-                ", ensParametre=" + ensParametre +
-                ", estStatique=" + estStatique +
-                ", estFinale=" + estFinale +
-                ", estAbstraite=" + estAbstraite +
-                '}';
+
+        String sRet="";
+        sRet+=visibilite+" ";
+        sRet+=nom;
+        sRet+="(";
+        if(ensParametre.size()>0)
+        {
+            for (Parametre p:ensParametre )
+                sRet+=p.toString() +", ";
+            sRet=sRet.substring(0,sRet.length()-2);
+        }
+
+        sRet +=  ")";
+
+        if(estFinale)sRet+="{gelée} ";
+        if(estAbstraite)sRet+="{abstract}";
+
+        sRet+= ": " + typeDeRetour;
+
+        if(estStatique)
+        {
+            String underline="";
+            for (int i = 0; i <sRet.length(); i++) underline+="-";
+            sRet+="\n"+underline;
+        }
+        sRet+="\n";
+        return sRet;
     }
 }

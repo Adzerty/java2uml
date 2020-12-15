@@ -27,10 +27,7 @@ public class Parametre
 
     @Override
     public String toString() {
-        return "Parametre{" +
-                "nomVar='" + nomVar + '\'' +
-                ", type='" + type + '\'' +
-                '}';
+        return  type +  " : " + nomVar;
     }
 }
 
