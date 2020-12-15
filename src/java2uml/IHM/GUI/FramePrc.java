@@ -18,7 +18,7 @@ public class FramePrc extends JFrame {
         
         this.ensEntite = config.getEnsEntite();
         
-        this.panelPrincipal = new PanelPrc(ensEntite);
+        this.panelPrincipal = new PanelPrc(ensEntite , this);
         this.add(this.panelPrincipal);
         	
         
