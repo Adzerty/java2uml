@@ -79,4 +79,8 @@ public class Methode
     public void setEstAbstraite(boolean estAbstraite) {
         this.estAbstraite = estAbstraite;
     }
+    
+    public String toString() {
+    	return this.visibilite + " " + this.typeDeRetour + " " + this.nom;
+    }
 }
