@@ -1,12 +1,15 @@
 package java2uml;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 public class ConfigGenerator {
 
@@ -60,63 +63,65 @@ public class ConfigGenerator {
                 DateFormat.SHORT,
                 DateFormat.SHORT);
 
-        sRet += "------Date de crÈation : " + shortDateFormat.format(dateDuJour) + '\n';
+        sRet += "------Date de cr√©ation : " + shortDateFormat.format(dateDuJour) + '\n';
         sRet += "------Auteur : " + this.nomAuteur + '\n';
-        sRet += "------ProposÈ par : InnovAction\n";
+        sRet += "------Propos√© par : InnovAction\n";
+        sRet += "------Liste de caract√®res sp√©ciaux : ‚¨¶ ‚óÜ ";
         
         
         return sRet;
 	}
 	
-	//MÈthode permettant de gÈnÈrer les classes dans le fichier config
+	//M√©thode permettant de g√©n√©rer les classes dans le fichier config
 	private String genererClasses()
 	{
 		String sRet = this.bandeauClasse;
 		
 		for(Classes c : this.diag.getEnsClasses())
 		{
-			sRet += "------ Classe : " + c.getNomClasse() +'\n';
-			sRet += "----Attributs :\n";
+			sRet += "------ Classe : \n";
+			sRet += c.getNomClasse();
+			if(c.isAbstraite()) sRet += " abstact ";
+			sRet += "\n----Attributs :\n";
 			for(Field f : c.getTabAttribut())
 			{
-				//On regarde la visibilitÈ de l'attribut
+				//On regarde la visibilit√© de l'attribut
 				char visibilite = 0;
 				if(Modifier.isPrivate(f.getModifiers())) visibilite='-';
 	            if(Modifier.isPublic(f.getModifiers())) visibilite='+';
 	            if(Modifier.isProtected(f.getModifiers())) visibilite='#';
 	            
 	            
-	            //On rÈcupËre le type de l'attribut
+	            //On r√©cup√®re le type de l'attribut
 				String[] typeSplited = f.getType().toString().split("\\.");
 				String type = typeSplited[typeSplited.length-1];
 				
 				sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+'\n';
 			}
 			
-			sRet += "\n----MÈthodes :\n";
+			sRet += "\n----M√©thodes :\n";
 			for(Method m : c.getTabMeth())
 			{
-				//On regarde la visibilitÈ de la mÈthode
+				//On regarde la visibilit√© de la m√©thode
 				char visibilite = 0;
 				if(Modifier.isPrivate(m.getModifiers())) visibilite='-';
 	            if(Modifier.isPublic(m.getModifiers())) visibilite='+';
 	            if(Modifier.isProtected(m.getModifiers())) visibilite='#';
 	            
-	            //On rÈcupËre le type de retour de la mÈthode
-				String[] typeSplited = m.getReturnType().toString().split("\\.");
-				String type = typeSplited[typeSplited.length-1];
+	            //On r√©cup√®re le type de retour de la m√©thode
+				String type = getFormattedType(m);
 				
 				sRet+="" + visibilite + ' ' + type + ' ' +m.getName()+"(";
 				
-				//Pour chaque paramËtres de la mÈthode
+				//Pour chaque param√®tres de la m√©thode
 				Parameter[] params = m.getParameters();
 				for(int i = 0; i<params.length; i++)
 				{
 					Parameter p = params[i];
 					
-					System.err.println("-----------------------" + p.getType().getTypeName());
-					String[] typeParamSplitted = p.getType().getTypeName().split("\\.");
-					String typeParam = typeParamSplitted[typeParamSplitted.length-1];
+					String typeParam = getFormattedType(p);
+					//String[] typeParamSplitted = t.getTypeName().split("\\.");
+					//String typeParam = typeParamSplitted[typeParamSplitted.length-1];
 					
 					sRet+=p.getName() + " : " + typeParam;
 					if( i != params.length-1)
@@ -130,15 +135,73 @@ public class ConfigGenerator {
 	}
 	
 	
-	public String getTypeFormatted(Type t)
-	{
-		String[] typeSplitted = t.toString().split("\\.");
-		String type = typeSplitted[typeSplitted.length-1];
+	//M√©thode qui permet de retourner le type au format uml (sans java.*** etc et avec les
+	//types g√©n√©riques
+	private String getFormattedType(Object o) {
+		Type type = null;
+		String sRet = "";
 		
-		
-		return sRet;
-	}
+		//On r√©cup√®re le type de l'object pass√© en param√®tres
+        if(o instanceof Method) type = ((Method) o).getGenericReturnType();
+        if(o instanceof Parameter) type = ((Parameter) o).getParameterizedType();
+        
+        //Si on des <> (ParameterizedType)
+        if (type instanceof ParameterizedType) 
+        {
+        	String sTypeName = type.getTypeName();
+        	Scanner scChevron = new Scanner(sTypeName);
+        	scChevron.useDelimiter("\\<");
+        	
+        	while(scChevron.hasNext())
+        	{
+        		String scChevronNext = scChevron.next();
+        		
+        		if(scChevronNext.contains(","))
+        		{
+        			Scanner scVirgule = new Scanner(scChevronNext);
+        			scVirgule.useDelimiter(",");
+        			
+        			String scVirguleNext = "";
+        			while(scVirgule.hasNext())
+	        		{
+	        			scVirguleNext = scVirgule.next();
+	        			
+	        			Scanner scPoint = new Scanner(scVirguleNext);
+	        			scPoint.useDelimiter("\\.");
+	        			String scPointNext = "";
+	            		while(scPoint.hasNext())scPointNext = scPoint.next();
+	            		
+	        			sRet+=scPointNext +",";
+	        		}
+        			
+        			sRet = sRet.substring(0, sRet.length()-1);
+        		}
+        		else
+        		{
+        			Scanner sc2 = new Scanner(scChevronNext);
+            		sc2.useDelimiter("\\.");
+            		String sc2Next = "";
+            		while(sc2.hasNext())sc2Next = sc2.next();
+            		//System.err.println(sc2Next);
+            		sRet+=sc2Next;
+            		sRet += sc2Next.contains(">") ? "" : '<'; 	
+        		}
+        		
+        	}
+        }
+        else 
+    	{
+	    	String sTypeName = type.getTypeName();
+	    	Scanner sc = new Scanner(sTypeName);
+	    	sc.useDelimiter("\\.");
+			String scNext = "";
+			while(sc.hasNext())scNext = sc.next();
+			sRet+=scNext;
+    	}
+        return sRet;
+    }
 	
+
 	
 	public static void main(String[] args) {
 		String[] tabNoms = {"Coord", "test1"};

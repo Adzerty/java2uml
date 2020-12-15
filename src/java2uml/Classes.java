@@ -19,6 +19,7 @@ public class Classes
 
     private boolean afficheMethode;
     private boolean afficheAttributs;
+    private boolean estAbstraite;
 
     public Classes(String nomClasse)
     {
@@ -57,6 +58,7 @@ public class Classes
 			}*/	
 
 			this.afficheAttributs = this.afficheMethode =  true;
+			this.estAbstraite = Modifier.isAbstract(c.getModifiers());
 			
 
 		}catch(Exception e)
@@ -65,7 +67,11 @@ public class Classes
 		}
     }
 
-    public String toString()
+    public boolean isAbstraite() {
+		return estAbstraite;
+	}
+
+	public String toString()
     {
         int taille = size();
 

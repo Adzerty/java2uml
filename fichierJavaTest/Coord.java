@@ -1,4 +1,4 @@
-public class Coord
+public abstract class Coord
 {
 	private int  col;
 	private int  lig;

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class test1 {
     private static int nbUser=0;
@@ -62,11 +63,11 @@ public class test1 {
         this.prenom = prenom;
     }
 
-    public void setAge(ArrayList<Integer> age) {
+    public String[][] setAge(HashMap<Integer, String> age) {
         this.age = age;
     }
 
-    public void setPays(String[][] pays) {
+    public HashMap<String, Integer> setPays(String[][] pays) {
         this.pays = pays;
     }
 
