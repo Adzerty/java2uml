@@ -1,15 +1,19 @@
 package java2uml.IHM.GUI;
 
 import java2uml.Controleur;
+import java2uml.metier.*;
 
 public class IHMGUI
 {
-	private Controleur ctrl;
-	public IHMGUI(Controleur ctrl)
+	//private Controleur ctrl;
+	private ConfigReader conf;
+	public IHMGUI(/*Controleur ctrl*/)
 	{
-		this.ctrl = ctrl;
-		try {Thread.sleep(800);} catch (Exception ex) {}
-		System.out.println("\tAh bah non :D");
-		
+		//this.ctrl = ctrl;
+		this.conf = new ConfigReader("test.config");
+	}
+	
+	public static void main( String[] argv ) {
+		IHMGUI ihm = new IHMGUI();
 	}
 }
