@@ -77,4 +77,17 @@ public class Association
     public void setTypeRelation(String typeRelation) {
         this.typeRelation = typeRelation;
     }
+
+    @Override
+    public String toString() {
+        return "Association{" +
+                "classeGauche='" + classeGauche + '\'' +
+                ", classeDroite='" + classeDroite + '\'' +
+                ", multipliciteGauche='" + multipliciteGauche + '\'' +
+                ", multipliciteDroite='" + multipliciteDroite + '\'' +
+                ", contrainte='" + contrainte + '\'' +
+                ", typeFleche='" + typeFleche + '\'' +
+                ", typeRelation='" + typeRelation + '\'' +
+                '}';
+    }
 }

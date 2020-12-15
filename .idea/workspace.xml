@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="50aec037-29f9-4d51-aa83-ccf306d11941" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/test.config" beforeDir="false" afterPath="$PROJECT_DIR$/config/test.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Association.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Association.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Attribut.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Attribut.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Methode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Methode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Parametre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Parametre.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

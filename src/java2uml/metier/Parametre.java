@@ -24,5 +24,13 @@ public class Parametre
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Parametre{" +
+                "nomVar='" + nomVar + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }
 

@@ -65,4 +65,16 @@ public class Attribut
     public void setValeurParDefault(String valeurParDefault) {
         this.valeurParDefault = valeurParDefault;
     }
+
+    @Override
+    public String toString() {
+        return "Attribut{" +
+                "nom='" + nom + '\'' +
+                ", visibilite=" + visibilite +
+                ", estStatique=" + estStatique +
+                ", estFinale=" + estFinale +
+                ", valeurParDefault='" + valeurParDefault + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

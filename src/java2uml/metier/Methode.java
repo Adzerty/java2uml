@@ -79,4 +79,17 @@ public class Methode
     public void setEstAbstraite(boolean estAbstraite) {
         this.estAbstraite = estAbstraite;
     }
+
+    @Override
+    public String toString() {
+        return "Methode{" +
+                "nom='" + nom + '\'' +
+                ", visibilite=" + visibilite +
+                ", typeDeRetour='" + typeDeRetour + '\'' +
+                ", ensParametre=" + ensParametre +
+                ", estStatique=" + estStatique +
+                ", estFinale=" + estFinale +
+                ", estAbstraite=" + estAbstraite +
+                '}';
+    }
 }
