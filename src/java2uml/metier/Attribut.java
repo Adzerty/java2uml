@@ -65,8 +65,27 @@ public class Attribut
     public void setValeurParDefault(String valeurParDefault) {
         this.valeurParDefault = valeurParDefault;
     }
-    
-    public String toString() {
-    	return this.visibilite + " " + this.type + " " + this.nom;
+
+    @Override
+    public String toString()
+    {
+        String sRet="";
+        sRet+=visibilite+" ";
+        sRet+=nom + " ";
+
+        if(valeurParDefault.length()>0)
+            sRet+= " = " + valeurParDefault;
+
+        if(estFinale)sRet+="{gelée} ";
+        sRet+= ": " + type;
+        if(estStatique)
+        {
+            String underline="";
+            for (int i = 0; i <sRet.length(); i++) underline+="¯";
+            sRet+="\n"+underline;
+        }
+        sRet+="\n";
+       return sRet;
+
     }
 }
