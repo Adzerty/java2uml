@@ -1,7 +1,6 @@
 package java2uml.metier;
 
 import java.util.ArrayList;
-import java2uml.metier.Entite;
 
 public class Entite
 {
@@ -92,16 +91,50 @@ public class Entite
     }
 
     @Override
-    public String toString() {
-        return "Entite{" +
-                "ensMethode=" + ensMethode +
-                ", ensAttribut=" + ensAttribut +
-                ", nom='" + nom + '\'' +
-                ", type='" + type + '\'' +
-                ", estAbstraite=" + estAbstraite +
-                ", estFinale=" + estFinale +
-                ", mere='" + mere + '\'' +
-                ", ensAssociations=" + ensAssociations +
-                '}';
+    public String toString()
+    {
+        String sRet="";
+        String separation = "\n";
+        int taille = tailleSeparation();
+        for (int i = 0; i < taille ; i++)
+            separation+="-";
+
+        separation += "\n";
+        for (int i = 0; i < (int) (taille - nom.length()- type.length()-3) /2 ; i++)
+            sRet+=" ";
+
+        sRet+= type + " : ";
+        sRet+= nom;
+        sRet += separation;
+
+        for (Attribut a: ensAttribut )
+            sRet+=a.toString();
+        sRet+= separation;
+
+        for (Methode m: ensMethode )
+            sRet+=m.toString();
+
+        sRet += separation;
+        if(ensAssociations.size()>0)
+            for (Association a: ensAssociations )
+                sRet+=a.toString();
+
+        return sRet;
+    }
+    public int tailleSeparation()
+    {
+        int taille = nom.length();
+
+        for (Attribut a: ensAttribut )
+            if(a.toString().length()>taille) taille = a.toString().length();
+
+        for (Methode m: ensMethode )
+            if(m.toString().length()>taille) taille = m.toString().length();
+
+        if(ensAssociations.size()>0)
+            for (Association a: ensAssociations )
+                if(a.toString().length()>taille) taille = a.toString().length();
+
+        return taille;
     }
 }
