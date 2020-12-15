@@ -8,7 +8,7 @@ public class IHMGUI
 	private FramePrc framePrincipale;
 
 	public IHMGUI() {
-		this.conf = new ConfigReader("test.config");
+		this.conf = new ConfigReader("test-2.config");
 		this.framePrincipale = new FramePrc(this.conf);
 	}
 	
