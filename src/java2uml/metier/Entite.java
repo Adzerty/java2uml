@@ -100,6 +100,10 @@ public class Entite
             separation+="-";
 
         separation += "\n";
+        for (int i = 0; i < (int) (taille - nom.length()- type.length()-3) /2 ; i++)
+            sRet+=" ";
+
+        sRet+= type + " : ";
         sRet+= nom;
         sRet += separation;
 

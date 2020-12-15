@@ -104,7 +104,7 @@ public class Methode
         if(estStatique)
         {
             String underline="";
-            for (int i = 0; i <sRet.length(); i++) underline+="-";
+            for (int i = 0; i <sRet.length(); i++) underline+="¯";
             sRet+="\n"+underline;
         }
         sRet+="\n";

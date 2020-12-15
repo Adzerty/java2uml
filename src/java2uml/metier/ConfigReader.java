@@ -253,7 +253,7 @@ public class ConfigReader
     }
 
     public static void main(String[] args) {
-       ConfigReader conf = new ConfigReader("test.config");
+       ConfigReader conf = new ConfigReader("FichierTest.config");
        //System.out.println(conf);
     }
 }
