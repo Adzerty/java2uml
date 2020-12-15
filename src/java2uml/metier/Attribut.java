@@ -7,13 +7,23 @@ public class Attribut
     private boolean estStatique;
     private boolean estFinale;
     private String valeurParDefault;
+    private String type;
 
-    public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault) {
+    public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault,String type) {
         this.nom = nom;
         this.visibilite = visibilite;
         this.estStatique = estStatique;
         this.estFinale = estFinale;
         this.valeurParDefault = valeurParDefault;
+        this.type=type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getNom() {

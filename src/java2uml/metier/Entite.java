@@ -10,11 +10,11 @@ public class Entite
     private String type;
     private boolean estAbstraite;
     private boolean estFinale;
-    private Entite mere;
+    private String mere;
     private ArrayList<Association> ensAssociations;
 
     public Entite(ArrayList<Methode> ensMethode, ArrayList<Attribut> ensAttribut, String nom, String type, boolean estAbstraite,
-                  boolean estFinale, Entite mere, ArrayList<Association> ensAssociations)
+                  boolean estFinale, String mere, ArrayList<Association> ensAssociations)
     {
         this.ensMethode = ensMethode;
         this.ensAttribut = ensAttribut;
@@ -74,11 +74,11 @@ public class Entite
         this.estFinale = estFinale;
     }
 
-    public Entite getMere() {
+    public String getMere() {
         return mere;
     }
 
-    public void setMere(Entite mere) {
+    public void setMere(String mere) {
         this.mere = mere;
     }
 
@@ -88,5 +88,19 @@ public class Entite
 
     public void setEnsAssociations(ArrayList<Association> ensAssociations) {
         this.ensAssociations = ensAssociations;
+    }
+
+    @Override
+    public String toString() {
+        return "Entite{" +
+                "ensMethode=" + ensMethode +
+                ", ensAttribut=" + ensAttribut +
+                ", nom='" + nom + '\'' +
+                ", type='" + type + '\'' +
+                ", estAbstraite=" + estAbstraite +
+                ", estFinale=" + estFinale +
+                ", mere='" + mere + '\'' +
+                ", ensAssociations=" + ensAssociations +
+                '}';
     }
 }
