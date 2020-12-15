@@ -1,4 +1,4 @@
-package java2uml;
+package java2uml.metier;
 
 import iut.algo.Console;
 import java2uml.IHM.*;

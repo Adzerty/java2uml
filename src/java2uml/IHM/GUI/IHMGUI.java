@@ -1,6 +1,6 @@
 package java2uml.IHM.GUI;
 
-import java2uml.Controleur;
+import java2uml.metier.Controleur;
 
 public class IHMGUI
 {

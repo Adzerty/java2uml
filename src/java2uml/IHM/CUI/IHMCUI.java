@@ -3,8 +3,7 @@ package java2uml.IHM.CUI;
 import iut.algo.Clavier;
 import iut.algo.Console;
 import iut.algo.CouleurConsole;
-
-import java2uml.Controleur; 
+import java2uml.metier.Controleur; 
 
 public class IHMCUI
 {

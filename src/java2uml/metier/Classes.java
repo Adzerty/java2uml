@@ -1,4 +1,4 @@
-package java2uml;
+package java2uml.metier;
 
 import java.lang.reflect.*;
 import java.io.File;
