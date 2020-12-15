@@ -1,4 +1,6 @@
-public abstract class Coord
+import java.awt.Point;
+
+public abstract class Coord extends Point
 {
 	private int  col;
 	private int  lig;
@@ -9,7 +11,7 @@ public abstract class Coord
 		this.lig = lig;
 	}
 
-	public int getCol(){ return this.col; }
+	protected static int getCol(){ return col; }
 	public int getLig(){ return this.lig; }
 
 }

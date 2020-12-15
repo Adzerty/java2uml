@@ -1,5 +1,9 @@
-package java2uml;
+package java2uml.metier;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
@@ -27,17 +31,28 @@ public class ConfigGenerator {
 		this.nomFic = nomFic;
 		this.nomAuteur = auteur;
 		
-		this.bandeauClasse = diag.getEnsClasses().size() > 1 ?
-				"+-------+\n Classes \n+-------+\n" :
-				"+------+\n Classe \n+------+\n";
+		this.bandeauClasse = diag.getEnsFile().size() > 1 ?
+				"+-------+\n Entités \n+-------+\n" :
+				"+------+\n Entité \n+------+\n";
 		
 		
-		System.out.println(genererBanniere());
-		System.out.println(genererClasses());
+		String banniere = genererBanniere();
+		String classes  = genererClasses();
+		
+		PrintWriter writer;
+		try {
+			File f = new File("config",this.nomFic+".config");
+			writer = new PrintWriter(f, "UTF-8");
+			writer.println(banniere);
+			writer.println(classes);
+			writer.close();
+		} catch (Exception e) {e.printStackTrace();}
+		
 	}
 	
 	private String genererBanniere() 
 	{
+		
 		String sRet = "";
 		
 		sRet += "                                                                               "     + "\n" +
@@ -66,8 +81,7 @@ public class ConfigGenerator {
         sRet += "------Date de création : " + shortDateFormat.format(dateDuJour) + '\n';
         sRet += "------Auteur : " + this.nomAuteur + '\n';
         sRet += "------Proposé par : InnovAction\n";
-        sRet += "------Liste de caractères spéciaux : ⬦ ◆ ";
-        
+        sRet += "------Liste de caractères spéciaux : ⬦ ◆ \n";
         
         return sRet;
 	}
@@ -77,11 +91,21 @@ public class ConfigGenerator {
 	{
 		String sRet = this.bandeauClasse;
 		
-		for(Classes c : this.diag.getEnsClasses())
+		for(JavaReader c : this.diag.getEnsFile())
 		{
-			sRet += "------ Classe : \n";
+			sRet += "------ Entité : " + c.getTypeEntite()+'\n';
+			
+			/*
+			System.err.println();
+			if(c.getClass().isEnum()) sRet += "Enum\n";
+			if(c.getClass().isInterface())sRet += "Interface\n";
+			else sRet += "Classe\n";*/
+				
+			
 			sRet += c.getNomClasse();
-			if(c.isAbstraite()) sRet += " abstact ";
+			if(c.isAbstraite()) sRet += " abstact";
+			if(c.isFinal()) sRet += " final";
+			if(c.aMere()) sRet += " Classe mère : " + c.getMere();
 			sRet += "\n----Attributs :\n";
 			for(Field f : c.getTabAttribut())
 			{
@@ -91,12 +115,15 @@ public class ConfigGenerator {
 	            if(Modifier.isPublic(f.getModifiers())) visibilite='+';
 	            if(Modifier.isProtected(f.getModifiers())) visibilite='#';
 	            
+	            String staticite = "";
+	            if(Modifier.isStatic(f.getModifiers())) staticite="_ ";
+	            
 	            
 	            //On récupère le type de l'attribut
 				String[] typeSplited = f.getType().toString().split("\\.");
 				String type = typeSplited[typeSplited.length-1];
 				
-				sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+'\n';
+				sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite +'\n';
 			}
 			
 			sRet += "\n----Méthodes :\n";
@@ -107,6 +134,9 @@ public class ConfigGenerator {
 				if(Modifier.isPrivate(m.getModifiers())) visibilite='-';
 	            if(Modifier.isPublic(m.getModifiers())) visibilite='+';
 	            if(Modifier.isProtected(m.getModifiers())) visibilite='#';
+	            
+	            String staticite = "";
+	            if(Modifier.isStatic(m.getModifiers())) staticite="_ ";
 	            
 	            //On récupère le type de retour de la méthode
 				String type = getFormattedType(m);
@@ -123,12 +153,17 @@ public class ConfigGenerator {
 					//String[] typeParamSplitted = t.getTypeName().split("\\.");
 					//String typeParam = typeParamSplitted[typeParamSplitted.length-1];
 					
-					sRet+=p.getName() + " : " + typeParam;
+					sRet+=typeParam + ' ' +p.getName();
 					if( i != params.length-1)
-						sRet += ", ";
+						sRet += "; ";
 				}
-				sRet += ")\n";
-			}	
+				sRet += ")";
+				sRet += Modifier.isAbstract(m.getModifiers()) ? " abstract " : "";
+				sRet += ' ' +staticite;
+				
+				sRet+='\n';
+			}
+			sRet += "\n----Associations :\n";
 			sRet += "\n\n";
 		}
 		return sRet;
@@ -204,7 +239,7 @@ public class ConfigGenerator {
 
 	
 	public static void main(String[] args) {
-		String[] tabNoms = {"Coord", "test1"};
+		String[] tabNoms = {"Coord","test1","Actions"};
 		Diagramme d = new Diagramme(tabNoms);
 		
 		ConfigGenerator cGen = new ConfigGenerator(d, "FichierTest", "Adrien PESTEL");

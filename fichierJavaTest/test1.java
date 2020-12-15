@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class test1 {
+public final class test1 extends Coord{
     private static int nbUser=0;
     private int id;
     private String nom;
@@ -59,9 +59,7 @@ public class test1 {
         this.nom = nom;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+    public abstract void setPrenom(String prenom);
 
     public String[][] setAge(HashMap<Integer, String> age) {
         this.age = age;
