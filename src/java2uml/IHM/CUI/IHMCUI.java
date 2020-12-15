@@ -76,17 +76,17 @@ public class IHMCUI
 	
 	private void charger()
 	{
-		
+		//charger un fichier config
 	}
 	
 	private void sauvegarder()
 	{
-		
+		//sauvegarder un fichier en config
 	}
 	
 	private void modifier()
 	{
-		
+		//modifier un .config
 	}
 	
 	//Coloration d'un String s dans la console avec la couleur du caractere c avec la méthode setCe
