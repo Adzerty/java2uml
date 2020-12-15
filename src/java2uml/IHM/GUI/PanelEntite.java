@@ -6,7 +6,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class panelEntite extends JPanel {
+public class PanelEntite extends JPanel {
 	
 	private Entite entite;
 	private PanelAttribut att;
