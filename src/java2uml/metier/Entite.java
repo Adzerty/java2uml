@@ -1,6 +1,7 @@
 package java2uml.metier;
 
 import java.util.ArrayList;
+import java2uml.metier.Entite;
 
 public class Entite
 {
