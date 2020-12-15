@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class test1 {
     private static int nbUser=0;
     private int id;
@@ -60,11 +62,11 @@ public class test1 {
         this.prenom = prenom;
     }
 
-    public void setAge(int age) {
+    public void setAge(ArrayList<Integer> age) {
         this.age = age;
     }
 
-    public void setPays(String pays) {
+    public void setPays(String[][] pays) {
         this.pays = pays;
     }
 
