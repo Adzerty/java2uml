@@ -65,4 +65,8 @@ public class Attribut
     public void setValeurParDefault(String valeurParDefault) {
         this.valeurParDefault = valeurParDefault;
     }
+    
+    public String toString() {
+    	return this.visibilite + " " + this.type + " " + this.nom;
+    }
 }
