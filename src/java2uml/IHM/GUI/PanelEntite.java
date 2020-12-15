@@ -11,7 +11,7 @@ public class PanelEntite extends JPanel {
 	private Entite entite;
 	private PanelAttribut att;
 	private PanelMethode met;
-	public panelEntite(Entite e){
+	public PanelEntite(Entite e){
 		
 		this.entite = e;
 		this.att = new PanelAttribut(this.entite.getEnsAttribut());
