@@ -51,6 +51,7 @@ public class ConfigGenerator {
 
         sRet += "------Date de création : " + shortDateFormat.format(dateDuJour) + '\n';
         sRet += "------Auteur : " + this.nomAuteur + '\n';
+        sRet += "------Proposé par : InnovAction";
         
         return sRet;
 	}

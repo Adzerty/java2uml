@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class Diagramme {
 
 	private ArrayList<Classes> ensClasses;
-	private ArrayList<Associations> ensAssociations;
+	private ArrayList<Association> ensAssociations;
 	
 	public Diagramme(String[] nomsClasses)
 	{
 		this.ensClasses = new ArrayList<Classes>();
 		
 		if(nomsClasses.length > 1)
-			this.ensAssociations = new ArrayList<Associations>();
+			this.ensAssociations = new ArrayList<Association>();
 		else
 			this.ensAssociations = null;
 		
@@ -28,7 +28,7 @@ public class Diagramme {
 	public Diagramme(String nomFichierConfig, boolean estFichierConfig)
 	{
 		this.ensClasses = new ArrayList<Classes>();
-		this.ensAssociations = new ArrayList<Associations>();
+		this.ensAssociations = new ArrayList<Association>();
 	}
 	
 	public static void main(String[] args) {
@@ -43,7 +43,7 @@ public class Diagramme {
 	}
 
 
-	public ArrayList<Associations> getEnsAssociations() 
+	public ArrayList<Association> getEnsAssociations() 
 	{
 		return ensAssociations;
 	}

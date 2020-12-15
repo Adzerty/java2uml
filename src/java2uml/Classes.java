@@ -45,6 +45,7 @@ public class Classes
 			{ 
 				tabParamConstruct[i] = tabConstruct[i].getParameters();
 			}
+			
 
 			//Récupère les méthodes de la classe
 			this.tabMeth = c.getDeclaredMethods();

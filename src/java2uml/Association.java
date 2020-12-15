@@ -1,8 +1,8 @@
 package java2uml;
 
-public class Associations {
+public class Association {
 
-	public Associations() {
+	public Association() {
 		// TODO Auto-generated constructor stub
 	}
 
