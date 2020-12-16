@@ -8,7 +8,8 @@ public class Association
     private String multipliciteDroite;
     private String contrainte;
     private String typeFleche;
-
+    private int num;
+    private static int compteur = 0;
     public Association(String classeGauche, String classeDroite, String multipliciteGauche, String multipliciteDroite,
                        String contrainte, String typeFleche)
     {
@@ -18,6 +19,7 @@ public class Association
         this.multipliciteDroite = multipliciteDroite;
         this.contrainte = contrainte;
         this.typeFleche = typeFleche;
+        this.num = compteur++;
     }
 
     public String getClasseGauche() {
@@ -68,16 +70,28 @@ public class Association
         this.typeFleche = typeFleche;
     }
 
-    public String toString(int compteur) {
+    public String getTypeAssociation()
+    {
+        String sRet;
+        if(typeFleche.contains("|>")) sRet = "généralisation/spécialisation";
+        else
+            if(typeFleche.contains("<//>")) sRet = "composition";
+            else
+                if(typeFleche.contains("<>")) sRet = "agrégation";
+                else
+                    if((typeFleche.contains("<") && !typeFleche.contains(">")) || (typeFleche.contains(">") && !typeFleche.contains("<"))) sRet= "unidirectionnelle";
+
+                    else sRet= "bidirectionnelle";
+
+        return sRet;
+    }
+
+    public String toString() {
         String sRet="";
-        sRet+="Association " + compteur + " :";
+        sRet+="Association " + num + " : "+ getTypeAssociation() + '\n';
 
-        if (typeFleche.contains("<") || typeFleche.contains(">")) sRet+= "unidirectionnelle";
-        else if(typeFleche.contains("⬦")) sRet += "agrégation";
-        else if(typeFleche.contains("◆")) sRet += "composition";
-        else if (typeFleche.contains("▷")) sRet += "généralisation/spécialisation";
-
-        sRet += "\n"+classeGauche +' ' +multipliciteGauche + ' ' + typeFleche + ' ' + multipliciteDroite + ' '+ classeDroite + ' ' + contrainte ;
+        sRet += '\t'+classeGauche +' ' +multipliciteGauche + ' ' + typeFleche + ' ' +
+                multipliciteDroite + ' '+ classeDroite + ' ' + contrainte ;
         return  sRet;
     }
 }

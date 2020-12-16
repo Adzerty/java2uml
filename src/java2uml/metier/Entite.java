@@ -80,78 +80,150 @@ public class Entite
         this.ensAssociations = ensAssociations;
     }
 
+    public int getTailleMax()
+    {
+        int maxTaille=0;
+
+        //ATTIBUTS
+        int tailleAttNoType=0;
+        int tailleAttType=0;
+
+        for (Attribut a: ensAttribut )
+        {
+            if(tailleAttNoType<a.toStringNoType().length())tailleAttNoType=a.toStringNoType().length();
+            if(tailleAttType<a.toString().length())tailleAttType=a.toString().length();
+        }
+        for (Attribut a: ensAttribut )
+        {
+            String temp = "";
+            temp+=String.format("%-"+String.valueOf(tailleAttNoType)+ 's',a.toStringNoType());
+            temp+=String.format("%-"+String.valueOf(tailleAttType-tailleAttNoType)+ 's'," : "+ a.getType());
+            if(temp.length()>maxTaille)maxTaille=temp.length();
+        }
+
+        //Methodes
+        int tailleMetNoType=0;
+        int tailleMetType=0;
+
+        for (Methode m: ensMethode )
+        {
+            if(tailleMetNoType<m.toStringNoReturnType().length())tailleMetNoType=m.toStringNoReturnType().length();
+            if(tailleMetType<m.toString().length())tailleMetType=m.toString().length();
+        }
+        for (Methode m: ensMethode )
+        {
+            String temp="";
+            temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
+            temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
+
+            if(temp.length()>maxTaille)maxTaille=temp.length();
+            temp+="\n";
+        }
+
+        String ligneNom="\n│";
+        for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()-3) /2 ; i++)
+            ligneNom+=" ";
+        ligneNom+= type + " : ";
+        ligneNom+= nom;
+        if(ligneNom.length()>maxTaille) maxTaille = ligneNom.length();
+
+        return  maxTaille;
+    }
     @Override
     public String toString()
     {
         String sRet="";
-        String separation = "\n";
-        int taille = tailleSeparation();
-        for (int i = 0; i < taille ; i++)
-            separation+="-";
 
-        separation += "\n";
-        for (int i = 0; i < (int) (taille - nom.length()- type.length()-3) /2 ; i++)
-            sRet+=" ";
-
-        sRet+= type + " : ";
-        sRet+= nom;
-        if (estAbstraite) sRet = "\033[3m"+sRet+"\033[0m";
-        sRet += separation;
-
+        int maxTaille = getTailleMax();
 
         //ATTIBUTS
-        int tailleAtt=0;
-
-        for (Attribut a: ensAttribut )
-           if(tailleAtt<a.toStringNoType().length())tailleAtt=a.toStringNoType().length();
+        int tailleAttNoType=0;
+        int tailleAttType=0;
 
         for (Attribut a: ensAttribut )
         {
-            String attribut="";
-            attribut+=String.format("%-"+String.valueOf(tailleAtt)+ 's',a.toStringNoType());
-            attribut+=String.format("%-"+String.valueOf(taille-tailleAtt)+ 's'," : "+ a.getType());
+            if(tailleAttNoType<a.toStringNoType().length())tailleAttNoType=a.toStringNoType().length();
+            if(tailleAttType<a.toString().length())tailleAttType=a.toString().length();
+        }
+        String attribut="\n";
+        for (Attribut a: ensAttribut )
+        {
+            String temp = "│";
+            temp+=String.format("%-"+String.valueOf(tailleAttNoType)+ 's',a.toStringNoType());
+            temp+=String.format("%-"+String.valueOf(tailleAttType-tailleAttNoType)+ 's'," : "+ a.getType());
+            for (int i = temp.length(); i<=maxTaille;i++) temp+=" ";
+            temp+="│";
             if(a.isEstStatique())
             {
                 String underline="";
-                for (int i = 0; i <a.toStringNoType().length(); i++) underline+="¯";
-                attribut+="\n"+underline;
+                for (int i = 0; i <maxTaille; i++)
+                    if(i<a.toStringNoType().length())
+                        underline+="¯";
+                    else
+                        underline+=" ";
+                temp+="\n│"+underline+"│";
             }
-            sRet+="\n"+attribut;
+
+            attribut+=temp+"\n";
         }
 
-        sRet+= separation;
-
-
         //Methodes
+        int tailleMetNoType=0;
+        int tailleMetType=0;
+
         for (Methode m: ensMethode )
-            sRet+=m.toString();
+        {
+            if(tailleMetNoType<m.toStringNoReturnType().length())tailleMetNoType=m.toStringNoReturnType().length();
+            if(tailleMetType<m.toString().length())tailleMetType=m.toString().length();
+        }
 
-        sRet += separation;
-        int compteurAssociation=0;
-        if(ensAssociations.size()>0)
-            for (Association a: ensAssociations )
+        String methode="\n";
+        for (Methode m: ensMethode )
+        {
+            String temp="│";
+            temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
+            temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
+            for (int i = temp.length(); i<=maxTaille;i++) temp+=" ";
+            temp+="│";
+            if (m.isEstAbstraite()) temp = "│\033[3m"+temp.substring(1,temp.length()-1)+"\033[0m│";
+            if(m.isEstStatique())
             {
-                sRet+=a.toString(compteurAssociation);
-                compteurAssociation++;
+                String underline="";
+                for (int i = 0; i <maxTaille; i++)
+                    if(i<m.toStringNoReturnType().length())
+                        underline+="¯";
+                    else
+                        underline+=" ";
+                temp+="\n│"+underline+"│";
             }
+            methode+=temp+"\n";
+        }
 
+        //MISE EN FORME
+        String separation="";
+        for (int i = 0; i < maxTaille ; i++)
+            separation+="─";
+
+        String ligneNom="\n│";
+        for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()-3) /2 ; i++)
+            ligneNom+=" ";
+        ligneNom+= type + " : ";
+        ligneNom+= nom;
+        for (int i = ligneNom.length(); i <=maxTaille+1; i++)
+            ligneNom+=" ";
+
+        ligneNom+="│";
+        if (estAbstraite) ligneNom = "\n│\033[3m"+ligneNom.substring(2,ligneNom.length()-1)+"\033[0m│";
+        ligneNom+="\n";
+
+        sRet += "┌" + separation + "┐";
+        sRet += ligneNom;
+        sRet += "├"+separation+"┤";
+        sRet += attribut;
+        sRet += "├"+separation+"┤";
+        sRet += methode;
+        sRet += "└" + separation + "┘\n\n\n";
 
         return sRet;
-    }
-    public int tailleSeparation()
-    {
-        int taille = nom.length();
-
-        for (Attribut a: ensAttribut )
-            if(a.toString().length()>taille) taille = a.toString().length();
-
-        for (Methode m: ensMethode )
-            if(m.toString().length()>taille) taille = m.toString().length();
-
-        if(ensAssociations.size()>0)
-            for (Association a: ensAssociations )
-                if(a.toString().length()>taille) taille = a.toString().length();
-
-        return taille;
     }
 }
