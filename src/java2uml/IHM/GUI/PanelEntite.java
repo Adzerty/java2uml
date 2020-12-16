@@ -31,10 +31,16 @@ public class PanelEntite extends JPanel implements MouseListener  {
 		
 		JPanel pNom    = new JPanel();
 		JPanel pCentre = new JPanel();
-		
-		pCentre.setLayout(new GridLayout(2,1));
-		pCentre.add(att);
-		pCentre.add(met);
+		if( e.getEnsAttribut().size() == 0 || e.getEnsMethode().size() == 0 ) {
+			pCentre.setLayout(new GridLayout(1,1));
+			if( e.getEnsAttribut().size() != 0 )      pCentre.add(att);
+			else if(e.getEnsMethode().size() != 0 ) pCentre.add(met);
+		}
+		else {
+			pCentre.setLayout(new GridLayout(2,1));
+			pCentre.add(att);
+			pCentre.add(met);
+		}
 		
 		JLabel nom = new JLabel(this.entite.getType()+" : "+this.entite.getNom(), JLabel.CENTER);
 		

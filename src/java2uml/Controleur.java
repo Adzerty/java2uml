@@ -24,7 +24,7 @@ public class Controleur
 		metier = new Object();
 		this.ihmCUI = new IHMCUI (this);
 		
-		if(this.ihmCUI.choixGraphique() == 'G')	{ this.ihmGUI = new IHMGUI(this); } 
+		if(this.ihmCUI.choixGraphique() == 'G')	{ this.ihmGUI = new IHMGUI(/*this*/); } 
 		else                                    { this.ihmCUI.start(); }
 	}
 	

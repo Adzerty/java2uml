@@ -8,10 +8,10 @@ public class Association
     private String multipliciteDroite;
     private String contrainte;
     private String typeFleche;
-    private String typeRelation;
-
+    private int num;
+    private static int compteur = 0;
     public Association(String classeGauche, String classeDroite, String multipliciteGauche, String multipliciteDroite,
-                       String contrainte, String typeFleche, String typeRelation)
+                       String contrainte, String typeFleche)
     {
         this.classeGauche = classeGauche;
         this.classeDroite = classeDroite;
@@ -19,7 +19,7 @@ public class Association
         this.multipliciteDroite = multipliciteDroite;
         this.contrainte = contrainte;
         this.typeFleche = typeFleche;
-        this.typeRelation = typeRelation;
+        this.num = compteur++;
     }
 
     public String getClasseGauche() {
@@ -70,11 +70,28 @@ public class Association
         this.typeFleche = typeFleche;
     }
 
-    public String getTypeRelation() {
-        return typeRelation;
+    public String getTypeAssociation()
+    {
+        String sRet;
+        if(typeFleche.contains("|>")) sRet = "généralisation/spécialisation";
+        else
+            if(typeFleche.contains("<//>")) sRet = "composition";
+            else
+                if(typeFleche.contains("<>")) sRet = "agrégation";
+                else
+                    if((typeFleche.contains("<") && !typeFleche.contains(">")) || (typeFleche.contains(">") && !typeFleche.contains("<"))) sRet= "unidirectionnelle";
+
+                    else sRet= "bidirectionnelle";
+
+        return sRet;
     }
 
-    public void setTypeRelation(String typeRelation) {
-        this.typeRelation = typeRelation;
+    public String toString() {
+        String sRet="";
+        sRet+="Association " + num + " : "+ getTypeAssociation() + '\n';
+
+        sRet += '\t'+classeGauche +' ' +multipliciteGauche + ' ' + typeFleche + ' ' +
+                multipliciteDroite + ' '+ classeDroite + ' ' + contrainte ;
+        return  sRet;
     }
 }
