@@ -31,10 +31,10 @@ public class PanelPrc extends JPanel {
 		
 		for(Entite e : ensEntite) {
 			
-			for(Association a: e.getEnsAssociations())
+			for(Association a : e.getEnsAssociations())
 			{
 				ensAssociation.add(a);
-				System.out.println(a.getClasseDroite()+" "+a.getClasseGauche());
+				//System.out.println(a.getClasseDroite()+" "+a.getClasseGauche());
 			}
 			
 			this.ensPanelEntite.add(new PanelEntite(e,this,identifiant));
