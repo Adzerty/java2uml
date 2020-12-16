@@ -20,14 +20,14 @@ public class IHMCUI
 	{
 		
 		String ihm = "CUI";//par defaut
-		/*
+		
 		do
 		{
 			Console.print( this.col("\n\tAffichage (", this.coul) + this.col("CUI", 'B') + "/" + this.col("GUI", 'B') + ")? : " + this.setCE('B') );
 			ihm = getString().toUpperCase();
 			Console.print(this.setCE('#'));
 		}
-		while( !(ihm.equals("GUI") || ihm.equals("CUI")));*/
+		while( !(ihm.equals("GUI") || ihm.equals("CUI")));
 		
 		Console.print("\n\tDemarrage du Mode " + ihm +" ...");
 		
