@@ -81,15 +81,37 @@ public class PanelPrc extends JPanel {
 			this.posSourisX = e.getX();	
 			this.posSourisY = e.getY();	
 			
-			
-			System.out.println("x : "+this.posSourisX + " y : "+this.posSourisY + " "+ ((PanelEntite) e.getSource()).getId());
 		}
 		
 	}
 	
 	public void release(MouseEvent e)
 	{
+		int ident = (((PanelEntite) e.getSource()).getId());
 		
+		int offSetX = e.getX() - this.posSourisX;
+		int offSetY = e.getY() - this.posSourisY;
+		
+		
+		this.ensCoord.get(ident).setX(this.ensCoord.get(ident).getX()+offSetX);
+		this.ensCoord.get(ident).setY(this.ensCoord.get(ident).getY()+offSetY);
+		
+		
+		((PanelEntite) e.getSource()).setLocation(this.ensCoord.get(ident).getX(),this.ensCoord.get(ident).getY());
+		
+		repaint();
+	}
+	
+	public void paint(Graphics g)
+	{
+		super.paint(g);
+		
+		int x1 = this.ensCoord.get(0).getX()+this.ensPanelEntite.get(0).getWidth();
+		int y1 = (this.ensCoord.get(0).getY()+this.ensPanelEntite.get(0).getHeight())/2; 
+		int x2 = this.ensCoord.get(1).getX();
+		int y2 = (this.ensCoord.get(1).getY()+this.ensPanelEntite.get(1).getHeight())/2;
+		
+		g.drawLine(x1 , y1, x2,y2 );
 	}
 	
 
