@@ -71,6 +71,7 @@ public class IHMCUI
 			}
 		}while(choix != 0 && choix != 1);
 		Console.print(this.setCE('*'));
+		this.clear();
 		System.exit (0);
 	}
 	
@@ -112,8 +113,8 @@ public class IHMCUI
 			if(saisie== '/') { this.menu(); }
 			if(saisie== '*')
 			{
-				String nomFichier = listeC[selec].split("\\|")[0];
-				Console.print("\n\t\tLecture du fichier : " + this.col(listeC[selec].substring(0, nomFichier.length()), 'B'));
+				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
+				Console.print("\n\t\tLecture du fichier : " + this.col(nomFichier, 'B'));
 				try{Thread.sleep(3000);}catch (Exception ex){}
 				this.entete();
 				Console.print(this.ctrl.getContenuConfig(nomFichier));
@@ -166,6 +167,29 @@ public class IHMCUI
 			Console.print("\t     +" + nSep( tMaxConfig +2, "-") + "+" + nSep(18, "-") + "+" + nSep(18, "-") + "+\n");
 			
 			char saisie = this.menuSelection();
+			
+			if(saisie== '/') { this.menu(); }
+			if(saisie== '*')
+			{
+				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
+				Console.print("\tOuverture du fichier : " + this.col(nomFichier, 'B'));
+				try{Thread.sleep(3000);}catch (Exception ex){}
+				this.ctrl.ouvrirEnEdit(nomFichier);
+			}
+			
+			int newSel = selec;
+			if(saisie== '+')
+			{
+				newSel--;
+				if(newSel < 0) { this.modifier(listeC.length -1); } //torique haut
+				else           { this.modifier(newSel);           } //on monte
+			}
+			if(saisie== '-')
+			{
+				newSel++;
+				if(newSel > listeC.length -1) { this.modifier(0);     }//torique bas
+				else                          { this.modifier(newSel); }//on descend
+			}
 		}
 		else { Console.print(this.col("\tAucun fichier de config sauvegarde", 'R')); try {Thread.sleep(3000);} catch (Exception ex) {} }
 	}
@@ -268,7 +292,7 @@ public class IHMCUI
 		this.col("    (@@@. &@@#   &@@@@@@* (@@@.  *@@@@@@% *@@@@&%%%%&@@@@* ", 'N') + this.col("        (#####", 'B') + this.col("(*"                ,'R') + this.col(  "      ,@@@/       (@@@, .&@@@@@@@@@@      (@@@.     /@@@. .@@@@@@@@@@@@@@. ,@@@*   &@@@@@@  " , 'N') + "\n" +
 		this.col("    /&&&. %&&(    ,&&&%.  (&&&.    %&&&*    /@@@@@@@@@@*   ", 'N') + this.col("         *####", 'B') + this.col("."                 ,'R') + this.col( "                                                              ,(######(,                     "        + "\n" +
 		         "                                                           "       +          "              "       +          ""                        +          "                                                                                              " , 'N') + "\n" +
-		setCE('*') + "\n");
+		setCE('*') + "\n\n\n\n\n\n\n\n\n");
 		try {Thread.sleep(2000);} catch (Exception ex) {}
 	}
 	

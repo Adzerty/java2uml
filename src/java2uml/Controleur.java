@@ -3,12 +3,16 @@ package java2uml;
 import java2uml.IHM.GUI.IHMGUI;
 import java2uml.IHM.CUI.IHMCUI;
 
-import java.nio.charset.StandardCharsets;
+
 //recuperer fichier dans un rep avec dates
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+//lecture
+import java.awt.Desktop;
 
 //lecture d'un fichier
 import java.io.BufferedReader;
@@ -18,6 +22,7 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 
 public class Controleur
@@ -94,13 +99,13 @@ public class Controleur
 		return max;
 	}
 	
-	public String getContenuConfig(String fichier)
+	public String getContenuConfig(String nomFichier)
 	{
 		String diagramme = "\n\n\n\n\n";
 		String ligne;
 		try
 		{
-			FileInputStream fis = new FileInputStream(this.cheminExec + "config\\" + fichier);
+			FileInputStream fis = new FileInputStream(this.cheminExec + "config\\" + nomFichier);
 		    InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
 		    BufferedReader lecteur = new BufferedReader(isr);
 			while ((ligne = lecteur.readLine()) != null)
@@ -111,5 +116,24 @@ public class Controleur
 		}
 		catch(Exception exc) { System.out.println("Erreur d'ouverture"); }
 		return diagramme;
+	}
+	
+	public void ouvrirEnEdit(String nomFichier)
+	{
+		File file = new File(this.cheminExec + "config\\" + nomFichier);
+        if (!file.exists() && file.length() < 0)
+        {
+            System.out.println("Le fichier n'existe pas!");
+            return;
+        }
+        Desktop desktop = null;
+        if (Desktop.isDesktopSupported()) {
+            desktop = Desktop.getDesktop();
+        }
+        try {
+            desktop.edit(file);
+        } catch (IOException ex) {
+            Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+        }
 	}
 }
