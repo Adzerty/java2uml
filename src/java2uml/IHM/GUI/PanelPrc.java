@@ -4,23 +4,34 @@ import java2uml.metier.*;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.*;
 
 public class PanelPrc extends JPanel {
 	
 	private ArrayList<PanelEntite> ensPanelEntite = new ArrayList<>();
+	private ArrayList<Coord> ensCoord = new ArrayList<>();
 	private FramePrc framePrincipale;
 	
+	//press action
+	
+	private int posSourisX;
+	private int posSourisY;
+		
+		
 	public PanelPrc(ArrayList<Entite> ensEntite , FramePrc framePrincipale) {
 		
 		this.setLayout(null);
 		
 		this.framePrincipale = framePrincipale;
 		
+		int identifiant = 0;
+		
 		for(Entite e : ensEntite) {
 			
-			this.ensPanelEntite.add(new PanelEntite(e,this));
+			this.ensPanelEntite.add(new PanelEntite(e,this,identifiant));
+			identifiant++;
 			
 		}
 		
@@ -35,7 +46,10 @@ public class PanelPrc extends JPanel {
 			
 			pe.setSize(pe.getPreferredSize());
 			
-			pe.setLocation(x,y);
+			ensCoord.add(new Coord(x,y));
+			
+			pe.setLocation(ensCoord.get(pe.getId()).getX(),ensCoord.get(pe.getId()).getY());
+			
 			this.add(pe);
 			
 			if(hauteurMax<pe.getHeight()) {
@@ -47,15 +61,37 @@ public class PanelPrc extends JPanel {
 				x=0;
 				y+=hauteurMax+30;
 				hauteurMax = 0;
-				System.out.println(this.getWidth());
+				
 			}
 			
 			x+=pe.getWidth()+30;
 			
 		}
 		
+		for(Coord c : ensCoord) {
+			System.out.println(c);
+		}
 		this.setVisible(true);
 	}
 	
+	public void press(MouseEvent e)
+	{
+		if(e.getSource() instanceof PanelEntite)
+		{
+			this.posSourisX = e.getX();	
+			this.posSourisY = e.getY();	
+			
+			
+			System.out.println("x : "+this.posSourisX + " y : "+this.posSourisY + " "+ ((PanelEntite) e.getSource()).getId());
+		}
+		
+	}
+	
+	public void release(MouseEvent e)
+	{
+		
+	}
+	
+
 
 }
