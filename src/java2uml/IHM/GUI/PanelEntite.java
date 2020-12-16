@@ -8,7 +8,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class PanelEntite extends JPanel implements MouseListener {
+public class PanelEntite extends JPanel {
 	
 	private Entite entite;
 	private PanelAttribut att;
@@ -39,24 +39,11 @@ public class PanelEntite extends JPanel implements MouseListener {
 		this.add(pNom, "North");
 		this.add(pCentre, "Center");
 		
-		this.addMouseListener(this);
+		
 		
 		this.setVisible(true);		
 	}
 	
-	public void mouseClicked(MouseEvent e){}
-
-	public void mouseEntered(MouseEvent e){}
-	public void mouseExited(MouseEvent e){}
-
-	public void mouseReleased(MouseEvent e)
-	{
-		this.release(e);
-	}
-
-	public void mousePressed(MouseEvent e)
-	{
-		this.press(e);
-	}
+	
 }
 
