@@ -11,6 +11,7 @@ public class PanelMethode extends JPanel {
 	
 	public PanelMethode( ArrayList<Methode> ens ) { 
 		this.ens = ens;
+		this.setBorder(BorderFactory.createLineBorder(Color.black,1));
 		int size = this.ens.size();
 		this.setLayout( new GridLayout( size, 1 ));
 		for( Methode m : ens ) {
