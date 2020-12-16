@@ -4,8 +4,9 @@ import java.lang.reflect.*;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Scanner;
 
-public class Classes
+public class JavaReader
 {
     private String nomClasse;
 
@@ -19,8 +20,12 @@ public class Classes
 
     private boolean afficheMethode;
     private boolean afficheAttributs;
+    private boolean estAbstraite;
+    private boolean estFinal;
+    private String mere;
+    private String typeEntite;
 
-    public Classes(String nomClasse)
+    public JavaReader(String nomClasse)
     {
         // CONSTRUCTEUR
     	try
@@ -45,6 +50,7 @@ public class Classes
 			{ 
 				tabParamConstruct[i] = tabConstruct[i].getParameters();
 			}
+			
 
 			//Récupère les méthodes de la classe
 			this.tabMeth = c.getDeclaredMethods();
@@ -56,6 +62,28 @@ public class Classes
 			}*/	
 
 			this.afficheAttributs = this.afficheMethode =  true;
+			this.estAbstraite = Modifier.isAbstract(c.getModifiers());
+			this.estFinal = Modifier.isFinal(c.getModifiers());
+			
+			try {
+			this.mere = c.getSuperclass().getName();
+			if(mere.contains("Object") || mere.contains("Enum"))
+				mere=null;
+			else
+			{
+				Scanner scPoint = new Scanner(mere);
+				scPoint.useDelimiter("\\.");
+			
+				while(scPoint.hasNext())mere = scPoint.next();
+			}
+			}catch(Exception e) {}
+
+			this.typeEntite = "";
+			if(c.isEnum())typeEntite = "Enum";
+			else
+				if(c.isInterface()) typeEntite = "Interface";
+				else typeEntite = "Classe";
+			
 			
 
 		}catch(Exception e)
@@ -64,7 +92,11 @@ public class Classes
 		}
     }
 
-    public String toString()
+    public boolean isAbstraite() {
+		return estAbstraite;
+	}
+
+	public String toString()
     {
         int taille = size();
 
@@ -208,7 +240,58 @@ public class Classes
 
     public static void main(String[] args)
     {
-    	Classes c = new Classes("test1");
+    	JavaReader c = new JavaReader("test1");
     	System.out.println(c.toString());
     }
+
+	public String getNomClasse() {
+		return nomClasse;
+	}
+
+	public Field[] getTabAttribut() {
+		return tabAttribut;
+	}
+
+	public Constructor[] getTabConstruct() {
+		return tabConstruct;
+	}
+
+	public Parameter[][] getTabParamConstruct() {
+		return tabParamConstruct;
+	}
+
+	public Method[] getTabMeth() {
+		return tabMeth;
+	}
+
+	public Parameter[][] getTabParamMethod() {
+		return tabParamMethod;
+	}
+
+	public boolean isAfficheMethode() {
+		return afficheMethode;
+	}
+
+	public boolean isAfficheAttributs() {
+		return afficheAttributs;
+	}
+
+	public boolean isFinal() {
+		return estFinal;
+	}
+	
+	public boolean aMere()
+	{
+		return mere != null;
+	}
+	
+	public String getMere()
+	{
+		return this.mere;
+	}
+	
+	public String getTypeEntite()
+	{
+		return this.typeEntite;
+	}
 }

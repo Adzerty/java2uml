@@ -1,5 +1,6 @@
 package java2uml;
 
+import iut.algo.Console;
 import java2uml.IHM.GUI.IHMGUI;
 import java2uml.IHM.CUI.IHMCUI;
 
