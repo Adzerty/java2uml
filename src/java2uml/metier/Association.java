@@ -78,9 +78,16 @@ public class Association
         this.typeRelation = typeRelation;
     }
 
-    @Override
-    public String toString() {
-        return typeRelation + " " + classeGauche + " " + multipliciteGauche + " " + typeFleche +
-                " " + multipliciteDroite + " "+ classeDroite + " " + contrainte ;
+    public String toString(int compteur) {
+    	String sRet="";
+        sRet+="Association " + compteur + " :";
+
+        if (typeFleche.contains("<") || typeFleche.contains(">")) sRet+= "unidirectionnelle";
+        else if(typeFleche.contains("⬦")) sRet += "agrégation";
+        else if(typeFleche.contains("◆")) sRet += "composition";
+        else if (typeFleche.contains("▷")) sRet += "généralisation/spécialisation";
+
+        sRet += "\n"+classeGauche +' ' +multipliciteGauche + ' ' + typeFleche + ' ' + multipliciteDroite + ' '+ classeDroite + ' ' + contrainte ;
+        return  sRet;
     }
 }
