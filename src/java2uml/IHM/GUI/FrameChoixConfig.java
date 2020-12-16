@@ -11,13 +11,15 @@ public class FrameChoixConfig extends JFrame {
 	
 	public FrameChoixConfig() {
 		this.setTitle("Java2UML");
-		this.setSize(300, 100);
-		this.setLocation(300, 300);
+		this.setSize(1200, 700);
+		this.setLocation(100, 100);
 		
-		this.pcc = new PanelChoixConfig();
+		this.pcc = new PanelChoixConfig( this );
 		this.add(this.pcc);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 	}
+	
+	public void reduceFrame() { this.setState(Frame.ICONIFIED); }
 }
