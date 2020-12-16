@@ -10,6 +10,7 @@ public class FramePrc extends JFrame {
 	private PanelPrc panelPrincipal;
 	private ArrayList<Entite> ensEntite = new ArrayList<>();
 	
+	
     public FramePrc(ConfigReader config) {
     	
         this.setTitle("Java2UML");
@@ -17,8 +18,9 @@ public class FramePrc extends JFrame {
         this.setLocation(100, 100);
         
         this.ensEntite = config.getEnsEntite();
+       
         
-        this.panelPrincipal = new PanelPrc(ensEntite , this);
+        this.panelPrincipal = new PanelPrc(ensEntite ,  this);
         this.add(this.panelPrincipal);
         	
         

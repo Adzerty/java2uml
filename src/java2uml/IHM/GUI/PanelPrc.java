@@ -12,6 +12,7 @@ public class PanelPrc extends JPanel {
 	
 	private ArrayList<PanelEntite> ensPanelEntite = new ArrayList<>();
 	private ArrayList<Coord> ensCoord = new ArrayList<>();
+	private ArrayList<Association> ensAssociation = new ArrayList<>();
 	private FramePrc framePrincipale;
 	
 	//press action
@@ -29,6 +30,12 @@ public class PanelPrc extends JPanel {
 		int identifiant = 0;
 		
 		for(Entite e : ensEntite) {
+			
+			for(Association a: e.getEnsAssociations())
+			{
+				ensAssociation.add(a);
+				System.out.println(a.getClasseDroite()+" "+a.getClasseGauche());
+			}
 			
 			this.ensPanelEntite.add(new PanelEntite(e,this,identifiant));
 			identifiant++;
