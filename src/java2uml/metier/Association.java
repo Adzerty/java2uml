@@ -8,10 +8,9 @@ public class Association
     private String multipliciteDroite;
     private String contrainte;
     private String typeFleche;
-    private String typeRelation;
 
     public Association(String classeGauche, String classeDroite, String multipliciteGauche, String multipliciteDroite,
-                       String contrainte, String typeFleche, String typeRelation)
+                       String contrainte, String typeFleche)
     {
         this.classeGauche = classeGauche;
         this.classeDroite = classeDroite;
@@ -19,7 +18,6 @@ public class Association
         this.multipliciteDroite = multipliciteDroite;
         this.contrainte = contrainte;
         this.typeFleche = typeFleche;
-        this.typeRelation = typeRelation;
     }
 
     public String getClasseGauche() {
@@ -70,16 +68,8 @@ public class Association
         this.typeFleche = typeFleche;
     }
 
-    public String getTypeRelation() {
-        return typeRelation;
-    }
-
-    public void setTypeRelation(String typeRelation) {
-        this.typeRelation = typeRelation;
-    }
-
     public String toString(int compteur) {
-    	String sRet="";
+        String sRet="";
         sRet+="Association " + compteur + " :";
 
         if (typeFleche.contains("<") || typeFleche.contains(">")) sRet+= "unidirectionnelle";

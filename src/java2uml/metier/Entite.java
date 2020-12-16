@@ -10,11 +10,10 @@ public class Entite
     private String type;
     private boolean estAbstraite;
     private boolean estFinale;
-    private String mere;
     private ArrayList<Association> ensAssociations;
 
     public Entite(ArrayList<Methode> ensMethode, ArrayList<Attribut> ensAttribut, String nom, String type, boolean estAbstraite,
-                  boolean estFinale, String mere, ArrayList<Association> ensAssociations)
+                  boolean estFinale, ArrayList<Association> ensAssociations)
     {
         this.ensMethode = ensMethode;
         this.ensAttribut = ensAttribut;
@@ -22,7 +21,6 @@ public class Entite
         this.type = type;
         this.estAbstraite = estAbstraite;
         this.estFinale = estFinale;
-        this.mere = mere;
         this.ensAssociations = ensAssociations;
     }
 
@@ -74,14 +72,6 @@ public class Entite
         this.estFinale = estFinale;
     }
 
-    public String getMere() {
-        return mere;
-    }
-
-    public void setMere(String mere) {
-        this.mere = mere;
-    }
-
     public ArrayList<Association> getEnsAssociations() {
         return ensAssociations;
     }
@@ -105,19 +95,46 @@ public class Entite
 
         sRet+= type + " : ";
         sRet+= nom;
+        if (estAbstraite) sRet = "\033[3m"+sRet+"\033[0m";
         sRet += separation;
 
+
+        //ATTIBUTS
+        int tailleAtt=0;
+
         for (Attribut a: ensAttribut )
-            sRet+=a.toString();
+           if(tailleAtt<a.toStringNoType().length())tailleAtt=a.toStringNoType().length();
+
+        for (Attribut a: ensAttribut )
+        {
+            String attribut="";
+            attribut+=String.format("%-"+String.valueOf(tailleAtt)+ 's',a.toStringNoType());
+            attribut+=String.format("%-"+String.valueOf(taille-tailleAtt)+ 's'," : "+ a.getType());
+            if(a.isEstStatique())
+            {
+                String underline="";
+                for (int i = 0; i <a.toStringNoType().length(); i++) underline+="¯";
+                attribut+="\n"+underline;
+            }
+            sRet+="\n"+attribut;
+        }
+
         sRet+= separation;
 
+
+        //Methodes
         for (Methode m: ensMethode )
             sRet+=m.toString();
 
         sRet += separation;
+        int compteurAssociation=0;
         if(ensAssociations.size()>0)
             for (Association a: ensAssociations )
-                sRet+=a.toString();
+            {
+                sRet+=a.toString(compteurAssociation);
+                compteurAssociation++;
+            }
+
 
         return sRet;
     }
