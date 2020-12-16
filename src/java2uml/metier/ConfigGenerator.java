@@ -12,6 +12,7 @@ import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -23,7 +24,9 @@ public class ConfigGenerator {
 	
 	private String bandeauClasse = "";
 	
-	private static final String CHEMIN = "./config";
+	private ArrayList<String> ensEntite = new ArrayList<String>();
+	
+	private static final String CHEMIN = "config";
 	
 	public ConfigGenerator(Diagramme diag, String nomFic, String auteur) 
 	{
@@ -37,14 +40,17 @@ public class ConfigGenerator {
 		
 		
 		String banniere = genererBanniere();
+		String consignes = genererConsignes();
 		String classes  = genererClasses();
 		
 		PrintWriter writer;
 		try {
-			File f = new File("config",this.nomFic+".config");
+			File f = new File(CHEMIN,this.nomFic+".config");
 			writer = new PrintWriter(f, "UTF-8");
 			writer.println(banniere);
+			writer.println(consignes);
 			writer.println(classes);
+			writer.println("------Fin");
 			writer.close();
 		} catch (Exception e) {e.printStackTrace();}
 		
@@ -81,8 +87,30 @@ public class ConfigGenerator {
         sRet += "------Date de création : " + shortDateFormat.format(dateDuJour) + '\n';
         sRet += "------Auteur : " + this.nomAuteur + '\n';
         sRet += "------Proposé par : InnovAction\n";
-        sRet += "------Liste de caractères spéciaux : ⬦ ◆ \n";
+        sRet += "Liste de caractères utilisés : <> (agrégation) <//> (composition) |> (héritage)\n";
         
+        return sRet;
+	}
+	
+	private String genererConsignes() 
+	{
+		
+		String sRet = "";
+		
+		sRet += "+-----------+\n Utilisation \n+-----------+\n";
+		
+        sRet += "Un commentaire s'écrit de cette manière : //\n\n";
+        
+        sRet += "Pour masquer un élément (attribut, méthode...), commentez le"+ '\n';
+        sRet += "\tExemple : //- int entierA\n\n";
+        
+        sRet += "Pour ajouter une contrainte sur une association :"+ '\n';
+        sRet += "\tClasseA ------> ClasseB {contrainte}\n\n";
+        
+        sRet += "Pour ajouter des multiplicités sur une association :"+ '\n';
+        sRet += "\tClasseA [0..1] ------> [1..*] ClasseB\n\n";
+        
+        sRet+="\n";
         return sRet;
 	}
 	
@@ -91,21 +119,18 @@ public class ConfigGenerator {
 	{
 		String sRet = this.bandeauClasse;
 		
+		//On initialise toutes les entites du diagramme
+		for(JavaReader c : this.diag.getEnsFile())
+			if(! ensEntite.contains(c.getNomClasse()))
+				ensEntite.add(c.getNomClasse());
+		
 		for(JavaReader c : this.diag.getEnsFile())
 		{
-			sRet += "------ Entité : " + c.getTypeEntite()+'\n';
-			
-			/*
-			System.err.println();
-			if(c.getClass().isEnum()) sRet += "Enum\n";
-			if(c.getClass().isInterface())sRet += "Interface\n";
-			else sRet += "Classe\n";*/
+			sRet += "------ Entité : " + c.getTypeEntite()+'\n';				
 				
-			
 			sRet += c.getNomClasse();
-			if(c.isAbstraite()) sRet += " abstact";
+			if(c.isAbstraite()) sRet += " abstract";
 			if(c.isFinal()) sRet += " final";
-			if(c.aMere()) sRet += " Classe mère : " + c.getMere();
 			sRet += "\n----Attributs :\n";
 			for(Field f : c.getTabAttribut())
 			{
@@ -120,10 +145,9 @@ public class ConfigGenerator {
 	            
 	            
 	            //On récupère le type de l'attribut
-				String[] typeSplited = f.getType().toString().split("\\.");
-				String type = typeSplited[typeSplited.length-1];
-				
-				sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite +'\n';
+	            String type = getFormattedType(f);
+	            
+				sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite + '\n';
 			}
 			
 			sRet += "\n----Méthodes :\n";
@@ -164,6 +188,19 @@ public class ConfigGenerator {
 				sRet+='\n';
 			}
 			sRet += "\n----Associations :\n";
+			if(c.aMere()) 
+			{
+				sRet += c.getNomClasse() + " -------|> "+ c.getMere() +'\n';
+			}
+			for(Field f : c.getTabAttribut())
+			{
+				if(ensEntite.contains(f.getType().getName()))
+				{
+					sRet += c.getNomClasse() + " ------- " + f.getType().getName() + '\n';
+				}
+			}
+			
+			
 			sRet += "\n\n";
 		}
 		return sRet;
@@ -177,6 +214,7 @@ public class ConfigGenerator {
 		String sRet = "";
 		
 		//On récupère le type de l'object passé en paramètres
+		if(o instanceof Field) type = ((Field) o).getGenericType();
         if(o instanceof Method) type = ((Method) o).getGenericReturnType();
         if(o instanceof Parameter) type = ((Parameter) o).getParameterizedType();
         
@@ -239,10 +277,10 @@ public class ConfigGenerator {
 
 	
 	public static void main(String[] args) {
-		String[] tabNoms = {"Coord","test1","Actions"};
+		String[] tabNoms = {"Coord","test1"};
 		Diagramme d = new Diagramme(tabNoms);
 		
-		ConfigGenerator cGen = new ConfigGenerator(d, "FichierTest", "Adrien PESTEL");
+		ConfigGenerator cGen = new ConfigGenerator(d, "FichierTestAssociations", "Adrien PESTEL");
 	}
 
 }

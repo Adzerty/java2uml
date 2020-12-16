@@ -79,7 +79,6 @@ public class JavaReader
 			}catch(Exception e) {}
 
 			this.typeEntite = "";
-			System.err.println(c.isEnum());
 			if(c.isEnum())typeEntite = "Enum";
 			else
 				if(c.isInterface()) typeEntite = "Interface";

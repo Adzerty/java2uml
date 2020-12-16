@@ -4,6 +4,7 @@ public abstract class Coord extends Point
 {
 	private int  col;
 	private int  lig;
+	private int act;
 
 	public Coord (int col, int lig)
 	{

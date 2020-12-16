@@ -8,7 +8,7 @@ public final class test1 extends Coord{
     private String prenom;
     private String pays;
     private int age;
-
+    private Coord coordonees;
     //piege
 
     protected int a1;
