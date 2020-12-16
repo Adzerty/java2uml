@@ -3,11 +3,21 @@ package java2uml;
 import java2uml.IHM.GUI.IHMGUI;
 import java2uml.IHM.CUI.IHMCUI;
 
-import java.io.*;
+import java.nio.charset.StandardCharsets;
+//recuperer fichier dans un rep avec dates
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+
+//lecture d'un fichier
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class Controleur
@@ -82,5 +92,24 @@ public class Controleur
 				max = s.length();
 		}
 		return max;
+	}
+	
+	public String getContenuConfig(String fichier)
+	{
+		String diagramme = "\n\n\n\n\n";
+		String ligne;
+		try
+		{
+			FileInputStream fis = new FileInputStream(this.cheminExec + "config\\" + fichier);
+		    InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
+		    BufferedReader lecteur = new BufferedReader(isr);
+			while ((ligne = lecteur.readLine()) != null)
+			{
+				diagramme += "\t" + ligne + "\n";
+			}
+			lecteur.close();
+		}
+		catch(Exception exc) { System.out.println("Erreur d'ouverture"); }
+		return diagramme;
 	}
 }
