@@ -99,13 +99,34 @@ public class Methode
 
         sRet += ": " + typeDeRetour;
 
+        if (estAbstraite) sRet = "\033[3m"+sRet+"\033[0m";
+
         if (estStatique) {
             String underline = "";
             for (int i = 0; i < sRet.length(); i++) underline += "¯";
             sRet += "\n" + underline;
         }
-        if (estAbstraite) sRet = "\033[3m"+sRet+"\033[0m";
+
         sRet += "\n";
         return sRet;
+    }
+    public String toStringNoReturnType()
+    {
+        String sRet = "";
+        sRet += visibilite + " ";
+        sRet += nom;
+        sRet += "(";
+        if (ensParametre.size() > 0)
+        {
+            for (Parametre p : ensParametre)
+                sRet += p.toString() + ", ";
+            sRet = sRet.substring(0, sRet.length() - 2);
+        }
+        sRet += ")";
+
+        if (estFinale) sRet += "{gelée} ";
+
+        return sRet;
+
     }
 }
