@@ -88,4 +88,17 @@ public class Attribut
        return sRet;
 
     }
+    public String toStringNoType()
+    {
+        String sRet="";
+        sRet+=visibilite+" ";
+        sRet+=nom + " ";
+
+        if(valeurParDefault.length()>0)
+            sRet+= " = " + valeurParDefault;
+
+        if(estFinale)sRet+="{gelée} ";
+
+        return  sRet;
+    }
 }

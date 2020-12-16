@@ -23,12 +23,13 @@ public class ConfigReader
                 String typeEntite="";
                 boolean entiteEstAbstraite;
                 boolean entiteEstFinale;
-                String mere="";
 
                 //nom Entite
                 String temp = sc.nextLine();
                 while(sc.hasNextLine() && !temp.contains("Entité :"))
                     temp = sc.nextLine();
+
+                if(!sc.hasNextLine()) break;
 
                 for (int i = temp.indexOf(':')+1; i <temp.length(); i++)
                     typeEntite+=temp.charAt(i);
@@ -49,9 +50,6 @@ public class ConfigReader
                 entiteEstFinale = temp.contains("final");
                 entiteEstAbstraite = temp.contains("abstract");
 
-                if(temp.contains("Classe mère :"))
-                    for(int i = temp.indexOf("Classe mère :")+13;i<temp.length();i++)
-                        mere+=temp.charAt(i);
                 //ATTRIBUTS
                 while(sc.hasNextLine() && !temp.contains("Attributs :"))
                     temp = sc.nextLine();
@@ -175,16 +173,8 @@ public class ConfigReader
                     String multipliciteDroite="";
                     String contrainte="";
                     String typeFleche="";
-                    String typeRelation="";
 
                     cpt = 0;
-
-                    while(cpt<temp.length() && temp.charAt(cpt)!=' ')
-                    {
-                        typeRelation+=temp.charAt(cpt);
-                        cpt++;
-                    }
-                    cpt++;
                     while(cpt<temp.length() && temp.charAt(cpt)!=' ')
                     {
                         classeGauche+=temp.charAt(cpt);
@@ -221,15 +211,13 @@ public class ConfigReader
                             cpt++;
                         }
                     }
-                    Association a = new Association(classeGauche,classeDroite,multipliciteGauche,
-                            multipliciteDroite,contrainte,typeFleche,typeRelation);
+                    Association a = new Association(classeGauche,classeDroite,multipliciteGauche, multipliciteDroite,contrainte,typeFleche);
 
                     ensAssociation.add(a);
                     temp=sc.nextLine();
                 }
 
-                Entite e = new Entite(ensMethode,ensAttribut,nomEntite,typeEntite,
-                        entiteEstAbstraite,entiteEstFinale,mere,ensAssociation);
+                Entite e = new Entite(ensMethode,ensAttribut,nomEntite,typeEntite, entiteEstAbstraite,entiteEstFinale,ensAssociation);
                 System.out.println(e);
                 ensEntite.add(e);
             }
@@ -252,5 +240,8 @@ public class ConfigReader
                 '}';
     }
 
-  
+    public static void main(String[] args) {
+       ConfigReader conf = new ConfigReader("FichierTestAssociations.config");
+       //System.out.println(conf);
+    }
 }
