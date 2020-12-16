@@ -240,8 +240,8 @@ public class ConfigReader
                 '}';
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
        ConfigReader conf = new ConfigReader("FichierTestAssociations.config");
        //System.out.println(conf);
-    }
+    }*/
 }
