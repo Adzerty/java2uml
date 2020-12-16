@@ -8,12 +8,13 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class PanelEntite extends JPanel  {
+public class PanelEntite extends JPanel implements MouseListener {
 	
 	private Entite entite;
 	private PanelAttribut att;
 	private PanelMethode met;
 	private PanelPrc panelPrincipal;
+	
 	public PanelEntite(Entite e, PanelPrc panelPrincipal){
 		
 		this.entite = e;
@@ -27,34 +28,9 @@ public class PanelEntite extends JPanel  {
 		JPanel pNom    = new JPanel();
 		JPanel pCentre = new JPanel();
 		
-		if(this.entite.getEnsAttribut() == null || this.entite.getEnsMethode() == null)
-		{
-			if(this.entite.getEnsAttribut() == null && this.entite.getEnsMethode() == null)
-			{
-				this.add(pCentre);
-			}
-			
-			else if(this.entite.getEnsAttribut() == null)
-			{
-				pCentre.setLayout(new BorderLayout());
-				pCentre.add(att, "North");
-				pCentre.add(met, "Center");
-			}
-			
-			else if(this.entite.getEnsAttribut() == null)
-			{
-				pCentre.setLayout(new BorderLayout());
-				pCentre.add(att, "Center");
-				pCentre.add(met, "South");
-			}
-		}
-		
-		else
-		{
-			pCentre.setLayout(new GridLayout(2,1));
-			pCentre.add(att);
-			pCentre.add(met);
-		}
+		pCentre.setLayout(new GridLayout(2,1));
+		pCentre.add(att);
+		pCentre.add(met);
 		
 		JLabel nom = new JLabel(this.entite.getType()+" : "+this.entite.getNom(), JLabel.CENTER);
 		
@@ -63,10 +39,24 @@ public class PanelEntite extends JPanel  {
 		this.add(pNom, "North");
 		this.add(pCentre, "Center");
 		
-		
+		this.addMouseListener(this);
 		
 		this.setVisible(true);		
 	}
 	
+	public void mouseClicked(MouseEvent e){}
 
+	public void mouseEntered(MouseEvent e){}
+	public void mouseExited(MouseEvent e){}
+
+	public void mouseReleased(MouseEvent e)
+	{
+		this.release(e);
+	}
+
+	public void mousePressed(MouseEvent e)
+	{
+		this.press(e);
+	}
 }
+

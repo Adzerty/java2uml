@@ -11,10 +11,20 @@ public class PanelAttribut extends JPanel {
 	
 	public PanelAttribut( ArrayList<Attribut> ens ) { 
 		this.ens = ens;
+		this.setBorder(BorderFactory.createLineBorder(Color.black,1));
 		int size = this.ens.size();
 		this.setLayout( new GridLayout( size, 1 ));
 		for( Attribut a : ens ) {
-			this.add( new JLabel(a.toString()));
+			JLabel tmp = new JLabel();
+			if(a.toString().contains("¯"))
+			{
+				tmp.setText("<html><u>"+a.toString().replaceAll("¯", "")+"</u></html>");
+			}
+			else
+			{
+				tmp.setText(a.toString());
+			}
+			this.add(tmp);
 		}
 		this.setVisible(true);
 	}
