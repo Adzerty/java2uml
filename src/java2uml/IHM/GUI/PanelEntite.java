@@ -51,12 +51,12 @@ public class PanelEntite extends JPanel implements MouseListener {
 
 	public void mouseReleased(MouseEvent e)
 	{
-		//this.release(e);
+		this.release(e);
 	}
 
 	public void mousePressed(MouseEvent e)
 	{
-		//this.press(e);
+		this.press(e);
 	}
 }
 
