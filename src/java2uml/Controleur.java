@@ -1,6 +1,5 @@
 package java2uml;
 
-import iut.algo.Console;
 import java2uml.IHM.GUI.IHMGUI;
 import java2uml.IHM.CUI.IHMCUI;
 
@@ -19,8 +18,6 @@ import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
