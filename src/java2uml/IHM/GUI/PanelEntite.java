@@ -63,7 +63,7 @@ public class PanelEntite extends JPanel implements MouseListener  {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		//panelPrincipal.press(e);
+		panelPrincipal.press(e);
 		
 	}
 
