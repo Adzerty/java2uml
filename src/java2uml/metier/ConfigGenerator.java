@@ -102,7 +102,8 @@ public class ConfigGenerator {
         sRet += "Un commentaire s'écrit de cette manière : //\n\n";
         
         sRet += "Pour masquer un élément (attribut, méthode...), commentez le"+ '\n';
-        sRet += "\tExemple : //- int entierA\n\n";
+        sRet += "\tExemple : //- int entierA <-- pour masquer UN attribut\n\n";
+        sRet += "\tExemple : //-----Attributs <-- pour masquer TOUS les attributs\n\n";
         
         sRet += "Pour ajouter une contrainte sur une association :"+ '\n';
         sRet += "\tClasseA ------> ClasseB {contrainte}\n\n";
@@ -131,7 +132,7 @@ public class ConfigGenerator {
 			sRet += c.getNomClasse();
 			if(c.isAbstraite()) sRet += " abstract";
 			if(c.isFinal()) sRet += " final";
-			sRet += "\n----Attributs :\n";
+			sRet += "\n----Attribut(s) :\n";
 			for(Field f : c.getTabAttribut())
 			{
 				//On regarde la visibilité de l'attribut
@@ -150,7 +151,7 @@ public class ConfigGenerator {
 				sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite + '\n';
 			}
 			
-			sRet += "\n----Méthodes :\n";
+			sRet += "\n----Méthode(s) :\n";
 			for(Method m : c.getTabMeth())
 			{
 				//On regarde la visibilité de la méthode
@@ -187,7 +188,7 @@ public class ConfigGenerator {
 				
 				sRet+='\n';
 			}
-			sRet += "\n----Associations :\n";
+			sRet += "\n----Association(s) :\n";
 			if(c.aMere()) 
 			{
 				sRet += c.getNomClasse() + " -------|> "+ c.getMere() +'\n';
@@ -280,7 +281,7 @@ public class ConfigGenerator {
 		String[] tabNoms = {"Coord","test1"};
 		Diagramme d = new Diagramme(tabNoms);
 		
-		ConfigGenerator cGen = new ConfigGenerator(d, "FichierTestAssociations", "Adrien PESTEL");
+		ConfigGenerator cGen = new ConfigGenerator(d, "FichierTest", "Adrien PESTEL");
 	}
 
 }
