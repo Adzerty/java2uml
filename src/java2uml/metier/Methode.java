@@ -79,35 +79,4 @@ public class Methode
     public void setEstAbstraite(boolean estAbstraite) {
         this.estAbstraite = estAbstraite;
     }
-
-    @Override
-    public String toString() {
-
-        String sRet="";
-        sRet+=visibilite+" ";
-        sRet+=nom;
-        sRet+="(";
-        if(ensParametre.size()>0)
-        {
-            for (Parametre p:ensParametre )
-                sRet+=p.toString() +", ";
-            sRet=sRet.substring(0,sRet.length()-2);
-        }
-
-        sRet +=  ")";
-
-        if(estFinale)sRet+="{gelée} ";
-        if(estAbstraite)sRet+="{abstract}";
-
-        sRet+= ": " + typeDeRetour;
-
-        if(estStatique)
-        {
-            String underline="";
-            for (int i = 0; i <sRet.length(); i++) underline+="¯";
-            sRet+="\n"+underline;
-        }
-        sRet+="\n";
-        return sRet;
-    }
 }

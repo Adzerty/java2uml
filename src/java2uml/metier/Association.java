@@ -8,9 +8,10 @@ public class Association
     private String multipliciteDroite;
     private String contrainte;
     private String typeFleche;
+    private String typeRelation;
 
     public Association(String classeGauche, String classeDroite, String multipliciteGauche, String multipliciteDroite,
-                       String contrainte, String typeFleche)
+                       String contrainte, String typeFleche, String typeRelation)
     {
         this.classeGauche = classeGauche;
         this.classeDroite = classeDroite;
@@ -18,6 +19,7 @@ public class Association
         this.multipliciteDroite = multipliciteDroite;
         this.contrainte = contrainte;
         this.typeFleche = typeFleche;
+        this.typeRelation = typeRelation;
     }
 
     public String getClasseGauche() {
@@ -68,16 +70,11 @@ public class Association
         this.typeFleche = typeFleche;
     }
 
-    public String toString(int compteur) {
-        String sRet="";
-        sRet+="Association " + compteur + " :";
+    public String getTypeRelation() {
+        return typeRelation;
+    }
 
-        if (typeFleche.contains("<") || typeFleche.contains(">")) sRet+= "unidirectionnelle";
-        else if(typeFleche.contains("⬦")) sRet += "agrégation";
-        else if(typeFleche.contains("◆")) sRet += "composition";
-        else if (typeFleche.contains("▷")) sRet += "généralisation/spécialisation";
-
-        sRet += "\n"+classeGauche +' ' +multipliciteGauche + ' ' + typeFleche + ' ' + multipliciteDroite + ' '+ classeDroite + ' ' + contrainte ;
-        return  sRet;
+    public void setTypeRelation(String typeRelation) {
+        this.typeRelation = typeRelation;
     }
 }
