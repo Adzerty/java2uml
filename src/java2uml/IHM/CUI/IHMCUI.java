@@ -133,14 +133,22 @@ public class IHMCUI
 				if(b)
 					cptTrue++;//compter le nombre de fichiers choisis
 			
-			String[] tabFichierJava = new String[cptTrue];//contient le nom de tous les fichiers choisis
-			
-			int cptElt = 0;
-			for(int b = 0; b < tabSelec.length; b++)
-				if(tabSelec[b])
-					tabFichierJava[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
-			
-			this.ctrl.CreateNewDiagramme(tabFichierJava);//envoyé un tabString
+			if(cptTrue == 0)//pas de marque
+			{
+				String[] tabFichierJava = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
+				this.ctrl.CreateNewDiagramme(tabFichierJava);
+			}
+			else
+			{
+				String[] tabFichierJava = new String[cptTrue];//contient le nom de tous les fichiers choisis
+				
+				int cptElt = 0;
+				for(int b = 0; b < tabSelec.length; b++)
+					if(tabSelec[b])
+						tabFichierJava[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
+				
+				this.ctrl.CreateNewDiagramme(tabFichierJava);//envoyé un tabString
+			}
 
 			Console.print("\n\t\tAuteur      : ");
 			Console.print(this.setCE('B'));
@@ -402,7 +410,7 @@ public class IHMCUI
 		this.col("    /&&&. %&&(    ,&&&%.  (&&&.    %&&&*    /@@@@@@@@@@*   ", 'N') + this.col("         *####", 'B') + this.col("."                 ,'R') + this.col( "                                                              ,(######(,                     "        + "\n" +
 		         "                                                           "       +          "              "       +          ""                        +          "                                                                                              " , 'N') + "\n" +
 		setCE('*') + "\n\n\n\n\n\n\n\n\n");
-		try {Thread.sleep(2000);} catch (Exception ex) {}
+		try {Thread.sleep(1500);} catch (Exception ex) {}
 	}
 	
 	private String getString() { return Console.lireString(); }
