@@ -79,12 +79,17 @@ public class IHMCUI
 		System.exit (0);
 	}
 	
-	private void creer(int selec)
+	private void creer(int selec/* ,int[] tabSelec*/)
 	{
 		//creer un diagramme de la selection
 		this.entete();
 
 		String[] listeS = this.ctrl.getClasse(); //chargement des fichiers
+		
+		/*if(tabSelec == null)
+		{
+			
+		}*/
 
 		//affichage des fichiers
 		if(listeS != null)
@@ -110,7 +115,12 @@ public class IHMCUI
 		else { Console.print(this.col("\tAucune classe java dans le repertoire classe", 'R')); try {Thread.sleep(3000);} catch (Exception ex) {} }
 
 		char saisie = this.menuSelection(true);
+		
 		if(saisie== '/') { this.menu(); }
+		if(saisie== '.')
+		{
+			
+		}
 		if(saisie== '*')
 		{
 			String nomFichier = listeS[selec].substring(0, listeS[selec].split("\\|")[0].length());
@@ -178,7 +188,7 @@ public class IHMCUI
 			}
 			this.finTab(tMAxFichier);
 			
-			char saisie = this.menuSelection();
+			char saisie = this.menuSelection(false);
 			
 			if(saisie== '/') { this.menu(); }
 			if(saisie== '*')
@@ -237,7 +247,7 @@ public class IHMCUI
 			}
 			this.finTab(tMaxConfig);
 			
-			char saisie = this.menuSelection();
+			char saisie = this.menuSelection(false);
 			
 			if(saisie== '/') { this.menu(); }//Annuler
 			if(saisie== '*') //Valider
@@ -273,8 +283,8 @@ public class IHMCUI
 	private char menuSelection(boolean multi)
 	{
 		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
-		               + "\t\t (" +this.col("+", 'B')+ ") : v descendre\n"
-		               + "\t\t (" +this.col(".", 'B')+ ") :   selectionner\n"
+		               + "\t\t (" +this.col("+", 'B')+ ") : v descendre\n" + ((multi)?
+		               ( "\t\t (" +this.col(".", 'B')+ ") :   selectionner\n"):"")
 		               + "\t\t (" +this.col("*", 'B')+ ") :   valider\n"
 		               + "\t\t (" +this.col("/", 'B')+ ") :   annuler\n"
 		               + "\tsaisie : ");
