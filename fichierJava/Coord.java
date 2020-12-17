@@ -1,6 +1,6 @@
 import java.awt.Point;
 
-public abstract class Coord extends Point
+public abstract class Coord extends Point implements test1
 {
 	private int  col;
 	private int  lig;
