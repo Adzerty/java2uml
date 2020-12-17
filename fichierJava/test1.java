@@ -1,11 +1,14 @@
-public class test1 {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public final class test1 extends Coord{
     private static int nbUser=0;
     private int id;
     private String nom;
     private String prenom;
     private String pays;
     private int age;
-
+    private Coord coordonees;
     //piege
 
     protected int a1;
@@ -56,15 +59,13 @@ public class test1 {
         this.nom = nom;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+    public abstract void setPrenom(String prenom);
 
-    public void setAge(int age) {
+    public String[][] setAge(HashMap<Integer, String> age) {
         this.age = age;
     }
 
-    public void setPays(String pays) {
+    public HashMap<String, Integer> setPays(String[][] pays) {
         this.pays = pays;
     }
 
@@ -77,5 +78,14 @@ public class test1 {
         System.out.println(pers2.getId());
         System.out.println(pers3.getId());
 
+    }
+
+    public class test2{
+    	private int testInt;
+
+    	public void mainTest2(String[] a)
+    	{
+    		System.out.println("rouge");
+    	}
     }
 }

@@ -8,6 +8,7 @@ public class ConfigReader
 {
     private ArrayList<Entite> ensEntite;
     private int compteurLigne=0;
+
     public ConfigReader(String fichier)
     {
         ensEntite = new ArrayList<>();
