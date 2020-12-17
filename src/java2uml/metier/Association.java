@@ -9,7 +9,7 @@ public class Association
     private String contrainte;
     private String typeFleche;
     private int num;
-    private static int compteur = 0;
+    private static int compteur = 1;
     public Association(String classeGauche, String classeDroite, String multipliciteGauche, String multipliciteDroite,
                        String contrainte, String typeFleche)
     {

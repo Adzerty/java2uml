@@ -2,6 +2,7 @@ package java2uml.metier;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -86,8 +87,8 @@ public class ConfigGenerator {
 
         sRet += "------Date de création : " + shortDateFormat.format(dateDuJour) + '\n';
         sRet += "------Auteur : " + this.nomAuteur + '\n';
-        sRet += "------Proposé par : InnovAction\n";
-        sRet += "Liste de caractères utilisés : <> (agrégation) <//> (composition) |> (héritage)\n";
+        sRet += "------Proposé par : InnovAction\n\n";
+        sRet += "\nListe de caractères utilisés : <> (agrégation), <//> (composition), |> (héritage), (+) (classe interne) \n";
         
         return sRet;
 	}
@@ -97,11 +98,11 @@ public class ConfigGenerator {
 		
 		String sRet = "";
 		
-		sRet += "+-----------+\n Utilisation \n+-----------+\n";
+		sRet += "+-----------+\n Rappels \n+-----------+\n";
 		
-        sRet += "Un commentaire s'écrit de cette manière : //\n\n";
+        sRet += "Un commentaire s'écrit de cette manière : \"//\"\n\n";
         
-        sRet += "Pour masquer un élément (attribut, méthode...), commentez le"+ '\n';
+        sRet += "Pour masquer un élément (attribut, méthode...), commentez le."+ '\n';
         sRet += "\tExemple : //- int entierA <-- pour masquer UN attribut\n\n";
         sRet += "\tExemple : //-----Attributs <-- pour masquer TOUS les attributs\n\n";
         
@@ -110,6 +111,11 @@ public class ConfigGenerator {
         
         sRet += "Pour ajouter des multiplicités sur une association :"+ '\n';
         sRet += "\tClasseA [0..1] ------> [1..*] ClasseB\n\n";
+        
+        sRet += "Pour modifier une valeur par défault d'un attribut :"+ '\n';
+        sRet += "\tExemple : - int entierA default = 10 \n\n";
+        
+        sRet += "Pour d'autres renseignements, consultez la documentation\n\n";
         
         sRet+="\n";
         return sRet;
@@ -144,11 +150,15 @@ public class ConfigGenerator {
 	            String staticite = "";
 	            if(Modifier.isStatic(f.getModifiers())) staticite="_ ";
 	            
+	            String finalite = "";
+	            if(Modifier.isFinal(f.getModifiers())) finalite="final ";
+	            
 	            
 	            //On récupère le type de l'attribut
 	            String type = getFormattedType(f);
 	            
-				sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite + '\n';
+	            if(! sRet.contains("\\$"))
+	            	sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite + finalite + '\n';
 			}
 			
 			sRet += "\n----Méthode(s) :\n";
@@ -192,6 +202,10 @@ public class ConfigGenerator {
 			if(c.aMere()) 
 			{
 				sRet += c.getNomClasse() + " -------|> "+ c.getMere() +'\n';
+			}
+			if(c.aClasseGlobale()) 
+			{
+				sRet += c.getNomClasse() + " -------(+) "+ c.getClasseGlobale() +'\n';
 			}
 			for(Field f : c.getTabAttribut())
 			{
@@ -270,18 +284,18 @@ public class ConfigGenerator {
 	    	sc.useDelimiter("\\.");
 			String scNext = "";
 			while(sc.hasNext())scNext = sc.next();
+			
 			sRet+=scNext;
     	}
         return sRet;
     }
-	
 
-	
-	public static void main(String[] args) {
-		String[] tabNoms = {"Coord","test1"};
+	/*public static void main(String[] args) {
+		String[] tabNoms = {"Train", "Vehicule", "Train$TrainIterator"};
 		Diagramme d = new Diagramme(tabNoms);
 		
+		compilation();
 		ConfigGenerator cGen = new ConfigGenerator(d, "Test", "Bernard");
-	}
+	}*/
 
 }

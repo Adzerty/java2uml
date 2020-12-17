@@ -138,18 +138,16 @@ public class Controleur
 
 	public void     CreateNewDiagramme(String[] tabNomFichier)
 	{
-		for(String s : tabNomFichier)
+		for(int f = 0; f < tabNomFichier.length; f++)
 		{
-			s = s.replace(".java","");
-			System.out.println(s);
+			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
 		}
-		
-		new Diagramme(tabNomFichier);
+		this.diagTemp = new Diagramme(tabNomFichier);
 	}
 	
 	public String   CreateConfigFile(String nomFichier, String nomAuteur)
 	{
-		new ConfigGenerator(diagTemp, nomFichier, nomAuteur);
+		new ConfigGenerator(this.diagTemp, nomFichier, nomAuteur);
 		return getContenuConfig(nomFichier+".txt");
 	}
 	
@@ -171,5 +169,17 @@ public class Controleur
             Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
         }
 	}
+	
+	public static void compilation()
+	{
+        String repDest = "./fichierCompile";
+        String commande = "javac -d "+ repDest + " ./fichierJava/*.java";
+
+        try
+        {
+            Process p = Runtime.getRuntime().exec(commande);
+        }
+        catch (IOException e) { e.printStackTrace(); }
+    }
 	
 }
