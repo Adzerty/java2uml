@@ -2,6 +2,8 @@ package java2uml.IHM.GUI;
 
 import java2uml.metier.*;
 
+import static java.awt.geom.AffineTransform.*;
+import java.awt.geom.AffineTransform;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -21,7 +23,8 @@ public class PanelPrc extends JPanel {
 	
 	private int posSourisX;
 	private int posSourisY;
-		
+	
+	private final int ARR_SIZE = 7;
 		
 	public PanelPrc(ArrayList<Entite> ensEntite , FramePrc framePrincipale) {
 		
@@ -44,39 +47,33 @@ public class PanelPrc extends JPanel {
 			
 		}
 		
-		int x , y ;//coord de panel entite 
-		x=10;
-		y=10;
-		
-		int hauteurMax = 0;
-		
-		
-		for(PanelEntite pe : ensPanelEntite){
-			
-			pe.setSize(pe.getPreferredSize());
-			
-			ensCoord.add(new Coord(x,y));
-			
-			pe.setLocation(ensCoord.get(pe.getId()).getX(),ensCoord.get(pe.getId()).getY());
-			
-			this.add(pe);
-			
-			if(hauteurMax<pe.getHeight()) {
-				hauteurMax = pe.getHeight();
-				
-			}
-			
-			if(x+pe.getWidth()>=this.framePrincipale.getWidth()) {
-				x=0;
-				y+=hauteurMax+30;
-				hauteurMax = 0;
-				
-			}
-			
-			x+=pe.getWidth()+30;
-			
-		}
-		
+		double centerx, centery, x , y , angle, degreInc;//coord de panel entite 
+        centerx=framePrincipale.getWidth()/2;
+        centery=framePrincipale.getHeight()/3;
+        degreInc = 360/this.ensPanelEntite.size();
+        double hauteurMax = framePrincipale.getHeight()/3;
+        System.out.println(hauteurMax);
+        
+        angle = 0;
+        x = Math.cos(angle)*hauteurMax + centerx;
+        y = Math.sin(angle)*hauteurMax + centery;
+        
+        for(PanelEntite pe : ensPanelEntite){
+            
+            pe.setSize(pe.getPreferredSize());
+            
+            ensCoord.add(new Coord((int)Math.round(x),(int)Math.round(y)));
+            
+            pe.setLocation(ensCoord.get(pe.getId()).getX(),ensCoord.get(pe.getId()).getY());
+            
+            this.add(pe);
+            
+            angle += degreInc;
+            System.out.println("angle : " + angle+ "   cos : " + Math.cos(angle) + "   sin : "+ Math.sin(angle));
+            x = (Math.cos(Math.toRadians(angle))*hauteurMax) + centerx;
+            y = (Math.sin(Math.toRadians(angle))*hauteurMax) + centery;
+        }
+        
 		for(Coord c : ensCoord) {
 			System.out.println(c);
 		}
@@ -111,15 +108,60 @@ public class PanelPrc extends JPanel {
 		repaint();
 	}
 	
+	void drawArrow(Graphics g1, int x1, int y1, int x2, int y2, String type)
+	{
+		Graphics2D g = (Graphics2D) g1.create();
+		double dx = x2 - x1, dy = y2 - y1;
+		double angle = Math.atan2(dy, dx);
+		int len = (int) Math.sqrt(dx*dx + dy*dy);
+		AffineTransform at = AffineTransform.getTranslateInstance(x1, y1);
+		at.concatenate(AffineTransform.getRotateInstance(angle));
+		g.transform(at);
+		//Draw horizontal arrow starting in (0, 0)
+		g.drawLine(0, 0, len, 0);
+		if(type == "unidirectionnele")
+		{
+			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+		}
+		if(type == "composition")
+		{
+			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+			g.fillPolygon(new int[] {len-2*ARR_SIZE, len-ARR_SIZE, len-ARR_SIZE, len-2*ARR_SIZE},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+		}
+		else
+		{
+			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+		}
+	}
 	public void paint(Graphics g)
 	{
 		super.paint(g);
 		
-		int x1 = this.ensCoord.get(0).getX()+this.ensPanelEntite.get(0).getWidth();
-		int y1 = (this.ensCoord.get(0).getY()+(this.ensPanelEntite.get(0).getHeight()/2)); 
-		int x2 = this.ensCoord.get(1).getX();
-		int y2 = (this.ensCoord.get(1).getY()+(this.ensPanelEntite.get(1).getHeight()/2));
+		int x1, y1, x2, y2;
+		x1 = y1 = x2 = y2 =0;
 		
-		g.drawLine(x1 , y1, x2,y2 );
+		for(Association a: this.ensAssociation)
+		{
+				for(int i = 0; i < this.ensPanelEntite.size(); i++)
+				{					
+					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseGauche()))
+					{
+						x1 = this.ensCoord.get(i).getX()+this.ensPanelEntite.get(i).getWidth();
+						y1 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));	
+					}
+					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseDroite()))
+					{
+						x2 = this.ensCoord.get(i).getX();
+						y2 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));
+					}
+					
+				}					
+				drawArrow(g,x1 , y1, x2,y2, a.getTypeAssociation());
+		}
 	}
 }
+	

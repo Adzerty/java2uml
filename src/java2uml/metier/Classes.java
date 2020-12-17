@@ -205,7 +205,7 @@ public class Classes
 
         return  taille;
     }
-
+    
     public static void main(String[] args)
     {
     	Classes c = new Classes("test1");
