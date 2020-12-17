@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50aec037-29f9-4d51-aa83-ccf306d11941" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/FichierTestAssociations.config" beforeDir="false" afterPath="$PROJECT_DIR$/config/FichierTestAssociations.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/Controleur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Association.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Association.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Methode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Methode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/JavaReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/JavaReader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,13 +31,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/config/FichierTestAssociations1.config" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/config" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
-  <component name="RunManager" selected="Application.ConfigReader">
+  <component name="RunManager" selected="Application.JavaReader">
     <configuration name="ConfigReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="java2uml.metier.ConfigReader" />
       <module name="java2uml" />
@@ -57,6 +57,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="java2uml.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JavaReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="java2uml.metier.JavaReader" />
+      <module name="java2uml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="java2uml.metier.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -113,8 +126,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ConfigReader" />
+        <item itemvalue="Application.JavaReader" />
         <item itemvalue="Application.Controleur" />
+        <item itemvalue="Application.ConfigReader" />
       </list>
     </recent_temporary>
   </component>

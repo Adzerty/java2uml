@@ -5,12 +5,12 @@
  |  '-'  /|  | |  | \   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--.  
   `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----'  
                                                                                
-+-----------+
- FichierTest
-+-----------+
++---------------+
+ TestFaitPARNico
++---------------+
 
-
-------Auteur : Adrien PESTEL
+------Date de création : 17/12/2020 14:00
+------Auteur : Nicolas
 ------Proposé par : InnovAction
 Liste de caractères utilisés : <> (agrégation) <//> (composition) |> (héritage)
 
@@ -32,9 +32,9 @@ Pour ajouter des multiplicités sur une association :
 
 
 
-+-------+
- Entités 
-+-------+
++------+
+ Entité 
++------+
 ------ Entité : Classe
 Coord abstract
 ----Attribut(s) :
@@ -43,43 +43,11 @@ Coord abstract
 - int act 
 
 ----Méthode(s) :
-# int getCol() _ 
 + int getLig() 
+# int getCol() _ 
 
 ----Association(s) :
 Coord -------|> Point
-
-
------- Entité : Classe
-test1 final
-----Attribut(s) :
-- int nbUser _ 
-- int id
-- String nom
-- String prenom
-- String pays 
-- int age 
-- Coord coordonees 
-# int a1 
-# String a2 
-+ String a3 
-+ int a4 
-
-----Méthode(s) :
-+ void main(String[] args) _ 
-+ int getId() 
-+ String getNom() 
-+ String getPrenom()
-+ String getPays() 
-+ HashMap<String,Integer> setPays(String[][] pays) 
-+ int getAge() 
-+ void setNom(String nom) 
-+ void setPrenom(String prenom) abstract  
-+ String[][] setAge(HashMap<Integer,String> age) 
-
-----Association(s) :
-test1 -------|> Coord
-test1 ------- Coord
 
 
 
