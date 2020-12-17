@@ -50,12 +50,13 @@ public class PanelCharger extends JPanel implements ItemListener{
 		this.add(lblFichier);
 		this.add(cbFichier);
 		
-		
+		this.frame.setFichier((String)this.cbFichier.getSelectedItem());
 		this.setVisible(true);
 	}
 	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
+		
 		
 		if( e.getItem() == this.cbFichier.getSelectedItem()) {
 			this.frame.setFichier((String)this.cbFichier.getSelectedItem());
