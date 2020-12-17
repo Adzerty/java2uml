@@ -58,9 +58,11 @@ public class IHMCUI
 			Console.println("\t " +this.col("2",'B')+ " : Charger un diagramme" ); 
 			Console.println("\t " +this.col("3",'B')+ " : Modifier une config"  );
 			Console.print  ("\n saisie : " );
+			
 			Console.print(this.setCE('B'));
 			choix = getInt() ;
 			Console.print(this.setCE(this.coul));
+			
 			switch (choix)
 			{
 				case  0 : break;
@@ -77,6 +79,7 @@ public class IHMCUI
 	
 	private void creer()
 	{
+		
 		//sauvegarder un fichier en config
 	}
 	

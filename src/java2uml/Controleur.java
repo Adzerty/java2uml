@@ -97,6 +97,43 @@ public class Controleur
 		return max;
 	}
 	
+	public String[] getSource()
+	{
+		
+		File repertoire = new File(this.cheminExec + "config");
+		
+		String liste[] = repertoire.list();
+		
+		String tabF [] = new String[liste.length];
+		
+		String dateC = "????-??-??T??:??:??";
+		String dateM = "????-??-??T??:??:??";
+
+		if (liste.length != 0)//si il existe des anciennes config
+		{
+			for (int i = 0; i < liste.length; i++)
+			{
+				tabF[i] = liste[i];
+				try
+				{
+					Path file = Paths.get(this.cheminExec + "config\\" + liste[i]);
+					BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
+					dateC = attr.creationTime().toString();
+					dateM = attr.lastModifiedTime().toString();
+				}
+				catch (IOException e) { e.printStackTrace(); System.out.println("Erreur lors de la recuperation des dates du fichier");}
+				
+				tabF[i] += "|" + dateC.substring(0,10) + " " + dateC.toString().substring(11,16) + "|" + dateM.substring(0,10) + " " + dateM.toString().substring(11,16) ;
+			}
+			return tabF;
+		}
+		else
+		{
+			//Aucune sauvegarde de .config
+			return null;
+		}
+	}
+	
 	public String getContenuConfig(String nomFichier)
 	{
 		String diagramme = "\n\n\n\n\n";
