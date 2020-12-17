@@ -1,6 +1,7 @@
 package java2uml.metier;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -242,6 +243,17 @@ public class ConfigReader
             System.err.println("erreur fichier de config ligne :" + compteurLigne);
             e.printStackTrace();
         }
+    }
+    
+    public void CreateFile(String nomFichier)
+    {
+        PrintWriter writer;
+        try {
+            File f = new File("./DiagrammeTxt",nomFichier);
+            writer = new PrintWriter(f, "UTF-8");
+            writer.println(this.toString());
+            writer.close();
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     public ArrayList<Entite> getEnsEntite() {
