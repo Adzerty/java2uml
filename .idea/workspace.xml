@@ -2,7 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50aec037-29f9-4d51-aa83-ccf306d11941" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTest.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTestAssociations.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/NathanFile.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/Test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/Test25.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/TestFaitPARNico.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/VictorFile.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/test26.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/java2uml.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/java2uml_jar/java2uml.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/Controleur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,12 +39,12 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15376782" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
-  <component name="RunManager" selected="Application.JavaReader">
+  <component name="RunManager" selected="Application.Controleur">
     <configuration name="ConfigReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="java2uml.metier.ConfigReader" />
       <module name="java2uml" />

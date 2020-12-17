@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 //lecture
@@ -142,13 +144,25 @@ public class Controleur
 
 	public void CreateNewDiagramme(String nomFichier)
 	{
+<<<<<<< Updated upstream
 		nomFichier=nomFichier.replace(".java","");
 		String[] tab = {nomFichier};
 		diagTemp = new Diagramme(tab);
+=======
+		for(int f = 0; f < tabNomFichier.length; f++)
+		{
+			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
+		}
+		for (String s : tabNomFichier ) {
+			System.out.println(s);
+
+		}
+		this.diagTemp = new Diagramme(tabNomFichier);
+>>>>>>> Stashed changes
 	}
 	public String CreateConfigFile(String nomFichier, String nomAuteur)
 	{
-		new ConfigGenerator(diagTemp, nomFichier, nomAuteur);
+		new ConfigGenerator(this.diagTemp, nomFichier, nomAuteur);
 		return getContenuConfig(nomFichier+".txt");
 	}
 
@@ -182,6 +196,7 @@ public class Controleur
             Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
         }
 	}
+<<<<<<< Updated upstream
 	public String[] getClasse()
 	{
 
@@ -218,4 +233,36 @@ public class Controleur
 			return null;
 		}
 	}
+=======
+	
+	public static void compilation()
+	{
+        String repDest = "./fichierCompile/";
+        File rep = new File("./fichierJava/");
+		String listeJava[] = rep.list();
+
+		/*for (String s : listeJava )
+		{
+			String commande = "javac -d "+ repDest + " ./fichierJava/"+s;
+			try {
+				Runtime rt = Runtime.getRuntime();
+				Process proc = rt.exec(commande);
+				//int exitVal = proc.waitFor();
+				//if(exitVal!=0) System.out.println("erreur compilation sur fichier :"+ s);
+			} catch (Throwable t)
+			{
+				t.printStackTrace();
+			}
+		}*/
+		String commande = "javac -d "+ repDest + " ./fichierJava/*.java";
+		try {
+			Runtime rt = Runtime.getRuntime();
+			Process proc = rt.exec(commande);
+		} catch (Throwable t)
+		{
+			t.printStackTrace();
+		}
+    }
+	
+>>>>>>> Stashed changes
 }
