@@ -265,6 +265,11 @@ public class IHMCUI
 		else { Console.print(this.col("\tAucun fichier de configuration sauvegardé dans /config", 'R')); try {Thread.sleep(3000);} catch (Exception ex) {} }
 	}
 	
+	private void supprimer(int selec)
+	{
+		return;
+	}
+	
 	private char menuSelection()
 	{
 		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
