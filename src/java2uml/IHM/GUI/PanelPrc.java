@@ -113,14 +113,27 @@ public class PanelPrc extends JPanel {
 	{
 		super.paint(g);
 		
-		int x1 = this.ensCoord.get(0).getX()+this.ensPanelEntite.get(0).getWidth();
-		int y1 = (this.ensCoord.get(0).getY()+(this.ensPanelEntite.get(0).getHeight()/2)); 
-		int x2 = this.ensCoord.get(1).getX();
-		int y2 = (this.ensCoord.get(1).getY()+(this.ensPanelEntite.get(1).getHeight()/2));
+		int x1, y1, x2, y2;
+		x1 = y1 = x2 = y2 =0;
 		
-		g.drawLine(x1 , y1, x2,y2 );
+		for(Association a: this.ensAssociation)
+		{
+				for(int i = 0; i < this.ensPanelEntite.size(); i++)
+				{					
+					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseDroite()))
+					{
+						x1 = this.ensCoord.get(i).getX()+this.ensPanelEntite.get(i).getWidth();
+						y1 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));	
+					}
+					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseGauche()))
+					{
+						x2 = this.ensCoord.get(i).getX();
+						y2 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));
+					}
+					
+				}					
+				g.drawLine(x1 , y1, x2,y2 );
+		}
 	}
-	
-
-
 }
+	
