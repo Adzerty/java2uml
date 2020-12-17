@@ -246,7 +246,10 @@ public class ConfigReader
             e.printStackTrace();
         }
     }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     public ArrayList<Entite> getEnsEntite() {
         return ensEntite;
     }

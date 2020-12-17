@@ -81,6 +81,8 @@ public class IHMCUI
 	{
 		//creer un diagramme de la selection
 		this.entete();
+		
+		Controleur.compilation();
 
 		String[] listeS = this.ctrl.getClasse(); //chargement des fichiers
 
