@@ -246,18 +246,6 @@ public class ConfigReader
             e.printStackTrace();
         }
     }
-    
-    public void CreateFile(String nomFichier)
-    {
-        PrintWriter writer;
-        try {
-            File f = new File("./DiagrammeTxt",nomFichier);
-            writer = new PrintWriter(f, "UTF-8");
-            writer.println(this.toString());
-            writer.close();
-        } catch (Exception e) {e.printStackTrace();}
-    }
-
     public ArrayList<Entite> getEnsEntite() {
         return ensEntite;
     }
