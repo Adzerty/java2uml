@@ -24,6 +24,7 @@ public class JavaReader
     private boolean estFinal;
     private String mere;
     private String typeEntite;
+    private String classeGlobale;
 
     public JavaReader(String nomClasse)
     {
@@ -31,7 +32,7 @@ public class JavaReader
     	try
 		{
 			/* Permet d'accéder à un .class dans un autre dossier ici : ./fichierJava/ */
-			File f = new File("./fichierJava");
+			File f = new File("./fichierCompile");
 			URL[] cp = {f.toURI().toURL()};
 			URLClassLoader urlcl = new URLClassLoader(cp);
 			Class c = urlcl.loadClass(nomClasse);
@@ -77,6 +78,10 @@ public class JavaReader
 				while(scPoint.hasNext())mere = scPoint.next();
 			}
 			}catch(Exception e) {}
+			
+			try {
+				this.classeGlobale = c.getEnclosingClass().getName();
+				}catch(Exception e) {}
 
 			this.typeEntite = "";
 			if(c.isEnum())typeEntite = "Enum";
@@ -288,6 +293,16 @@ public class JavaReader
 	public String getMere()
 	{
 		return this.mere;
+	}
+	
+	public boolean aClasseGlobale()
+	{
+		return classeGlobale != null;
+	}
+	
+	public String getClasseGlobale()
+	{
+		return this.classeGlobale;
 	}
 	
 	public String getTypeEntite()

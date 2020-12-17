@@ -193,6 +193,10 @@ public class ConfigGenerator {
 			{
 				sRet += c.getNomClasse() + " -------|> "+ c.getMere() +'\n';
 			}
+			if(c.aClasseGlobale()) 
+			{
+				sRet += c.getNomClasse() + " -------(+) "+ c.getClasseGlobale() +'\n';
+			}
 			for(Field f : c.getTabAttribut())
 			{
 				if(ensEntite.contains(f.getType().getName()))
@@ -278,7 +282,7 @@ public class ConfigGenerator {
 
 	
 	public static void main(String[] args) {
-		String[] tabNoms = {"Coord","test1"};
+		String[] tabNoms = {"test1", "test1$test2", "testInterface"};
 		Diagramme d = new Diagramme(tabNoms);
 		
 		ConfigGenerator cGen = new ConfigGenerator(d, "Test", "Bernard");
