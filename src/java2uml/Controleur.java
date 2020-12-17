@@ -139,7 +139,10 @@ public class Controleur
 	public void     CreateNewDiagramme(String[] tabNomFichier)
 	{
 		for(String s : tabNomFichier)
+		{
 			s = s.replace(".java","");
+			System.out.println(s);
+		}
 		
 		new Diagramme(tabNomFichier);
 	}
