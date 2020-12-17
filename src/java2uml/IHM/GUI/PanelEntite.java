@@ -15,12 +15,14 @@ public class PanelEntite extends JPanel implements MouseListener  {
 	private PanelMethode met;
 	private PanelPrc panelPrincipal;
 	private int identifiant;
+	private String nom;
 	
 	
 	
 	public PanelEntite(Entite e, PanelPrc panelPrincipal, int identifiant){
 		
 		this.entite = e;
+		this.nom = e.getNom();
 		this.panelPrincipal = panelPrincipal;
 		this.identifiant = identifiant;
 		this.att = new PanelAttribut(this.entite.getEnsAttribut());
@@ -54,6 +56,10 @@ public class PanelEntite extends JPanel implements MouseListener  {
 		this.setVisible(true);		
 	}
 	
+	public String getNom()
+	{
+		return this.nom;
+	}
 	public int getId()
 	{
 		return this.identifiant;
