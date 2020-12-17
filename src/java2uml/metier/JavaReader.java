@@ -31,7 +31,7 @@ public class JavaReader
     	try
 		{
 			/* Permet d'accéder à un .class dans un autre dossier ici : ./classes/ */
-			File f = new File("./");
+			File f = new File("./fichierJava");
 			URL[] cp = {f.toURI().toURL()};
 			URLClassLoader urlcl = new URLClassLoader(cp);
 			Class c = urlcl.loadClass(nomClasse);

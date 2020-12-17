@@ -26,7 +26,7 @@ public class ConfigGenerator {
 	
 	private ArrayList<String> ensEntite = new ArrayList<String>();
 	
-	private static final String CHEMIN = "config";
+	private static final String CHEMIN = "./config/";
 	
 	public ConfigGenerator(Diagramme diag, String nomFic, String auteur) 
 	{
@@ -45,7 +45,7 @@ public class ConfigGenerator {
 		
 		PrintWriter writer;
 		try {
-			File f = new File(CHEMIN,this.nomFic+".config");
+			File f = new File(CHEMIN,this.nomFic+".txt");
 			writer = new PrintWriter(f, "UTF-8");
 			writer.println(banniere);
 			writer.println(consignes);
@@ -281,7 +281,7 @@ public class ConfigGenerator {
 		String[] tabNoms = {"Coord","test1"};
 		Diagramme d = new Diagramme(tabNoms);
 		
-		ConfigGenerator cGen = new ConfigGenerator(d, "FichierTest", "Adrien PESTEL");
+		ConfigGenerator cGen = new ConfigGenerator(d, "FichierTest", "InnovAction");
 	}
 
 }

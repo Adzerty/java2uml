@@ -9,8 +9,8 @@
  FichierTest
 +-----------+
 
-------Date de création : 17/12/2020 09:16
-------Auteur : Adrien PESTEL
+------Date de création : 17/12/2020 09:53
+------Auteur : InnovAction
 ------Proposé par : InnovAction
 Liste de caractères utilisés : <> (agrégation) <//> (composition) |> (héritage)
 
@@ -43,8 +43,8 @@ Coord abstract
 - int act 
 
 ----Méthode(s) :
-+ int getLig() 
 # int getCol() _ 
++ int getLig() 
 
 ----Association(s) :
 Coord -------|> Point
@@ -68,14 +68,14 @@ test1 final
 ----Méthode(s) :
 + void main(String[] args) _ 
 + int getId() 
++ String getPrenom() 
 + void setPrenom(String prenom) abstract  
 + String[][] setAge(HashMap<Integer,String> age) 
 + HashMap<String,Integer> setPays(String[][] pays) 
-+ String getPays() 
-+ String getPrenom() 
 + String getNom() 
-+ int getAge() 
++ String getPays() 
 + void setNom(String nom) 
++ int getAge() 
 
 ----Association(s) :
 test1 -------|> Coord
