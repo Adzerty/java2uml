@@ -1,0 +1,30 @@
+┌──────────────────────────────────────────────────────────────────┐
+│                          Classe : test1                          │
+├──────────────────────────────────────────────────────────────────┤
+│- nbUser      : int                                               │
+│¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯                                    │
+│- id          : int                                               │
+│- nom         : String                                            │
+│- prenom      : String                                            │
+│- pays        : String                                            │
+│- age         : int                                               │
+│- coordonees  : Coord                                             │
+│# a1          : int                                               │
+│# a2          : String                                            │
+│+ a3          : String                                            │
+│+ a4          : int                                               │
+├──────────────────────────────────────────────────────────────────┤
+│+ main(String[] :  args)                 : void                   │
+│+ getId()                                : int                    │
+│+ setNom(String :  nom)                  : void                   │
+│+ getNom()                               : String                 │
+│+ getAge()                               : int                    │
+│+ getPays()                              : String                 │
+│+ setPrenom(String :  prenom){abstract}  : void                   │
+│+ getPrenom()                            : String                 │
+│+ setAge(HashMap<Integer,String> :  age) : String[][]             │
+│+ setPays(String[][] :  pays)            : HashMap<String,Integer>│
+└──────────────────────────────────────────────────────────────────┘
+
+
+

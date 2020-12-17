@@ -1,0 +1,15 @@
+┌────────────────────────────┐
+│   Classe : Coord {abstract}│
+├────────────────────────────┤
+│- col  : int                │
+│- lig  : int                │
+│- act  : int                │
+├────────────────────────────┤
+│# getCol() : int            │
+│+ getLig() : int            │
+└────────────────────────────┘
+
+
+Association 0 : généralisation/spécialisation
+	Coord  -------|>  Point 
+

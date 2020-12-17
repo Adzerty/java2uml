@@ -5,12 +5,12 @@
  |  '-'  /|  | |  | \   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--.  
   `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----'  
                                                                                
-+---------------+
- TestFaitPARNico
-+---------------+
++------+
+ TestAD
++------+
 
-------Date de création : 17/12/2020 14:00
-------Auteur : Nicolas
+------Date de création : 17/12/2020 14:53
+------Auteur : Adrien
 ------Proposé par : InnovAction
 Liste de caractères utilisés : <> (agrégation) <//> (composition) |> (héritage)
 
@@ -43,8 +43,8 @@ Coord abstract
 - int act 
 
 ----Méthode(s) :
-+ int getLig() 
 # int getCol() _ 
++ int getLig() 
 
 ----Association(s) :
 Coord -------|> Point

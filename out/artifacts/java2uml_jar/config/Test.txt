@@ -9,8 +9,8 @@
  test
 +----+
 
-------Date de création : 17/12/2020 13:52
-------Auteur : test
+------Date de création : 17/12/2020 15:02
+------Auteur : nico
 ------Proposé par : InnovAction
 Liste de caractères utilisés : <> (agrégation) <//> (composition) |> (héritage)
 
@@ -36,18 +36,33 @@ Pour ajouter des multiplicités sur une association :
  Entité 
 +------+
 ------ Entité : Classe
-Coord abstract
+test1 final
 ----Attribut(s) :
-- int col 
-- int lig 
-- int act 
+- int nbUser _ 
+- int id 
+- String nom 
+- String prenom 
+- String pays 
+- int age 
+- Coord coordonees 
+# int a1 
+# String a2 
++ String a3 
++ int a4 
 
 ----Méthode(s) :
-+ int getLig() 
-# int getCol() _ 
++ void main(String[] args) _ 
++ int getId() 
++ void setPrenom(String prenom) abstract  
++ HashMap<String,Integer> setPays(String[][] pays) 
++ String getPrenom() 
++ String getNom() 
++ String[][] setAge(HashMap<Integer,String> age) 
++ void setNom(String nom) 
++ String getPays() 
++ int getAge() 
 
 ----Association(s) :
-Coord -------|> Point
 
 
 

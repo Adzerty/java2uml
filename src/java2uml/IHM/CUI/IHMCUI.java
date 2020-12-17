@@ -93,7 +93,7 @@ public class IHMCUI
 			{
 				if(f == selec)
 				{
-					Console.print(this.col("\t---->", 'B'));
+					Console.print(this.col("\t────>", 'B'));
 					this.afficherConfig(listeS[f], tMaxConfig);
 				}
 				else
@@ -168,7 +168,7 @@ public class IHMCUI
 				}
 				else
 				{
-					Console.print(this.col("\t     ", 'B'));
+					Console.print(this.col("\t    ", 'B'));
 					this.afficherConfig(listeC[f], tMaxConfig);
 				}
 			}

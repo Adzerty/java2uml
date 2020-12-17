@@ -1,6 +1,9 @@
 package java2uml.metier;
 
+import org.w3c.dom.css.CSSMediaRule;
+
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -260,6 +263,16 @@ public class ConfigReader
         }
 
         return sRet;
+    }
+    public void CreateFile(String nomFichier)
+    {
+        PrintWriter writer;
+        try {
+            File f = new File("./DiagrammeTxt",nomFichier);
+            writer = new PrintWriter(f, "UTF-8");
+            writer.println(this.toString());
+            writer.close();
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     public static void main(String[] args) {
