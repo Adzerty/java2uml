@@ -44,7 +44,6 @@ public class Controleur
 	
 	public String[] getConfig()
 	{
-		//InputStream stream = Controleur.class.getClassLoader().getResourceAsStream("\\config"); Solution pour le -jar a developper
 
 		File repertoire = new File("./config");
 		
