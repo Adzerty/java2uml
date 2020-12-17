@@ -7,6 +7,8 @@ import java.util.Scanner;
 public class ConfigReader
 {
     private ArrayList<Entite> ensEntite;
+    
+    //private String cheminExec = getClass().getProtectionDomain().getCodeSource().getLocation().getFile().substring(1).replaceAll("/", "\\\\");
 
     public ConfigReader(String fichier)
     {
@@ -235,7 +237,8 @@ public class ConfigReader
     }
 
     public static void main(String[] args) {
-       ConfigReader conf = new ConfigReader("FichierTestConfig.config");
+       ConfigReader conf = new ConfigReader("FichierTest.config");
+       System.out.println("ALLLOO");
         System.out.println(conf.toString());
     }
 }
