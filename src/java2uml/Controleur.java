@@ -134,7 +134,9 @@ public class Controleur
 	public String getContenuConfig(String nomFichier)
 	{
 		String diagramme = "\n\n\n\n\n";
-		diagramme+= new ConfigReader(nomFichier).toString();
+		ConfigReader temp = new ConfigReader(nomFichier);
+		diagramme+= temp.toString();
+		temp.CreateFile(nomFichier);
 		return diagramme;
 	}
 
@@ -148,7 +150,6 @@ public class Controleur
 	{
 		new ConfigGenerator(diagTemp, nomFichier, nomAuteur);
 		return getContenuConfig(nomFichier+".txt");
-
 	}
 	
 	public void ouvrirEnEdit(String nomFichier)
