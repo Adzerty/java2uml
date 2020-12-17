@@ -147,10 +147,14 @@ public class IHMCUI
 			String auteur = getString() ;
 			Console.print(this.setCE(this.coul));
 			
+			if(auteur == null) { auteur = " "; }
+			
 			Console.print("\t\tNom Fichier : ");
 			Console.print(this.setCE('B'));
 			String nomFichierConfig = getString() ;
 			Console.print(this.setCE(this.coul));
+			
+			if(nomFichierConfig == null) { nomFichierConfig = " "; }
 			
 			Console.print(this.ctrl.CreateConfigFile(nomFichierConfig, auteur));
 			this.getString();

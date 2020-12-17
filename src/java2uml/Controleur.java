@@ -21,8 +21,6 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
-
-
 public class Controleur
 {
 	private IHMCUI    ihmCUI;
