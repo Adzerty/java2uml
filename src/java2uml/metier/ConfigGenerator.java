@@ -86,8 +86,8 @@ public class ConfigGenerator {
 
         sRet += "------Date de création : " + shortDateFormat.format(dateDuJour) + '\n';
         sRet += "------Auteur : " + this.nomAuteur + '\n';
-        sRet += "------Proposé par : InnovAction\n";
-        sRet += "Liste de caractères utilisés : <> (agrégation) <//> (composition) |> (héritage)\n";
+        sRet += "------Proposé par : InnovAction\n\n";
+        sRet += "\nListe de caractères utilisés : <> (agrégation), <//> (composition), |> (héritage), (+) (classe interne) \n";
         
         return sRet;
 	}
@@ -97,11 +97,11 @@ public class ConfigGenerator {
 		
 		String sRet = "";
 		
-		sRet += "+-----------+\n Utilisation \n+-----------+\n";
+		sRet += "+-----------+\n Rappels \n+-----------+\n";
 		
-        sRet += "Un commentaire s'écrit de cette manière : //\n\n";
+        sRet += "Un commentaire s'écrit de cette manière : \"//\"\n\n";
         
-        sRet += "Pour masquer un élément (attribut, méthode...), commentez le"+ '\n';
+        sRet += "Pour masquer un élément (attribut, méthode...), commentez le."+ '\n';
         sRet += "\tExemple : //- int entierA <-- pour masquer UN attribut\n\n";
         sRet += "\tExemple : //-----Attributs <-- pour masquer TOUS les attributs\n\n";
         
@@ -110,6 +110,11 @@ public class ConfigGenerator {
         
         sRet += "Pour ajouter des multiplicités sur une association :"+ '\n';
         sRet += "\tClasseA [0..1] ------> [1..*] ClasseB\n\n";
+        
+        sRet += "Pour modifier une valeur par défault d'un attribut :"+ '\n';
+        sRet += "\tExemple : - int entierA default = 10 \n\n";
+        
+        sRet += "Pour d'autres renseignements, consultez la documentation\n\n";
         
         sRet+="\n";
         return sRet;
@@ -274,6 +279,7 @@ public class ConfigGenerator {
 	    	sc.useDelimiter("\\.");
 			String scNext = "";
 			while(sc.hasNext())scNext = sc.next();
+			
 			sRet+=scNext;
     	}
         return sRet;

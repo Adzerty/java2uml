@@ -2,12 +2,16 @@ package java2uml.metier;
 
 import java.lang.reflect.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Scanner;
 
 public class JavaReader
 {
+	
+	private String cheminExec = getClass().getProtectionDomain().getCodeSource().getLocation().getFile().substring(1).replaceAll("/", "\\\\"); // le repertoire courant de l'Exec
+	
     private String nomClasse;
 
     private Field[] tabAttribut;
@@ -29,6 +33,8 @@ public class JavaReader
     public JavaReader(String nomClasse)
     {
         // CONSTRUCTEUR
+    	
+    	this.compilation(nomClasse);
     	try
 		{
 			/* Permet d'accéder à un .class dans un autre dossier ici : ./fichierJava/ */
@@ -39,6 +45,12 @@ public class JavaReader
 
 			// Récupère le nom de la classe
 			this.nomClasse = c.getName();
+			
+			if(this.nomClasse.contains("$"))
+			{
+				int indexDollar = this.nomClasse.indexOf('$');
+				this.nomClasse = this.getNomClasse().substring(indexDollar+1);
+			}
 
 			//Récupère les attributs de la classe
 			this.tabAttribut = c.getDeclaredFields();
@@ -97,7 +109,20 @@ public class JavaReader
 		}
     }
 
-    public boolean isAbstraite() {
+    private void compilation(String nomClasse) {
+    
+    	String repDest = "./fichierCompile";
+    	String commande = "javac -d "+ repDest + " ./fichierJava/" + nomClasse + ".java";   
+    	
+    	System.err.println(commande);
+    	try {
+			Process p = Runtime.getRuntime().exec(commande);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean isAbstraite() {
 		return estAbstraite;
 	}
 
@@ -245,7 +270,7 @@ public class JavaReader
 
     public static void main(String[] args)
     {
-    	JavaReader c = new JavaReader("test1");
+    	JavaReader c = new JavaReader("Train");
     	System.out.println(c.toString());
     }
 
