@@ -34,7 +34,7 @@ public class JavaReader
     {
         // CONSTRUCTEUR
     	
-    	this.compilation(nomClasse);
+    	
     	try
 		{
 			/* Permet d'accéder à un .class dans un autre dossier ici : ./fichierJava/ */
@@ -94,7 +94,6 @@ public class JavaReader
 			try {
 				this.classeGlobale = c.getEnclosingClass().getName();
 				}catch(Exception e) {}
-
 			this.typeEntite = "";
 			if(c.isEnum())typeEntite = "Enum";
 			else
@@ -109,18 +108,6 @@ public class JavaReader
 		}
     }
 
-    private void compilation(String nomClasse) {
-    
-    	String repDest = "./fichierCompile";
-    	String commande = "javac -d "+ repDest + " ./fichierJava/" + nomClasse + ".java";   
-    	
-    	System.err.println(commande);
-    	try {
-			Process p = Runtime.getRuntime().exec(commande);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public boolean isAbstraite() {
 		return estAbstraite;

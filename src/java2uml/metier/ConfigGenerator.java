@@ -2,6 +2,7 @@ package java2uml.metier;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -149,11 +150,15 @@ public class ConfigGenerator {
 	            String staticite = "";
 	            if(Modifier.isStatic(f.getModifiers())) staticite="_ ";
 	            
+	            String finalite = "";
+	            if(Modifier.isFinal(f.getModifiers())) finalite="final ";
+	            
 	            
 	            //On récupère le type de l'attribut
 	            String type = getFormattedType(f);
 	            
-				sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite + '\n';
+	            if(! sRet.contains("\\$"))
+	            	sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite + finalite + '\n';
 			}
 			
 			sRet += "\n----Méthode(s) :\n";
@@ -285,12 +290,25 @@ public class ConfigGenerator {
         return sRet;
     }
 	
+	private static void compilation() {
+	    
+    	String repDest = "./fichierCompile";
+    	String commande = "javac -d "+ repDest + " ./fichierJava/*.java";   
+    	
+    	try {
+			Process p = Runtime.getRuntime().exec(commande);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	
 	public static void main(String[] args) {
-		String[] tabNoms = {"test1", "test1$test2", "testInterface"};
+		String[] tabNoms = {"Train", "Vehicule", "Train$TrainIterator"};
 		Diagramme d = new Diagramme(tabNoms);
 		
+		compilation();
 		ConfigGenerator cGen = new ConfigGenerator(d, "Test", "Bernard");
 	}
 
