@@ -9,7 +9,7 @@
  FichierTest
 +-----------+
 
-------Date de création : 17/12/2020 09:53
+------Date de création : 17/12/2020 10:31
 ------Auteur : InnovAction
 ------Proposé par : InnovAction
 Liste de caractères utilisés : <> (agrégation) <//> (composition) |> (héritage)
@@ -68,14 +68,14 @@ test1 final
 ----Méthode(s) :
 + void main(String[] args) _ 
 + int getId() 
-+ String getPrenom() 
-+ void setPrenom(String prenom) abstract  
-+ String[][] setAge(HashMap<Integer,String> age) 
-+ HashMap<String,Integer> setPays(String[][] pays) 
 + String getNom() 
-+ String getPays() 
-+ void setNom(String nom) 
 + int getAge() 
++ String getPrenom() 
++ HashMap<String,Integer> setPays(String[][] pays) 
++ String[][] setAge(HashMap<Integer,String> age) 
++ String getPays() 
++ void setPrenom(String prenom) abstract  
++ void setNom(String nom) 
 
 ----Association(s) :
 test1 -------|> Coord

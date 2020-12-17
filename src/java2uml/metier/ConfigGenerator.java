@@ -281,7 +281,7 @@ public class ConfigGenerator {
 		String[] tabNoms = {"Coord","test1"};
 		Diagramme d = new Diagramme(tabNoms);
 		
-		ConfigGenerator cGen = new ConfigGenerator(d, "FichierTest", "InnovAction");
+		ConfigGenerator cGen = new ConfigGenerator(d, "Test", "Bernard");
 	}
 
 }

@@ -30,7 +30,7 @@ public class JavaReader
         // CONSTRUCTEUR
     	try
 		{
-			/* Permet d'accéder à un .class dans un autre dossier ici : ./classes/ */
+			/* Permet d'accéder à un .class dans un autre dossier ici : ./fichierJava/ */
 			File f = new File("./fichierJava");
 			URL[] cp = {f.toURI().toURL()};
 			URLClassLoader urlcl = new URLClassLoader(cp);

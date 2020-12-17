@@ -79,4 +79,13 @@ public final class test1 extends Coord{
         System.out.println(pers3.getId());
 
     }
+
+    public class test2{
+    	private int testInt;
+
+    	public void mainTest2(String[] a)
+    	{
+    		System.out.println("rouge");
+    	}
+    }
 }
