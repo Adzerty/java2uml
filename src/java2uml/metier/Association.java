@@ -80,8 +80,9 @@ public class Association
                 if(typeFleche.contains("<>")) sRet = "agrégation";
                 else
                     if((typeFleche.contains("<") && !typeFleche.contains(">")) || (typeFleche.contains(">") && !typeFleche.contains("<"))) sRet= "unidirectionnelle";
-
-                    else sRet= "bidirectionnelle";
+                    else
+                        if(typeFleche.contains("(+)")) sRet = "Classe interne";
+                        else sRet= "bidirectionnelle";
 
         return sRet;
     }

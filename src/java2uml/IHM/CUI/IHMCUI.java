@@ -66,7 +66,7 @@ public class IHMCUI
 			switch (choix)
 			{
 				case  0 : break;
-				case  1 : Console.print("\n\tCreation."    ); try{Thread.sleep(800);}catch (Exception ex){} Console.print("."); try {Thread.sleep(800);}catch(Exception ex){} Console.print(".\n"); break;
+				case  1 : Console.print("\n\tCreation..."    ); try {Thread.sleep(1500);}catch(Exception ex){} this.creer(0); ; break;
 				case  2 : Console.print("\n\tRecuperation des fichiers config ..."); try {Thread.sleep(1500);}catch(Exception ex){} this.charger(0) ; break;
 				case  3 : Console.print("\n\tRecuperation des fichiers config ..."); try {Thread.sleep(1500);}catch(Exception ex){} this.modifier(0); break;
 				default : Console.println("\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ ")" );
@@ -77,10 +77,73 @@ public class IHMCUI
 		System.exit (0);
 	}
 	
-	private void creer()
+	private void creer(int selec)
 	{
-		
-		//sauvegarder un fichier en config
+		//creer un diagramme de la selection
+		this.entete();
+
+		String[] listeS = this.ctrl.getClasse(); //chargement des fichiers
+
+		//affichage des fichiers
+		if(listeS != null)
+		{
+			int tMaxConfig  = this.ctrl.getTailleMaxFichier(); //recuperation de la taille max dans les fichiers
+			this.enteteTab(tMaxConfig); // création bordure de tableau
+			for (int f = 0; f < listeS.length; f++)
+			{
+				if(f == selec)
+				{
+					Console.print(this.col("\t---->", 'B'));
+					this.afficherConfig(listeS[f], tMaxConfig);
+				}
+				else
+				{
+					Console.print(this.col("\t     ", 'B'));
+					this.afficherConfig(listeS[f], tMaxConfig);
+				}
+			}
+			Console.print("\t     +" + nSep( tMaxConfig +2, "-") + "+" + nSep(18, "-") + "+" + nSep(18, "-") + "+\n");
+		}
+		else { Console.print(this.col("\tAucune classe java dans le repertoire classe", 'R')); try {Thread.sleep(3000);} catch (Exception ex) {} }
+
+		char saisie = this.menuSelection();
+		if(saisie== '/') { this.menu(); }
+		if(saisie== '*')
+		{
+			String nomFichier = listeS[selec].substring(0, listeS[selec].split("\\|")[0].length());
+			Console.print("\n\t\tEnvoi vers le metier du fichier : " + this.col(nomFichier, 'B')+"\n");
+			try{Thread.sleep(3000);}catch (Exception ex){}
+			this.ctrl.CreateNewDiagramme(nomFichier);
+
+			Console.print("Auteur : ");
+			Console.print(this.setCE('B'));
+			String auteur = getString() ;
+			Console.print(this.setCE(this.coul));
+
+			Console.print("Nom Fichier : ");
+			Console.print(this.setCE('B'));
+			String nomFichierConfig = getString() ;
+			Console.print(this.setCE(this.coul));
+			Console.print(this.ctrl.CreateConfigFile(nomFichierConfig,auteur));
+			this.getString();
+		}
+
+
+		int newSel = selec;
+		if(saisie== '+')
+		{
+			newSel--;
+			if(newSel < 0) { this.creer(listeS.length -1); } //torique haut
+			else           { this.creer(newSel);           } //on monte
+		}
+		if(saisie== '-')
+		{
+			newSel++;
+			if(newSel > listeS.length -1) { this.creer(0);     }//torique bas
+			else                          { this.creer(newSel); 	}//on descend
+		}
+
+		this.menu();
 	}
 	
 	private void charger(int selec)
@@ -94,13 +157,13 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeC != null)
 		{
-			int tMaxConfig  = this.ctrl.getTailleMaxConfig(); //recuperation de la taille max dans les fichiers
+			int tMaxConfig  = this.ctrl.getTailleMaxFichier(); //recuperation de la taille max dans les fichiers
 			this.enteteTab(tMaxConfig); // création bordure de tableau
 			for (int f = 0; f < listeC.length; f++)
 			{
 				if(f == selec)
 				{
-					Console.print(this.col("\t---->", 'B'));
+					Console.print(this.col("\t────>", 'B'));
 					this.afficherConfig(listeC[f], tMaxConfig);
 				}
 				else
@@ -152,13 +215,13 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeC != null)
 		{
-			int tMaxConfig  = this.ctrl.getTailleMaxConfig(); //recuperation de la taille max dans les fichiers
+			int tMaxConfig  = this.ctrl.getTailleMaxFichier(); //recuperation de la taille max dans les fichiers
 			this.enteteTab(tMaxConfig); // création bordure de tableau
 			for (int f = 0; f < listeC.length; f++)
 			{
 				if(f == selec)
 				{
-					Console.print(this.col("\t---->", 'B'));
+					Console.print(this.col("\t────>", 'B'));
 					this.afficherConfig(listeC[f], tMaxConfig);
 				}
 				else
