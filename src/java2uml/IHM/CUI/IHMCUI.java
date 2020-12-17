@@ -109,7 +109,7 @@ public class IHMCUI
 		}
 		else { Console.print(this.col("\tAucune classe java dans le repertoire classe", 'R')); try {Thread.sleep(3000);} catch (Exception ex) {} }
 
-		char saisie = this.menuSelection();
+		char saisie = this.menuSelection(true);
 		if(saisie== '/') { this.menu(); }
 		if(saisie== '*')
 		{
@@ -267,13 +267,14 @@ public class IHMCUI
 	
 	private void supprimer(int selec)
 	{
-		return;
+		
 	}
 	
-	private char menuSelection()
+	private char menuSelection(boolean multi)
 	{
 		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
 		               + "\t\t (" +this.col("+", 'B')+ ") : v descendre\n"
+		               + "\t\t (" +this.col(".", 'B')+ ") :   selectionner\n"
 		               + "\t\t (" +this.col("*", 'B')+ ") :   valider\n"
 		               + "\t\t (" +this.col("/", 'B')+ ") :   annuler\n"
 		               + "\tsaisie : ");
