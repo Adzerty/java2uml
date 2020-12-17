@@ -114,9 +114,9 @@ public class PanelPrc extends JPanel {
 		super.paint(g);
 		
 		int x1 = this.ensCoord.get(0).getX()+this.ensPanelEntite.get(0).getWidth();
-		int y1 = (this.ensCoord.get(0).getY()+this.ensPanelEntite.get(0).getHeight())/2; 
+		int y1 = (this.ensCoord.get(0).getY()+(this.ensPanelEntite.get(0).getHeight()/2)); 
 		int x2 = this.ensCoord.get(1).getX();
-		int y2 = (this.ensCoord.get(1).getY()+this.ensPanelEntite.get(1).getHeight())/2;
+		int y2 = (this.ensCoord.get(1).getY()+(this.ensPanelEntite.get(1).getHeight()/2));
 		
 		g.drawLine(x1 , y1, x2,y2 );
 	}
