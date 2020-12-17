@@ -25,15 +25,14 @@ import java.io.IOException;
 
 public class Controleur
 {
-	private IHMCUI ihmCUI;
-	private IHMGUI ihmGUI;
+	private IHMCUI    ihmCUI;
 	private Diagramme diagTemp;
 
 	public Controleur()
 	{
 		this.ihmCUI = new IHMCUI (this);
 		
-		if(this.ihmCUI.choixGraphique() == 'G')	{ this.ihmGUI = new IHMGUI(this); } 
+		if(this.ihmCUI.choixGraphique() == 'G')	{ new IHMGUI(this); } 
 		else                                    { this.ihmCUI.start(); }
 	}
 	
@@ -79,10 +78,10 @@ public class Controleur
 		}
 	}
 	
-	public int getTailleMaxFichier()
+	public int getTailleMaxFichier(String rep)
 	{
 		int max = 0;
-		File repertoire = new File("./config");
+		File repertoire = new File(rep);
 		String liste[] = repertoire.list();
 		
 		for(String s : liste)
@@ -139,11 +138,12 @@ public class Controleur
         return diagramme;
     }
 
-	public void CreateNewDiagramme(String nomFichier)
+	public void CreateNewDiagramme(String[] tabNomFichier)
 	{
-		nomFichier=nomFichier.replace(".java","");
-		String[] tab = {nomFichier};
-		diagTemp = new Diagramme(tab);
+		for(String s : tabNomFichier)
+			s = s.replace(".java","");
+		
+		diagTemp = new Diagramme(tabNomFichier);
 	}
 	public String CreateConfigFile(String nomFichier, String nomAuteur)
 	{
