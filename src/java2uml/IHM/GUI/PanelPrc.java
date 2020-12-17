@@ -5,6 +5,8 @@ import java2uml.metier.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -120,7 +122,4 @@ public class PanelPrc extends JPanel {
 		
 		g.drawLine(x1 , y1, x2,y2 );
 	}
-	
-
-
 }
