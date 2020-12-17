@@ -121,10 +121,21 @@ public class Entite
         }
 
         String ligneNom="\n│";
-        for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()-3) /2 ; i++)
-            ligneNom+=" ";
-        ligneNom+= type + " : ";
-        ligneNom+= nom;
+        if (estAbstraite)
+        {
+            for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()- " {abstract}".length()) /2 ; i++)
+                ligneNom+=" ";
+            ligneNom+= type + " : ";
+            ligneNom+= nom;
+            ligneNom+= " {abstract}";
+        }
+        else
+        {
+            for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()-" : ".length()) /2 ; i++)
+                ligneNom+=" ";
+                ligneNom+= type + " : ";
+                ligneNom+= nom;
+        }
         if(ligneNom.length()>maxTaille) maxTaille = ligneNom.length();
 
         return  maxTaille;
@@ -157,7 +168,7 @@ public class Entite
             {
                 String underline="";
                 for (int i = 0; i <maxTaille; i++)
-                    if(i<a.toStringNoType().length())
+                    if(i<tailleAttType)
                         underline+="¯";
                     else
                         underline+=" ";
@@ -181,21 +192,23 @@ public class Entite
         for (Methode m: ensMethode )
         {
             String temp="│";
+            String underline="";
             temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
             temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
+
             for (int i = temp.length(); i<=maxTaille;i++) temp+=" ";
             temp+="│";
-            if (m.isEstAbstraite()) temp = "│\033[3m"+temp.substring(1,temp.length()-1)+"\033[0m│";
             if(m.isEstStatique())
             {
-                String underline="";
                 for (int i = 0; i <maxTaille; i++)
-                    if(i<m.toStringNoReturnType().length())
+                    if(i<tailleMetType)
                         underline+="¯";
                     else
                         underline+=" ";
                 temp+="\n│"+underline+"│";
             }
+
+
             methode+=temp+"\n";
         }
 
@@ -205,15 +218,27 @@ public class Entite
             separation+="─";
 
         String ligneNom="\n│";
-        for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()-3) /2 ; i++)
+        if (estAbstraite)
+        {
+            for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()- " {abstract}".length()) /2 ; i++)
             ligneNom+=" ";
-        ligneNom+= type + " : ";
-        ligneNom+= nom;
+            ligneNom+= type + " : ";
+            ligneNom+= nom;
+            ligneNom+= " {abstract}";
+        }
+        else
+        {
+            for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()-" : ".length()) /2 ; i++)
+                ligneNom+=" ";
+                ligneNom+= type + " : ";
+                ligneNom+= nom;
+        }
+
         for (int i = ligneNom.length(); i <=maxTaille+1; i++)
             ligneNom+=" ";
 
         ligneNom+="│";
-        if (estAbstraite) ligneNom = "\n│\033[3m"+ligneNom.substring(2,ligneNom.length()-1)+"\033[0m│";
+
         ligneNom+="\n";
 
         sRet += "┌" + separation + "┐";
