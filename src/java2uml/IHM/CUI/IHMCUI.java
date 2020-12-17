@@ -15,7 +15,7 @@ public class IHMCUI
 		this.ctrl = ctrl;
 	}
 	
-	//Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ?
+	//Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ? 
 	public char choixGraphique()
 	{
 		
