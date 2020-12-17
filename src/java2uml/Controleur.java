@@ -44,7 +44,6 @@ public class Controleur
 	
 	public String[] getConfig()
 	{
-		//InputStream stream = Controleur.class.getClassLoader().getResourceAsStream("\\config"); Solution pour le -jar a developper
 
 		File repertoire = new File("./config");
 		
@@ -132,11 +131,13 @@ public class Controleur
 	}
 	
 	public String getContenuConfig(String nomFichier)
-	{
-		String diagramme = "\n\n\n\n\n";
-		diagramme+= new ConfigReader(nomFichier).toString();
-		return diagramme;
-	}
+    {
+        String diagramme = "\n\n\n\n\n";
+        ConfigReader temp = new ConfigReader(nomFichier);
+        diagramme+= temp.toString();
+        temp.CreateFile(nomFichier);
+        return diagramme;
+    }
 
 	public void CreateNewDiagramme(String nomFichier)
 	{
