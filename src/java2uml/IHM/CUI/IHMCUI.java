@@ -81,15 +81,11 @@ public class IHMCUI
 	
 	private void creer(int selec/* ,int[] tabSelec*/)
 	{
+		Controleur.compilation();
 		//creer un diagramme de la selection
 		this.entete();
 
 		String[] listeS = this.ctrl.getClasse(); //chargement des fichiers
-		
-		/*if(tabSelec == null)
-		{
-			
-		}*/
 
 		//affichage des fichiers
 		if(listeS != null)
@@ -102,7 +98,7 @@ public class IHMCUI
 				if(f == selec)
 				{
 					Console.print(this.col("\t────>", 'B'));
-					this.afficherConfig(listeS[f], tMaxConfig);
+					this.afficherFichier(listeS[f], tMAxFichier);
 				}
 				else
 				{
@@ -183,7 +179,7 @@ public class IHMCUI
 				else
 				{
 					Console.print(this.col("\t    ", 'B'));
-					this.afficherConfig(listeC[f], tMaxConfig);
+					this.afficherFichier(listeC[f], tMAxFichier);
 				}
 			}
 			this.finTab(tMAxFichier);

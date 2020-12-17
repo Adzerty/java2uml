@@ -289,27 +289,13 @@ public class ConfigGenerator {
     	}
         return sRet;
     }
-	
-	private static void compilation() {
-	    
-    	String repDest = "./fichierCompile";
-    	String commande = "javac -d "+ repDest + " ./fichierJava/*.java";   
-    	
-    	try {
-			Process p = Runtime.getRuntime().exec(commande);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 
-	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		String[] tabNoms = {"Train", "Vehicule", "Train$TrainIterator"};
 		Diagramme d = new Diagramme(tabNoms);
 		
 		compilation();
 		ConfigGenerator cGen = new ConfigGenerator(d, "Test", "Bernard");
-	}
+	}*/
 
 }
