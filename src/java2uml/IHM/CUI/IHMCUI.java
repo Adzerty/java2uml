@@ -142,19 +142,19 @@ public class IHMCUI
 			
 			this.ctrl.CreateNewDiagramme(tabFichierJava);//envoyé un tabString
 
-			Console.print("\t\tAuteur      : ");
+			Console.print("\n\t\tAuteur      : ");
 			Console.print(this.setCE('B'));
 			String auteur = getString() ;
 			Console.print(this.setCE(this.coul));
 			
-			if(auteur == null) { auteur = " "; }
+			if(auteur.equals("")) { auteur = "?"; }
 			
 			Console.print("\t\tNom Fichier : ");
 			Console.print(this.setCE('B'));
 			String nomFichierConfig = getString() ;
 			Console.print(this.setCE(this.coul));
 			
-			if(nomFichierConfig == null) { nomFichierConfig = " "; }
+			if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }
 			
 			Console.print(this.ctrl.CreateConfigFile(nomFichierConfig, auteur));
 			this.getString();
@@ -212,7 +212,7 @@ public class IHMCUI
 			{
 				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
 				Console.print("\n\t\tLecture du fichier : " + this.col(nomFichier, 'B'));
-				try{Thread.sleep(3000);}catch (Exception ex){}
+				try{Thread.sleep(1500);}catch (Exception ex){}
 				this.entete();
 				Console.print(this.ctrl.getContenuConfig(nomFichier));
 				this.getString();
@@ -233,7 +233,7 @@ public class IHMCUI
 				else                          { this.charger(newSel); }//on descend
 			}
 		}
-		else { Console.print(this.col("\tAucun fichier de config sauvegarde", 'R')); try {Thread.sleep(1000);} catch (Exception ex) {} }
+		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
 	}
 	
 	private void modifier(int selec)
@@ -271,7 +271,7 @@ public class IHMCUI
 			{
 				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
 				Console.print("\tOuverture du fichier : " + this.col(nomFichier, 'B'));
-				try{Thread.sleep(3000);}catch (Exception ex){}
+				try{Thread.sleep(1500);}catch (Exception ex){}
 				this.ctrl.ouvrirEnEdit(nomFichier);
 			}
 			
@@ -285,11 +285,11 @@ public class IHMCUI
 			if(saisie== '+')//Descendre
 			{
 				newSel++;
-				if(newSel > listeC.length -1) { this.modifier(0);     }//torique bas
+				if(newSel > listeC.length -1) { this.modifier(0);      }//torique bas
 				else                          { this.modifier(newSel); }//on descend
 			}
 		}
-		else { Console.print(this.col("\tAucun fichier de configuration sauvegardé dans /config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
+		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
 	}
 	
 	private void supprimer(int selec)

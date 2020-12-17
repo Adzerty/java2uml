@@ -76,98 +76,6 @@ public class Controleur
 		}
 	}
 	
-	public int getTailleMaxFichier(String rep)
-	{
-		int max = 0;
-		File repertoire = new File(rep);
-		String liste[] = repertoire.list();
-		
-		for(String s : liste)
-		{
-			if(max < s.length())
-				max = s.length();
-		}
-		return max;
-	}
-	
-	public String[] getSource()
-	{
-		
-		File repertoire = new File("./config");
-		
-		String liste[] = repertoire.list();
-		
-		String tabF [] = new String[liste.length];
-		
-		String dateC = "????-??-??T??:??:??";
-		String dateM = "????-??-??T??:??:??";
-
-		if (liste.length != 0)//si il existe des anciennes config
-		{
-			for (int i = 0; i < liste.length; i++)
-			{
-				tabF[i] = liste[i];
-				try
-				{
-					Path file = Paths.get("./config/" + liste[i]);
-					BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
-					dateC = attr.creationTime().toString();
-					dateM = attr.lastModifiedTime().toString();
-				}
-				catch (IOException e) { e.printStackTrace(); System.out.println("Erreur lors de la recuperation des dates du fichier");}
-				
-				tabF[i] += "|" + dateC.substring(0,10) + " " + dateC.toString().substring(11,16) + "|" + dateM.substring(0,10) + " " + dateM.toString().substring(11,16) ;
-			}
-			return tabF;
-		}
-		else
-		{
-			//Aucune sauvegarde de .config
-			return null;
-		}
-	}
-	
-	public String getContenuConfig(String nomFichier)
-    {
-        String diagramme = "\n\n\n\n\n";
-        ConfigReader temp = new ConfigReader(nomFichier);
-        diagramme+= temp.toString();
-        temp.CreateFile(nomFichier);
-        return diagramme;
-    }
-
-	public void CreateNewDiagramme(String[] tabNomFichier)
-	{
-		for(String s : tabNomFichier)
-			s = s.replace(".java","");
-		
-		diagTemp = new Diagramme(tabNomFichier);
-	}
-	public String CreateConfigFile(String nomFichier, String nomAuteur)
-	{
-		new ConfigGenerator(diagTemp, nomFichier, nomAuteur);
-		return getContenuConfig(nomFichier+".txt");
-
-	}
-	
-	public void ouvrirEnEdit(String nomFichier)
-	{
-		File file = new File("./config/" + nomFichier);
-        if (!file.exists() && file.length() < 0)
-        {
-            System.out.println("Le fichier n'existe pas!");
-            return;
-        }
-        Desktop desktop = null;
-        if (Desktop.isDesktopSupported()) {
-            desktop = Desktop.getDesktop();
-        }
-        try {
-            desktop.edit(file);
-        } catch (IOException ex) {
-            Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
-        }
-	}
 	public String[] getClasse()
 	{
 
@@ -204,4 +112,61 @@ public class Controleur
 			return null;
 		}
 	}
+	
+	public int      getTailleMaxFichier(String rep)
+	{
+		int max = 0;
+		File repertoire = new File(rep);
+		String liste[] = repertoire.list();
+		
+		for(String s : liste)
+		{
+			if(max < s.length())
+				max = s.length();
+		}
+		return max;
+	}
+	
+	public String   getContenuConfig(String nomFichier)
+    {
+        String diagramme = "\n\n\n\n\n";
+        ConfigReader temp = new ConfigReader(nomFichier);
+        diagramme+= temp.toString();
+        temp.CreateFile(nomFichier);
+        return diagramme;
+    }
+
+	public void     CreateNewDiagramme(String[] tabNomFichier)
+	{
+		for(String s : tabNomFichier)
+			s = s.replace(".java","");
+		
+		new Diagramme(tabNomFichier);
+	}
+	
+	public String   CreateConfigFile(String nomFichier, String nomAuteur)
+	{
+		new ConfigGenerator(diagTemp, nomFichier, nomAuteur);
+		return getContenuConfig(nomFichier+".txt");
+	}
+	
+	public void     ouvrirEnEdit(String nomFichier)
+	{
+		File file = new File("./config/" + nomFichier);
+        if (!file.exists() && file.length() < 0)
+        {
+            System.out.println("Le fichier n'existe pas!");
+            return;
+        }
+        Desktop desktop = null;
+        if (Desktop.isDesktopSupported()) {
+            desktop = Desktop.getDesktop();
+        }
+        try {
+            desktop.edit(file);
+        } catch (IOException ex) {
+            Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	}
+	
 }
