@@ -7,12 +7,11 @@ public class IHMGUI
 	/*private ConfigReader conf;
 	private FramePrc framePrincipale;*/
 	
-	private FrameChoixConfig fcc;
+	private FrameAccueil frameAccueil;
 
 	public IHMGUI() {
-		/*this.conf = new ConfigReader("test-2.config");
-		this.framePrincipale = new FramePrc(this.conf);*/
-		this.fcc = new FrameChoixConfig();
+		
+		this.frameAccueil = new FrameAccueil();
 	}
 	
 	public static void main( String[] argv ) {

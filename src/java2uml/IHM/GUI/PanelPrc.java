@@ -34,13 +34,15 @@ public class PanelPrc extends JPanel {
 			for(Association a: e.getEnsAssociations())
 			{
 				ensAssociation.add(a);
-				System.out.println("Ici :" + a.getClasseDroite()+" "+a.getClasseGauche());
 			}
 			
 			this.ensPanelEntite.add(new PanelEntite(e,this,identifiant));
 			identifiant++;
 			
 		}
+		
+		
+		// POSITIONNEMENT DES CLASSES AU DEPART 
 		
 		int x , y ;//coord de panel entite 
 		x=10;
@@ -73,13 +75,12 @@ public class PanelPrc extends JPanel {
 			
 			x+=pe.getWidth()+30;
 			
+			// JUSQU'ICI
 		}
 		
-		for(Coord c : ensCoord) {
-			System.out.println(c);
-		}
 		this.setVisible(true);
 	}
+	
 	
 	public void press(MouseEvent e)
 	{
@@ -89,6 +90,8 @@ public class PanelPrc extends JPanel {
 			this.posSourisY = e.getY();	
 			
 		}
+		
+		//System.out.println(this.getWidth() +" "+this.getHeight());
 		
 	}
 	
@@ -131,7 +134,8 @@ public class PanelPrc extends JPanel {
 						y2 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));
 					}
 					
-				}					
+				}
+				
 				g.drawLine(x1 , y1, x2,y2 );
 		}
 	}
