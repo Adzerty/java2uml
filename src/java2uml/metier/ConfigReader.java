@@ -243,7 +243,6 @@ public class ConfigReader
         catch(Exception e)
         {
             System.err.println("erreur fichier de config ligne :" + compteurLigne);
-            e.printStackTrace();
         }
     }
     public ArrayList<Entite> getEnsEntite() {

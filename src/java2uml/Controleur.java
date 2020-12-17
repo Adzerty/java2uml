@@ -31,7 +31,7 @@ public class Controleur
 
 	public Controleur()
 	{
-		compilation();
+		//compilation();
 		this.ihmCUI = new IHMCUI (this);
 		
 		if(this.ihmCUI.choixGraphique() == 'G')	{ this.ihmGUI = new IHMGUI(this); } 
