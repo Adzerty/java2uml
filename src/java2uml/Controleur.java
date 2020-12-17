@@ -140,16 +140,9 @@ public class Controleur
 
 	public void     CreateNewDiagramme(String[] tabNomFichier)
 	{
-		nomFichier=nomFichier.replace(".java","");
-		String[] tab = {nomFichier};
-		diagTemp = new Diagramme(tab);
 		for(int f = 0; f < tabNomFichier.length; f++)
 		{
 			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
-		}
-		for (String s : tabNomFichier ) {
-			System.out.println(s);
-
 		}
 		this.diagTemp = new Diagramme(tabNomFichier);
 	}
@@ -178,65 +171,13 @@ public class Controleur
             Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
         }
 	}
-	
-	public static void compilation()
-	{
-        String repDest = "./fichierCompile";
-        String commande = "javac -d "+ repDest + " ./fichierJava/*.java";
-
-		File repertoire = new File("./fichierJava");
-
-		String liste[] = repertoire.list();
-
-		String tabF [] = new String[liste.length];
-
-		String dateC = "????-??-??T??:??:??";
-		String dateM = "????-??-??T??:??:??";
-
-		if (liste.length != 0)//si il existe des classe
-		{
-			for (int i = 0; i < liste.length; i++)
-			{
-				tabF[i] = liste[i];
-				try
-				{
-					Path file = Paths.get("./fichierJava/" + liste[i]);
-					BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
-					dateC = attr.creationTime().toString();
-					dateM = attr.lastModifiedTime().toString();
-				}
-				catch (IOException e) { e.printStackTrace(); System.out.println("Erreur lors de la recuperation des dates du fichier");}
-
-				tabF[i] += "|" + dateC.substring(0,10) + " " + dateC.toString().substring(11,16) + "|" + dateM.substring(0,10) + " " + dateM.toString().substring(11,16) ;
-			}
-			return tabF;
-		}
-		else
-		{
-			//Aucune sauvegarde de classe
-			return null;
-		}
-	}
-	
+		
 	public static void compilation()
 	{
         String repDest = "./fichierCompile/";
         File rep = new File("./fichierJava/");
 		String listeJava[] = rep.list();
 
-		/*for (String s : listeJava )
-		{
-			String commande = "javac -d "+ repDest + " ./fichierJava/"+s;
-			try {
-				Runtime rt = Runtime.getRuntime();
-				Process proc = rt.exec(commande);
-				//int exitVal = proc.waitFor();
-				//if(exitVal!=0) System.out.println("erreur compilation sur fichier :"+ s);
-			} catch (Throwable t)
-			{
-				t.printStackTrace();
-			}
-		}*/
 		String commande = "javac -d "+ repDest + " ./fichierJava/*.java";
 		try {
 			Runtime rt = Runtime.getRuntime();

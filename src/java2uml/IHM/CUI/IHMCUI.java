@@ -211,7 +211,7 @@ public class IHMCUI
 				else
 				{
 					Console.print(this.col("\t    ", 'B'));
-					this.afficherFichier(listeC[f], tMAxFichier);
+					this.afficherFichier(listeC[f],false, tMAxFichier);
 				}
 			}
 			this.finTab(tMAxFichier);
