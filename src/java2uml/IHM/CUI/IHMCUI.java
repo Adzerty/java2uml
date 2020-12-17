@@ -97,7 +97,7 @@ public class IHMCUI
 				if(f == selec)
 				{
 					Console.print(this.col("\t────>", 'B'));
-					this.afficherFichier(listeS[f], tMAxFichier);
+					this.afficherConfig(listeS[f], tMaxConfig);
 				}
 				else
 				{
@@ -172,8 +172,8 @@ public class IHMCUI
 				}
 				else
 				{
-					Console.print(this.col("\t     ", 'B'));
-					this.afficherFichier(listeC[f], tMAxFichier);
+					Console.print(this.col("\t    ", 'B'));
+					this.afficherConfig(listeC[f], tMaxConfig);
 				}
 			}
 			this.finTab(tMAxFichier);
