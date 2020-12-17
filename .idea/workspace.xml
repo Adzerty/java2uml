@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50aec037-29f9-4d51-aa83-ccf306d11941" name="Default Changelist" comment="">
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTest.config" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTest.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTestAssociations.config" beforeDir="false" />
@@ -17,25 +15,6 @@
       <change beforePath="$PROJECT_DIR$/src/java2uml/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/Controleur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
-=======
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/Coord.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/test1$test2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/test1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/testInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierJava/Coord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierJava/test1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/java2uml.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/Controleur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Association.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Association.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/JavaReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/JavaReader.java" afterDir="false" />
->>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -243,13 +243,8 @@ public class ConfigReader
         catch(Exception e)
         {
             System.err.println("erreur fichier de config ligne :" + compteurLigne);
-            e.printStackTrace();
         }
     }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     public ArrayList<Entite> getEnsEntite() {
         return ensEntite;
     }

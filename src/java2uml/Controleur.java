@@ -33,6 +33,7 @@ public class Controleur
 
 	public Controleur()
 	{
+		//compilation();
 		this.ihmCUI = new IHMCUI (this);
 		
 		if(this.ihmCUI.choixGraphique() == 'G')	{ this.ihmGUI = new IHMGUI(this); } 
@@ -46,7 +47,6 @@ public class Controleur
 	
 	public String[] getConfig()
 	{
-		//InputStream stream = Controleur.class.getClassLoader().getResourceAsStream("\\config"); Solution pour le -jar a developper
 
 		File repertoire = new File("./config");
 		
@@ -164,6 +164,18 @@ public class Controleur
 	{
 		new ConfigGenerator(this.diagTemp, nomFichier, nomAuteur);
 		return getContenuConfig(nomFichier+".txt");
+	}
+
+	public static void compilation() {
+
+		String repDest = "./fichierCompile";
+		String commande = "javac -d "+ repDest + " ./fichierJava/*.java";
+
+		try {
+			Process p = Runtime.getRuntime().exec(commande);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void ouvrirEnEdit(String nomFichier)
