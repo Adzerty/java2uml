@@ -41,7 +41,7 @@ public class PanelPrc extends JPanel {
 				ensAssociation.add(a);
 				System.out.println("Ici :" + a.getClasseDroite()+" "+a.getClasseGauche());
 			}
-			
+
 			this.ensPanelEntite.add(new PanelEntite(e,this,identifiant));
 			identifiant++;
 			
@@ -69,15 +69,25 @@ public class PanelPrc extends JPanel {
             this.add(pe);
             
             angle += degreInc;
-            System.out.println("angle : " + angle+ "   cos : " + Math.cos(angle) + "   sin : "+ Math.sin(angle));
             x = (Math.cos(Math.toRadians(angle))*hauteurMax) + centerx;
             y = (Math.sin(Math.toRadians(angle))*hauteurMax) + centery;
+            pe.setEnsCoord();
         }
         
 		for(Coord c : ensCoord) {
 			System.out.println(c);
 		}
 		this.setVisible(true);
+	}
+	
+	public Coord getCoordOfJPanel( int id) {
+		Coord coord = null;
+		for( PanelEntite e : ensPanelEntite ) {
+			if( e.getId() == id ) {
+				coord = new Coord( e.getX(), e.getY());
+			}
+		}
+		return coord;
 	}
 	
 	public void press(MouseEvent e)
@@ -104,7 +114,6 @@ public class PanelPrc extends JPanel {
 		
 		
 		((PanelEntite) e.getSource()).setLocation(this.ensCoord.get(ident).getX(),this.ensCoord.get(ident).getY());
-		
 		repaint();
 	}
 	
@@ -146,31 +155,69 @@ public class PanelPrc extends JPanel {
 			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
 		}
 	}
+	
 	public void paint(Graphics g)
 	{
 		super.paint(g);
 		
-		int x1, y1, x2, y2;
-		x1 = y1 = x2 = y2 =0;
-		
+		for( PanelEntite pe : ensPanelEntite) {
+			pe.setEnsCoord();
+		}
 		for(Association a: this.ensAssociation)
 		{
+			ArrayList<Coord> ensCoordGauche = new ArrayList<>();
+			ArrayList<Coord> ensCoordDroite = new ArrayList<>();
+			
 				for(int i = 0; i < this.ensPanelEntite.size(); i++)
 				{					
 					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseGauche()))
 					{
-						x1 = this.ensCoord.get(i).getX()+this.ensPanelEntite.get(i).getWidth();
-						y1 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));	
+						/*x1 = this.ensCoord.get(i).getX()+this.ensPanelEntite.get(i).getWidth();
+						y1 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));*/	
+						ensCoordGauche = this.ensPanelEntite.get(i).getEnsCoord();
 					}
 					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseDroite()))
 					{
-						x2 = this.ensCoord.get(i).getX();
-						y2 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));
+						/*x2 = this.ensCoord.get(i).getX();
+						y2 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));*/
+						ensCoordDroite = this.ensPanelEntite.get(i).getEnsCoord();
 					}
 					
-				}			
-				System.out.println(a.getTypeAssociation());
-				drawArrow(g,x1 , y1, x2,y2, a.getTypeAssociation());
+				}
+				double xGauche = 0, yGauche = 0, xDroite = 0, yDroite = 0;
+				xGauche = ensCoordGauche.get(0).getX();
+				yGauche = ensCoordGauche.get(0).getY();
+				
+				xDroite = ensCoordDroite.get(0).getX();
+				yDroite = ensCoordDroite.get(0).getY();
+				
+				double xTmpGauche = 0;
+				double xTmpDroite = 0;
+				double yTmpGauche = 0;
+				double yTmpDroite = 0;
+				double tmpLongueur = 0;
+				
+				double longueur = Math.sqrt( Math.pow(xGauche - xDroite, 2) + Math.pow(yGauche - yDroite, 2) );
+				
+				for( int cpt = 0; cpt < ensCoordGauche.size(); cpt++ ) {
+					xTmpGauche = ensCoordGauche.get(cpt).getX();
+					yTmpGauche = ensCoordGauche.get(cpt).getY();
+					for( int tmp = 0; tmp < ensCoordDroite.size(); tmp++ ) {
+						xTmpDroite = ensCoordDroite.get(tmp).getX();
+						yTmpDroite = ensCoordDroite.get(tmp).getY();
+						tmpLongueur = Math.sqrt( Math.pow(xTmpGauche - xTmpDroite, 2) + Math.pow(yTmpGauche - yTmpDroite, 2) );
+						if( tmpLongueur <= longueur ) {
+							xGauche = xTmpGauche;
+							xDroite = xTmpDroite;
+							yGauche = yTmpGauche;
+							yDroite = yTmpDroite;
+							longueur = tmpLongueur;
+						}
+					}
+				}
+				System.out.println("Longueur inferieur : " + longueur);
+				//System.out.println(a.getTypeAssociation());
+				drawArrow(g, (int)Math.round(xGauche) , (int)Math.round(yGauche), (int)Math.round(xDroite),(int)Math.round(yDroite), a.getTypeAssociation());
 			 /*////////////////////////////////////////////////////////////:
 			  * 															/
 			  * 					g.drawString(texte, x, y );				/

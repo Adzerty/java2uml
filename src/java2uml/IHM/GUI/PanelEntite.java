@@ -7,6 +7,7 @@ import java2uml.metier.*;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class PanelEntite extends JPanel implements MouseListener  {
 	
@@ -16,6 +17,7 @@ public class PanelEntite extends JPanel implements MouseListener  {
 	private PanelPrc panelPrincipal;
 	private int identifiant;
 	private String nom;
+	private ArrayList<Coord> ensCoord = new ArrayList<>();
 	
 	
 	public PanelEntite(Entite e, PanelPrc panelPrincipal, int identifiant){
@@ -55,6 +57,16 @@ public class PanelEntite extends JPanel implements MouseListener  {
 		this.setVisible(true);		
 	}
 	
+	public void setEnsCoord() {
+		this.ensCoord.add(new Coord(this.getX(), this.getY()));
+		this.ensCoord.add(new Coord(this.getX()+(this.getWidth()/2), this.getY()));
+		this.ensCoord.add(new Coord(this.getX()+this.getWidth(), this.getY()));
+		this.ensCoord.add(new Coord(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2)));
+		this.ensCoord.add(new Coord(this.getX()+this.getWidth(), this.getY()+this.getHeight()));
+		this.ensCoord.add(new Coord(this.getX()+(this.getWidth()/2), this.getY()+this.getHeight()));
+		this.ensCoord.add(new Coord(this.getX(), this.getY()+this.getHeight()));
+		this.ensCoord.add(new Coord(this.getX(), this.getY()+(this.getHeight()/2)));
+	}
 	public String getNom()
 	{
 		return this.nom;
@@ -64,6 +76,9 @@ public class PanelEntite extends JPanel implements MouseListener  {
 		return this.identifiant;
 	}
 	
+	public ArrayList<Coord> getEnsCoord() {
+		return this.ensCoord;
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
