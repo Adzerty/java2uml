@@ -14,6 +14,8 @@ public class IHMCUI
 	{
 		this.ctrl = ctrl;
 	}
+	public String repJava = "../fichierJava/";
+	public String repConfig = "../config/";
 	
 	//Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ?
 	public char choixGraphique()
@@ -67,10 +69,17 @@ public class IHMCUI
 			switch (choix)
 			{
 				case  0 : break;
+<<<<<<< Updated upstream
 				case  1 : this.creer(0)   ; break;
 				case  2 : this.charger(0) ; break;
 				case  3 : this.modifier(0); break;
 				case  4 : Console.println("\n\tSuppression des fichiers config ..."); try {Thread.sleep(800);}catch(Exception ex){}; break;
+=======
+				case  1 : Console.println("Compilation en cours...");this.ctrl.compilation();this.creer(0, null); break;
+				case  2 : this.charger(0    ); break;
+				case  3 : this.modifier(0   ); break;
+				case  4 : this.supprimer(0  ); Console.println("\n\tSuppression des fichiers config ..."); try {Thread.sleep(800);}catch(Exception ex){}; break;
+>>>>>>> Stashed changes
 				default : Console.println("\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ ")" ); try {Thread.sleep(1000);}catch(Exception ex){}; break;
 			}
 		}while(choix != 0);
@@ -92,7 +101,16 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeS != null)
 		{
+<<<<<<< Updated upstream
 			int tMAxFichier  = this.ctrl.getTailleMaxFichier(); //recuperation de la taille max dans les fichiers
+=======
+			if(tabSelec == null)
+			{
+				tabSelec = new boolean[listeS.length];
+			}
+			
+			int tMAxFichier  = this.ctrl.getTailleMaxFichier(repJava); //recuperation de la taille max dans les fichiers
+>>>>>>> Stashed changes
 			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
 			this.debTab(tMAxFichier); // création bordure de tableau
 			for (int f = 0; f < listeS.length; f++)
@@ -168,7 +186,11 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeC != null)
 		{
+<<<<<<< Updated upstream
 			int tMAxFichier  = this.ctrl.getTailleMaxFichier(); //recuperation de la taille max dans les fichiers
+=======
+			int tMAxFichier  = this.ctrl.getTailleMaxFichier(repConfig); //recuperation de la taille max dans les fichiers
+>>>>>>> Stashed changes
 			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
 			this.debTab(tMAxFichier); // création bordure de tableau
 			for (int f = 0; f < listeC.length; f++)
@@ -227,7 +249,11 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeC != null)
 		{
+<<<<<<< Updated upstream
 			int tMaxConfig  = this.ctrl.getTailleMaxFichier(); //recuperation de la taille max dans les fichiers
+=======
+			int tMaxConfig  = this.ctrl.getTailleMaxFichier(repConfig); //recuperation de la taille max dans les fichiers
+>>>>>>> Stashed changes
 			if(tMaxConfig < 16) tMaxConfig = 16;//Pour en-tete stable
 			this.debTab(tMaxConfig); // création bordure de tableau
 			for (int f = 0; f < listeC.length; f++)

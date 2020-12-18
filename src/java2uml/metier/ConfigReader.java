@@ -11,13 +11,14 @@ public class ConfigReader
 {
     private ArrayList<Entite> ensEntite;
     private int compteurLigne=0;
+    private String repConfig="../config/";
 
     public ConfigReader(String fichier)
     {
         ensEntite = new ArrayList<>();
         try
         {
-            Scanner sc = new Scanner(new File("./config/"+fichier));
+            Scanner sc = new Scanner(new File(repConfig+fichier));
             while(sc.hasNextLine()) {
                 String nomEntite = "";
                 ArrayList<Attribut> ensAttribut = new ArrayList<>();
@@ -136,13 +137,14 @@ public class ConfigReader
                                 if (parametres.length() > 1) {
                                     String[] tabParam;
                                     if (parametres.contains(";")) {
-                                        tabParam = parametres.split(";");
+                                        tabParam = parametres.split("; ");
                                     } else {
                                         tabParam = new String[1];
                                         tabParam[0] = parametres;
                                     }
 
-                                    for (String str : tabParam) {
+                                    for (String str : tabParam)
+                                    {
                                         String nomVar = "";
                                         String typeParam = "";
                                         cpt = 0;
@@ -151,6 +153,7 @@ public class ConfigReader
                                             typeParam += str.charAt(cpt);
                                             cpt++;
                                         }
+                                        cpt++;
                                         while (cpt < str.length()) {
                                             nomVar += str.charAt(cpt);
                                             cpt++;
@@ -266,15 +269,23 @@ public class ConfigReader
     {
         PrintWriter writer;
         try {
+<<<<<<< Updated upstream
             File f = new File("./DiagrammeTxt",nomFichier);
+=======
+            File f = new File("../DiagrammeTxt",nomFichier);
+>>>>>>> Stashed changes
             writer = new PrintWriter(f, "UTF-8");
             writer.println(this.toString());
             writer.close();
         } catch (Exception e) {e.printStackTrace();}
+<<<<<<< Updated upstream
     }
 
     public static void main(String[] args) {
        ConfigReader conf = new ConfigReader("FichierTest.config");
         System.out.println(conf.toString());
+=======
+>>>>>>> Stashed changes
     }
+
 }

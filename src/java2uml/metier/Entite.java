@@ -120,24 +120,16 @@ public class Entite
             temp+="\n";
         }
 
-        String ligneNom="\n│";
         if (estAbstraite)
         {
-            for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()- " {abstract}".length()) /2 ; i++)
-                ligneNom+=" ";
-            ligneNom+= type + " : ";
-            ligneNom+= nom;
-            ligneNom+= " {abstract}";
+            String temp = nom + " {abstract}";
+            if(temp.length()>maxTaille) maxTaille = temp.length();
         }
         else
-        {
-            for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()-" : ".length()) /2 ; i++)
-                ligneNom+=" ";
-                ligneNom+= type + " : ";
-                ligneNom+= nom;
-        }
-        if(ligneNom.length()>maxTaille) maxTaille = ligneNom.length();
+            if(nom.length()>maxTaille) maxTaille = nom.length();
 
+        if(type.contains("Enum"))   if("<<enumeration>>".length()>maxTaille) maxTaille = "<<enumeration>>".length();
+        else if(type.contains("Interface")) if("Interface".length()>maxTaille) maxTaille = "Interface".length();
         return  maxTaille;
     }
     @Override
@@ -218,24 +210,35 @@ public class Entite
             separation+="─";
 
         String ligneNom="\n│";
+        if(type.contains("Enum"))
+        {
+            for (int i = 0; i < (int) (maxTaille - "<<enumeration>>".length()) /2 ; i++)  ligneNom+=" ";
+            ligneNom+= "<<enumeration>>";
+        }
+        else if(type.contains("Interface"))
+        {
+            for (int i = 0; i < (int) (maxTaille - "<<interface>>".length()) /2 ; i++)  ligneNom+=" ";
+            ligneNom+= "<<interface>>";
+        }
+        for (int i = ligneNom.length()-1; i <= maxTaille; i++)  ligneNom+=" ";
+        ligneNom+="│\n";
+
         if (estAbstraite)
         {
-            for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()- " {abstract}".length()) /2 ; i++)
-            ligneNom+=" ";
-            ligneNom+= type + " : ";
-            ligneNom+= nom;
-            ligneNom+= " {abstract}";
+            String temp = "│";
+            for (int i = 0; i < (int) (maxTaille - nom.length()- " {abstract}".length()) /2 ; i++) temp+= ' ';
+            temp+= nom + " {abstract}";
+            for (int i = temp.length(); i <= maxTaille; i++)  temp+=" ";
+            ligneNom+=temp;
         }
         else
         {
-            for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()-" : ".length()) /2 ; i++)
-                ligneNom+=" ";
-                ligneNom+= type + " : ";
-                ligneNom+= nom;
+            String temp = "│";
+            for (int i = 0; i < (int) (maxTaille - nom.length()) /2 ; i++) temp+= ' ';
+            temp+=nom;
+            for (int i = temp.length(); i <= maxTaille; i++)  temp+=" ";
+            ligneNom+=temp;
         }
-
-        for (int i = ligneNom.length(); i <=maxTaille+1; i++)
-            ligneNom+=" ";
 
         ligneNom+="│";
 
