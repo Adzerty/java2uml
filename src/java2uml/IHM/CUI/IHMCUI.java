@@ -83,11 +83,8 @@ public class IHMCUI
 	
 	private void creer(int selec ,boolean[] tabSelec)
 	{
-		Controleur.compilation();
 		//creer un diagramme de la selection
 		this.entete();
-		
-		Controleur.compilation();
 
 		String[] listeS = this.ctrl.getClasse(); //chargement des fichiers
 

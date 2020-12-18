@@ -156,13 +156,6 @@ public class Controleur
 
 	public void     CreateNewDiagramme(String[] tabNomFichier)
 	{
-		String[] tab = {nomFichier};
-		diagTemp = new Diagramme(tab);
-		for(int f = 0; f < tabNomFichier.length; f++)
-		{
-			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
-		}
-		this.diagTemp = new Diagramme(tabNomFichier);
 		for(int f = 0; f < tabNomFichier.length; f++)
 			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
 		this.diagTemp = new Diagramme(tabNomFichier);
@@ -192,28 +185,13 @@ public class Controleur
             Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
         }
 	}
-		
-	public static void compilation()
-	{
-        String repDest = "./fichierCompile/";
-        File rep = new File("./fichierJava/");
-		String listeJava[] = rep.list();
-
-		String commande = "javac -d "+ repDest + " ./fichierJava/*.java";
-		try {
-			Runtime rt = Runtime.getRuntime();
-			Process proc = rt.exec(commande);
-		} catch (Throwable t)
-		{
-			t.printStackTrace();
-		}
-    }
+	
 	public void compilation()
 	{
         File rep = new File(repJava);
 		String listeJava[] = rep.list();
 
-		/*for (String s : listeJava )
+		for (String s : listeJava )
 		{
 			String commande = "javac -d "+ repDest + " ./fichierJava/"+s;
 			try {
@@ -225,7 +203,7 @@ public class Controleur
 			{
 				t.printStackTrace();
 			}
-		}*/
+		}
 
 		String commande = "javac -parameters -d "+ repCompile +' ' +repJava+"*.java";
 		try {
