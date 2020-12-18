@@ -1,7 +1,5 @@
 package java2uml.metier;
 
-import org.w3c.dom.css.CSSMediaRule;
-
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -270,7 +268,7 @@ public class ConfigReader
     {
         PrintWriter writer;
         try {
-            File f = new File("../DiagrammeTxt",nomFichier);
+            File f = new File("../diagrammes",nomFichier);
             writer = new PrintWriter(f, "UTF-8");
             writer.println(this.toString());
             writer.close();

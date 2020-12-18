@@ -114,7 +114,8 @@ public class Entite
         {
             String temp="";
             temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
-            temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
+            if(m.getTypeDeRetour().contains("{constructeur}"))
+                temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
 
             if(temp.length()>maxTaille)maxTaille=temp.length();
             temp+="\n";
@@ -186,7 +187,8 @@ public class Entite
             String temp="│";
             String underline="";
             temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
-            temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
+            if(!m.getTypeDeRetour().contains("{constructeur}"))
+                temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
 
             for (int i = temp.length(); i<=maxTaille;i++) temp+=" ";
             temp+="│";

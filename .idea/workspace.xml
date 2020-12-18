@@ -1,184 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
-    <list default="true" id="50aec037-29f9-4d51-aa83-ccf306d11941" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTest.config" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTestAssociations.config" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/NathanFile.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/Test.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/Test25.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/TestFaitPARNico.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/VictorFile.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/test26.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/java2uml.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/java2uml_jar/java2uml.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/Controleur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
-=======
-    <list default="true" id="8cf95228-c1ca-47e8-972e-b2377a7b3044" name="Default Changelist" comment="">
+    <list default="true" id="96d3b304-cbef-44d7-b921-18c5355d255c" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/Coord.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/test1$test2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/test1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/testInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierJava/Coord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierJava/test1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/java2uml.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/Controleur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Association.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Association.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/executable/java2uml.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/executable/java2uml.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/java2uml_jar/executable/java2uml.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/JavaReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/JavaReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Parametre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Parametre.java" afterDir="false" />
->>>>>>> Stashed changes
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Methode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Methode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectId" id="1ldr06TPzkCswosRDBbft3qSCY0" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-<<<<<<< Updated upstream
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-=======
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/out/artifacts/java2uml_jar/executable" />
->>>>>>> Stashed changes
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15376782" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
-  <component name="RunManager" selected="Application.Controleur">
-    <configuration name="ConfigReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="java2uml.metier.ConfigReader" />
-      <module name="java2uml" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="java2uml.metier.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Controleur" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="java2uml.Controleur" />
-      <module name="java2uml" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="java2uml.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JavaReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="java2uml.metier.JavaReader" />
-      <module name="java2uml" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="java2uml.metier.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <module name="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <module name="" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.JavaReader" />
-        <item itemvalue="Application.Controleur" />
-        <item itemvalue="Application.ConfigReader" />
-      </list>
-    </recent_temporary>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="50aec037-29f9-4d51-aa83-ccf306d11941" name="Default Changelist" comment="" />
-      <created>1607937582953</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1607937582953</updated>
-    </task>
     <servers />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="com.intellij.fileTypeFactory" implementationName="*.config" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -190,16 +36,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.io.FileNotFoundException" package="java.io" />
-          <option name="timeStamp" value="7" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
