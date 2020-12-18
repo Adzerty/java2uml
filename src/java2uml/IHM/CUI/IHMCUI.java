@@ -70,7 +70,7 @@ public class IHMCUI
 				case  1 : Console.print("\n\t\tCompilation en cours...");this.ctrl.compilation();this.clear();this.creer(0, null); break;
 				case  2 : this.charger  (0      ); break;
 				case  3 : this.modifier (0      ); break;
-				case  4 : this.supprimer(0, null); Console.println("\n\tSuppression des fichiers config ..."); try {Thread.sleep(800);}catch(Exception ex){}; break;
+				case  4 : this.supprimer(0, null); break;
 				default : Console.println("\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ ")" ); try {Thread.sleep(1000);}catch(Exception ex){}; break;
 			}
 		}while(choix != 0);
@@ -323,78 +323,82 @@ public class IHMCUI
 				}
 			}
 			this.finTab(tMAxFichier);
-		}
-		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
+			
+			char saisie = this.menuSelection(true);
+			
+			int newSel = selec;
+			
+			if(saisie== '/') { this.menu(); }
+			if(saisie== '.')
+			{
+				if(!tabSelecSup[selec])
+				{
+					newSel++;
+				}
+				tabSelecSup[selec] = !tabSelecSup[selec];
+				if(newSel > listeS.length -1) { this.creer(0      , tabSelecSup);  }//torique bas
+				else                          { this.creer(newSel , tabSelecSup); 	}//on descend
+			}
+			if(saisie== '*')
+			{
+				int cptTrue = 0;
+				for(boolean b : tabSelecSup)
+					if(b)
+						cptTrue++;//compter le nombre de fichiers choisis
+				
+				if(cptTrue == 0)//pas de marque
+				{
+					String[] tabFichierConfig = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
+					Console.print("Suppression de " + tabFichierConfig[0]);
+					//this.ctrl.supprimerConfig(tabFichierConfig);
+				}
+				else
+				{
+					String[] tabFichierConfig = new String[cptTrue];//contient le nom de tous les fichiers choisis
+					
+					int cptElt = 0;
+					for(int b = 0; b < tabSelecSup.length; b++)
+						if(tabSelecSup[b])
+						{
+							tabFichierConfig[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
+							Console.print("Suppression de " + tabFichierConfig[cptElt -1]);
+						}
+					
+					//this.ctrl.supprimerConfig(tabFichierConfig);
+				}
 
-		char saisie = this.menuSelection(true);
-		
-		int newSel = selec;
-		
-		if(saisie== '/') { this.menu(); }
-		if(saisie== '.')
-		{
-			if(!tabSelecSup[selec])
+				Console.print("\n\t\tAuteur      : ");
+				Console.print(this.setCE('B'));
+				String auteur = getString() ;
+				Console.print(this.setCE(this.coul));
+				
+				if(auteur.equals("")) { auteur = "?"; }
+				
+				Console.print("\t\tNom Fichier : ");
+				Console.print(this.setCE('B'));
+				String nomFichierConfig = getString() ;
+				Console.print(this.setCE(this.coul));
+				
+				if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }
+				
+				Console.print(this.ctrl.createConfigFile(nomFichierConfig, auteur));
+				this.getString();
+			}
+			
+			if(saisie== '-')
+			{
+				newSel--;
+				if(newSel < 0) { this.creer(listeS.length -1, tabSelecSup);  } //torique haut
+				else           { this.creer(newSel          , tabSelecSup);  } //on monte
+			}
+			if(saisie== '+')
 			{
 				newSel++;
+				if(newSel > listeS.length -1) { this.creer(0     , tabSelecSup);  }//torique bas
+				else                          { this.creer(newSel, tabSelecSup);  }//on descend
 			}
-			tabSelecSup[selec] = !tabSelecSup[selec];
-			if(newSel > listeS.length -1) { this.creer(0      , tabSelecSup);  }//torique bas
-			else                          { this.creer(newSel , tabSelecSup); 	}//on descend
 		}
-		if(saisie== '*')
-		{
-			int cptTrue = 0;
-			for(boolean b : tabSelecSup)
-				if(b)
-					cptTrue++;//compter le nombre de fichiers choisis
-			
-			if(cptTrue == 0)//pas de marque
-			{
-				String[] tabFichierJava = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
-				this.ctrl.createNewDiagramme(tabFichierJava);
-			}
-			else
-			{
-				String[] tabFichierJava = new String[cptTrue];//contient le nom de tous les fichiers choisis
-				
-				int cptElt = 0;
-				for(int b = 0; b < tabSelecSup.length; b++)
-					if(tabSelecSup[b])
-						tabFichierJava[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
-				
-				this.ctrl.createNewDiagramme(tabFichierJava);//envoyé un tabString
-			}
-
-			Console.print("\n\t\tAuteur      : ");
-			Console.print(this.setCE('B'));
-			String auteur = getString() ;
-			Console.print(this.setCE(this.coul));
-			
-			if(auteur.equals("")) { auteur = "?"; }
-			
-			Console.print("\t\tNom Fichier : ");
-			Console.print(this.setCE('B'));
-			String nomFichierConfig = getString() ;
-			Console.print(this.setCE(this.coul));
-			
-			if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }
-			
-			Console.print(this.ctrl.createConfigFile(nomFichierConfig, auteur));
-			this.getString();
-		}
-		
-		if(saisie== '-')
-		{
-			newSel--;
-			if(newSel < 0) { this.creer(listeS.length -1, tabSelecSup);  } //torique haut
-			else           { this.creer(newSel          , tabSelecSup);  } //on monte
-		}
-		if(saisie== '+')
-		{
-			newSel++;
-			if(newSel > listeS.length -1) { this.creer(0     , tabSelecSup);  }//torique bas
-			else                          { this.creer(newSel, tabSelecSup);  }//on descend
-		}
+		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
 	}
 	
 	private char menuSelection(boolean multi)
