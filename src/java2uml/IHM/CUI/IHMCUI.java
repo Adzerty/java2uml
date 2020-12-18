@@ -1,5 +1,7 @@
 package java2uml.IHM.CUI;
 
+import java.io.File;
+
 import iut.algo.Console;
 import iut.algo.CouleurConsole;
 
@@ -46,6 +48,17 @@ public class IHMCUI
 		this.menu();
 	}
 	
+	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiag)
+	{
+		if(supConfig && supDiag) { Console.println("\t\t" + this.col("# ", 'V') + "Les fichiers associés à " + this.col(fichierSup, 'B') + " ont été supprimé avec succès."); }
+		else
+		{
+			if(supConfig) { Console.println("\t\t" + this.col("# ", 'J') + "Le fichier " + this.col(fichierSup, 'B') + " a été supprimé avec succès, aucun diagramme associé.");             }
+			else          { Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'R') + ", ce fichier de configuration n'existe pas."); }
+		}
+		try {Thread.sleep(3000);}catch(Exception ex){};
+	}
+	
 	//Menu de l'application
 	private void menu()
 	{
@@ -54,11 +67,11 @@ public class IHMCUI
 		{
 			this.entete();
 			
-			Console.println("\t " +this.col("0",'B')+ " : Quitter le programme" );
-			Console.println("\t " +this.col("1",'B')+ " : Créer   un diagramme" );
-			Console.println("\t " +this.col("2",'B')+ " : Charger un diagramme" ); 
-			Console.println("\t " +this.col("3",'B')+ " : Modifier  une config" );
-			Console.println("\t " +this.col("4",'B')+ " : Supprimer une config" );
+			Console.println("\t " +this.col("0",'B')+ " : Quitter le programme." );
+			Console.println("\t " +this.col("1",'B')+ " : Créer   un diagramme." );
+			Console.println("\t " +this.col("2",'B')+ " : Charger un diagramme." ); 
+			Console.println("\t " +this.col("3",'B')+ " : Modifier  une config." );
+			Console.println("\t " +this.col("4",'B')+ " : Supprimer une config." );
 			Console.print  ("\n saisie : " );
 			
 			Console.print(this.setCE('B'));
@@ -68,7 +81,7 @@ public class IHMCUI
 			switch (choix)
 			{
 				case  0 : break;
-				case  1 : Console.print("\n\t\tCompilation en cours...");this.ctrl.compilation();this.clear();this.creer(0, null); break;
+				case  1 : Console.print("\n\t\tCompilation des fichiers " +this.col("JAVA",'B')+ " en cours...");this.ctrl.compilation();this.clear();this.creer(0, null); break;
 				case  2 : this.charger  (0      ); break;
 				case  3 : this.modifier (0      ); break;
 				case  4 : this.supprimer(0, null); break;
@@ -84,6 +97,9 @@ public class IHMCUI
 	{
 		//creer un diagramme de la selection
 		this.entete();
+		
+		Console.println("\t\t" +this.col("1",'B')+ " : CREER UN DIAGRAMME DE CLASSE\n" );
+		
 		String[] listeS = this.ctrl.getClasse(); //chargement des fichiers
 
 		//affichage des fichiers
@@ -136,7 +152,7 @@ public class IHMCUI
 			if(cptTrue == 0)//pas de marque
 			{
 				String[] tabFichierJava = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
-				this.ctrl.createNewDiagramme(tabFichierJava);
+				this.ctrl.createNewDiagramme(tabFichierJava); 
 			}
 			else
 			{
@@ -164,7 +180,12 @@ public class IHMCUI
 			
 			if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }
 			
+			this.entete();
+			Console.println("\t\t" +this.col("1",'B')+ " : CREER UN DIAGRAMME DE CLASSE" );
+			
 			Console.print(this.ctrl.createConfigFile(nomFichierConfig, auteur));
+			
+			Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
 			this.getString();
 		}
 		
@@ -187,6 +208,8 @@ public class IHMCUI
 		
 		//Affichage de la selection
 		this.entete();
+		
+		Console.println("\t\t" +this.col("2",'B')+ " : CHARGER UN DIAGRAMME DE CLASSE\n" );
 		
 		String[] listeC = this.ctrl.getConfig();//chargement des fichiers
 		
@@ -218,8 +241,13 @@ public class IHMCUI
 			{
 				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
 				Console.print("\n\t\tLecture du fichier : " + this.col(nomFichier, 'B'));
+				
 				this.entete();
+				Console.println("\t\t" +this.col("2",'B')+ " : CHARGER UN DIAGRAMME DE CLASSE" );
+				
 				Console.print(this.ctrl.getContenuConfig(nomFichier));
+				
+				Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
 				this.getString();
 			}
 			
@@ -245,6 +273,8 @@ public class IHMCUI
 	{
 		//Affichage de la selection
 		this.entete();
+		
+		Console.println("\t\t" +this.col("3",'B')+ " : MODIFIER UNE CONFIGURATION\n" );
 		
 		String[] listeC = this.ctrl.getConfig(); //chargement des fichiers
 		
@@ -299,6 +329,9 @@ public class IHMCUI
 	private void supprimer(int selec, boolean[] tabSelecSup)//permet de supprimer des fichiers de config
 	{
 		this.entete();
+		
+		Console.println("\t\t" +this.col("4",'B')+ " : SUPPRIMER UNE CONFIGURATION\n" );
+		
 		String[] listeS = this.ctrl.getConfig(); //chargement des fichiers config
 
 		//affichage des fichiers
@@ -341,6 +374,7 @@ public class IHMCUI
 			}
 			if(saisie== '*')
 			{
+				Console.println();
 				int cptTrue = 0;
 				for(boolean b : tabSelecSup)
 					if(b)
@@ -349,9 +383,7 @@ public class IHMCUI
 				if(cptTrue == 0)//pas de marque
 				{
 					String[] tabFichierConfig = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
-					Console.print("Suppression de " + tabFichierConfig[0]);
-					try {Thread.sleep(tpsDebug);} catch (Exception ex) {}
-					//this.ctrl.supprimerConfig(tabFichierConfig);
+					this.ctrl.supprimerConfig(tabFichierConfig);
 				}
 				else
 				{
@@ -359,13 +391,13 @@ public class IHMCUI
 					
 					int cptElt = 0;
 					for(int b = 0; b < tabSelecSup.length; b++)
+					{
 						if(tabSelecSup[b])
 						{
 							tabFichierConfig[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
-							Console.print("Suppression de " + tabFichierConfig[cptElt -1]);
 						}
-					
-					//this.ctrl.supprimerConfig(tabFichierConfig);
+					}
+					this.ctrl.supprimerConfig(tabFichierConfig);
 				}
 			}
 			if(saisie== '-')
@@ -444,6 +476,7 @@ public class IHMCUI
 			case 'M' : return CouleurConsole.MAUVE.getFont ();
 			case 'N' : return CouleurConsole.NOIR.getFont ();
 			case 'R' : return CouleurConsole.ROUGE.getFont();
+			case 'V' : return CouleurConsole.VERT.getFont();
 			case '#' : return CouleurConsole.BLANC.getFont ();
 			default  : return "\033[0m"; //par defaut de l'utilisateur;
 		}

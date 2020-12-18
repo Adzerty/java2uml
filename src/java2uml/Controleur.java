@@ -27,9 +27,10 @@ public class Controleur
 {
 	private IHMCUI    ihmCUI;
 	private Diagramme diagTemp;
-	public String repConfig  = "../config/";
-	public String repJava    = "../fichierJava/";
-	public String repCompile = "../fichierCompile/";
+	public String repConfig    = "../config/";
+	public String repJava      = "../fichierJava/";
+	public String repCompile   = "../fichierCompile/";
+	public String repDiagramme = "../DiagrammeTxt/";
 
 	public Controleur()
 	{
@@ -179,12 +180,28 @@ public class Controleur
         if (Desktop.isDesktopSupported()) {
             desktop = Desktop.getDesktop();
         }
-        try {
+        try
+        {
             desktop.edit(file);
-        } catch (IOException ex) {
-            Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (IOException ex) { Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex); }
 	}
+	
+	public void supprimerConfig(String[] tabFichierSup)
+	{
+		try
+		{
+			for(String s : tabFichierSup)
+			{
+				File tmpC = new File(repConfig    + "\\" + s); //fichier config    a sup
+				File tmpD = new File(repDiagramme + "\\" + s); //fichier diagramme a sup
+				
+				this.ihmCUI.confirmSup(tmpC.getName(), tmpC.delete(), tmpD.delete()); //suppression des 2 fichiers
+			}
+		}
+		catch(Exception e) { e.printStackTrace(); }
+	}
+	
 	public void compilation()
 	{
         File rep = new File(repJava);
