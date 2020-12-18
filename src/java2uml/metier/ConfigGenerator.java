@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
@@ -153,6 +154,7 @@ public class ConfigGenerator {
 	            String finalite = "";
 	            if(Modifier.isFinal(f.getModifiers())) finalite="final ";
 	            
+
 	            
 	            //On récupère le type de l'attribut
 	            String type = getFormattedType(f);
@@ -162,6 +164,35 @@ public class ConfigGenerator {
 			}
 			
 			sRet += "\n----Méthode(s) :\n";
+			for(Constructor co : c.getTabConstruct())
+			{
+				//On regarde la visibilité de la méthode
+				char visibilite = 0;
+				if(Modifier.isPrivate(co.getModifiers())) visibilite='-';
+	            if(Modifier.isPublic(co.getModifiers())) visibilite='+';
+	            if(Modifier.isProtected(co.getModifiers())) visibilite='#';
+	            
+				
+				sRet+="" + visibilite + ' '+co.getName()+"(";
+				
+				//Pour chaque paramètres de la méthode
+				Parameter[] params = co.getParameters();
+				for(int i = 0; i<params.length; i++)
+				{
+					Parameter p = params[i];
+					
+					String typeParam = getFormattedType(p);
+					//String[] typeParamSplitted = t.getTypeName().split("\\.");
+					//String typeParam = typeParamSplitted[typeParamSplitted.length-1];
+					
+					sRet+=typeParam + ' ' +p.getName();
+					if( i != params.length-1)
+						sRet += "; ";
+				}
+				sRet += ") {constructeur}";
+				
+				sRet+='\n';	
+			}
 			for(Method m : c.getTabMeth())
 			{
 				//On regarde la visibilité de la méthode
@@ -172,6 +203,7 @@ public class ConfigGenerator {
 	            
 	            String staticite = "";
 	            if(Modifier.isStatic(m.getModifiers())) staticite="_ ";
+	            
 	            
 	            //On récupère le type de retour de la méthode
 				String type = getFormattedType(m);
@@ -286,6 +318,17 @@ public class ConfigGenerator {
 			
 			sRet+=scNext;
     	}
+
+        if(sRet.contains("int")) {sRet = sRet.replaceAll("int","entier"); }
+        if(sRet.contains("long")){sRet =sRet.replaceAll("long","entier"); }
+        
+        if(sRet.contains("float")){sRet =sRet.replaceAll("float","réel"); }
+        if(sRet.contains("double")){sRet =sRet.replaceAll("float","réel"); }
+        
+        if(sRet.contains("boolean")){sRet =sRet.replaceAll("boolean","booléen"); }
+        
+        if(sRet.contains("String")){sRet =sRet.replaceAll("String","Chaine"); }
+        
         return sRet;
     }
 
