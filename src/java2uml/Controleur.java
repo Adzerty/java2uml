@@ -98,7 +98,7 @@ public class Controleur
 	public String[] getClasse()
 	{
 
-		File repertoire = new File("./fichierJava");
+		File repertoire = new File(repJava);
 
 		String liste[] = repertoire.list();
 
@@ -156,15 +156,6 @@ public class Controleur
 
 	public void     CreateNewDiagramme(String[] tabNomFichier)
 	{
-		nomFichier=nomFichier.replace(".java","");
-		String[] tab = {nomFichier};
-		diagTemp = new Diagramme(tab);
-		for(int f = 0; f < tabNomFichier.length; f++)
-		{
-			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
-		}
-		this.diagTemp = new Diagramme(tabNomFichier);
-=======
 		for(int f = 0; f < tabNomFichier.length; f++)
 			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
 		this.diagTemp = new Diagramme(tabNomFichier);
@@ -195,21 +186,6 @@ public class Controleur
         }
 	}
 		
-	public static void compilation()
-	{
-        String repDest = "./fichierCompile/";
-        File rep = new File("./fichierJava/");
-		String listeJava[] = rep.list();
-
-		String commande = "javac -d "+ repDest + " ./fichierJava/*.java";
-		try {
-			Runtime rt = Runtime.getRuntime();
-			Process proc = rt.exec(commande);
-		} catch (Throwable t)
-		{
-			t.printStackTrace();
-		}
-    }
 	public void compilation()
 	{
         File rep = new File(repJava);
