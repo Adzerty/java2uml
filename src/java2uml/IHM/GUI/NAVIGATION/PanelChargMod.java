@@ -1,5 +1,6 @@
 package java2uml.IHM.GUI.NAVIGATION;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -38,6 +39,8 @@ public class PanelChargMod extends JPanel implements ActionListener {
 		this.btnModifier.addActionListener(this);
 		this.btnSupprimer.addActionListener(this);
 		
+		
+		
 		this.add(btnCharger);
 		this.add(btnModifier);
 		this.add(btnSupprimer);
@@ -45,23 +48,25 @@ public class PanelChargMod extends JPanel implements ActionListener {
 		
 	}
 	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == this.btnCharger) {
 			
 			new FrameCharger();
-			//this.frame.dispose();
 			
 		}
 		else if(e.getSource() == this.btnModifier) {
 			System.out.println("btnmodifier");
 		}
 		else {
-			System.out.println("btnsupprimer");
+			new FrameSupprimer();
 		}
 		
 	}
+	
+	
 	
 	
 
