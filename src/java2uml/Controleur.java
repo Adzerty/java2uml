@@ -34,11 +34,19 @@ public class Controleur
 
 	public Controleur()
 	{
+		//Création des dossiers
+		File file = new File(repConfig); 	if (!file.exists()) file.mkdir();
+		file = new File(repJava); 			if (!file.exists()) file.mkdir();
+		file = new File(repCompile); 		if (!file.exists()) file.mkdir();
+		file = new File(repDiagramme); 		if (!file.exists()) file.mkdir();
+
 		//compilation();
 		this.ihmCUI = new IHMCUI (this);
 		
 		if(this.ihmCUI.choixGraphique() == 'G')	{ new IHMGUI(this); } 
 		else                                    { this.ihmCUI.start(); }
+
+
 	}
 	
 	public static void main(String[] args)
