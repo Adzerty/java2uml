@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
+import java.util.Objects;
+
 import javax.swing.*;
 
 public class PanelPrc extends JPanel {
@@ -62,7 +64,7 @@ public class PanelPrc extends JPanel {
             
             pe.setSize(pe.getPreferredSize());
             
-            ensCoord.add(new Coord((int)Math.round(x),(int)Math.round(y), true));
+            ensCoord.add(new Coord((int)Math.round(x),(int)Math.round(y), true, null));
             
             pe.setLocation(ensCoord.get(pe.getId()).getX(),ensCoord.get(pe.getId()).getY());
             
@@ -160,7 +162,7 @@ public class PanelPrc extends JPanel {
 	{
 		super.paint(g);
 		
-		for( PanelEntite pe : ensPanelEntite ) { pe.setEnsCoord(); }
+		for(PanelEntite pe : ensPanelEntite) { pe.setEnsCoord(); }
 		for(Association a: this.ensAssociation)
 		{
 			ArrayList<Coord> ensCoordGauche = new ArrayList<>();
@@ -211,18 +213,35 @@ public class PanelPrc extends JPanel {
 						xTmpDroite = ensCoordDroite.get(tmp).getX();
 						yTmpDroite = ensCoordDroite.get(tmp).getY();
 						tmpLongueur = Math.sqrt( Math.pow(xTmpGauche - xTmpDroite, 2) + Math.pow(yTmpGauche - yTmpDroite, 2) );
-						if( tmpLongueur <= longueur && !ensCoordGauche.get(cpt).estPris() && !ensCoordDroite.get(cpt).estPris() ) {
-							xGauche = xTmpGauche;
-							xDroite = xTmpDroite;
-							yGauche = yTmpGauche;
-							yDroite = yTmpDroite;
-							longueur = tmpLongueur;
-							ensCoordGauche.get(indexGauche).setPris(false);
-							ensCoordDroite.get(indexDroite).setPris(false);
-							indexGauche = cpt;
-							indexDroite = tmp;
-							ensCoordGauche.get(indexGauche).setPris(true);
-							ensCoordDroite.get(indexDroite).setPris(true);
+						if( tmpLongueur < longueur ) {
+							if(!Objects.isNull(ensCoordGauche.get(cpt).getAssociation()) && !Objects.isNull(ensCoordDroite.get(tmp).getAssociation())) {
+							if(ensCoordGauche.get(cpt).getAssociation().equals(ensCoordDroite.get(tmp).getAssociation())) {
+									xGauche = xTmpGauche;
+									xDroite = xTmpDroite;
+									yGauche = yTmpGauche;
+									yDroite = yTmpDroite;
+									longueur = tmpLongueur;
+									ensCoordGauche.get(indexGauche).setAssociation(null);
+									ensCoordDroite.get(indexDroite).setAssociation(null);
+									indexGauche = cpt;
+									indexDroite = tmp;
+									ensCoordGauche.get(indexGauche).setAssociation(a);
+									ensCoordDroite.get(indexDroite).setAssociation(a);
+								}
+							}
+							if(Objects.isNull(ensCoordGauche.get(cpt).getAssociation()) && Objects.isNull(ensCoordDroite.get(tmp).getAssociation())) {
+								xGauche = xTmpGauche;
+								xDroite = xTmpDroite;
+								yGauche = yTmpGauche;
+								yDroite = yTmpDroite;
+								longueur = tmpLongueur;
+								ensCoordGauche.get(indexGauche).setAssociation(null);
+								ensCoordDroite.get(indexDroite).setAssociation(null);
+								indexGauche = cpt;
+								indexDroite = tmp;
+								ensCoordGauche.get(indexGauche).setAssociation(a);
+								ensCoordDroite.get(indexDroite).setAssociation(a);
+							}
 						}
 					}
 				}

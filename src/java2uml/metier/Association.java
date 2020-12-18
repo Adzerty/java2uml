@@ -85,6 +85,10 @@ public class Association
 
         return sRet;
     }
+    
+    public boolean equals( Association autre) {
+    	return this.classeGauche.equals(autre.getClasseGauche()) && this.classeDroite.equals(autre.getClasseDroite());
+    }
 
     public String toString() {
         String sRet="";

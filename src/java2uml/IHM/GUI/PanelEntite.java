@@ -59,14 +59,14 @@ public class PanelEntite extends JPanel implements MouseListener  {
 	
 	public void setEnsCoord() {
 		this.ensCoord = new ArrayList<>();
-		this.ensCoord.add(new Coord(this.getX(), this.getY(), false));
-		this.ensCoord.add(new Coord(this.getX()+(this.getWidth()/2), this.getY(), false));
-		this.ensCoord.add(new Coord(this.getX()+this.getWidth(), this.getY(), false));
-		this.ensCoord.add(new Coord(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false));
-		this.ensCoord.add(new Coord(this.getX()+this.getWidth(), this.getY()+this.getHeight(), false));
-		this.ensCoord.add(new Coord(this.getX()+(this.getWidth()/2), this.getY()+this.getHeight(), false));
-		this.ensCoord.add(new Coord(this.getX(), this.getY()+this.getHeight(), false));
-		this.ensCoord.add(new Coord(this.getX(), this.getY()+(this.getHeight()/2), false));
+		this.ensCoord.add(new Coord(this.getX(), this.getY(), false, null));
+		this.ensCoord.add(new Coord(this.getX()+(this.getWidth()/2), this.getY(), false, null));
+		this.ensCoord.add(new Coord(this.getX()+this.getWidth(), this.getY(), false, null));
+		this.ensCoord.add(new Coord(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false, null));
+		this.ensCoord.add(new Coord(this.getX()+this.getWidth(), this.getY()+this.getHeight(), false, null));
+		this.ensCoord.add(new Coord(this.getX()+(this.getWidth()/2), this.getY()+this.getHeight(), false, null));
+		this.ensCoord.add(new Coord(this.getX(), this.getY()+this.getHeight(), false, null));
+		this.ensCoord.add(new Coord(this.getX(), this.getY()+(this.getHeight()/2), false, null));
 	}
 	public String getNom()
 	{
