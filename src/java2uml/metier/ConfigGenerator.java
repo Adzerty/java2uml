@@ -164,6 +164,8 @@ public class ConfigGenerator {
 			}
 			
 			sRet += "\n----Méthode(s) :\n";
+			
+			//Génération des constructeurs
 			for(Constructor co : c.getTabConstruct())
 			{
 				//On regarde la visibilité de la méthode
@@ -173,9 +175,9 @@ public class ConfigGenerator {
 	            if(Modifier.isProtected(co.getModifiers())) visibilite='#';
 	            
 				
-				sRet+="" + visibilite + ' '+co.getName()+"(";
+				sRet+="" + visibilite + ' ' +  "{constructeur}" + ' ' + co.getName() +"(";
 				
-				//Pour chaque paramètres de la méthode
+				//Pour chaque paramètres du constructeur
 				Parameter[] params = co.getParameters();
 				for(int i = 0; i<params.length; i++)
 				{
@@ -189,7 +191,7 @@ public class ConfigGenerator {
 					if( i != params.length-1)
 						sRet += "; ";
 				}
-				sRet += ") {constructeur}";
+				sRet += ")";
 				
 				sRet+='\n';	
 			}
