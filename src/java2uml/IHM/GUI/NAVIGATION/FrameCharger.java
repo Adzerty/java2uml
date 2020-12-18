@@ -1,11 +1,13 @@
-package java2uml.IHM.GUI;
+package java2uml.IHM.GUI.NAVIGATION;
 
 import java.awt.Dimension;
+
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import java2uml.IHM.GUI.FramePrc;
 import java2uml.metier.ConfigReader;
 
 public class FrameCharger extends JFrame{

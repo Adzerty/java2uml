@@ -1,4 +1,4 @@
-package java2uml.IHM.GUI;
+package java2uml.IHM.GUI.NAVIGATION;
 
 import java.awt.Font;
 import java.awt.GridLayout;

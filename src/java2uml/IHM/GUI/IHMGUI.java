@@ -1,5 +1,6 @@
 package java2uml.IHM.GUI;
 
+import java2uml.IHM.GUI.NAVIGATION.FrameAccueil;
 import java2uml.metier.*;
 
 public class IHMGUI
