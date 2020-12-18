@@ -2,9 +2,13 @@ package java2uml.IHM.GUI;
 
 import java2uml.metier.*;
 
+import static java.awt.geom.AffineTransform.*;
+import java.awt.geom.AffineTransform;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -19,7 +23,8 @@ public class PanelPrc extends JPanel {
 	
 	private int posSourisX;
 	private int posSourisY;
-		
+	
+	private final int ARR_SIZE = 7;
 		
 	public PanelPrc(ArrayList<Entite> ensEntite , FramePrc framePrincipale) {
 		
@@ -34,53 +39,55 @@ public class PanelPrc extends JPanel {
 			for(Association a: e.getEnsAssociations())
 			{
 				ensAssociation.add(a);
+				System.out.println("Ici :" + a.getClasseDroite()+" "+a.getClasseGauche());
 			}
-			
+
 			this.ensPanelEntite.add(new PanelEntite(e,this,identifiant));
 			identifiant++;
 			
 		}
 		
-		
-		// POSITIONNEMENT DES CLASSES AU DEPART 
-		
-		int x , y ;//coord de panel entite 
-		x=10;
-		y=10;
-		
-		int hauteurMax = 0;
-		
-		
-		for(PanelEntite pe : ensPanelEntite){
-			
-			pe.setSize(pe.getPreferredSize());
-			
-			ensCoord.add(new Coord(x,y));
-			
-			pe.setLocation(ensCoord.get(pe.getId()).getX(),ensCoord.get(pe.getId()).getY());
-			
-			this.add(pe);
-			
-			if(hauteurMax<pe.getHeight()) {
-				hauteurMax = pe.getHeight();
-				
-			}
-			
-			if(x+pe.getWidth()>=this.framePrincipale.getWidth()) {
-				x=0;
-				y+=hauteurMax+30;
-				hauteurMax = 0;
-				
-			}
-			
-			x+=pe.getWidth()+30;
-			
-			// JUSQU'ICI
+		double centerx, centery, x , y , angle, degreInc;//coord de panel entite 
+        centerx=framePrincipale.getWidth()/2;
+        centery=framePrincipale.getHeight()/3;
+        degreInc = 360/this.ensPanelEntite.size();
+        double hauteurMax = framePrincipale.getHeight()/3;
+        System.out.println(hauteurMax);
+        
+        angle = 0;
+        x = Math.cos(angle)*hauteurMax + centerx;
+        y = Math.sin(angle)*hauteurMax + centery;
+        
+        for(PanelEntite pe : ensPanelEntite){
+            
+            pe.setSize(pe.getPreferredSize());
+            
+            ensCoord.add(new Coord((int)Math.round(x),(int)Math.round(y)));
+            
+            pe.setLocation(ensCoord.get(pe.getId()).getX(),ensCoord.get(pe.getId()).getY());
+            
+            this.add(pe);
+            
+            angle += degreInc;
+            x = (Math.cos(Math.toRadians(angle))*hauteurMax) + centerx;
+            y = (Math.sin(Math.toRadians(angle))*hauteurMax) + centery;
+        }
+        
+		for(Coord c : ensCoord) {
+			System.out.println(c);
 		}
-		
 		this.setVisible(true);
 	}
 	
+	public Coord getCoordOfJPanel( int id) {
+		Coord coord = null;
+		for( PanelEntite e : ensPanelEntite ) {
+			if( e.getId() == id ) {
+				coord = new Coord( e.getX(), e.getY());
+			}
+		}
+		return coord;
+	}
 	
 	public void press(MouseEvent e)
 	{
@@ -90,8 +97,6 @@ public class PanelPrc extends JPanel {
 			this.posSourisY = e.getY();	
 			
 		}
-		
-		//System.out.println(this.getWidth() +" "+this.getHeight());
 		
 	}
 	
@@ -108,35 +113,137 @@ public class PanelPrc extends JPanel {
 		
 		
 		((PanelEntite) e.getSource()).setLocation(this.ensCoord.get(ident).getX(),this.ensCoord.get(ident).getY());
-		
 		repaint();
+	}
+	
+	void drawArrow(Graphics g1, int x1, int y1, int x2, int y2, String type)
+	{
+		Graphics2D g = (Graphics2D) g1.create();
+		double dx = x2 - x1, dy = y2 - y1;
+		double angle = Math.atan2(dy, dx);
+		int len = (int) Math.sqrt(dx*dx + dy*dy);
+		AffineTransform at = AffineTransform.getTranslateInstance(x1, y1);
+		at.concatenate(AffineTransform.getRotateInstance(angle));
+		g.transform(at);
+		//Draw horizontal arrow starting in (0, 0)
+		g.drawLine(0, 0, len, 0);
+		if(type == "unidirectionnelle")
+		{	
+			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+		}
+		if(type == "composition")
+		{	
+			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+			g.fillPolygon(new int[] {len-2*ARR_SIZE, len-ARR_SIZE, len-ARR_SIZE, len-2*ARR_SIZE},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+		}
+		if(type == "agrégation")
+		{	
+			g.setColor(Color.GRAY);
+			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+			g.fillPolygon(new int[] {len-2*ARR_SIZE, len-ARR_SIZE, len-ARR_SIZE, len-2*ARR_SIZE},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+		}
+		if(type == "généralisation/spécialisation")
+		{
+			g.setColor(Color.GRAY);
+			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+		}
 	}
 	
 	public void paint(Graphics g)
 	{
 		super.paint(g);
 		
-		int x1, y1, x2, y2;
-		x1 = y1 = x2 = y2 =0;
-		
+		for( PanelEntite pe : ensPanelEntite) {
+			pe.setEnsCoord();
+		}
 		for(Association a: this.ensAssociation)
 		{
+			ArrayList<Coord> ensCoordGauche = new ArrayList<>();
+			ArrayList<Coord> ensCoordDroite = new ArrayList<>();
+			
 				for(int i = 0; i < this.ensPanelEntite.size(); i++)
 				{					
-					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseDroite()))
-					{
-						x1 = this.ensCoord.get(i).getX()+this.ensPanelEntite.get(i).getWidth();
-						y1 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));	
-					}
 					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseGauche()))
 					{
-						x2 = this.ensCoord.get(i).getX();
-						y2 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));
+						/*x1 = this.ensCoord.get(i).getX()+this.ensPanelEntite.get(i).getWidth();
+						y1 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));*/	
+						ensCoordGauche = this.ensPanelEntite.get(i).getEnsCoord();
+					}
+					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseDroite()))
+					{
+						/*x2 = this.ensCoord.get(i).getX();
+						y2 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));*/
+						ensCoordDroite = this.ensPanelEntite.get(i).getEnsCoord();
 					}
 					
 				}
+				double xGauche = 0, yGauche = 0, xDroite = 0, yDroite = 0;
 				
-				g.drawLine(x1 , y1, x2,y2 );
+				
+				xGauche = ensCoordGauche.get(0).getX();
+				yGauche = ensCoordGauche.get(0).getY();
+				
+				xDroite = ensCoordDroite.get(0).getX();
+				yDroite = ensCoordDroite.get(0).getY();
+				
+				double xTmpGauche = 0;
+				double xTmpDroite = 0;
+				double yTmpGauche = 0;
+				double yTmpDroite = 0;
+				double tmpLongueur = 0;
+				
+				
+				double longueur = Math.sqrt( Math.pow(xGauche - xDroite, 2) + Math.pow(yGauche - yDroite, 2) );
+				
+				for( int cpt = 0; cpt < ensCoordGauche.size(); cpt++ ) {
+					xTmpGauche = ensCoordGauche.get(cpt).getX();
+					yTmpGauche = ensCoordGauche.get(cpt).getY();
+					for( int tmp = 0; tmp < ensCoordDroite.size(); tmp++ ) {
+						xTmpDroite = ensCoordDroite.get(tmp).getX();
+						yTmpDroite = ensCoordDroite.get(tmp).getY();
+						tmpLongueur = Math.sqrt( Math.pow(xTmpGauche - xTmpDroite, 2) + Math.pow(yTmpGauche - yTmpDroite, 2) );
+						if( tmpLongueur <= longueur ) {
+							xGauche = xTmpGauche;
+							xDroite = xTmpDroite;
+							yGauche = yTmpGauche;
+							yDroite = yTmpDroite;
+							longueur = tmpLongueur;
+						}
+					}
+				}
+				String multGauche;
+				String multDroite;
+				multGauche = a.getMultipliciteGauche().replace("[", "");
+				multGauche = multGauche.replace("]", "");
+				multDroite = a.getMultipliciteDroite().replace("[", "");
+				multDroite = multDroite.replace("]", "");
+				System.out.println(a.getMultipliciteDroite());
+				System.out.println(a.getTypeAssociation());
+				drawArrow(g, (int)Math.round(xGauche) , (int)Math.round(yGauche), (int)Math.round(xDroite),(int)Math.round(yDroite), a.getTypeAssociation());	
+				if((int)xGauche >  (int)xDroite)
+				{
+					g.drawString(multGauche, (int)xGauche-20, (int)yGauche+15);				
+					
+				}
+				else
+				{
+					g.drawString(multGauche, (int)xGauche-20, (int)yGauche-15);				
+					
+				}
+				if((int)yGauche <  (int)yDroite)		
+				{
+					g.drawString(multDroite, (int)xDroite-20, (int)yDroite+15);	
+				}
+				else
+				{
+					g.drawString(multDroite, (int)xDroite-20, (int)yDroite+15);	
+				}
 		}
 	}
 }
