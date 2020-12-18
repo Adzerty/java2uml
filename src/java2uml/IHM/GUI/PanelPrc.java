@@ -127,7 +127,7 @@ public class PanelPrc extends JPanel {
 		g.transform(at);
 		//Draw horizontal arrow starting in (0, 0)
 		g.drawLine(0, 0, len, 0);
-		if(type == "unidirectionnele")
+		if(type == "unidirectionnelle")
 		{	
 			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
 			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
@@ -184,6 +184,8 @@ public class PanelPrc extends JPanel {
 					
 				}
 				double xGauche = 0, yGauche = 0, xDroite = 0, yDroite = 0;
+				
+				
 				xGauche = ensCoordGauche.get(0).getX();
 				yGauche = ensCoordGauche.get(0).getY();
 				
@@ -195,6 +197,7 @@ public class PanelPrc extends JPanel {
 				double yTmpGauche = 0;
 				double yTmpDroite = 0;
 				double tmpLongueur = 0;
+				
 				
 				double longueur = Math.sqrt( Math.pow(xGauche - xDroite, 2) + Math.pow(yGauche - yDroite, 2) );
 				
@@ -214,14 +217,33 @@ public class PanelPrc extends JPanel {
 						}
 					}
 				}
-				System.out.println("Longueur inferieur : " + longueur);
-				//System.out.println(a.getTypeAssociation());
-				drawArrow(g, (int)Math.round(xGauche) , (int)Math.round(yGauche), (int)Math.round(xDroite),(int)Math.round(yDroite), a.getTypeAssociation());
-			 /*////////////////////////////////////////////////////////////:
-			  * 															/
-			  * 					g.drawString(texte, x, y );				/
-			  *									pour plus tard				/
-			  //////////////////////////////////////////////////////////////*/
+				String multGauche;
+				String multDroite;
+				multGauche = a.getMultipliciteGauche().replace("[", "");
+				multGauche = multGauche.replace("]", "");
+				multDroite = a.getMultipliciteDroite().replace("[", "");
+				multDroite = multDroite.replace("]", "");
+				System.out.println(a.getMultipliciteDroite());
+				System.out.println(a.getTypeAssociation());
+				drawArrow(g, (int)Math.round(xGauche) , (int)Math.round(yGauche), (int)Math.round(xDroite),(int)Math.round(yDroite), a.getTypeAssociation());	
+				if((int)xGauche >  (int)xDroite)
+				{
+					g.drawString(multGauche, (int)xGauche-20, (int)yGauche+15);				
+					
+				}
+				else
+				{
+					g.drawString(multGauche, (int)xGauche-20, (int)yGauche-15);				
+					
+				}
+				if((int)yGauche <  (int)yDroite)		
+				{
+					g.drawString(multDroite, (int)xDroite-20, (int)yDroite+15);	
+				}
+				else
+				{
+					g.drawString(multDroite, (int)xDroite-20, (int)yDroite+15);	
+				}
 		}
 	}
 }
