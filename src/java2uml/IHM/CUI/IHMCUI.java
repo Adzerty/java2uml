@@ -210,7 +210,7 @@ public class IHMCUI
 				}
 				else
 				{
-					Console.print(this.col("\t    ", 'B'));
+					Console.print(this.col("\t     ", 'B'));
 					this.afficherFichier(listeC[f],false, tMAxFichier);
 				}
 			}
