@@ -156,7 +156,6 @@ public class Controleur
 
 	public void     CreateNewDiagramme(String[] tabNomFichier)
 	{
-		nomFichier=nomFichier.replace(".java","");
 		String[] tab = {nomFichier};
 		diagTemp = new Diagramme(tab);
 		for(int f = 0; f < tabNomFichier.length; f++)
@@ -164,7 +163,6 @@ public class Controleur
 			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
 		}
 		this.diagTemp = new Diagramme(tabNomFichier);
-=======
 		for(int f = 0; f < tabNomFichier.length; f++)
 			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
 		this.diagTemp = new Diagramme(tabNomFichier);
@@ -213,7 +211,7 @@ public class Controleur
 	public void compilation()
 	{
         File rep = new File(repJava);
-		//String listeJava[] = rep.list();
+		String listeJava[] = rep.list();
 
 		/*for (String s : listeJava )
 		{
