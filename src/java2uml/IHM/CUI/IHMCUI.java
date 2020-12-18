@@ -17,7 +17,7 @@ public class IHMCUI
 	public String repJava = "../fichierJava/";
 	public String repConfig = "../config/";
 	
-	//Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ?
+	//Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ? 
 	public char choixGraphique()
 	{
 		
@@ -69,17 +69,10 @@ public class IHMCUI
 			switch (choix)
 			{
 				case  0 : break;
-<<<<<<< Updated upstream
-				case  1 : this.creer(0)   ; break;
-				case  2 : this.charger(0) ; break;
-				case  3 : this.modifier(0); break;
-				case  4 : Console.println("\n\tSuppression des fichiers config ..."); try {Thread.sleep(800);}catch(Exception ex){}; break;
-=======
 				case  1 : Console.println("Compilation en cours...");this.ctrl.compilation();this.creer(0, null); break;
 				case  2 : this.charger(0    ); break;
 				case  3 : this.modifier(0   ); break;
 				case  4 : this.supprimer(0  ); Console.println("\n\tSuppression des fichiers config ..."); try {Thread.sleep(800);}catch(Exception ex){}; break;
->>>>>>> Stashed changes
 				default : Console.println("\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ ")" ); try {Thread.sleep(1000);}catch(Exception ex){}; break;
 			}
 		}while(choix != 0);
@@ -88,7 +81,7 @@ public class IHMCUI
 		System.exit (0);
 	}
 	
-	private void creer(int selec/* ,int[] tabSelec*/)
+	private void creer(int selec ,boolean[] tabSelec)
 	{
 		Controleur.compilation();
 		//creer un diagramme de la selection
@@ -101,16 +94,12 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeS != null)
 		{
-<<<<<<< Updated upstream
-			int tMAxFichier  = this.ctrl.getTailleMaxFichier(); //recuperation de la taille max dans les fichiers
-=======
 			if(tabSelec == null)
 			{
 				tabSelec = new boolean[listeS.length];
 			}
 			
 			int tMAxFichier  = this.ctrl.getTailleMaxFichier(repJava); //recuperation de la taille max dans les fichiers
->>>>>>> Stashed changes
 			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
 			this.debTab(tMAxFichier); // création bordure de tableau
 			for (int f = 0; f < listeS.length; f++)
@@ -118,12 +107,12 @@ public class IHMCUI
 				if(f == selec)
 				{
 					Console.print(this.col("\t────>", 'B'));
-					this.afficherFichier(listeS[f], tMAxFichier);
+					this.afficherFichier(listeS[f], tabSelec[f], tMAxFichier);
 				}
 				else
 				{
 					Console.print(this.col("\t     ", 'B'));
-					this.afficherFichier(listeS[f], tMAxFichier);
+					this.afficherFichier(listeS[f], tabSelec[f], tMAxFichier);
 				}
 			}
 			this.finTab(tMAxFichier);
@@ -132,44 +121,69 @@ public class IHMCUI
 
 		char saisie = this.menuSelection(true);
 		
+		int newSel = selec;
+		
 		if(saisie== '/') { this.menu(); }
 		if(saisie== '.')
 		{
-			
+			tabSelec[selec] = !tabSelec[selec];
+			newSel++;
+			if(newSel > listeS.length -1) { this.creer(0      , tabSelec);  }//torique bas
+			else                          { this.creer(newSel , tabSelec); 	}//on descend
 		}
 		if(saisie== '*')
 		{
-			String nomFichier = listeS[selec].substring(0, listeS[selec].split("\\|")[0].length());
-			Console.print("\n\t\tEnvoi vers le metier du fichier : " + this.col(nomFichier, 'B')+"\n");
-			try{Thread.sleep(3000);}catch (Exception ex){}
-			this.ctrl.CreateNewDiagramme(nomFichier);
+			int cptTrue = 0;
+			for(boolean b : tabSelec)
+				if(b)
+					cptTrue++;//compter le nombre de fichiers choisis
+			
+			if(cptTrue == 0)//pas de marque
+			{
+				String[] tabFichierJava = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
+				this.ctrl.CreateNewDiagramme(tabFichierJava);
+			}
+			else
+			{
+				String[] tabFichierJava = new String[cptTrue];//contient le nom de tous les fichiers choisis
+				
+				int cptElt = 0;
+				for(int b = 0; b < tabSelec.length; b++)
+					if(tabSelec[b])
+						tabFichierJava[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
+				
+				this.ctrl.CreateNewDiagramme(tabFichierJava);//envoyé un tabString
+			}
 
-			Console.print("Auteur : ");
+			Console.print("\n\t\tAuteur      : ");
 			Console.print(this.setCE('B'));
 			String auteur = getString() ;
 			Console.print(this.setCE(this.coul));
-
-			Console.print("Nom Fichier : ");
+			
+			if(auteur.equals("")) { auteur = "?"; }
+			
+			Console.print("\t\tNom Fichier : ");
 			Console.print(this.setCE('B'));
 			String nomFichierConfig = getString() ;
 			Console.print(this.setCE(this.coul));
-			Console.print(this.ctrl.CreateConfigFile(nomFichierConfig,auteur));
+			
+			if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }
+			
+			Console.print(this.ctrl.CreateConfigFile(nomFichierConfig, auteur));
 			this.getString();
 		}
-
-
-		int newSel = selec;
+		
 		if(saisie== '-')
 		{
 			newSel--;
-			if(newSel < 0) { this.creer(listeS.length -1); } //torique haut
-			else           { this.creer(newSel);           } //on monte
+			if(newSel < 0) { this.creer(listeS.length -1, tabSelec);  } //torique haut
+			else           { this.creer(newSel          , tabSelec);  } //on monte
 		}
 		if(saisie== '+')
 		{
 			newSel++;
-			if(newSel > listeS.length -1) { this.creer(0);     }//torique bas
-			else                          { this.creer(newSel); 	}//on descend
+			if(newSel > listeS.length -1) { this.creer(0     , tabSelec);  }//torique bas
+			else                          { this.creer(newSel, tabSelec);  }//on descend
 		}
 
 		this.menu();
@@ -186,11 +200,7 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeC != null)
 		{
-<<<<<<< Updated upstream
-			int tMAxFichier  = this.ctrl.getTailleMaxFichier(); //recuperation de la taille max dans les fichiers
-=======
 			int tMAxFichier  = this.ctrl.getTailleMaxFichier(repConfig); //recuperation de la taille max dans les fichiers
->>>>>>> Stashed changes
 			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
 			this.debTab(tMAxFichier); // création bordure de tableau
 			for (int f = 0; f < listeC.length; f++)
@@ -198,15 +208,15 @@ public class IHMCUI
 				if(f == selec)
 				{
 					Console.print(this.col("\t────>", 'B'));
-					this.afficherFichier(listeC[f], tMAxFichier);
+					this.afficherFichier(listeC[f], false, tMAxFichier);
 				}
 				else
 				{
-					Console.print(this.col("\t    ", 'B'));
-					this.afficherFichier(listeC[f], tMAxFichier);
+					Console.print(this.col("\t     ", 'B'));
+					this.afficherFichier(listeC[f],false, tMAxFichier);
 				}
 			}
-			this.finTab(tMAxFichier);
+			this.finTab(tMAxFichier);//Fin du tableau
 			
 			char saisie = this.menuSelection(false);
 			
@@ -215,7 +225,7 @@ public class IHMCUI
 			{
 				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
 				Console.print("\n\t\tLecture du fichier : " + this.col(nomFichier, 'B'));
-				try{Thread.sleep(3000);}catch (Exception ex){}
+				try{Thread.sleep(1500);}catch (Exception ex){}
 				this.entete();
 				Console.print(this.ctrl.getContenuConfig(nomFichier));
 				this.getString();
@@ -236,7 +246,7 @@ public class IHMCUI
 				else                          { this.charger(newSel); }//on descend
 			}
 		}
-		else { Console.print(this.col("\tAucun fichier de config sauvegarde", 'R')); try {Thread.sleep(3000);} catch (Exception ex) {} }
+		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
 	}
 	
 	private void modifier(int selec)
@@ -249,11 +259,7 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeC != null)
 		{
-<<<<<<< Updated upstream
-			int tMaxConfig  = this.ctrl.getTailleMaxFichier(); //recuperation de la taille max dans les fichiers
-=======
 			int tMaxConfig  = this.ctrl.getTailleMaxFichier(repConfig); //recuperation de la taille max dans les fichiers
->>>>>>> Stashed changes
 			if(tMaxConfig < 16) tMaxConfig = 16;//Pour en-tete stable
 			this.debTab(tMaxConfig); // création bordure de tableau
 			for (int f = 0; f < listeC.length; f++)
@@ -261,12 +267,12 @@ public class IHMCUI
 				if(f == selec)
 				{
 					Console.print(this.col("\t────>", 'B'));
-					this.afficherFichier(listeC[f], tMaxConfig);
+					this.afficherFichier(listeC[f], false, tMaxConfig);
 				}
 				else
 				{
 					Console.print(this.col("\t     ", 'B'));
-					this.afficherFichier(listeC[f], tMaxConfig);
+					this.afficherFichier(listeC[f], false, tMaxConfig);
 				}
 			}
 			this.finTab(tMaxConfig);
@@ -278,7 +284,7 @@ public class IHMCUI
 			{
 				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
 				Console.print("\tOuverture du fichier : " + this.col(nomFichier, 'B'));
-				try{Thread.sleep(3000);}catch (Exception ex){}
+				try{Thread.sleep(1500);}catch (Exception ex){}
 				this.ctrl.ouvrirEnEdit(nomFichier);
 			}
 			
@@ -292,16 +298,16 @@ public class IHMCUI
 			if(saisie== '+')//Descendre
 			{
 				newSel++;
-				if(newSel > listeC.length -1) { this.modifier(0);     }//torique bas
+				if(newSel > listeC.length -1) { this.modifier(0);      }//torique bas
 				else                          { this.modifier(newSel); }//on descend
 			}
 		}
-		else { Console.print(this.col("\tAucun fichier de configuration sauvegardé dans /config", 'R')); try {Thread.sleep(3000);} catch (Exception ex) {} }
+		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
 	}
 	
 	private void supprimer(int selec)
 	{
-		
+		return;
 	}
 	
 	private char menuSelection(boolean multi)
@@ -328,10 +334,10 @@ public class IHMCUI
 		Console.print("\t     ├" + nSep(tMAxFichier +2, "─")          +   "┼" + nSep(18, "─") + "┼" + nSep(18, "─") + "┤\n");
 	}
 
-	private void afficherFichier(String dataConf, int tMAxFichier)
+	private void afficherFichier(String dataConf, boolean selec, int tMAxFichier)
 	{
 		String[] decConfig = dataConf.split("\\|");
-		Console.print(String.format("│ %-" + tMAxFichier + "s │ %16s │ %16s │\n", decConfig[0],decConfig[1], decConfig[2]));
+		Console.print(String.format("│" + ((selec)? (this.col("x", 'B')):" ") + "%-" + tMAxFichier + "s │ %16s │ %16s │\n", decConfig[0],decConfig[1], decConfig[2]));
 	}
 	
 	private void finTab(int tMAxFichier)
@@ -409,7 +415,7 @@ public class IHMCUI
 		this.col("    /&&&. %&&(    ,&&&%.  (&&&.    %&&&*    /@@@@@@@@@@*   ", 'N') + this.col("         *####", 'B') + this.col("."                 ,'R') + this.col( "                                                              ,(######(,                     "        + "\n" +
 		         "                                                           "       +          "              "       +          ""                        +          "                                                                                              " , 'N') + "\n" +
 		setCE('*') + "\n\n\n\n\n\n\n\n\n");
-		try {Thread.sleep(2000);} catch (Exception ex) {}
+		try {Thread.sleep(1500);} catch (Exception ex) {}
 	}
 	
 	private String getString() { return Console.lireString(); }

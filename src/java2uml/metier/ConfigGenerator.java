@@ -209,10 +209,9 @@ public class ConfigGenerator {
 			}
 			for(Field f : c.getTabAttribut())
 			{
-				if(ensEntite.contains(f.getType().getName()))
-				{
-					sRet += c.getNomClasse() + " ------- " + f.getType().getName() + '\n';
-				}
+				for(String s : ensEntite)
+					if(getFormattedType(f).contains(s))
+						sRet += c.getNomClasse() + " ------- " + s + '\n';
 			}
 			
 			
@@ -290,12 +289,10 @@ public class ConfigGenerator {
         return sRet;
     }
 
-	/*public static void main(String[] args) {
-		String[] tabNoms = {"Train", "Vehicule", "Train$TrainIterator"};
+	public static void main(String[] args) {
+		String[] tabNoms = {"Train", "Vehicule"};
 		Diagramme d = new Diagramme(tabNoms);
-		
-		compilation();
 		ConfigGenerator cGen = new ConfigGenerator(d, "Test", "Bernard");
-	}*/
+	}
 
 }
