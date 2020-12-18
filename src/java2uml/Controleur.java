@@ -154,14 +154,14 @@ public class Controleur
         return diagramme;
     }
 
-	public void     CreateNewDiagramme(String[] tabNomFichier)
+	public void     createNewDiagramme(String[] tabNomFichier)
 	{
 		for(int f = 0; f < tabNomFichier.length; f++)
 			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
 		this.diagTemp = new Diagramme(tabNomFichier);
 	}
 	
-	public String   CreateConfigFile(String nomFichier, String nomAuteur)
+	public String   createConfigFile(String nomFichier, String nomAuteur)
 	{
 		new ConfigGenerator(this.diagTemp, nomFichier, nomAuteur);
 		return getContenuConfig(nomFichier+".txt");
