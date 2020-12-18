@@ -350,6 +350,7 @@ public class IHMCUI
 				{
 					String[] tabFichierConfig = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
 					Console.print("Suppression de " + tabFichierConfig[0]);
+					try {Thread.sleep(tpsDebug);} catch (Exception ex) {}
 					//this.ctrl.supprimerConfig(tabFichierConfig);
 				}
 				else
@@ -388,9 +389,9 @@ public class IHMCUI
 		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
 		               + "\t\t (" +this.col("+", 'B')+ ") : v descendre\n" + ((multi)?
 		               ( "\t\t (" +this.col(".", 'B')+ ") : x selectionner\n"):"")
-		               + "\t\t (" +this.col("*", 'B')+ ") : » valider\n"
-		               + "\t\t (" +this.col("/", 'B')+ ") : « annuler\n"
-		               + "\tsaisie : ");
+		               + "\t\t (" +this.col("*", 'B')+ ") : > valider\n"
+		               + "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
+		               + "\n\tsaisie :  ");
 
 		
 		Console.print(this.setCE('B'));
