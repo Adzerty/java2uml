@@ -4,11 +4,13 @@ public class Coord {
 	
 	private int x;
 	private int y;
+	private boolean estPris;
 	
-	public Coord(int x , int y)
+	public Coord(int x , int y, boolean pris)
 	{
 		this.x = x;
 		this.y = y;
+		this.estPris = pris;
 	}
 	
 	public int getX() {
@@ -21,6 +23,14 @@ public class Coord {
 	
 	public void setX(int x) {
 		this.x = x;
+	}
+	
+	public void setPris(boolean pris) {
+		this.estPris = pris;
+	}
+	
+	public boolean estPris() {
+		return this.estPris;
 	}
 	
 	public void setY(int y) {
