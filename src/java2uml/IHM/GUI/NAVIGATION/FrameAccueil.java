@@ -7,11 +7,13 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+
 public class FrameAccueil extends JFrame{
 	
 	private PanelAccueil panelAccueil;
 	private PanelCreeDiag panelCreeDiag;
 	private PanelChargMod panelChargMod;
+
 	
 	public FrameAccueil() {
 		
@@ -30,11 +32,11 @@ public class FrameAccueil extends JFrame{
 		this.panelCreeDiag = new PanelCreeDiag(this);
 		this.panelChargMod = new PanelChargMod(this);
 				
-				
 		this.add(this.panelAccueil);
 		this.add(this.panelCreeDiag);
 		this.add(this.panelChargMod);
 		
+		this.setJMenuBar(new MenuBar());
 		
 		//this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

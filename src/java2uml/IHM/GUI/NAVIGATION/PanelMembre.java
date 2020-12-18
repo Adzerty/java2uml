@@ -1,0 +1,81 @@
+package java2uml.IHM.GUI.NAVIGATION;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+public class PanelMembre  extends JPanel{
+	
+	private Membre membre;
+	private int num;
+	
+	private JLabel prenom;
+	private JLabel nom;
+	private JLabel titre;
+	private JLabel description;
+	private JLabel photo;
+	
+	private JPanel civilite;
+	private JPanel presentation;
+	private JPanel image;
+	
+	public PanelMembre(Membre membre , int num)
+	{
+		this.membre = membre;
+		this.num = num;
+		
+		if(this.num == 0){
+			this.setLayout(new GridLayout(1,1));
+			this.titre = new JLabel(this.membre.getTitre());
+			this.titre.setFont(new Font( "Verdana" ,Font.BOLD, 35));
+			this.titre.setHorizontalAlignment(SwingConstants.CENTER); 
+			this.add(this.titre);
+		}
+		else
+		{
+			this.setLayout(new GridLayout(1,2));
+			
+			this.image = new JPanel();
+			ImageIcon icon = new ImageIcon(membre.getImage());
+			this.photo = new JLabel(icon);
+			
+			this.image.add(this.photo);
+			
+			this.presentation = new JPanel();
+			this.presentation.setLayout(new GridLayout(2,1));
+		
+			this.prenom = new JLabel(this.membre.getPrenom());
+			this.nom = new JLabel(this.membre.getNom());
+			
+			this.civilite = new JPanel();
+			
+			this.civilite.add(this.prenom);
+			this.civilite.add(this.nom);
+			
+			this.description = new JLabel("coucou");
+			
+			this.presentation.add(this.civilite);
+			this.presentation.add(this.description);
+			
+			if(this.num % 2 == 0) {
+				this.add(this.image);
+				this.add(this.presentation);
+			}
+			else {
+				this.add(this.presentation);
+				this.add(this.image);
+			}
+			
+		}
+		
+		
+
+	}
+
+
+}
