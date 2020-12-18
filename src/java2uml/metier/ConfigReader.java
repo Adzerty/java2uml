@@ -15,6 +15,7 @@ public class ConfigReader
 
     public ConfigReader(String fichier)
     {
+    	Association.compteur = 1;
         ensEntite = new ArrayList<>();
         try
         {
