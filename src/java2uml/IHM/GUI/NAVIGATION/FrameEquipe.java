@@ -22,7 +22,7 @@ public class FrameEquipe  extends JFrame{
         int x = dim.width/2;
         int y = dim.height/2;
         
-		this.setTitle("L'EKIP");
+		this.setTitle("L'équipe");
 		this.setSize(600,500);
 		this.setLocation(x, y);
 		
