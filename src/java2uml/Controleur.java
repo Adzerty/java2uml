@@ -98,7 +98,7 @@ public class Controleur
 	public String[] getClasse()
 	{
 
-		File repertoire = new File("./fichierJava");
+		File repertoire = new File(repJava);
 
 		String liste[] = repertoire.list();
 
@@ -185,7 +185,6 @@ public class Controleur
             Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
         }
 	}
-	
 	public void compilation()
 	{
         File rep = new File(repJava);

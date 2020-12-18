@@ -269,23 +269,11 @@ public class ConfigReader
     {
         PrintWriter writer;
         try {
-<<<<<<< Updated upstream
-            File f = new File("./DiagrammeTxt",nomFichier);
-=======
             File f = new File("../DiagrammeTxt",nomFichier);
->>>>>>> Stashed changes
             writer = new PrintWriter(f, "UTF-8");
             writer.println(this.toString());
             writer.close();
         } catch (Exception e) {e.printStackTrace();}
-<<<<<<< Updated upstream
-    }
-
-    public static void main(String[] args) {
-       ConfigReader conf = new ConfigReader("FichierTest.config");
-        System.out.println(conf.toString());
-=======
->>>>>>> Stashed changes
     }
 
 }
