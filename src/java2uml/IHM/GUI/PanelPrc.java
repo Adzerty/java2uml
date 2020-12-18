@@ -64,7 +64,7 @@ public class PanelPrc extends JPanel {
             
             pe.setSize(pe.getPreferredSize());
             
-            ensCoord.add(new Coord((int)Math.round(x),(int)Math.round(y), true, null));
+            ensCoord.add(new Coord((int)Math.round(x),(int)Math.round(y)));
             
             pe.setLocation(ensCoord.get(pe.getId()).getX(),ensCoord.get(pe.getId()).getY());
             
@@ -80,16 +80,6 @@ public class PanelPrc extends JPanel {
 		}
 		this.setVisible(true);
 	}
-	
-	/*public Coord getCoordOfJPanel( int id) {
-		Coord coord = null;
-		for( PanelEntite e : ensPanelEntite ) {
-			if( e.getId() == id ) {
-				coord = new Coord( e.getX(), e.getY());
-			}
-		}
-		return coord;
-	}*/
 	
 	public void press(MouseEvent e)
 	{
@@ -115,7 +105,6 @@ public class PanelPrc extends JPanel {
 		
 		
 		((PanelEntite) e.getSource()).setLocation(this.ensCoord.get(ident).getX(),this.ensCoord.get(ident).getY());
-		//((PanelEntite) e.getSource()).setEnsCoord();
 		repaint();
 	}
 	
@@ -172,14 +161,10 @@ public class PanelPrc extends JPanel {
 				{					
 					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseGauche()))
 					{
-						/*x1 = this.ensCoord.get(i).getX()+this.ensPanelEntite.get(i).getWidth();
-						y1 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));*/	
 						ensCoordGauche = this.ensPanelEntite.get(i).getEnsCoord();
 					}
 					if(this.ensPanelEntite.get(i).getNom().equals(a.getClasseDroite()))
 					{
-						/*x2 = this.ensCoord.get(i).getX();
-						y2 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));*/
 						ensCoordDroite = this.ensPanelEntite.get(i).getEnsCoord();
 					}
 					
@@ -201,10 +186,6 @@ public class PanelPrc extends JPanel {
 				
 				
 				double longueur = Math.sqrt( Math.pow(xGauche - xDroite, 2) + Math.pow(yGauche - yDroite, 2) );
-				int indexDroite = 0;
-				int indexGauche = 0;
-				ensCoordGauche.get(indexGauche).setPris(true);
-				ensCoordDroite.get(indexDroite).setPris(true);
 				
 				for( int cpt = 0; cpt < ensCoordGauche.size(); cpt++ ) {
 					xTmpGauche = ensCoordGauche.get(cpt).getX();
@@ -214,34 +195,11 @@ public class PanelPrc extends JPanel {
 						yTmpDroite = ensCoordDroite.get(tmp).getY();
 						tmpLongueur = Math.sqrt( Math.pow(xTmpGauche - xTmpDroite, 2) + Math.pow(yTmpGauche - yTmpDroite, 2) );
 						if( tmpLongueur < longueur ) {
-							if(!Objects.isNull(ensCoordGauche.get(cpt).getAssociation()) && !Objects.isNull(ensCoordDroite.get(tmp).getAssociation())) {
-							if(ensCoordGauche.get(cpt).getAssociation().equals(ensCoordDroite.get(tmp).getAssociation())) {
-									xGauche = xTmpGauche;
-									xDroite = xTmpDroite;
-									yGauche = yTmpGauche;
-									yDroite = yTmpDroite;
-									longueur = tmpLongueur;
-									ensCoordGauche.get(indexGauche).setAssociation(null);
-									ensCoordDroite.get(indexDroite).setAssociation(null);
-									indexGauche = cpt;
-									indexDroite = tmp;
-									ensCoordGauche.get(indexGauche).setAssociation(a);
-									ensCoordDroite.get(indexDroite).setAssociation(a);
-								}
-							}
-							if(Objects.isNull(ensCoordGauche.get(cpt).getAssociation()) && Objects.isNull(ensCoordDroite.get(tmp).getAssociation())) {
-								xGauche = xTmpGauche;
-								xDroite = xTmpDroite;
-								yGauche = yTmpGauche;
-								yDroite = yTmpDroite;
-								longueur = tmpLongueur;
-								ensCoordGauche.get(indexGauche).setAssociation(null);
-								ensCoordDroite.get(indexDroite).setAssociation(null);
-								indexGauche = cpt;
-								indexDroite = tmp;
-								ensCoordGauche.get(indexGauche).setAssociation(a);
-								ensCoordDroite.get(indexDroite).setAssociation(a);
-							}
+							xGauche = xTmpGauche;
+							xDroite = xTmpDroite;
+							yGauche = yTmpGauche;
+							yDroite = yTmpDroite;
+							longueur = tmpLongueur;
 						}
 					}
 				}
