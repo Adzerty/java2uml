@@ -71,7 +71,6 @@ public class PanelPrc extends JPanel {
             angle += degreInc;
             x = (Math.cos(Math.toRadians(angle))*hauteurMax) + centerx;
             y = (Math.sin(Math.toRadians(angle))*hauteurMax) + centery;
-            pe.setEnsCoord();
         }
         
 		for(Coord c : ensCoord) {
