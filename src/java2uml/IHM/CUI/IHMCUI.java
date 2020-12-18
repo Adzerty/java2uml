@@ -8,6 +8,7 @@ import java2uml.Controleur;
 public class IHMCUI
 {
 	private char coul = '#'; //Couleur d'écriture du prog → BLANC (voir setCE)
+	private int  tpsDebug = 1500;
 	
 	private Controleur ctrl;
 	public IHMCUI(Controleur ctrl)
@@ -71,7 +72,7 @@ public class IHMCUI
 				case  2 : this.charger  (0      ); break;
 				case  3 : this.modifier (0      ); break;
 				case  4 : this.supprimer(0, null); break;
-				default : Console.println("\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ ")" ); try {Thread.sleep(1000);}catch(Exception ex){}; break;
+				default : Console.println("\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ ")" ); try {Thread.sleep(tpsDebug);}catch(Exception ex){}; break;
 			}
 		}while(choix != 0);
 		Console.print(this.setCE('*'));
@@ -108,7 +109,7 @@ public class IHMCUI
 			}
 			this.finTab(tMAxFichier);
 		}
-		else { Console.print(this.col("\tAucune classe java dans le repertoire classe", 'R')); try {Thread.sleep(3000);} catch (Exception ex) {} }
+		else { Console.print(this.col("\tAucune classe java dans le repertoire classe", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
 
 		char saisie = this.menuSelection(true);
 		
@@ -217,7 +218,6 @@ public class IHMCUI
 			{
 				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
 				Console.print("\n\t\tLecture du fichier : " + this.col(nomFichier, 'B'));
-				try{Thread.sleep(1500);}catch (Exception ex){}
 				this.entete();
 				Console.print(this.ctrl.getContenuConfig(nomFichier));
 				this.getString();
@@ -238,7 +238,7 @@ public class IHMCUI
 				else                          { this.charger(newSel); }//on descend
 			}
 		}
-		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
+		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
 	}
 	
 	private void modifier(int selec)//permet de modifier un fichir de config
@@ -275,7 +275,7 @@ public class IHMCUI
 			if(saisie== '*') //Valider
 			{
 				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
-				Console.print("\tOuverture du fichier : " + this.col(nomFichier, 'B'));	try{Thread.sleep(1500);}catch (Exception ex){}
+				Console.print("\tOuverture du fichier : " + this.col(nomFichier, 'B'));
 				this.ctrl.ouvrirEnEdit(nomFichier);
 			}
 			
@@ -293,7 +293,7 @@ public class IHMCUI
 				else                          { this.modifier(newSel); }//on descend
 			}
 		}
-		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
+		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
 	}
 	
 	private void supprimer(int selec, boolean[] tabSelecSup)//permet de supprimer des fichiers de config
@@ -336,8 +336,8 @@ public class IHMCUI
 					newSel++;
 				}
 				tabSelecSup[selec] = !tabSelecSup[selec];
-				if(newSel > listeS.length -1) { this.creer(0      , tabSelecSup);  }//torique bas
-				else                          { this.creer(newSel , tabSelecSup); 	}//on descend
+				if(newSel > listeS.length -1) { this.supprimer(0      , tabSelecSup);  }//torique bas
+				else                          { this.supprimer(newSel , tabSelecSup); 	}//on descend
 			}
 			if(saisie== '*')
 			{
@@ -366,48 +366,30 @@ public class IHMCUI
 					
 					//this.ctrl.supprimerConfig(tabFichierConfig);
 				}
-
-				Console.print("\n\t\tAuteur      : ");
-				Console.print(this.setCE('B'));
-				String auteur = getString() ;
-				Console.print(this.setCE(this.coul));
-				
-				if(auteur.equals("")) { auteur = "?"; }
-				
-				Console.print("\t\tNom Fichier : ");
-				Console.print(this.setCE('B'));
-				String nomFichierConfig = getString() ;
-				Console.print(this.setCE(this.coul));
-				
-				if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }
-				
-				Console.print(this.ctrl.createConfigFile(nomFichierConfig, auteur));
-				this.getString();
 			}
-			
 			if(saisie== '-')
 			{
 				newSel--;
-				if(newSel < 0) { this.creer(listeS.length -1, tabSelecSup);  } //torique haut
-				else           { this.creer(newSel          , tabSelecSup);  } //on monte
+				if(newSel < 0) { this.supprimer(listeS.length -1, tabSelecSup);  } //torique haut
+				else           { this.supprimer(newSel          , tabSelecSup);  } //on monte
 			}
 			if(saisie== '+')
 			{
 				newSel++;
-				if(newSel > listeS.length -1) { this.creer(0     , tabSelecSup);  }//torique bas
-				else                          { this.creer(newSel, tabSelecSup);  }//on descend
+				if(newSel > listeS.length -1) { this.supprimer(0     , tabSelecSup);  }//torique bas
+				else                          { this.supprimer(newSel, tabSelecSup);  }//on descend
 			}
 		}
-		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
+		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
 	}
 	
 	private char menuSelection(boolean multi)
 	{
 		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
 		               + "\t\t (" +this.col("+", 'B')+ ") : v descendre\n" + ((multi)?
-		               ( "\t\t (" +this.col(".", 'B')+ ") :   selectionner\n"):"")
-		               + "\t\t (" +this.col("*", 'B')+ ") :   valider\n"
-		               + "\t\t (" +this.col("/", 'B')+ ") :   annuler\n"
+		               ( "\t\t (" +this.col(".", 'B')+ ") : x selectionner\n"):"")
+		               + "\t\t (" +this.col("*", 'B')+ ") : » valider\n"
+		               + "\t\t (" +this.col("/", 'B')+ ") : « annuler\n"
 		               + "\tsaisie : ");
 
 		
