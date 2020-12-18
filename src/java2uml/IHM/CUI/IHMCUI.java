@@ -14,6 +14,8 @@ public class IHMCUI
 	{
 		this.ctrl = ctrl;
 	}
+	public String repJava = "../fichierJava/";
+	public String repConfig = "../config/";
 	
 	//Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ? 
 	public char choixGraphique()
@@ -67,7 +69,7 @@ public class IHMCUI
 			switch (choix)
 			{
 				case  0 : break;
-				case  1 : this.creer(0, null); break;
+				case  1 : Console.println("Compilation en cours...");this.ctrl.compilation();this.creer(0, null); break;
 				case  2 : this.charger(0    ); break;
 				case  3 : this.modifier(0   ); break;
 				case  4 : this.supprimer(0  ); Console.println("\n\tSuppression des fichiers config ..."); try {Thread.sleep(800);}catch(Exception ex){}; break;
@@ -97,7 +99,7 @@ public class IHMCUI
 				tabSelec = new boolean[listeS.length];
 			}
 			
-			int tMAxFichier  = this.ctrl.getTailleMaxFichier("./fichierJava"); //recuperation de la taille max dans les fichiers
+			int tMAxFichier  = this.ctrl.getTailleMaxFichier(repJava); //recuperation de la taille max dans les fichiers
 			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
 			this.debTab(tMAxFichier); // création bordure de tableau
 			for (int f = 0; f < listeS.length; f++)
@@ -198,7 +200,7 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeC != null)
 		{
-			int tMAxFichier  = this.ctrl.getTailleMaxFichier("./config"); //recuperation de la taille max dans les fichiers
+			int tMAxFichier  = this.ctrl.getTailleMaxFichier(repConfig); //recuperation de la taille max dans les fichiers
 			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
 			this.debTab(tMAxFichier); // création bordure de tableau
 			for (int f = 0; f < listeC.length; f++)
@@ -257,7 +259,7 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeC != null)
 		{
-			int tMaxConfig  = this.ctrl.getTailleMaxFichier("./config"); //recuperation de la taille max dans les fichiers
+			int tMaxConfig  = this.ctrl.getTailleMaxFichier(repConfig); //recuperation de la taille max dans les fichiers
 			if(tMaxConfig < 16) tMaxConfig = 16;//Pour en-tete stable
 			this.debTab(tMaxConfig); // création bordure de tableau
 			for (int f = 0; f < listeC.length; f++)

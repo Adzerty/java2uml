@@ -27,7 +27,7 @@ public class ConfigGenerator {
 	
 	private ArrayList<String> ensEntite = new ArrayList<String>();
 	
-	private static final String CHEMIN = "./config/";
+	private static final String CHEMIN = "../config/";
 	
 	public ConfigGenerator(Diagramme diag, String nomFic, String auteur) 
 	{

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="50aec037-29f9-4d51-aa83-ccf306d11941" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTest.config" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/config/FichierTest.txt" beforeDir="false" />
@@ -15,6 +16,28 @@
       <change beforePath="$PROJECT_DIR$/src/java2uml/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/Controleur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
+=======
+    <list default="true" id="8cf95228-c1ca-47e8-972e-b2377a7b3044" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/Coord.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/test1$test2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/test1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierCompile/testInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierJava/Coord.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/fichierJava/test1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/java2uml.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/Controleur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/IHM/CUI/IHMCUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Association.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Association.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/JavaReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/JavaReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Parametre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Parametre.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +61,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+<<<<<<< Updated upstream
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/out/artifacts/java2uml_jar/executable" />
+>>>>>>> Stashed changes
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15376782" />
     <property name="project.structure.side.proportion" value="0.2" />

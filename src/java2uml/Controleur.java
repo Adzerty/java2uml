@@ -27,6 +27,9 @@ public class Controleur
 {
 	private IHMCUI    ihmCUI;
 	private Diagramme diagTemp;
+	private String repConfig ="../config/";
+	private String repJava="../fichierJava/";
+	private String repCompile = "../fichierCompile/";
 
 	public Controleur()
 	{
@@ -45,7 +48,7 @@ public class Controleur
 	public String[] getConfig()
 	{
 
-		File repertoire = new File("./config");
+		File repertoire = new File(repConfig);
 		
 		String liste[] = repertoire.list();
 		
@@ -61,7 +64,7 @@ public class Controleur
 				tabF[i] = liste[i];
 				try
 				{
-					Path file = Paths.get("./config/" + liste[i]);
+					Path file = Paths.get(repConfig + liste[i]);
 					BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 					dateC = attr.creationTime().toString();
 					dateM = attr.lastModifiedTime().toString();
@@ -79,6 +82,19 @@ public class Controleur
 		}
 	}
 	
+	public int getTailleMaxFichier()
+	{
+		int max = 0;
+		File repertoire = new File(repJava);
+		String liste[] = repertoire.list();
+		
+		for(String s : liste)
+		{
+			if(max < s.length())
+				max = s.length();
+		}
+		return max;
+	}
 	public String[] getClasse()
 	{
 
@@ -98,7 +114,7 @@ public class Controleur
 				tabF[i] = liste[i];
 				try
 				{
-					Path file = Paths.get("./fichierJava/" + liste[i]);
+					Path file = Paths.get(repJava + liste[i]);
 					BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 					dateC = attr.creationTime().toString();
 					dateM = attr.lastModifiedTime().toString();
@@ -140,10 +156,17 @@ public class Controleur
 
 	public void     CreateNewDiagramme(String[] tabNomFichier)
 	{
+		nomFichier=nomFichier.replace(".java","");
+		String[] tab = {nomFichier};
+		diagTemp = new Diagramme(tab);
 		for(int f = 0; f < tabNomFichier.length; f++)
 		{
 			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
 		}
+		this.diagTemp = new Diagramme(tabNomFichier);
+=======
+		for(int f = 0; f < tabNomFichier.length; f++)
+			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
 		this.diagTemp = new Diagramme(tabNomFichier);
 	}
 	
@@ -155,7 +178,7 @@ public class Controleur
 	
 	public void     ouvrirEnEdit(String nomFichier)
 	{
-		File file = new File("./config/" + nomFichier);
+		File file = new File(repConfig + nomFichier);
         if (!file.exists() && file.length() < 0)
         {
             System.out.println("Le fichier n'existe pas!");
@@ -187,4 +210,35 @@ public class Controleur
 			t.printStackTrace();
 		}
     }
+	public void compilation()
+	{
+        File rep = new File(repJava);
+		//String listeJava[] = rep.list();
+
+		/*for (String s : listeJava )
+		{
+			String commande = "javac -d "+ repDest + " ./fichierJava/"+s;
+			try {
+				Runtime rt = Runtime.getRuntime();
+				Process proc = rt.exec(commande);
+				//int exitVal = proc.waitFor();
+				//if(exitVal!=0) System.out.println("erreur compilation sur fichier :"+ s);
+			} catch (Throwable t)
+			{
+				t.printStackTrace();
+			}
+		}*/
+
+		String commande = "javac -parameters -d "+ repCompile +' ' +repJava+"*.java";
+		try {
+			Runtime rt = Runtime.getRuntime();
+			Process proc = rt.exec(commande);
+			int exitVal = proc.waitFor();
+			if(exitVal!=0) System.out.println("erreur compilation sur un fichier");
+		} catch (Throwable t)
+		{
+			t.printStackTrace();
+		}
+    }
+	
 }
