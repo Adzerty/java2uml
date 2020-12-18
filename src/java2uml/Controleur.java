@@ -1,5 +1,6 @@
 package java2uml;
 
+//package
 import java2uml.IHM.GUI.IHMGUI;
 import java2uml.IHM.CUI.IHMCUI;
 import java2uml.metier.ConfigGenerator;
@@ -12,10 +13,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 //lecture
 import java.awt.Desktop;
 
@@ -27,9 +27,9 @@ public class Controleur
 {
 	private IHMCUI    ihmCUI;
 	private Diagramme diagTemp;
-	private String repConfig ="../config/";
-	private String repJava="../fichierJava/";
-	private String repCompile = "../fichierCompile/";
+	public String repConfig  = "../config/";
+	public String repJava    = "../fichierJava/";
+	public String repCompile = "../fichierCompile/";
 
 	public Controleur()
 	{
@@ -45,7 +45,7 @@ public class Controleur
 		new Controleur();
 	}
 	
-	public String[] getConfig()
+	public String[] getConfig()//renvoie sous forme de tableau de String l'ensemble des fichiers de config
 	{
 
 		File repertoire = new File(repConfig);
