@@ -334,10 +334,5 @@ public class ConfigGenerator {
         return sRet;
     }
 
-	public static void main(String[] args) {
-		String[] tabNoms = {"Train", "Vehicule"};
-		Diagramme d = new Diagramme(tabNoms);
-		ConfigGenerator cGen = new ConfigGenerator(d, "Test", "Bernard");
-	}
 
 }

@@ -114,7 +114,7 @@ public class Entite
         {
             String temp="";
             temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
-            if(m.getTypeDeRetour().contains("{constructeur}"))
+            if(!m.getTypeDeRetour().contains("{constructeur}"))
                 temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
 
             if(temp.length()>maxTaille)maxTaille=temp.length();
@@ -131,7 +131,7 @@ public class Entite
 
         if(type.contains("Enum"))   if("<<enumeration>>".length()>maxTaille) maxTaille = "<<enumeration>>".length();
         else if(type.contains("Interface")) if("Interface".length()>maxTaille) maxTaille = "Interface".length();
-        return  maxTaille;
+        return  maxTaille+2;
     }
     @Override
     public String toString()
@@ -152,11 +152,11 @@ public class Entite
         String attribut="\n";
         for (Attribut a: ensAttribut )
         {
-            String temp = "│";
+            String temp = "\t\t│";
             temp+=String.format("%-"+String.valueOf(tailleAttNoType)+ 's',a.toStringNoType());
             temp+=String.format("%-"+String.valueOf(tailleAttType-tailleAttNoType)+ 's'," : "+ a.getType());
             for (int i = temp.length(); i<=maxTaille;i++) temp+=" ";
-            temp+="│";
+            temp+="  │";
             if(a.isEstStatique())
             {
                 String underline="";
@@ -165,7 +165,7 @@ public class Entite
                         underline+="¯";
                     else
                         underline+=" ";
-                temp+="\n│"+underline+"│";
+                temp+="\n\t\t│"+underline+"  │";
             }
 
             attribut+=temp+"\n";
@@ -184,14 +184,14 @@ public class Entite
         String methode="\n";
         for (Methode m: ensMethode )
         {
-            String temp="│";
+            String temp="\t\t│";
             String underline="";
             temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
             if(!m.getTypeDeRetour().contains("{constructeur}"))
                 temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
 
             for (int i = temp.length(); i<=maxTaille;i++) temp+=" ";
-            temp+="│";
+            temp+="  │";
             if(m.isEstStatique())
             {
                 for (int i = 0; i <maxTaille; i++)
@@ -199,7 +199,7 @@ public class Entite
                         underline+="¯";
                     else
                         underline+=" ";
-                temp+="\n│"+underline+"│";
+                temp+="\n\t\t│"+underline+"  │";
             }
 
 
@@ -211,7 +211,7 @@ public class Entite
         for (int i = 0; i < maxTaille ; i++)
             separation+="─";
 
-        String ligneNom="\n│";
+        String ligneNom="\n\t\t│";
         if(type.contains("Enum"))
         {
             for (int i = 0; i < (int) (maxTaille - "<<enumeration>>".length()) /2 ; i++)  ligneNom+=" ";
@@ -223,11 +223,11 @@ public class Entite
             ligneNom+= "<<interface>>";
         }
         for (int i = ligneNom.length()-1; i <= maxTaille; i++)  ligneNom+=" ";
-        ligneNom+="│\n";
+        ligneNom+="  │\n";
 
         if (estAbstraite)
         {
-            String temp = "│";
+            String temp = "\t\t│";
             for (int i = 0; i < (int) (maxTaille - nom.length()- " {abstract}".length()) /2 ; i++) temp+= ' ';
             temp+= nom + " {abstract}";
             for (int i = temp.length(); i <= maxTaille; i++)  temp+=" ";
@@ -235,24 +235,22 @@ public class Entite
         }
         else
         {
-            String temp = "│";
+            String temp = "\t\t│";
             for (int i = 0; i < (int) (maxTaille - nom.length()) /2 ; i++) temp+= ' ';
             temp+=nom;
             for (int i = temp.length(); i <= maxTaille; i++)  temp+=" ";
             ligneNom+=temp;
         }
 
-        ligneNom+="│";
+        ligneNom+="  │\n";
 
-        ligneNom+="\n";
-
-        sRet += "┌" + separation + "┐";
+        sRet += "\t\t┌" + separation + "┐";
         sRet += ligneNom;
-        sRet += "├"+separation+"┤";
+        sRet += "\t\t├"+separation+"┤";
         sRet += attribut;
-        sRet += "├"+separation+"┤";
+        sRet += "\t\t├"+separation+"┤";
         sRet += methode;
-        sRet += "└" + separation + "┘\n\n\n";
+        sRet += "\t\t└" + separation + "┘\n\n\n";
 
         return sRet;
     }

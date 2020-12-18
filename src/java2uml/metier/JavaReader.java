@@ -9,9 +9,6 @@ import java.util.Scanner;
 
 public class JavaReader
 {
-	
-	private String cheminExec = getClass().getProtectionDomain().getCodeSource().getLocation().getFile().substring(1).replaceAll("/", "\\\\"); // le repertoire courant de l'Exec
-	
     private String nomClasse;
 
     private Field[] tabAttribut;
@@ -99,7 +96,8 @@ public class JavaReader
 			else
 				if(c.isInterface()) typeEntite = "Interface";
 				else typeEntite = "Classe";
-			
+
+            urlcl.close();
 			
 
 		}catch(Exception e)

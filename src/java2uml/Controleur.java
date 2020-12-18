@@ -30,7 +30,7 @@ public class Controleur
 	public String repConfig    = "../config/";
 	public String repJava      = "../fichierJava/";
 	public String repCompile   = "../fichierCompile/";
-	public String repDiagramme = "../DiagrammeTxt/";
+	public String repDiagramme = "../diagrammes/";
 
 	public Controleur()
 	{
@@ -149,9 +149,9 @@ public class Controleur
 	public String   getContenuConfig(String nomFichier)
     {
         String diagramme = "\n\n\n\n\n";
-        
-        diagramme+= new ConfigReader(nomFichier).toString();
-        new ConfigReader(nomFichier).CreateFile(nomFichier);
+        ConfigReader temp = new ConfigReader(nomFichier);
+        diagramme+= temp.toString();
+        temp.CreateFile(nomFichier);
         return diagramme;
     }
 
@@ -195,7 +195,7 @@ public class Controleur
 			{
 				File tmpC = new File(repConfig     + s); //fichier config    a sup
 				File tmpD = new File(repDiagramme  + s); //fichier diagramme a sup
-				
+
 				this.ihmCUI.confirmSup(tmpC.getName(), tmpC.delete(), tmpD.delete()); //suppression des 2 fichiers
 			}
 		}
@@ -204,23 +204,6 @@ public class Controleur
 	
 	public void compilation()
 	{
-        File rep = new File(repJava);
-		String listeJava[] = rep.list();
-
-		for (String s : listeJava )
-		{
-			String commande = "javac -d "+ repCompile + " ./fichierJava/"+s;
-			try {
-				Runtime rt = Runtime.getRuntime();
-				Process proc = rt.exec(commande);
-				//int exitVal = proc.waitFor();
-				//if(exitVal!=0) System.out.println("erreur compilation sur fichier :"+ s);
-			} catch (Throwable t)
-			{
-				t.printStackTrace();
-			}
-		}
-
 		String commande = "javac -parameters -d "+ repCompile +' ' +repJava+"*.java";
 		try {
 			Runtime rt = Runtime.getRuntime();

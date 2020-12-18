@@ -241,6 +241,7 @@ public class ConfigReader
                     ensEntite.add(e);
                     }
             }
+            sc.close();
         }
         catch(Exception e)
         {

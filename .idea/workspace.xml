@@ -2,18 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96d3b304-cbef-44d7-b921-18c5355d255c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/executable/java2uml.bat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/java2uml_jar/executable/java2uml.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/java2uml_jar/executable/java2uml.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/Controleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/Controleur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/ConfigReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Entite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/Methode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/Methode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2uml/metier/JavaReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2uml/metier/JavaReader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -36,5 +39,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
