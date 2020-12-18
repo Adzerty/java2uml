@@ -18,7 +18,6 @@ public class PanelEntite extends JPanel implements MouseListener  {
 	private String nom;
 	
 	
-	
 	public PanelEntite(Entite e, PanelPrc panelPrincipal, int identifiant){
 		
 		this.entite = e;
