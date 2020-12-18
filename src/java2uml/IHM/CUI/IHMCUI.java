@@ -69,7 +69,7 @@ public class IHMCUI
 			switch (choix)
 			{
 				case  0 : break;
-				case  1 : Console.println("Compilation en cours...");this.ctrl.compilation();this.creer(0, null); break;
+				case  1 : Console.print("\n\t\tCompilation en cours...");this.ctrl.compilation();this.clear();this.creer(0, null); break;
 				case  2 : this.charger(0    ); break;
 				case  3 : this.modifier(0   ); break;
 				case  4 : this.supprimer(0  ); Console.println("\n\tSuppression des fichiers config ..."); try {Thread.sleep(800);}catch(Exception ex){}; break;
@@ -81,7 +81,7 @@ public class IHMCUI
 		System.exit (0);
 	}
 	
-	private void creer(int selec ,boolean[] tabSelec)
+	private void creer(int selec ,boolean[] tabSelec)//permet de générer un diagramme
 	{
 		//creer un diagramme de la selection
 		this.entete();
@@ -122,8 +122,11 @@ public class IHMCUI
 		if(saisie== '/') { this.menu(); }
 		if(saisie== '.')
 		{
+			if(!tabSelec[selec])
+			{
+				newSel++;
+			}
 			tabSelec[selec] = !tabSelec[selec];
-			newSel++;
 			if(newSel > listeS.length -1) { this.creer(0      , tabSelec);  }//torique bas
 			else                          { this.creer(newSel , tabSelec); 	}//on descend
 		}
@@ -137,7 +140,7 @@ public class IHMCUI
 			if(cptTrue == 0)//pas de marque
 			{
 				String[] tabFichierJava = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
-				this.ctrl.CreateNewDiagramme(tabFichierJava);
+				this.ctrl.createNewDiagramme(tabFichierJava);
 			}
 			else
 			{
@@ -148,7 +151,7 @@ public class IHMCUI
 					if(tabSelec[b])
 						tabFichierJava[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
 				
-				this.ctrl.CreateNewDiagramme(tabFichierJava);//envoyé un tabString
+				this.ctrl.createNewDiagramme(tabFichierJava);//envoyé un tabString
 			}
 
 			Console.print("\n\t\tAuteur      : ");
@@ -165,7 +168,7 @@ public class IHMCUI
 			
 			if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }
 			
-			Console.print(this.ctrl.CreateConfigFile(nomFichierConfig, auteur));
+			Console.print(this.ctrl.createConfigFile(nomFichierConfig, auteur));
 			this.getString();
 		}
 		
@@ -181,11 +184,9 @@ public class IHMCUI
 			if(newSel > listeS.length -1) { this.creer(0     , tabSelec);  }//torique bas
 			else                          { this.creer(newSel, tabSelec);  }//on descend
 		}
-
-		this.menu();
 	}
 	
-	private void charger(int selec)//permet de charger un diagramme (sous forme txt)
+	private void charger(int selec)//permet de charger un diagramme (sous sa forme txt)
 	{
 		
 		//Affichage de la selection
@@ -245,7 +246,7 @@ public class IHMCUI
 		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
 	}
 	
-	private void modifier(int selec)
+	private void modifier(int selec)//permet de modifier un fichir de config
 	{
 		//Affichage de la selection
 		this.entete();
@@ -301,7 +302,7 @@ public class IHMCUI
 		else { Console.print(this.col("\tAucun fichier sauvegardé dans le dossier config", 'R')); try {Thread.sleep(1500);} catch (Exception ex) {} }
 	}
 	
-	private void supprimer(int selec)
+	private void supprimer(int selec)//permet de supprimer des fichiers de config
 	{
 		return;
 	}
