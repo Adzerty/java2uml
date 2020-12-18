@@ -118,19 +118,28 @@ public class PanelPrc extends JPanel {
 		//Draw horizontal arrow starting in (0, 0)
 		g.drawLine(0, 0, len, 0);
 		if(type == "unidirectionnele")
-		{
+		{	
 			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
 			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
 		}
 		if(type == "composition")
-		{
+		{	
 			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
 			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
 			g.fillPolygon(new int[] {len-2*ARR_SIZE, len-ARR_SIZE, len-ARR_SIZE, len-2*ARR_SIZE},
 			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
 		}
-		else
+		if(type == "agrégation")
+		{	
+			g.setColor(Color.GRAY);
+			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+			g.fillPolygon(new int[] {len-2*ARR_SIZE, len-ARR_SIZE, len-ARR_SIZE, len-2*ARR_SIZE},
+			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+		}
+		if(type == "généralisation/spécialisation")
 		{
+			g.setColor(Color.GRAY);
 			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
 			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
 		}
@@ -157,8 +166,14 @@ public class PanelPrc extends JPanel {
 						y2 = (this.ensCoord.get(i).getY()+(this.ensPanelEntite.get(i).getHeight()/2));
 					}
 					
-				}					
+				}			
+				System.out.println(a.getTypeAssociation());
 				drawArrow(g,x1 , y1, x2,y2, a.getTypeAssociation());
+			 /*////////////////////////////////////////////////////////////:
+			  * 															/
+			  * 					g.drawString(texte, x, y );				/
+			  *									pour plus tard				/
+			  //////////////////////////////////////////////////////////////*/
 		}
 	}
 }
