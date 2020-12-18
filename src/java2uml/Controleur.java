@@ -192,7 +192,7 @@ public class Controleur
 
 		for (String s : listeJava )
 		{
-			String commande = "javac -d "+ repDest + " ./fichierJava/"+s;
+			String commande = "javac -d "+ repCompile + " ./fichierJava/"+s;
 			try {
 				Runtime rt = Runtime.getRuntime();
 				Process proc = rt.exec(commande);
