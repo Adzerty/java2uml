@@ -53,8 +53,8 @@ public class IHMCUI
 		if(supConfig && supDiag) { Console.println("\t\t" + this.col("# ", 'V') + "Les fichiers associés à " + this.col(fichierSup, 'B') + " ont été supprimé avec succès."); }
 		else
 		{
-			if(supConfig) { Console.println("\t\t" + this.col("# ", 'J') + "Le fichier " + this.col(fichierSup, 'B') + " a été supprimé avec succès, aucun diagramme associé.");             }
-			else          { Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'R') + ", ce fichier de configuration n'existe pas."); }
+			if(supConfig && !supDiag) { Console.println("\t\t" + this.col("# ", 'J') + "Le fichier " + this.col(fichierSup, 'B') + " a été supprimé avec succès, aucun diagramme associé.");             }
+			else                      { Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'R') + ", ce fichier de configuration n'existe pas."); }
 		}
 		try {Thread.sleep(3000);}catch(Exception ex){};
 	}

@@ -149,9 +149,9 @@ public class Controleur
 	public String   getContenuConfig(String nomFichier)
     {
         String diagramme = "\n\n\n\n\n";
-        ConfigReader temp = new ConfigReader(nomFichier);
-        diagramme+= temp.toString();
-        temp.CreateFile(nomFichier);
+        
+        diagramme+= new ConfigReader(nomFichier).toString();
+        new ConfigReader(nomFichier).CreateFile(nomFichier);
         return diagramme;
     }
 
@@ -193,8 +193,8 @@ public class Controleur
 		{
 			for(String s : tabFichierSup)
 			{
-				File tmpC = new File(repConfig    + "\\" + s); //fichier config    a sup
-				File tmpD = new File(repDiagramme + "\\" + s); //fichier diagramme a sup
+				File tmpC = new File(repConfig     + s); //fichier config    a sup
+				File tmpD = new File(repDiagramme  + s); //fichier diagramme a sup
 				
 				this.ihmCUI.confirmSup(tmpC.getName(), tmpC.delete(), tmpD.delete()); //suppression des 2 fichiers
 			}
