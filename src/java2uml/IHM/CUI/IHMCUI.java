@@ -214,7 +214,7 @@ public class IHMCUI
 					this.afficherFichier(listeC[f],false, tMAxFichier);
 				}
 			}
-			this.finTab(tMAxFichier);
+			this.finTab(tMAxFichier);//Fin du tableau
 			
 			char saisie = this.menuSelection(false);
 			
