@@ -165,7 +165,7 @@ public class Entite
                         underline+="¯";
                     else
                         underline+=" ";
-                temp+="\n\t\t│"+underline+"  │";
+                temp+="\n\t\t│"+underline+"│";
             }
 
             attribut+=temp+"\n";
@@ -199,7 +199,7 @@ public class Entite
                         underline+="¯";
                     else
                         underline+=" ";
-                temp+="\n\t\t│"+underline+"  │";
+                temp+="\n\t\t│"+underline+"│";
             }
 
 
