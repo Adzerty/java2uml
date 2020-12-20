@@ -142,6 +142,8 @@ public class ConfigGenerator {
 			sRet += "\n----Attribut(s) :\n";
 			for(Field f : c.getTabAttribut())
 			{
+				
+				if(f.getName().contains("$"))continue;
 				//On regarde la visibilité de l'attribut
 				char visibilite = 0;
 				if(Modifier.isPrivate(f.getModifiers())) visibilite='-';
@@ -243,6 +245,7 @@ public class ConfigGenerator {
 			}
 			for(Field f : c.getTabAttribut())
 			{
+				if(f.getName().contains("$"))continue;
 				for(String s : ensEntite)
 					if(getFormattedType(f).contains(s))
 						sRet += c.getNomClasse() + " ------- " + s + '\n';

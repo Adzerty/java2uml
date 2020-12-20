@@ -37,6 +37,7 @@ public class JavaReader
 			/* Permet d'accéder à un .class dans un autre dossier ici : ./fichierJava/ */
 			File f = new File(repCompile);
 			URL[] cp = {f.toURI().toURL()};
+			nomClasse = nomClasse.replace(".class", "");
 			URLClassLoader urlcl = new URLClassLoader(cp);
 			Class c = urlcl.loadClass(nomClasse);
 
