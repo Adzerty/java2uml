@@ -252,6 +252,15 @@ public class ConfigGenerator {
 			}
 			
 			
+			for(Class inter : c.getInterface())
+			{
+				for(String s : ensEntite)
+					if(inter.getName().contains(s))
+						sRet += c.getNomClasse() + " -.-.-.-|> " + inter.getName() + '\n';
+			}
+			
+			
+			
 			sRet += "\n\n";
 		}
 		return sRet;

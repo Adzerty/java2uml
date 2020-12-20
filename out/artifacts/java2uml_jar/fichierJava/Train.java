@@ -12,7 +12,7 @@
 	import java.util.ArrayList;
 	import java.util.Iterator;
 
-public class Train implements Iterable<Vehicule>
+public class Train implements Iterable<Vehicule>, TestInterface
 {
 	/*------------------*/
 	/*     Attributs    */
@@ -115,6 +115,15 @@ public class Train implements Iterable<Vehicule>
 			case "BLANC" : return CouleurConsole.BLANC.getFond ();
 			default      : return CouleurConsole.NOIR.getFond ();
 		}
+	}
+	
+	public int addition()
+	{
+		return 0;
+	}
+	public void test()
+	{
+		return;
 	}
 
 	public static void main(String[] args)
