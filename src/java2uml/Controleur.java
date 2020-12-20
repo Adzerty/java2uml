@@ -107,7 +107,7 @@ public class Controleur
 	public String[] getClasse()
 	{
 
-		File repertoire = new File(repJava);
+		File repertoire = new File(repCompile);
 
 		String liste[] = repertoire.list();
 
@@ -123,13 +123,12 @@ public class Controleur
 				tabF[i] = liste[i];
 				try
 				{
-					Path file = Paths.get(repJava + liste[i]);
+					Path file = Paths.get(repCompile + liste[i]);
 					BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 					dateC = attr.creationTime().toString();
 					dateM = attr.lastModifiedTime().toString();
 				}
 				catch (IOException e) { e.printStackTrace(); System.out.println("Erreur lors de la recuperation des dates du fichier");}
-
 				tabF[i] += "|" + dateC.substring(0,10) + " " + dateC.toString().substring(11,16) + "|" + dateM.substring(0,10) + " " + dateM.toString().substring(11,16) ;
 			}
 			return tabF;

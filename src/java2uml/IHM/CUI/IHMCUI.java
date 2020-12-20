@@ -107,7 +107,7 @@ public class IHMCUI
 		{
 			if(tabSelec == null) { tabSelec = new boolean[listeS.length]; }
 			
-			int tMAxFichier  = this.ctrl.getTailleMaxFichier(this.ctrl.repJava); //recuperation de la taille max dans les fichiers
+			int tMAxFichier  = this.ctrl.getTailleMaxFichier(this.ctrl.repCompile); //recuperation de la taille max dans les fichiers
 			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
 			this.debTab(tMAxFichier); // création bordure de tableau
 			for (int f = 0; f < listeS.length; f++)
