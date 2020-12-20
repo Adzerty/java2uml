@@ -390,7 +390,7 @@ public class IHMCUI
 					if (!tabSelecSup[i]) newSel++;
 					tabSelecSup[i] = !tabSelecSup[i];
 				}
-				this.creer(0      , tabSelecSup);
+				this.supprimer(0      , tabSelecSup);
 			}
 			if(saisie== '=')
 			{
