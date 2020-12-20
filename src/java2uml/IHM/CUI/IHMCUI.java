@@ -143,7 +143,7 @@ public class IHMCUI
 			if(newSel > listeS.length -1) { this.creer(0      , tabSelec);  }//torique bas
 			else                          { this.creer(newSel , tabSelec); 	}//on descend
 		}
-		if(saisie == '=')
+		if(saisie == '*')
         {
             for(int i=0;i<tabSelec.length; i++)
             {
@@ -152,7 +152,7 @@ public class IHMCUI
             }
             this.creer(0      , tabSelec);
         }
-		if(saisie== '*')
+		if(saisie== '=')
 		{
 			int cptTrue = 0;
 			for(boolean b : tabSelec)
@@ -248,7 +248,7 @@ public class IHMCUI
 			char saisie = this.menuSelection(false);
 			
 			if(saisie== '/') { this.menu(); }
-			if(saisie== '*')
+			if(saisie== '=')
 			{
 				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
 				Console.print("\n\t\tLecture du fichier : " + this.col(nomFichier, 'B'));
@@ -313,7 +313,7 @@ public class IHMCUI
 			char saisie = this.menuSelection(false);
 			
 			if(saisie== '/') { this.menu(); }//Annuler
-			if(saisie== '*') //Valider
+			if(saisie== '=') //Valider
 			{
 				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
 				Console.print("\tOuverture du fichier : " + this.col(nomFichier, 'B'));
@@ -383,7 +383,16 @@ public class IHMCUI
 				if(newSel > listeS.length -1) { this.supprimer(0      , tabSelecSup);  }//torique bas
 				else                          { this.supprimer(newSel , tabSelecSup); 	}//on descend
 			}
-			if(saisie== '*')
+			if(saisie == '*')
+			{
+				for(int i=0;i<tabSelecSup.length; i++)
+				{
+					if (!tabSelecSup[i]) newSel++;
+					tabSelecSup[i] = !tabSelecSup[i];
+				}
+				this.creer(0      , tabSelecSup);
+			}
+			if(saisie== '=')
 			{
 				Console.println();
 				int cptTrue = 0;
@@ -430,12 +439,13 @@ public class IHMCUI
 	private char menuSelection(boolean multi)
 	{
 		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
-		               + "\t\t (" +this.col("+", 'B')+ ") : v descendre\n" + ((multi)?
-		               ( "\t\t (" +this.col(".", 'B')+ ") : x selectionner/deselectionner\n"):"")
-		               + "\t\t (" +this.col("*", 'B')+ ") : * tout selectionner\n"
-		               + "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
-		               + "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
-		               + "\n\tsaisie :  ");
+				+ "\t\t (" +this.col("+", 'B')+ ") : v descendre\n" + ((multi)?
+				( "\t\t (" +this.col(".", 'B')+ ") : x selectionner/deselectionner\n")
+				+ "\t\t (" +this.col("*", 'B')+ ") : * tout selectionner\n":"")
+				+ "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
+				+ "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
+				+ "\n\tsaisie :  ");
+
 
 		
 		Console.print(this.setCE('B'));
