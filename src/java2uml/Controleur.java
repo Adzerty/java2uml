@@ -91,19 +91,6 @@ public class Controleur
 		}
 	}
 	
-	public int getTailleMaxFichier()
-	{
-		int max = 0;
-		File repertoire = new File(repJava);
-		String liste[] = repertoire.list();
-		
-		for(String s : liste)
-		{
-			if(max < s.length())
-				max = s.length();
-		}
-		return max;
-	}
 	public String[] getClasse()
 	{
 
@@ -141,6 +128,8 @@ public class Controleur
 	}
 	public int      getTailleMaxFichier(String rep)
 	{
+		int tailleMax = 80;//pour eviter de dépasser et de casser l'affichage en cas de nom de classe improbable
+		
 		int max = 0;
 		File repertoire = new File(rep);
 		String liste[] = repertoire.list();
@@ -150,6 +139,7 @@ public class Controleur
 			if(max < s.length())
 				max = s.length();
 		}
+		if(max > tailleMax) return tailleMax;
 		return max;
 	}
 	
