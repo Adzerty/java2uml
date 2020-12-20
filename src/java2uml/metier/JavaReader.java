@@ -18,6 +18,7 @@ public class JavaReader
     private Parameter[][] tabParamConstruct;
     private Method[] tabMeth;
     private Parameter[][] tabParamMethod;
+    private Class[] tabInterface;
 
     private boolean afficheMethode;
     private boolean afficheAttributs;
@@ -97,6 +98,8 @@ public class JavaReader
 			else
 				if(c.isInterface()) typeEntite = "Interface";
 				else typeEntite = "Classe";
+			
+			this.tabInterface = c.getInterfaces();
 
             urlcl.close();
 			
@@ -319,5 +322,11 @@ public class JavaReader
 	public String getTypeEntite()
 	{
 		return this.typeEntite;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Class[] getInterface()
+	{
+		return this.tabInterface;
 	}
 }
