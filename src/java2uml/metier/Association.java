@@ -73,16 +73,18 @@ public class Association
     public String getTypeAssociation()
     {
         String sRet;
-        if(typeFleche.contains("|>")) sRet = "généralisation/spécialisation";
+        if(typeFleche.contains(".")) sRet = "implémentation";
         else
-            if(typeFleche.contains("<//>")) sRet = "composition";
-            else
-                if(typeFleche.contains("<>")) sRet = "agrégation";
-                else
-                    if((typeFleche.contains("<") && !typeFleche.contains(">")) || (typeFleche.contains(">") && !typeFleche.contains("<"))) sRet= "unidirectionnelle";
-                    else
-                        if(typeFleche.contains("(+)")) sRet = "Classe interne";
-                        else sRet= "bidirectionnelle";
+	        if(typeFleche.contains("|>")) sRet = "généralisation/spécialisation";
+	        else
+	            if(typeFleche.contains("<//>")) sRet = "composition";
+	            else
+	                if(typeFleche.contains("<>")) sRet = "agrégation";
+	                else
+	                    if((typeFleche.contains("<") && !typeFleche.contains(">")) || (typeFleche.contains(">") && !typeFleche.contains("<"))) sRet= "unidirectionnelle";
+	                    else
+	                        if(typeFleche.contains("(+)")) sRet = "Classe interne";
+	                        else sRet= "bidirectionnelle";
 
         return sRet;
     }
@@ -91,8 +93,10 @@ public class Association
         String sRet="";
         sRet+="Association " + num + " : "+ getTypeAssociation() + '\n';
 
-        sRet += '\t'+classeGauche +' ' +multipliciteGauche + ' ' + typeFleche + ' ' +
-                multipliciteDroite + ' '+ classeDroite + ' ' + contrainte ;
+        sRet += '\t'+classeGauche +' ' +multipliciteGauche + ' ';
+        sRet += typeFleche.replaceAll("\\.", " ");;
+        
+        sRet += ' ' + multipliciteDroite + ' '+ classeDroite + ' ' + contrainte + '\n' ;
         return  sRet;
     }
 }

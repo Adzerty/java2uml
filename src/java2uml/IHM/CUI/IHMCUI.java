@@ -105,7 +105,7 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeS != null)
 		{
-			if(tabSelec == null) { tabSelec = new boolean[listeS.length]; }
+			if(tabSelec == null) tabSelec = new boolean[listeS.length];
 			
 			int tMAxFichier  = this.ctrl.getTailleMaxFichier(this.ctrl.repCompile); //recuperation de la taille max dans les fichiers
 			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
@@ -115,12 +115,12 @@ public class IHMCUI
 				if(f == selec)
 				{
 					Console.print(this.col("\t────>", 'B'));
-					this.afficherFichier(listeS[f], tabSelec[f], tMAxFichier);
+					this.afficherFichier(listeS[f].replace(".class",""), tabSelec[f], tMAxFichier);
 				}
 				else
 				{
 					Console.print(this.col("\t     ", 'B'));
-					this.afficherFichier(listeS[f], tabSelec[f], tMAxFichier);
+					this.afficherFichier(listeS[f].replace(".class",""), tabSelec[f], tMAxFichier);
 				}
 			}
 			this.finTab(tMAxFichier);
@@ -134,6 +134,7 @@ public class IHMCUI
 		if(saisie== '/') { this.menu(); }
 		if(saisie== '.')
 		{
+			
 			if(!tabSelec[selec])
 			{
 				newSel++;
@@ -142,6 +143,15 @@ public class IHMCUI
 			if(newSel > listeS.length -1) { this.creer(0      , tabSelec);  }//torique bas
 			else                          { this.creer(newSel , tabSelec); 	}//on descend
 		}
+		if(saisie == '=')
+        {
+            for(int i=0;i<tabSelec.length; i++)
+            {
+                if (!tabSelec[i]) newSel++;
+                tabSelec[i] = !tabSelec[i];
+            }
+            this.creer(0      , tabSelec);
+        }
 		if(saisie== '*')
 		{
 			int cptTrue = 0;
@@ -201,6 +211,7 @@ public class IHMCUI
 			if(newSel > listeS.length -1) { this.creer(0     , tabSelec);  }//torique bas
 			else                          { this.creer(newSel, tabSelec);  }//on descend
 		}
+
 	}
 	
 	private void charger(int selec)//permet de charger un diagramme (sous sa forme txt)
@@ -420,8 +431,9 @@ public class IHMCUI
 	{
 		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
 		               + "\t\t (" +this.col("+", 'B')+ ") : v descendre\n" + ((multi)?
-		               ( "\t\t (" +this.col(".", 'B')+ ") : x selectionner\n"):"")
-		               + "\t\t (" +this.col("*", 'B')+ ") : > valider\n"
+		               ( "\t\t (" +this.col(".", 'B')+ ") : x selectionner/deselectionner\n"):"")
+		               + "\t\t (" +this.col("*", 'B')+ ") : * tout selectionner\n"
+		               + "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
 		               + "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
 		               + "\n\tsaisie :  ");
 
