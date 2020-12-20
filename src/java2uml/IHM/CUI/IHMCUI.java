@@ -145,11 +145,15 @@ public class IHMCUI
 		}
 		if(saisie == '*')
         {
-            for(int i=0;i<tabSelec.length; i++)
+			boolean all = true;//acc
+            for(int i = 0; i<tabSelec.length; i++)
             {
-                if (!tabSelec[i]) newSel++;
-                tabSelec[i] = !tabSelec[i];
+                if(!tabSelec[i]) { all = false; }//on regarde si tout est selectionné
             }
+            //si tout est selectionné on désélectionne tout sinon on selectionne tout
+            if(all) { for(int v = 0; v < tabSelec.length; v++) tabSelec[v] = false; }
+            else    { for(int f = 0; f < tabSelec.length; f++) tabSelec[f] = true;  }
+            
             this.creer(0      , tabSelec);
         }
 		if(saisie== '=')
@@ -440,8 +444,8 @@ public class IHMCUI
 	{
 		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
 				+ "\t\t (" +this.col("+", 'B')+ ") : v descendre\n" + ((multi)?
-				( "\t\t (" +this.col(".", 'B')+ ") : x selectionner/deselectionner\n")
-				+ "\t\t (" +this.col("*", 'B')+ ") : * tout selectionner\n":"")
+				( "\t\t (" +this.col(".", 'B')+ ") : x selectionner/deselectionner\n"
+				+ "\t\t (" +this.col("*", 'B')+ ") : * selectionner/deselectionner tout\n"):"")
 				+ "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
 				+ "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
 				+ "\n\tsaisie :  ");
