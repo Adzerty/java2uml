@@ -30,6 +30,7 @@ public class Controleur
 	public String repConfig    		= "../config/";
 	public String repJava      		= "../fichierJava/";
 	public String repCompile   		= "../fichierCompile/";
+	public String repDiagramme	 	= "../diagrammes/";
 	public String repDiagrammeTxt 	= "../diagrammes/txt/";
 	public String repDiagrammePdf 	= "../diagrammes/pdf/";
 
@@ -40,6 +41,7 @@ public class Controleur
 		File file = new File(repConfig); 	if (!file.exists()) file.mkdir();
 		file = new File(repJava); 			if (!file.exists()) file.mkdir();
 		file = new File(repCompile); 		if (!file.exists()) file.mkdir();
+		file = new File(repDiagramme); 		if (!file.exists()) file.mkdir();
 		file = new File(repDiagrammeTxt); 	if (!file.exists()) file.mkdir();
 		file = new File(repDiagrammePdf); 	if (!file.exists()) file.mkdir();
 
