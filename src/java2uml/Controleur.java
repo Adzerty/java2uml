@@ -27,10 +27,13 @@ public class Controleur
 {
 	private IHMCUI    ihmCUI;
 	private Diagramme diagTemp;
-	public String repConfig    = "../config/";
-	public String repJava      = "../fichierJava/";
-	public String repCompile   = "../fichierCompile/";
-	public String repDiagramme = "../diagrammes/";
+	public String repConfig    		= "../config/";
+	public String repJava      		= "../fichierJava/";
+	public String repCompile   		= "../fichierCompile/";
+	public String repDiagramme	 	= "../diagrammes/";
+	public String repDiagrammeTxt 	= "../diagrammes/txt/";
+	public String repDiagrammePdf 	= "../diagrammes/pdf/";
+
 
 	public Controleur()
 	{
@@ -39,6 +42,8 @@ public class Controleur
 		file = new File(repJava); 			if (!file.exists()) file.mkdir();
 		file = new File(repCompile); 		if (!file.exists()) file.mkdir();
 		file = new File(repDiagramme); 		if (!file.exists()) file.mkdir();
+		file = new File(repDiagrammeTxt); 	if (!file.exists()) file.mkdir();
+		file = new File(repDiagrammePdf); 	if (!file.exists()) file.mkdir();
 
 		//compilation();
 		this.ihmCUI = new IHMCUI (this);
@@ -148,7 +153,7 @@ public class Controleur
         String diagramme = "\n\n\n\n\n";
         ConfigReader temp = new ConfigReader(nomFichier);
         diagramme+= temp.toString();
-        temp.CreateFile(nomFichier);
+        temp.CreateFile(nomFichier.replace(".txt",""));
         return diagramme;
     }
 
@@ -190,10 +195,12 @@ public class Controleur
 		{
 			for(String s : tabFichierSup)
 			{
-				File tmpC = new File(repConfig     + s); //fichier config    a sup
-				File tmpD = new File(repDiagramme  + s); //fichier diagramme a sup
+				File tmpC = new File(repConfig     	+ s); //fichier config    a sup
+				File tmpD = new File(repDiagrammeTxt  	+ s); //fichier diagramme a sup txt
+				File tmpP = new File(repDiagrammePdf  	+ s.replace(".txt",".pdf")); //fichier diagramme a sup txt
 
-				this.ihmCUI.confirmSup(tmpC.getName(), tmpC.delete(), tmpD.delete()); //suppression des 2 fichiers
+
+				this.ihmCUI.confirmSup(tmpC.getName(), tmpC.delete(), (tmpD.delete() && tmpP.delete())); //suppression des 2 fichiers
 			}
 		}
 		catch(Exception e) { e.printStackTrace(); }
