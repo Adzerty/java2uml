@@ -270,36 +270,38 @@ public class ConfigReader
 
         return sRet;
     }
-    public void CreateFile(String nomFichier)
+    public void CreateFile(String nomFichier,boolean txt,boolean pdf)
     {
-        PrintWriter writer;
-
         try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(new File("../diagrammes/pdf/",nomFichier+".pdf")));
+            if (pdf){
+                Document document = new Document();
+                PdfWriter.getInstance(document, new FileOutputStream(new File("../diagrammes/pdf/", nomFichier + ".pdf")));
 
-            document.open();
-            String sRet = this.toString().replaceAll("│","|");
-            sRet = sRet.replaceAll("─","-");
-            sRet = sRet.replaceAll("┌", "+");
-            sRet = sRet.replaceAll("├","+");
-            sRet = sRet.replaceAll("└","+");
-            sRet = sRet.replaceAll("┤","+");
-            sRet = sRet.replaceAll("┐","+");
-            sRet = sRet.replaceAll("┘","+");
+                document.open();
+                String sRet = this.toString().replaceAll("│", "|");
+                sRet = sRet.replaceAll("─", "-");
+                sRet = sRet.replaceAll("┌", "+");
+                sRet = sRet.replaceAll("├", "+");
+                sRet = sRet.replaceAll("└", "+");
+                sRet = sRet.replaceAll("┤", "+");
+                sRet = sRet.replaceAll("┐", "+");
+                sRet = sRet.replaceAll("┘", "+");
 
-            Font font = FontFactory.getFont(FontFactory.COURIER, 8, BaseColor.BLACK);
-            Paragraph p= new Paragraph(sRet,font);
+                Font font = FontFactory.getFont(FontFactory.COURIER, 8, BaseColor.BLACK);
+                Paragraph p = new Paragraph(sRet, font);
 
-            document.add(p);
+                document.add(p);
 
-            //close
-            document.close();
-
-            File f = new File("../diagrammes/txt",nomFichier+".txt");
-            writer = new PrintWriter(f, "UTF-8");
-            writer.println(this.toString());
-            writer.close();
+                //close
+                document.close();
+            }
+            if(txt) {
+                PrintWriter writer;
+                File f = new File("../diagrammes/txt", nomFichier + ".txt");
+                writer = new PrintWriter(f, "UTF-8");
+                writer.println(this.toString());
+                writer.close();
+            }
         } catch (Exception e) {e.printStackTrace();}
 
 
