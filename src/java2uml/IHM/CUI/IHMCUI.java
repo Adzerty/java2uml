@@ -46,15 +46,29 @@ public class IHMCUI
 		this.menu();
 	}
 	
-	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiag)//
+	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiag,boolean option)//
 	{
-		if(supConfig && supDiag) { Console.println("\t\t" + this.col("# ", 'V') + "Les fichiers associés à " + this.col(fichierSup, 'B') + " ont été supprimé avec succès."); }
+		if(option)
+		{
+			if (supConfig && supDiag) {
+				Console.println("\t\t" + this.col("# ", 'V') + "Les fichiers associés à " + this.col(fichierSup, 'B') + " ont été supprimé avec succès.");
+			} else {
+				if (supConfig && !supDiag) {
+					Console.println("\t\t" + this.col("# ", 'J') + "Le fichier " + this.col(fichierSup, 'B') + " a été supprimé avec succès, aucun diagramme associé.");
+				} else {
+					Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'R') + ", ce fichier de configuration n'existe pas.");
+				}
+			}
+		}
 		else
 		{
-			if(supConfig && !supDiag) { Console.println("\t\t" + this.col("# ", 'J') + "Le fichier " + this.col(fichierSup, 'B') + " a été supprimé avec succès, aucun diagramme associé.");             }
-			else                      { Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'R') + ", ce fichier de configuration n'existe pas."); }
+			if (supConfig) {
+				Console.println("\t\t" + this.col("# ", 'J') + "Le fichier " + this.col(fichierSup, 'B') + " a été supprimé avec succès");
+			}else {
+				Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'R') + ", ce fichier de configuration n'existe pas.");
+			}
 		}
-		try {Thread.sleep(tpsDebug);}catch(Exception ex){};
+			try {Thread.sleep(tpsDebug);}catch(Exception ex){};
 	}
 	
 	private void menu()//menu principal de l'application

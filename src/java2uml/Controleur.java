@@ -9,10 +9,12 @@ import java2uml.metier.Diagramme;
 
 
 //recuperer fichier dans un rep avec dates
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +29,7 @@ public class Controleur
 {
 	private IHMCUI    ihmCUI;
 	private Diagramme diagTemp;
+
 	public String repConfig    		= "../config/";
 	public String repJava      		= "../fichierJava/";
 	public String repCompile   		= "../fichierCompile/";
@@ -34,6 +37,7 @@ public class Controleur
 	public String repDiagrammeTxt 	= "../diagrammes/txt/";
 	public String repDiagrammePdf 	= "../diagrammes/pdf/";
 
+	private boolean[] options;
 
 	public Controleur()
 	{
@@ -45,7 +49,20 @@ public class Controleur
 		file = new File(repDiagrammeTxt); 	if (!file.exists()) file.mkdir();
 		file = new File(repDiagrammePdf); 	if (!file.exists()) file.mkdir();
 
-		//compilation();
+		//lecture du fichier java2uml.ini
+		options = new boolean[4]; //{affichage,fichierTxt,fichierPdf,suppression};
+		try {
+			Scanner sc = new Scanner(new File("java2uml.ini"));
+
+			String conf = sc.nextLine();
+			while(!conf.contains("affichage diagramme après création "))    					  conf = sc.nextLine();	options[0] =conf.contains("true");
+			while(!conf.contains("creation fichier diagramme format txt"))  					  conf = sc.nextLine();	options[1] =conf.contains("true");
+			while(!conf.contains("creation fichier diagramme format pdf")) 						  conf = sc.nextLine(); options[2] =conf.contains("true");
+			while(!conf.contains("suppression des fichier diagrammes associé au fichier config")) conf = sc.nextLine();	options[3] =conf.contains("true");
+
+		}catch (Exception e){}
+
+
 		this.ihmCUI = new IHMCUI (this);
 		
 		if(this.ihmCUI.choixGraphique() == 'G')	{ new IHMGUI(this); } 
@@ -58,6 +75,7 @@ public class Controleur
 	{
 		new Controleur();
 	}
+
 	
 	public String[] getConfig()//renvoie sous forme de tableau de String l'ensemble des fichiers de config
 	{
@@ -153,7 +171,7 @@ public class Controleur
         String diagramme = "\n\n\n\n\n";
         ConfigReader temp = new ConfigReader(nomFichier);
         diagramme+= temp.toString();
-        temp.CreateFile(nomFichier.replace(".txt",""));
+        temp.CreateFile(nomFichier.replace(".txt",""),options[1],options[2]);
         return diagramme;
     }
 
@@ -167,7 +185,8 @@ public class Controleur
 	public String   createConfigFile(String nomFichier, String nomAuteur)
 	{
 		new ConfigGenerator(this.diagTemp, nomFichier, nomAuteur);
-		return getContenuConfig(nomFichier+".txt");
+		if(options[0]) return getContenuConfig(nomFichier+".txt");
+		else return "";
 	}
 	
 	public void     ouvrirEnEdit(String nomFichier)
@@ -196,11 +215,19 @@ public class Controleur
 			for(String s : tabFichierSup)
 			{
 				File tmpC = new File(repConfig     	+ s); //fichier config    a sup
-				File tmpD = new File(repDiagrammeTxt  	+ s); //fichier diagramme a sup txt
-				File tmpP = new File(repDiagrammePdf  	+ s.replace(".txt",".pdf")); //fichier diagramme a sup txt
+				boolean supression = false;
+				if(options[3])
+				{
+					File tmpD = new File(repDiagrammeTxt + s); //fichier diagramme a sup txt
+					File tmpP = new File(repDiagrammePdf + s.replace(".txt", ".pdf")); //fichier diagramme a sup txt
+
+					if(options[1]/*txt*/ && options[2]/*pdf*/) supression = (tmpD.delete() && tmpP.delete());
+					else if(options[1]) supression = tmpD.delete();
+					else supression = tmpP.delete();
+				}
 
 
-				this.ihmCUI.confirmSup(tmpC.getName(), tmpC.delete(), (tmpD.delete() && tmpP.delete())); //suppression des 2 fichiers
+				this.ihmCUI.confirmSup(tmpC.getName(), tmpC.delete(),supression,options[3]); //suppression des 2 fichiers
 			}
 		}
 		catch(Exception e) { e.printStackTrace(); }
@@ -219,5 +246,33 @@ public class Controleur
 			t.printStackTrace();
 		}
     }
-	
+    public void modifierConfig(boolean[] options)
+	{
+		this.options = options;
+		String sRet = "";
+
+		sRet += "                                                                               "     + "\n" +
+				"      ,--.  ,---.,--.   ,--.,---.       ,---.     ,--. ,--.,--.   ,--.,--.     "     + "\n" +
+				"      |  | /  O  \\\\  `.'  //  O  \\     '.-.  \\    |  | |  ||   `.'   ||  |     " + "\n" +
+				" ,--. |  ||  .-.  |\\     /|  .-.  |     .-' .'    |  | |  ||  |'.'|  ||  |     "    + "\n" +
+				" |  '-'  /|  | |  | \\   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--.  "    + "\n" +
+				"  `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----'  "     + "\n" +
+				"                                                                               "     + "\n" ;
+		sRet+="------Auteur : InnovAction\n";
+
+		sRet+="affichage diagramme après création = "						   +options[0];
+		sRet+="creation fichier diagramme format txt = "					   +options[1];
+		sRet+="creation fichier diagramme format pdf = "					   +options[2];
+		sRet+="suppression des fichier diagrammes associé au fichier config = "+options[3];
+
+		PrintWriter writer;
+		try {
+			File f = new File("./java2uml.ini");
+			writer = new PrintWriter(f, "UTF-8");
+			writer.println(sRet);
+			writer.close();
+	} catch (Exception e) {e.printStackTrace();}
+
+	}
+
 }
