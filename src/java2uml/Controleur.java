@@ -37,7 +37,7 @@ public class Controleur
 	public String repDiagrammeTxt 	= "../diagrammes/txt/";
 	public String repDiagrammePdf 	= "../diagrammes/pdf/";
 
-	private boolean[] options;
+	public boolean[] options;
 
 	public Controleur()
 	{
@@ -170,7 +170,7 @@ public class Controleur
     {
         String diagramme = "\n\n\n\n\n";
         ConfigReader temp = new ConfigReader(nomFichier);
-        diagramme+= temp.toString();
+		if(options[0]) diagramme+= temp.toString();
         temp.CreateFile(nomFichier.replace(".txt",""),options[1],options[2]);
         return diagramme;
     }
@@ -185,8 +185,7 @@ public class Controleur
 	public String   createConfigFile(String nomFichier, String nomAuteur)
 	{
 		new ConfigGenerator(this.diagTemp, nomFichier, nomAuteur);
-		if(options[0]) return getContenuConfig(nomFichier+".txt");
-		else return "";
+		return getContenuConfig(nomFichier+".txt");
 	}
 	
 	public void     ouvrirEnEdit(String nomFichier)
@@ -260,10 +259,10 @@ public class Controleur
 				"                                                                               "     + "\n" ;
 		sRet+="------Auteur : InnovAction\n";
 
-		sRet+="affichage diagramme après création = "						   +options[0];
-		sRet+="creation fichier diagramme format txt = "					   +options[1];
-		sRet+="creation fichier diagramme format pdf = "					   +options[2];
-		sRet+="suppression des fichier diagrammes associé au fichier config = "+options[3];
+		sRet+="affichage diagramme après création = "						   +options[0]+"\n";
+		sRet+="creation fichier diagramme format txt = "					   +options[1]+"\n";
+		sRet+="creation fichier diagramme format pdf = "					   +options[2]+"\n";
+		sRet+="suppression des fichier diagrammes associé au fichier config = "+options[3]+"\n";
 
 		PrintWriter writer;
 		try {
