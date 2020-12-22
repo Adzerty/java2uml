@@ -260,10 +260,10 @@ public class Controleur
 				"                                                                               "     + "\n" ;
 		sRet+="------Auteur : InnovAction\n";
 
-		sRet+="affichage diagramme après création = "						   +options[0];
-		sRet+="creation fichier diagramme format txt = "					   +options[1];
-		sRet+="creation fichier diagramme format pdf = "					   +options[2];
-		sRet+="suppression des fichier diagrammes associé au fichier config = "+options[3];
+		sRet+="affichage diagramme après création = "						   +options[0]+"\n";
+		sRet+="creation fichier diagramme format txt = "					   +options[1]+"\n";
+		sRet+="creation fichier diagramme format pdf = "					   +options[2]+"\n";
+		sRet+="suppression des fichier diagrammes associé au fichier config = "+options[3]+"\n";
 
 		PrintWriter writer;
 		try {

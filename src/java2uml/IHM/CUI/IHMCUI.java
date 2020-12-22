@@ -106,78 +106,6 @@ public class IHMCUI
 		System.exit (0);
 	}
 
-	private void parametres(int selec,boolean[] listeP)
-	{
-		this.entete();
-		String[] parametres = {"affichage diagramme après création", "creation fichier diagramme format txt","creation fichier diagramme format txt",
-								"creation fichier diagramme format pdf","suppression des fichier diagrammes associé au fichier config"};
-		int taille=0;
-		for (String s : parametres) if(s.length()>taille)taille=s.length();
-
-		Console.println("\t\t" +this.col("5",'B')+ " : MODIFIER LES PARAMETRES PROGRAMME\n" );
-
-		Console.println("\t     ┌───────────────────────────────────────────────────────────────┬──────────────────┐");
-		Console.println("\t     "+String.format("│  %-"+taille+"s │ %-16s │","parametres","Activé/Désactivé"));
-		Console.println("\t     ├───────────────────────────────────────────────────────────────┼──────────────────┤");
-
-		for (int f = 0; f < listeP.length; f++)
-		{
-			if(f == selec) { Console.print(this.col("\t────>", 'B')); }
-			else           { Console.print(this.col("\t     ", 'B')); }
-			Console.println(String.format("│  %-"+taille+"s │ %-16s │",parametres[f],listeP[f]));
-		}
-		Console.println("\t     └───────────────────────────────────────────────────────────────┴──────────────────┘");
-
-		char saisie;
-		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
-				+   "\t\t (" +this.col("+", 'B')+ ") : v descendre\n"
-				+   "\t\t (" +this.col("*", 'B')+ ") : * activer tous\n"
-				+   "\t\t (" +this.col(".", 'B')+ ") : . activer\n"
-				+   "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
-				+   "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
-				+   "\n\tsaisie :  ");
-		Console.print(this.setCE('B'));
-		saisie = Character.toUpperCase(this.getChar());
-		Console.print(this.setCE(this.coul));
-
-		int newSel = selec;
-
-		if(saisie== '-')
-		{
-			newSel--;
-			if(newSel < 0) { this.parametres(listeP.length -1, listeP);  } //torique haut
-			else           { this.parametres(newSel          , listeP);  } //on monte
-		}
-		if(saisie== '+')
-		{
-			newSel++;
-			if(newSel > listeP.length -1) { this.parametres(0     , listeP);  }//torique bas
-			else                          { this.parametres(newSel, listeP);  }//on descend
-		}
-		if(saisie== '*')
-		{
-			int cpt=0;
-			for (int f = 0; f < listeP.length; f++) if(listeP[f])cpt++;
-			for (int f = 0; f < listeP.length; f++) listeP[f]=(cpt!=listeP.length);
-
-			this.parametres(0,listeP);
-		}
-		if(saisie== '.')
-		{
-			listeP[selec]=!listeP[selec];
-			newSel++;
-			if(newSel > listeP.length -1) { this.parametres(0      , listeP);  }//torique bas
-			else                          { this.parametres(newSel , listeP); 	}//on descend
-		}
-		if(saisie == '=')
-		{
-			this.ctrl.modifierConfig(listeP);
-			Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
-			this.getString();
-		}
-		if(saisie== '/') { this.menu(); }
-
-	}
 	private void creer(int selec ,boolean[] tabSelec)//permet de créer une configuration et de générer son diagramme
 	{
 		this.entete();
@@ -498,8 +426,84 @@ public class IHMCUI
 		}
 		else { Console.print(this.col("\tAucune configuration sauvegardée dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
 	}
-	
-	
+
+	private void parametres(int selec,boolean[] listeP)
+	{
+		this.entete();
+		String[] parametres = {"affichage diagramme après création","creation fichier diagramme format txt",
+				"creation fichier diagramme format pdf","suppression des fichier diagrammes associé au fichier config"};
+		int taille=0;
+		for (String s : parametres) if(s.length()>taille)taille=s.length();
+
+		Console.println("\t\t" +this.col("5",'B')+ " : MODIFIER LES PARAMETRES PROGRAMME\n" );
+
+
+
+		Console.println("\t     ┌" + nSep(taille +3, "─")          +   "┬" + nSep(18, "─")+"┐" );
+		Console.println("\t     "+String.format("│  %-"+taille+"s │ %-16s │","parametres","Activé/Désactivé"));
+		Console.println("\t     ├" + nSep(taille +3, "─")          +   "┼" + nSep(18, "─") + "┤");
+
+		for (int f = 0; f < listeP.length; f++)
+		{
+			if(f == selec) { Console.print(this.col("\t────>", 'B')); }
+			else           { Console.print(this.col("\t     ", 'B')); }
+
+			if(listeP[f]) Console.println(String.format("│  %-"+taille+"s │ ",parametres[f])+this.col("Activé",'V')+"           │");
+			else		  Console.println(String.format("│  %-"+taille+"s │ ",parametres[f])+this.col("Désactivé",'R')+"        │");
+
+		}
+		Console.println("\t     └" + nSep(taille +3, "─")          +   "┴" + nSep(18, "─") + "┘");
+
+		char saisie;
+		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
+				+   "\t\t (" +this.col("+", 'B')+ ") : v descendre\n"
+				+   "\t\t (" +this.col("*", 'B')+ ") : * activer tous\n"
+				+   "\t\t (" +this.col(".", 'B')+ ") : . activer\n"
+				+   "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
+				+   "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
+				+   "\n\tsaisie :  ");
+		Console.print(this.setCE('B'));
+		saisie = Character.toUpperCase(this.getChar());
+		Console.print(this.setCE(this.coul));
+
+		int newSel = selec;
+
+		if(saisie== '-')
+		{
+			newSel--;
+			if(newSel < 0) { this.parametres(listeP.length -1, listeP);  } //torique haut
+			else           { this.parametres(newSel          , listeP);  } //on monte
+		}
+		if(saisie== '+')
+		{
+			newSel++;
+			if(newSel > listeP.length -1) { this.parametres(0     , listeP);  }//torique bas
+			else                          { this.parametres(newSel, listeP);  }//on descend
+		}
+		if(saisie== '*')
+		{
+			int cpt=0;
+			for (int f = 0; f < listeP.length; f++) if(listeP[f])cpt++;
+			for (int f = 0; f < listeP.length; f++) listeP[f]=(cpt!=listeP.length);
+
+			this.parametres(0,listeP);
+		}
+		if(saisie== '.')
+		{
+			listeP[selec]=!listeP[selec];
+			newSel++;
+			if(newSel > listeP.length -1) { this.parametres(0      , listeP);  }//torique bas
+			else                          { this.parametres(newSel , listeP); 	}//on descend
+		}
+		if(saisie == '=')
+		{
+			this.ctrl.modifierConfig(listeP);
+			Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
+			this.getString();
+		}
+		if(saisie== '/') { this.menu(); }
+
+	}
 	private char menuSelection(boolean multi) //affiche un menu de gestion de fichiers et renvoit le choix de l'utilisateur sous forme d'un caractere.
 	{
 		char choix;
