@@ -37,7 +37,7 @@ public class Controleur
 	public String repDiagrammeTxt 	= "../diagrammes/txt/";
 	public String repDiagrammePdf 	= "../diagrammes/pdf/";
 
-	private boolean[] options;
+	public boolean[] options;
 
 	public Controleur()
 	{
