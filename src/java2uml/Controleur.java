@@ -170,7 +170,7 @@ public class Controleur
     {
         String diagramme = "\n\n\n\n\n";
         ConfigReader temp = new ConfigReader(nomFichier);
-        diagramme+= temp.toString();
+		if(options[0]) diagramme+= temp.toString();
         temp.CreateFile(nomFichier.replace(".txt",""),options[1],options[2]);
         return diagramme;
     }
@@ -185,8 +185,7 @@ public class Controleur
 	public String   createConfigFile(String nomFichier, String nomAuteur)
 	{
 		new ConfigGenerator(this.diagTemp, nomFichier, nomAuteur);
-		if(options[0]) return getContenuConfig(nomFichier+".txt");
-		else return "";
+		return getContenuConfig(nomFichier+".txt");
 	}
 	
 	public void     ouvrirEnEdit(String nomFichier)
