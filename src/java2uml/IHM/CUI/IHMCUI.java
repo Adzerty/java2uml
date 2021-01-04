@@ -99,7 +99,7 @@ public class IHMCUI
 			switch (choix)
 			{
 				case  0 : break;
-				case  1 : Console.print("\n\t\tCompilation des fichiers " +this.col("JAVA",'B')+ " en cours...");this.ctrl.compilation();this.clear();this.creer(0, null); break;
+				case  1 : Console.print("\n\t\tCompilation des fichiers " +this.col("JAVA",'B')+ " en cours...");this.ctrl.compilation(); try {Thread.sleep(tpsDebug *2);} catch (Exception ex) {}this.clear(); this.creer(0, null); break;
 				case  2 : this.charger  (0      ); break;
 				case  3 : this.modifier (0      ); break;
 				case  4 : this.supprimer(0, null); break;
@@ -285,7 +285,6 @@ public class IHMCUI
 		else { Console.print(this.col("\tAucune configuration sauvegardée dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
 	}
 	
-	
 	private void modifier(int selec)//permet de modifier un fichir de configuration.
 	{
 		//Affichage de la selection
@@ -336,7 +335,6 @@ public class IHMCUI
 		}
 		else { Console.print(this.col("\tAucune configuration sauvegardée dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
 	}
-	
 	
 	private void supprimer(int selec, boolean[] tabSelecSup)//permet de supprimer des fichiers de configuration.
 	{
