@@ -46,29 +46,25 @@ public class IHMCUI
 		this.menu();
 	}
 	
-	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiag,boolean option)//
+	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiagTxt,boolean supDiagPdf)//
 	{
-		if(option)
+		if (supConfig)
 		{
-			if (supConfig && supDiag) {
+			if (supDiagTxt && supDiagPdf)
+			{
 				Console.println("\t\t" + this.col("# ", 'V') + "Les fichiers associés à " + this.col(fichierSup, 'B') + " ont été supprimé avec succès.");
-			} else {
-				if (supConfig && !supDiag) {
-					Console.println("\t\t" + this.col("# ", 'J') + "Le fichier " + this.col(fichierSup, 'B') + " a été supprimé avec succès, aucun diagramme associé.");
-				} else {
-					Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'R') + ", ce fichier de configuration n'existe pas.");
-				}
+			}
+			else
+			{
+				Console.println("\t\t" + this.col("# ", 'J') + "Le fichier " + this.col(fichierSup, 'B') 
+				               +" a été supprimé avec succès, aucun diagramme " + ((supDiagTxt)? "pdf associé" : ((supDiagPdf)? "txt associé" : "txt et pdf associés")) + ".");
 			}
 		}
 		else
 		{
-			if (supConfig) {
-				Console.println("\t\t" + this.col("# ", 'J') + "Le fichier " + this.col(fichierSup, 'B') + " a été supprimé avec succès");
-			}else {
-				Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'R') + ", ce fichier de configuration n'existe pas.");
-			}
+			Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'B') + ", le fichier de configuration n'existe plus.");
 		}
-			try {Thread.sleep(tpsDebug);}catch(Exception ex){};
+		try {Thread.sleep(tpsDebug);}catch(Exception ex){};
 	}
 	
 	private void menu()//menu principal de l'application
@@ -78,12 +74,12 @@ public class IHMCUI
 		{
 			this.entete();
 			
-			Console.println("\t\t " +this.col("0",'B')+ " : Quitter le programme." );
-			Console.println("\t\t " +this.col("1",'B')+ " : Créer   un diagramme." );
-			Console.println("\t\t " +this.col("2",'B')+ " : Charger un diagramme." ); 
-			Console.println("\t\t " +this.col("3",'B')+ " : Modifier  une config." );
-			Console.println("\t\t " +this.col("4",'B')+ " : Supprimer une config." );
-			Console.println("\t\t " +this.col("5",'B')+ " : Modifier les parametres." );
+			Console.println("\t\t " +this.col("0",'B')+ " : Quitter   le  programme." );
+			Console.println("\t\t " +this.col("1",'B')+ " : Créer     un  diagramme." );
+			Console.println("\t\t " +this.col("2",'B')+ " : Charger   un  diagramme." ); 
+			Console.println("\t\t " +this.col("3",'B')+ " : Modifier  une configuration." );
+			Console.println("\t\t " +this.col("4",'B')+ " : Supprimer une configuration." );
+			Console.println("\t\t " +this.col("5",'B')+ " : Modifier  les parametres." );
 			Console.print  ("\n\t saisie : " );
 			
 			Console.print(this.setCE('B'));
@@ -98,7 +94,7 @@ public class IHMCUI
 				case  3 : this.modifier (0      ); break;
 				case  4 : this.supprimer(0, null); break;
 				case  5 : this.parametres(0,this.ctrl.options);break;
-				default : Console.println("\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ "/" +this.col("5",'B')+ ")" ); try {Thread.sleep(tpsDebug);}catch(Exception ex){}; break;
+				default : Console.println("\n\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ "/" +this.col("5",'B')+ ")" ); try {Thread.sleep(tpsDebug);}catch(Exception ex){}; break;
 			}
 		}while(choix != 0);
 		Console.print(this.setCE('*'));
@@ -169,7 +165,7 @@ public class IHMCUI
 			if(cptTrue == 0)//pas de marque
 			{
 				String[] tabFichierJava = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
-				this.ctrl.createNewDiagramme(tabFichierJava); 
+				this.ctrl.creerNouvDiagramme(tabFichierJava); 
 			}
 			else
 			{
@@ -180,7 +176,7 @@ public class IHMCUI
 					if(tabSelec[b])
 						tabFichierJava[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
 				
-				this.ctrl.createNewDiagramme(tabFichierJava);//envoyé un tabString
+				this.ctrl.creerNouvDiagramme(tabFichierJava);//envoyé un tabString
 			}
 
 			Console.print("\n\t\tAuteur      : ");
@@ -200,7 +196,7 @@ public class IHMCUI
 			this.entete();
 			Console.println("\t\t" +this.col("1",'B')+ " : CREER UN DIAGRAMME DE CLASSE" );
 			
-			Console.print(this.ctrl.createConfigFile(nomFichierConfig, auteur));
+			Console.print(this.ctrl.creerNouvConfig(nomFichierConfig, auteur));
 			
 			Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
 			this.getString();
@@ -223,8 +219,6 @@ public class IHMCUI
 	
 	private void charger(int selec)//permet de charger un diagramme, d'ont la configuration est sauvegardée.
 	{
-		
-		//Affichage de la selection
 		this.entete();
 		
 		Console.println("\t\t" +this.col("2",'B')+ " : CHARGER UN DIAGRAMME DE CLASSE\n" );
@@ -394,7 +388,7 @@ public class IHMCUI
 				if(cptTrue == 0)//pas de marque
 				{
 					String[] tabFichierConfig = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
-					this.ctrl.supprimerConfig(tabFichierConfig);
+					this.ctrl.supprimerFichiers(tabFichierConfig);
 				}
 				else
 				{
@@ -408,7 +402,7 @@ public class IHMCUI
 							tabFichierConfig[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
 						}
 					}
-					this.ctrl.supprimerConfig(tabFichierConfig);
+					this.ctrl.supprimerFichiers(tabFichierConfig);
 				}
 			}
 			if(saisie== '-')
@@ -497,13 +491,14 @@ public class IHMCUI
 		}
 		if(saisie == '=')
 		{
-			this.ctrl.modifierConfig(listeP);
+			this.ctrl.majOptions(listeP);
 			Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
 			this.getString();
 		}
 		if(saisie== '/') { this.menu(); }
 
 	}
+	
 	private char menuSelection(boolean multi) //affiche un menu de gestion de fichiers et renvoit le choix de l'utilisateur sous forme d'un caractere.
 	{
 		char choix;
@@ -520,7 +515,6 @@ public class IHMCUI
 		return choix;
 	}
 
-	
 	private void debTab(int tMAxFichier)//renvoie une Chaine adapté pour l'en-tête des tableaux
 	{
 		Console.print("\t     ┌" + nSep(tMAxFichier +2, "─")          +   "┬" + nSep(18, "─") + "┬" + nSep(18, "─") + "┐\n");
@@ -528,19 +522,16 @@ public class IHMCUI
 		Console.print("\t     ├" + nSep(tMAxFichier +2, "─")          +   "┼" + nSep(18, "─") + "┼" + nSep(18, "─") + "┤\n");
 	}
 
-	
 	private void afficherFichier(String dataConf, boolean selec, int tMAxFichier)//renvoie une Chaine adapté pour la lecture des tableaux
 	{
 		String[] decConfig = dataConf.split("\\|");
 		Console.print(String.format("│" + ((selec)? (this.col("x", 'B')):" ") + "%-" + tMAxFichier + "s │ %16s │ %16s │\n", decConfig[0],decConfig[1], decConfig[2]));
 	}
 	
-	
 	private void finTab(int tMAxFichier)//renvoie une Chaine adapté pour la fermeture des tableaux
 	{
 		Console.print("\t     └─" + nSep( tMAxFichier, "─") + "─┴─" + nSep(16, "─") + "─┴─" + nSep(16, "─") + "─┘\n");
 	}
-	
 	
 	private boolean verifSaisie(char saisie, boolean multi)//renvoie un booléen pour savoir si la saisie l'utilisateur dans les menus est bonne.
 	{
@@ -567,7 +558,6 @@ public class IHMCUI
 		return sSep;
 	}
 	
-	
 	private String col(String s, char c)//renvoie la coloration d'une Chaine s dans la console avec la couleur du caractère c avec la méthode setCe(char c)
 	{
 		return setCE(c) +s+  setCE(this.coul);
@@ -589,7 +579,6 @@ public class IHMCUI
 		}
 	}
 	
-
 	private void clear()//nettoyer la console
 	{
 		try
