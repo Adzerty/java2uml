@@ -86,7 +86,9 @@ public class PanelPrc extends JPanel {
 		if(e.getSource() instanceof PanelEntite)
 		{
 			int ident = (((PanelEntite) e.getSource()).getId());
-			worker = new Worker(ident, (PanelEntite)e.getSource(), this.ensCoord, this.framePrincipale);
+			int offsetx = e.getX() - this.ensCoord.get(ident).getX();
+			int offsety = e.getY() - this.ensCoord.get(ident).getY();
+			worker = new Worker(ident, (PanelEntite)e.getSource(), this.ensCoord, this.framePrincipale, offsetx, offsety);
 			worker.start();
 		}
 		
@@ -242,15 +244,19 @@ public class PanelPrc extends JPanel {
 	class Worker extends Thread {
 	    int n=0;
 	    int ident;
+	    int offsetx;
+	    int offsety;
 	    PanelEntite pe;
 	    FramePrc framePrincipale;
 	    ArrayList<Coord> ensCoord = new ArrayList<>();
 	    
-	    public Worker( int ident, PanelEntite pe , ArrayList<Coord> ensCoord, FramePrc framePrincipale) {
+	    public Worker(int ident, PanelEntite pe, ArrayList<Coord> ensCoord, FramePrc framePrincipale, int offsetx, int offsety) {
 	    	this.ident = ident;
 	    	this.pe = pe;
 	    	this.ensCoord = ensCoord;
 	    	this.framePrincipale = framePrincipale;
+	    	this.offsetx = offsetx;
+	    	this.offsety = offsety;
 	    }
 	    
 	    public void run() {
@@ -258,8 +264,8 @@ public class PanelPrc extends JPanel {
 	        PointerInfo a = MouseInfo.getPointerInfo();
 	        Point b = a.getLocation();
 
-	        int x = (int) b.getX() - (int)framePrincipale.getLocation().getX() - framePrincipale.getInsets().left;
-	        int y = (int) b.getY() - (int)framePrincipale.getLocation().getY() - framePrincipale.getInsets().top;
+	        int x = (int) b.getX() - (int)framePrincipale.getLocation().getX() - framePrincipale.getInsets().left + offsetx;
+	        int y = (int) b.getY() - (int)framePrincipale.getLocation().getY() - framePrincipale.getInsets().top + offsety;
 	        
 	        this.ensCoord.get(ident).setX(x);
 			this.ensCoord.get(ident).setY(y);
