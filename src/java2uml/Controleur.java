@@ -9,6 +9,8 @@ import java2uml.metier.Java2uml;
 
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class Controleur
 {
@@ -45,7 +47,6 @@ public class Controleur
 	{
 		new Controleur();
 	}
-
 	
 	public String[] getConfig()//renvoie sous forme de tableau de String l'ensemble des fichiers de config
 	{
@@ -100,13 +101,15 @@ public class Controleur
 	{
 		String commande = "javac -parameters -d "+ repCompile +' ' +repJava+"*.java";
 		try {
-			Runtime rt = Runtime.getRuntime();
-			Process proc = rt.exec(commande);
-			int exitVal = proc.waitFor();
-			if(exitVal!=0) System.out.println("erreur compilation sur un fichier");
-		} catch (Throwable t)
+		     if (System.getProperty("os.name").contains("Windows"))
+		         new ProcessBuilder("cmd", "/c", commande).inheritIO().start().waitFor();
+		     else
+		    	 new ProcessBuilder("/bin/bash", "-c", commande).inheritIO().start().waitFor();
+
+		} catch (Exception t)
 		{
 			t.printStackTrace();
 		}
     }
+    public boolean[] getOptions() { return this.metier.getOptions(); }
 }
