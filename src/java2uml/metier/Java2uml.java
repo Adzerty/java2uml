@@ -30,6 +30,8 @@ public class Java2uml
 	private Diagramme diagTemp;
 	private boolean[] options;
 	
+	private final boolean H_HIVER = true;
+	
 	public Java2uml()
 	{
 		//lecture du fichier java2uml.ini
@@ -72,9 +74,10 @@ public class Java2uml
 					dateC = attr.creationTime().toString();
 					dateM = attr.lastModifiedTime().toString();
 				}
-				catch (IOException e) { e.printStackTrace(); System.out.println("Erreur lors de la recuperation des dates du fichier");}
+				catch (IOException e) { e.printStackTrace(); System.out.println("Impossible de recupérer les dates du fichier"); }
 				
-				tabF[i] += "|" + dateC.substring(0,10) + " " + dateC.toString().substring(11,16) + "|" + dateM.substring(0,10) + " " + dateM.toString().substring(11,16) ;
+				tabF[i] += "|" + dateC.substring(0,10) + " " + (Integer.parseInt(dateC.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateC.toString().substring(13,16) 
+						+  "|" + dateM.substring(0,10) + " " + (Integer.parseInt(dateM.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateM.toString().substring(13,16);
 			}
 			return tabF;
 		}
@@ -85,7 +88,7 @@ public class Java2uml
 		}
 	}
 	
-	public String[] recupFichClasse()
+	public String[] recupFichClasse()//renvoie sous forme de tableau de String l'ensemble des fichiers compilés
 	{
 
 		File repertoire = new File(repCompile);
@@ -110,7 +113,8 @@ public class Java2uml
 					dateM = attr.lastModifiedTime().toString();
 				}
 				catch (IOException e) { e.printStackTrace(); System.out.println("Erreur lors de la recuperation des dates du fichier");}
-				tabF[i] += "|" + dateC.substring(0,10) + " " + dateC.toString().substring(11,16) + "|" + dateM.substring(0,10) + " " + dateM.toString().substring(11,16) ;
+				tabF[i] += "|" + dateC.substring(0,10) + " " + (Integer.parseInt(dateC.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateC.toString().substring(13,16) 
+						+  "|" + dateM.substring(0,10) + " " + (Integer.parseInt(dateM.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateM.toString().substring(13,16);
 			}
 			return tabF;
 		}
@@ -138,7 +142,7 @@ public class Java2uml
 		return max;
 	}
 	
-	public String   recupContenuConfig(String nomFichier)
+	public String   recupContenuConfig(String nomFichier)//recupre dans un String un diagramme déjà créé
     {
         String diagramme = "\n\n\n";
         ConfigReader temp = new ConfigReader(nomFichier);
@@ -147,20 +151,20 @@ public class Java2uml
         return diagramme;
     }
 	
-	public void    genNouvDiagramme(String[] tabNomFichier)
+	public void    genNouvDiagramme(String[] tabNomFichier)//génère les diagrammes des fichiers java en paramètres
 	{
 		for(int f = 0; f < tabNomFichier.length; f++)
 			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
 		this.diagTemp = new Diagramme(tabNomFichier);
 	}
 	
-	public String   genNouvConfig(String nomFichier, String nomAuteur)
+	public String   genNouvConfig(String nomFichier, String nomAuteur)//génère une nouvelle configuration au format txt
 	{
 		new ConfigGenerator(this.diagTemp, nomFichier, nomAuteur);
 		return recupContenuConfig(nomFichier+".txt");
 	}
 	
-	public void     modifierConfig(String nomFichier)
+	public void     modifierConfig(String nomFichier)//permet de modifier en interne les fichiers de configuration
 	{
 		File file = new File(repConfig + nomFichier);
         if (!file.exists() && file.length() < 0)
@@ -179,7 +183,7 @@ public class Java2uml
         catch (IOException ex) { Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex); }
 	}
 	
-	public boolean[] supprimerConfig(String fichierSup)
+	public boolean[] supprimerConfig(String fichierSup)//permet de supprimer en interne les fichiers de configuration
 	{
 		boolean[] tabRetSup = new boolean[3];
 		try
@@ -208,7 +212,7 @@ public class Java2uml
 		return tabRetSup;
 	}
 	
-	public void modifierFichierIni(boolean[] options)
+	public void modifierFichierIni(boolean[] options)//permet de réécrire le fichier .ini en modifiant des options du programme
 	{
 		this.options = options;
 		String sRet = "";
