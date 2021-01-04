@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="lib/iut.jar"/>
 	<classpathentry kind="lib" path="lib/jansi-1.17.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/itextpdf-5.1.0"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
