@@ -524,6 +524,7 @@ public class IHMCUI
 
 	private void afficherFichier(String dataConf, boolean selec, int tMAxFichier)//renvoie une Chaine adapté pour la lecture des tableaux
 	{
+		
 		String[] decConfig = dataConf.split("\\|");
 		Console.print(String.format("│" + ((selec)? (this.col("x", 'B')):" ") + "%-" + tMAxFichier + "s │ %16s │ %16s │\n", decConfig[0].substring(0,decConfig[0].indexOf(".")),decConfig[1], decConfig[2]));
 	}
@@ -586,7 +587,10 @@ public class IHMCUI
 		     if (System.getProperty("os.name").contains("Windows"))
 		         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		     else
-		         Runtime.getRuntime().exec("clear");
+		     {
+		    	 new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();
+		     }
+		    	 
 		}
 		catch (Exception ex) {}
 	}

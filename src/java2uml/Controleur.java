@@ -101,11 +101,12 @@ public class Controleur
 	{
 		String commande = "javac -parameters -d "+ repCompile +' ' +repJava+"*.java";
 		try {
-			Runtime rt = Runtime.getRuntime();
-			Process proc = rt.exec(commande);
-			int exitVal = proc.waitFor();
-			if(exitVal!=0) System.out.println("erreur compilation sur un fichier");
-		} catch (Throwable t)
+		     if (System.getProperty("os.name").contains("Windows"))
+		         new ProcessBuilder("cmd", "/c", commande).inheritIO().start().waitFor();
+		     else
+		    	 new ProcessBuilder("/bin/bash", "-c", commande).inheritIO().start().waitFor();
+
+		} catch (Exception t)
 		{
 			t.printStackTrace();
 		}

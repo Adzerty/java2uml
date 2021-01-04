@@ -341,15 +341,17 @@ public class ConfigGenerator {
 			sRet+=scNext;
     	}
 
-        if(sRet.contains("int")) {sRet = sRet.replaceAll("int","entier"); }
-        if(sRet.contains("long")){sRet =sRet.replaceAll("long","entier"); }
+        sRet = sRet.replaceAll("int"	,"entier"		);
+        sRet = sRet.replaceAll("long"	,"entier"		);
         
-        if(sRet.contains("float")){sRet =sRet.replaceAll("float","réel"); }
-        if(sRet.contains("double")){sRet =sRet.replaceAll("float","réel"); }
+        sRet = sRet.replaceAll("char"	,"charactère"	);
         
-        if(sRet.contains("boolean")){sRet =sRet.replaceAll("boolean","booléen"); }
+        sRet = sRet.replaceAll("float"	,"réel"			);
+        sRet = sRet.replaceAll("double"	,"réel"			);
         
-        if(sRet.contains("String")){sRet =sRet.replaceAll("String","Chaine"); }
+        sRet = sRet.replaceAll("boolean","booléen"		);
+      
+        sRet = sRet.replaceAll("String"	,"Chaine"		);
         
         return sRet;
     }
