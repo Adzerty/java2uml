@@ -7,7 +7,7 @@ import java2uml.Controleur;
 
 public class IHMCUI
 {
-	private char coul = '#'; //Couleur d'écriture du prog → BLANC (voir setCE)
+	private char coul = '#'; //Couleur d'écriture du prog → BLANC (voir setCE).
 	private int  tpsDebug = 1500;
 	
 	private Controleur ctrl;
@@ -16,10 +16,8 @@ public class IHMCUI
 		this.ctrl = ctrl;
 	}
 	
-	//Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ? 
-	public char choixGraphique()
+	public char choixGraphique() //Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ? 
 	{
-		
 		String ihm = "CUI";//par defaut
 		/*
 		do
@@ -37,22 +35,20 @@ public class IHMCUI
 		
 		if( ihm.equals("GUI")){ this.entete(); return 'G'; }
 		else                  {	               return 'C'; }
-		
 	}
 	
-	//Lancement de l'IHM CUI
-	public void start()//lancelent du mode CUI
+	public void start()//lancement de l'IHM CUI
 	{
 		this.menu();
 	}
 	
-	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiagTxt, boolean supDiagPdf, boolean optionSup)//
+	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiagTxt, boolean supDiagPdf, boolean optionSup)//gestion des types d'erreurs lors de la suppression.
 	{
-		if (supConfig)
+		if (supConfig) //si le fichier de confiuration a pu être supprimé
 		{
-			if (supDiagTxt && supDiagPdf)
+			if (supDiagTxt && supDiagPdf) //si les diagrammes associés au fichier de configuration ont été supprimés.
 			{
-				if(optionSup)
+				if(optionSup)// si l'option de suppression des fichiers associés est acivée.
 				{
 					Console.println("\t\t" + this.col("# ", 'V') + "Le fichier de configuration " + this.col(fichierSup, 'B')
 					               +" à été supprimé sans ses fichiers associés avec succès.");
@@ -104,7 +100,7 @@ public class IHMCUI
 				case  3 : this.modifier (0      ); break;
 				case  4 : this.supprimer(0, null); break;
 				case  5 : this.parametres(0,this.ctrl.getOptions());break;
-				default : Console.println("\n\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ "/" +this.col("5",'B')+ ")" ); try {Thread.sleep(tpsDebug);}catch(Exception ex){}; break;
+				default : Console.println(this.col("\n\tErreur",'R') + " : saisir  (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ "/" +this.col("5",'B')+ ")" ); try {Thread.sleep(tpsDebug);}catch(Exception ex){}; break;
 			}
 		}while(choix != 0);
 		Console.print(this.setCE('*'));
@@ -123,7 +119,7 @@ public class IHMCUI
 		//affichage des fichiers
 		if(listeS != null)
 		{
-			if(tabSelec == null) tabSelec = new boolean[listeS.length];
+			if(tabSelec == null) { tabSelec = new boolean[listeS.length]; }
 			
 			int tMAxFichier  = this.ctrl.getTailleMaxFichier(this.ctrl.repCompile) -6; //recuperation de la taille max dans les fichiers sans les ".class"
 			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
@@ -434,39 +430,42 @@ public class IHMCUI
 		this.entete();
 		String[] parametres = {"Afficher diagramme après création","Créer fichier diagramme au format txt",
 				"Créer fichier diagramme au format pdf","Supprimer les fichiers diagrammes associés au fichier config"};
-		int taille=0;
-		for (String s : parametres) if(s.length()>taille)taille=s.length();
+		int taille = 14; //Pour en-tete stable
+		for (String s : parametres)
+		{
+			if(s.length()>taille) { taille=s.length(); }
+		}
 
 		Console.println("\t\t" +this.col("5",'B')+ " : MODIFIER LES PARAMETRES PROGRAMME\n" );
 
-
-
-		Console.println("\t     ┌" + nSep(taille +3, "─")          +   "┬" + nSep(18, "─")+"┐" );
-		Console.println("\t     "+String.format("│  %-"+taille+"s │ %-16s │","parametres","Activé/Désactivé"));
-		Console.println("\t     ├" + nSep(taille +3, "─")          +   "┼" + nSep(18, "─") + "┤");
+		Console.println("\t     ┌" + nSep(taille +2, "─")              + "┬" + nSep(13, "─") + "┐");
+		Console.println("\t     │" + String.format(" %-"+ taille+ "s " + "│" + " %-11s "     + "│", nSep(taille/2 -"Paramètres".length()/2, " ") + "Paramètres","   État    "));
+		Console.println("\t     ├" + nSep(taille +2, "─")              + "┼" + nSep(13, "─") + "┤");
 
 		for (int f = 0; f < listeP.length; f++)
 		{
 			if(f == selec) { Console.print(this.col("\t────>", 'B')); }
 			else           { Console.print(this.col("\t     ", 'B')); }
 
-			if(listeP[f]) Console.println(String.format("│  %-"+taille+"s │ ",parametres[f])+this.col("Activé",'V')+"           │");
-			else		  Console.println(String.format("│  %-"+taille+"s │ ",parametres[f])+this.col("Désactivé",'R')+"        │");
+			if(listeP[f]) Console.println(String.format("│ %-"+taille+"s │ ", parametres[f]) + this.col(" Activé"   ,'V') + nSep(5, " ") + "│");
+			else		  Console.println(String.format("│ %-"+taille+"s │ ", parametres[f]) + this.col(" Désactivé",'R') + nSep(2, " ") + "│");
 
 		}
-		Console.println("\t     └" + nSep(taille +3, "─")          +   "┴" + nSep(18, "─") + "┘");
+		Console.println("\t     └" + nSep(taille +2, "─")              + "┴" + nSep(13, "─") + "┘");
 
 		char saisie;
 		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
-				+   "\t\t (" +this.col("+", 'B')+ ") : v descendre\n"
-				+   "\t\t (" +this.col("*", 'B')+ ") : * activer tous\n"
-				+   "\t\t (" +this.col(".", 'B')+ ") : . activer\n"
-				+   "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
-				+   "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
-				+   "\n\tsaisie :  ");
+				     +   "\t\t (" +this.col("+", 'B')+ ") : v descendre\n"
+				     +   "\t\t (" +this.col(".", 'B')+ ") : . activer/désactiver\n"
+		             +   "\t\t (" +this.col("*", 'B')+ ") : * activer/désactiver tout\n"
+				     +   "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
+				     +   "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
+				     +   "\n\tsaisie :  ");
 		Console.print(this.setCE('B'));
 		saisie = Character.toUpperCase(this.getChar());
 		Console.print(this.setCE(this.coul));
+		
+		if(!this.verifSaisie(saisie, true)) { this.parametres(selec, listeP); } //si mauvaise saisie true = menuMulti
 
 		int newSel = selec;
 
@@ -512,8 +511,8 @@ public class IHMCUI
 		char choix;
 		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
 	                 +   "\t\t (" +this.col("+", 'B')+ ") : v descendre\n" + ((multi)?
-	                 (   "\t\t (" +this.col(".", 'B')+ ") : x selectionner/deselectionner\n"
-	                 +   "\t\t (" +this.col("*", 'B')+ ") : * selectionner/deselectionner tout\n"):"")
+	                 (   "\t\t (" +this.col(".", 'B')+ ") : x selectionner/déselectionner\n"
+	                 +   "\t\t (" +this.col("*", 'B')+ ") : * selectionner/déselectionner tout\n"):"")
 	                 +   "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
 	                 +   "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
 	                 +   "\n\tsaisie :  ");
@@ -525,9 +524,9 @@ public class IHMCUI
 
 	private void debTab(int tMAxFichier)//renvoie une Chaine adapté pour l'en-tête des tableaux
 	{
-		Console.print("\t     ┌" + nSep(tMAxFichier +2, "─")          +   "┬" + nSep(18, "─") + "┬" + nSep(18, "─") + "┐\n");
-		Console.print("\t     │" + String.format(" %-" + tMAxFichier  + "s │ %-16s │ %-16s │\n" , "  NomFichier  ", "    DateCrea", "    DateModif"));
-		Console.print("\t     ├" + nSep(tMAxFichier +2, "─")          +   "┼" + nSep(18, "─") + "┼" + nSep(18, "─") + "┤\n");
+		Console.print("\t     ┌" + nSep(tMAxFichier +2, "─")                 + "┬" + nSep(18, "─") + "┬" + nSep(18, "─") + "┐\n");
+		Console.print("\t     │" + String.format(" %-" + tMAxFichier  + "s " + "│ %-16s "          + "│ %-16s "          + "│\n", "  NomFichier  ", "    DateCrea", "    DateModif"));
+		Console.print("\t     ├" + nSep(tMAxFichier +2, "─")                 + "┼" + nSep(18, "─") + "┼" + nSep(18, "─") + "┤\n");
 	}
 
 	private void afficherFichier(String dataConf, boolean selec, int tMAxFichier)//renvoie une Chaine adapté pour la lecture des tableaux
@@ -546,7 +545,7 @@ public class IHMCUI
 	{
 		if(saisie != '-' && saisie != '+' && saisie != '=' && saisie != '/' && ((multi)? saisie != '.' && saisie != '*' : true))//la saisie ne correspond pas a ces caractères
 		{
-			Console.println(this.col("\tErreur",'R') + " : saisir  (" + this.col("-",'B') + "/" 
+			Console.println(this.col("\n\tErreur",'R') + " : saisir  (" + this.col("-",'B') + "/" 
 		                                                                      + this.col("+",'B') + "/" + ((multi)?
 					                                                          ( this.col(".",'B') + "/"
 		                                                                      + this.col("*",'B') + "/"):"")
