@@ -9,6 +9,8 @@ import java2uml.metier.Java2uml;
 
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class Controleur
 {
@@ -45,7 +47,6 @@ public class Controleur
 	{
 		new Controleur();
 	}
-
 	
 	public String[] getConfig()//renvoie sous forme de tableau de String l'ensemble des fichiers de config
 	{
@@ -109,4 +110,5 @@ public class Controleur
 			t.printStackTrace();
 		}
     }
+    public boolean[] getOptions() { return this.metier.getOptions(); }
 }
