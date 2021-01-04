@@ -55,10 +55,10 @@ public class Controleur
 			Scanner sc = new Scanner(new File("java2uml.ini"));
 
 			String conf = sc.nextLine();
-			while(!conf.contains("affichage diagramme après création "))    					  conf = sc.nextLine();	options[0] =conf.contains("true");
-			while(!conf.contains("creation fichier diagramme format txt"))  					  conf = sc.nextLine();	options[1] =conf.contains("true");
-			while(!conf.contains("creation fichier diagramme format pdf")) 						  conf = sc.nextLine(); options[2] =conf.contains("true");
-			while(!conf.contains("suppression des fichier diagrammes associé au fichier config")) conf = sc.nextLine();	options[3] =conf.contains("true");
+			while(!conf.contains("Affichage diagramme après création "))    					  	 conf = sc.nextLine(); options[0] =conf.contains("true");
+			while(!conf.contains("Création fichier diagramme format txt"))  					  	 conf = sc.nextLine(); options[1] =conf.contains("true");
+			while(!conf.contains("Création fichier diagramme format pdf")) 						  	 conf = sc.nextLine(); options[2] =conf.contains("true");
+			while(!conf.contains("Suppression des fichiers diagrammes associées au fichier config")) conf = sc.nextLine(); options[3] =conf.contains("true");
 
 		}catch (Exception e){}
 
@@ -259,10 +259,10 @@ public class Controleur
 				"                                                                               "     + "\n" ;
 		sRet+="------Auteur : InnovAction\n";
 
-		sRet+="affichage diagramme après création = "						   +options[0]+"\n";
-		sRet+="creation fichier diagramme format txt = "					   +options[1]+"\n";
-		sRet+="creation fichier diagramme format pdf = "					   +options[2]+"\n";
-		sRet+="suppression des fichier diagrammes associé au fichier config = "+options[3]+"\n";
+		sRet+="Affichage diagramme après création = "						   		+options[0]+"\n";
+		sRet+="Création fichier diagramme format txt = "					   		+options[1]+"\n";
+		sRet+="Création fichier diagramme format pdf = "					   		+options[2]+"\n";
+		sRet+="Suppression des fichiers diagrammes associées au fichier config = " 	+options[3]+"\n";
 
 		PrintWriter writer;
 		try {
