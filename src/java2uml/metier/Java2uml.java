@@ -275,7 +275,7 @@ public class Java2uml
 				PrintWriter writer;
 				File f = new File("../diagrammes/txt", nomFichier + ".txt");
 				writer = new PrintWriter(f, "UTF-8");
-				writer.println(this.toString());
+				writer.println(conf.toString());
 				writer.close();
 			}
 		} catch (Exception e) {e.printStackTrace();}
