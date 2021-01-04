@@ -30,6 +30,8 @@ public class Java2uml
 	private Diagramme diagTemp;
 	private boolean[] options;
 	
+	private final boolean H_HIVER = true;
+	
 	public Java2uml()
 	{
 		//lecture du fichier java2uml.ini
@@ -74,7 +76,8 @@ public class Java2uml
 				}
 				catch (IOException e) { e.printStackTrace(); System.out.println("Impossible de recupérer les dates du fichier"); }
 				
-				tabF[i] += "|" + dateC.substring(0,10) + " " + dateC.toString().substring(11,16) + "|" + dateM.substring(0,10) + " " + dateM.toString().substring(11,16) ;
+				tabF[i] += "|" + dateC.substring(0,10) + " " + (Integer.parseInt(dateC.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateC.toString().substring(13,16) 
+						+  "|" + dateM.substring(0,10) + " " + (Integer.parseInt(dateM.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateM.toString().substring(13,16);
 			}
 			return tabF;
 		}
@@ -110,7 +113,8 @@ public class Java2uml
 					dateM = attr.lastModifiedTime().toString();
 				}
 				catch (IOException e) { e.printStackTrace(); System.out.println("Erreur lors de la recuperation des dates du fichier");}
-				tabF[i] += "|" + dateC.substring(0,10) + " " + dateC.toString().substring(11,16) + "|" + dateM.substring(0,10) + " " + dateM.toString().substring(11,16) ;
+				tabF[i] += "|" + dateC.substring(0,10) + " " + (Integer.parseInt(dateC.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateC.toString().substring(13,16) 
+						+  "|" + dateM.substring(0,10) + " " + (Integer.parseInt(dateM.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateM.toString().substring(13,16);
 			}
 			return tabF;
 		}
