@@ -42,10 +42,10 @@ public class Java2uml
 			Scanner sc = new Scanner(new File("java2uml.ini"));
 
 			String conf = sc.nextLine();
-			while(!conf.contains("Affichage diagramme après création "))    					  	 conf = sc.nextLine(); options[0] =conf.contains("true");
-			while(!conf.contains("Création fichier diagramme format txt"))  					  	 conf = sc.nextLine(); options[1] =conf.contains("true");
-			while(!conf.contains("Création fichier diagramme format pdf")) 						  	 conf = sc.nextLine(); options[2] =conf.contains("true");
-			while(!conf.contains("Suppression des fichiers diagrammes associées au fichier config")) conf = sc.nextLine(); options[3] =conf.contains("true");
+			while(!conf.contains("Affichage diagramme après création "))    					  	 conf = sc.nextLine(); this.options[0] =conf.contains("true");
+			while(!conf.contains("Création fichier diagramme format txt"))  					  	 conf = sc.nextLine(); this.options[1] =conf.contains("true");
+			while(!conf.contains("Création fichier diagramme format pdf")) 						  	 conf = sc.nextLine(); this.options[2] =conf.contains("true");
+			while(!conf.contains("Suppression des fichiers diagrammes associées au fichier config")) conf = sc.nextLine(); this.options[3] =conf.contains("true");
 		}
 		catch (Exception e){}
 	}
@@ -185,7 +185,7 @@ public class Java2uml
 	
 	public boolean[] supprimerConfig(String fichierSup)//permet de supprimer en interne les fichiers de configuration
 	{
-		boolean[] tabRetSup = new boolean[3];
+		boolean[] tabRetSup = new boolean[4];
 		try
 		{
 			File tmpC = new File(repConfig + fichierSup); //fichier config à sup
@@ -196,19 +196,13 @@ public class Java2uml
 				File tmpT = new File(repDiagrammeTxt + fichierSup                        ); //fichier diagramme à sup en txt
 				File tmpP = new File(repDiagrammePdf + fichierSup.replace(".txt", ".pdf")); //fichier diagramme à sup en pdf
 
-				
-				//if(options[1]/*txt*/ && options[2]/*pdf*/)
-				//{
-					tabRetSup[1] = tmpT.delete();
-					tabRetSup[2] = tmpP.delete();
-				//}
-				//else if(options[1]) supression = tmpT.delete();
-				//else supression = tmpP.delete();
+				tabRetSup[1] = tmpT.delete();
+				tabRetSup[2] = tmpP.delete();
 			}
 			else { tabRetSup[1] = true; tabRetSup[2] = true; }
 		}
 		catch(Exception e) { e.printStackTrace(); }
-		
+		tabRetSup[3] = this.options[3];
 		return tabRetSup;
 	}
 	
@@ -226,10 +220,10 @@ public class Java2uml
 				"                                                                               "     + "\n" ;
 		sRet+="------Auteur : InnovAction\n";
 	
-		sRet+="Affichage diagramme après création = "						   		+options[0]+"\n";
-		sRet+="Création fichier diagramme format txt = "					   		+options[1]+"\n";
-		sRet+="Création fichier diagramme format pdf = "					   		+options[2]+"\n";
-		sRet+="Suppression des fichiers diagrammes associées au fichier config = " 	+options[3]+"\n";
+		sRet+="Affichage diagramme après création = "						   		+ this.options[0] + "\n";
+		sRet+="Création fichier diagramme format txt = "					   		+ this.options[1] + "\n";
+		sRet+="Création fichier diagramme format pdf = "					   		+ this.options[2] + "\n";
+		sRet+="Suppression des fichiers diagrammes associées au fichier config = " 	+ this.options[3] + "\n";
 	
 		PrintWriter writer;
 		try
