@@ -22,11 +22,11 @@ public class PanelPrc extends JPanel {
 	private FramePrc framePrincipale;
 	
 	//press action
-	
-	private int posSourisX;
-	private int posSourisY;
+	static int posSourisX;
+	static int posSourisY;
 	
 	private final int ARR_SIZE = 7;
+	Thread worker;
 		
 	public PanelPrc(ArrayList<Entite> ensEntite , FramePrc framePrincipale) {
 		
@@ -85,27 +85,20 @@ public class PanelPrc extends JPanel {
 	{
 		if(e.getSource() instanceof PanelEntite)
 		{
-			this.posSourisX = e.getX();	
-			this.posSourisY = e.getY();	
-			
+			int ident = (((PanelEntite) e.getSource()).getId());
+			worker = new Worker(ident, (PanelEntite)e.getSource(), this.ensCoord, this.framePrincipale);
+			worker.start();
 		}
 		
 	}
 	
+
 	public void release(MouseEvent e)
 	{
-		int ident = (((PanelEntite) e.getSource()).getId());
-		
-		int offSetX = e.getX() - this.posSourisX;
-		int offSetY = e.getY() - this.posSourisY;
-		
-		
-		this.ensCoord.get(ident).setX(this.ensCoord.get(ident).getX()+offSetX);
-		this.ensCoord.get(ident).setY(this.ensCoord.get(ident).getY()+offSetY);
-		
-		
-		((PanelEntite) e.getSource()).setLocation(this.ensCoord.get(ident).getX(),this.ensCoord.get(ident).getY());
-		repaint();
+		 if (worker != null) {
+	            worker.interrupt();
+	            worker = null;
+		 }
 	}
 	
 	void drawArrow(Graphics g1, int x1, int y1, int x2, int y2, String type)
@@ -211,8 +204,8 @@ public class PanelPrc extends JPanel {
 				//multDroite = multDroite.replace("]", "");
 				multGauche = "0..0";
 				multDroite = "1..1";
-				System.out.println(a.getMultipliciteDroite());
-				System.out.println(a.getTypeAssociation());
+				/*System.out.println(a.getMultipliciteDroite());
+				System.out.println(a.getTypeAssociation());*/
 				drawArrow(g, (int)Math.round(xGauche) , (int)Math.round(yGauche), (int)Math.round(xDroite),(int)Math.round(yDroite), a.getTypeAssociation());	
 				if((int)xGauche >  (int)xDroite)
 				{
@@ -245,5 +238,40 @@ public class PanelPrc extends JPanel {
 				
 		}
 	}
+	
+	class Worker extends Thread {
+	    int n=0;
+	    int ident;
+	    PanelEntite pe;
+	    FramePrc framePrincipale;
+	    ArrayList<Coord> ensCoord = new ArrayList<>();
+	    
+	    public Worker( int ident, PanelEntite pe , ArrayList<Coord> ensCoord, FramePrc framePrincipale) {
+	    	this.ident = ident;
+	    	this.pe = pe;
+	    	this.ensCoord = ensCoord;
+	    	this.framePrincipale = framePrincipale;
+	    }
+	    
+	    public void run() {
+	      while(true) {
+	        PointerInfo a = MouseInfo.getPointerInfo();
+	        Point b = a.getLocation();
+
+	        int x = (int) b.getX() - (int)framePrincipale.getLocation().getX() - framePrincipale.getInsets().left;
+	        int y = (int) b.getY() - (int)framePrincipale.getLocation().getY() - framePrincipale.getInsets().top;
+	        
+	        this.ensCoord.get(ident).setX(x);
+			this.ensCoord.get(ident).setY(y);
+			
+			
+			pe.setLocation(this.ensCoord.get(ident).getX(),this.ensCoord.get(ident).getY());
+			repaint();
+	        
+	        if (isInterrupted())
+	          break;
+	      }
+	    }
+	  };
 }
 	
