@@ -4,7 +4,11 @@ import java2uml.metier.*;
 
 import static java.awt.geom.AffineTransform.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
@@ -12,18 +16,19 @@ import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class PanelPrc extends JPanel {
+public class PanelPrc extends JPanel implements ActionListener {
 	
 	private ArrayList<PanelEntite> ensPanelEntite = new ArrayList<>();
 	private ArrayList<Coord> ensCoord = new ArrayList<>();
 	private ArrayList<Association> ensAssociation = new ArrayList<>();
 	private FramePrc framePrincipale;
-	
+	private JButton buttonSave = new JButton("sauvegarder");
+	private int heightBar;
+	private int widthBar;
 	//press action
-	static int posSourisX;
-	static int posSourisY;
 	
 	private final int ARR_SIZE = 7;
 	Thread worker;
@@ -33,7 +38,6 @@ public class PanelPrc extends JPanel {
 		this.setLayout(null);
 		
 		this.framePrincipale = framePrincipale;
-		
 		int identifiant = 0;
 		
 		for(Entite e : ensEntite) {
@@ -41,7 +45,6 @@ public class PanelPrc extends JPanel {
 			for(Association a: e.getEnsAssociations())
 			{
 				ensAssociation.add(a);
-				System.out.println("Ici :" + a.getClasseDroite()+" "+a.getClasseGauche());
 			}
 
 			this.ensPanelEntite.add(new PanelEntite(e,this,identifiant));
@@ -54,7 +57,6 @@ public class PanelPrc extends JPanel {
         centery=framePrincipale.getHeight()/3;
         degreInc = 360/this.ensPanelEntite.size();
         double hauteurMax = framePrincipale.getHeight()/3;
-        System.out.println(hauteurMax);
         
         angle = 0;
         x = Math.cos(angle)*hauteurMax + centerx;
@@ -74,11 +76,11 @@ public class PanelPrc extends JPanel {
             x = (Math.cos(Math.toRadians(angle))*hauteurMax) + centerx;
             y = (Math.sin(Math.toRadians(angle))*hauteurMax) + centery;
         }
-        
-		for(Coord c : ensCoord) {
-			System.out.println(c);
-		}
+        this.buttonSave.setSize(this.buttonSave.getPreferredSize());
+        this.buttonSave.addActionListener( this );
+        this.add(this.buttonSave);
 		this.setVisible(true);
+		this.repaint();
 	}
 	
 	public void press(MouseEvent e)
@@ -86,8 +88,9 @@ public class PanelPrc extends JPanel {
 		if(e.getSource() instanceof PanelEntite)
 		{
 			int ident = (((PanelEntite) e.getSource()).getId());
-			int offsetx = e.getX() - ((PanelEntite)e.getSource()).getX();
-			int offsety = e.getY() - ((PanelEntite)e.getSource()).getY();
+			int offsetx = e.getX();
+			int offsety = e.getY();
+			System.out.println("decalage x : " + offsetx + "  ||  y : " + offsety);
 			worker = new Worker(ident, (PanelEntite)e.getSource(), this.ensCoord, this.framePrincipale, offsetx, offsety);
 			worker.start();
 		}
@@ -200,14 +203,10 @@ public class PanelPrc extends JPanel {
 				}
 				String multGauche;
 				String multDroite;
-				//multGauche = a.getMultipliciteGauche().replace("[", "");
-				//multGauche = multGauche.replace("]", "");
-				//multDroite = a.getMultipliciteDroite().replace("[", "");
-				//multDroite = multDroite.replace("]", "");
+
 				multGauche = "0..0";
 				multDroite = "1..1";
-				/*System.out.println(a.getMultipliciteDroite());
-				System.out.println(a.getTypeAssociation());*/
+
 				drawArrow(g, (int)Math.round(xGauche) , (int)Math.round(yGauche), (int)Math.round(xDroite),(int)Math.round(yDroite), a.getTypeAssociation());	
 				if((int)xGauche >  (int)xDroite)
 				{
@@ -237,7 +236,9 @@ public class PanelPrc extends JPanel {
 					}			
 					
 				}
-				
+				this.widthBar = framePrincipale.getInsets().left;
+				this.heightBar = framePrincipale.getInsets().top;
+				this.buttonSave.setLocation(framePrincipale.getWidth()-this.buttonSave.getWidth()-15-widthBar, framePrincipale.getHeight()-this.buttonSave.getHeight()-heightBar-15);
 		}
 	}
 	
@@ -264,12 +265,11 @@ public class PanelPrc extends JPanel {
 	        PointerInfo a = MouseInfo.getPointerInfo();
 	        Point b = a.getLocation();
 
-	        int x = (int) b.getX() - (int)framePrincipale.getLocation().getX() - framePrincipale.getInsets().left - offsetx;
-	        int y = (int) b.getY() - (int)framePrincipale.getLocation().getY() - framePrincipale.getInsets().top - offsety;
+	        int x = (int)b.getX() - (int)framePrincipale.getLocation().getX() - framePrincipale.getInsets().left - offsetx;
+	        int y = (int)b.getY() - (int)framePrincipale.getLocation().getY() - framePrincipale.getInsets().top - offsety;
 	        
 	        this.ensCoord.get(ident).setX(x);
 			this.ensCoord.get(ident).setY(y);
-			
 			
 			pe.setLocation(this.ensCoord.get(ident).getX(),this.ensCoord.get(ident).getY());
 			repaint();
@@ -278,6 +278,21 @@ public class PanelPrc extends JPanel {
 	          break;
 	      }
 	    }
-	  };
+	  }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if( e.getSource() == this.buttonSave) {
+			BufferedImage image = new BufferedImage(getWidth(),getHeight(), BufferedImage.TYPE_INT_RGB);
+			Graphics2D g2 = image.createGraphics();
+			paint(g2);
+			try{
+				ImageIO.write(image, "png",new File("./diagramme/blabla.png"));
+			} catch (Exception io) {
+				io.printStackTrace();
+			}
+			System.out.println("appui");
+		}
+	};
 }
 	
