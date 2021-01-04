@@ -161,8 +161,16 @@ public class ConfigGenerator {
 	            //On récupère le type de l'attribut
 	            String type = getFormattedType(f);
 	            
-	            if(! sRet.contains("\\$"))
-	            	sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite + finalite + '\n';
+	            if( (! sRet.contains("\\$")))
+	            {
+	            	boolean bOk = true;
+	            	for(String s : ensEntite)
+	            		if(type.contains(s))
+	            			bOk = false;
+	            	
+	            	if(bOk)
+	            		sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite + finalite + '\n';
+	            }
 			}
 			
 			sRet += "\n----Méthode(s) :\n";
