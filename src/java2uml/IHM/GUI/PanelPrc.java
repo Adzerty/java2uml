@@ -264,8 +264,8 @@ public class PanelPrc extends JPanel {
 	        PointerInfo a = MouseInfo.getPointerInfo();
 	        Point b = a.getLocation();
 
-	        int x = (int) b.getX() - (int)framePrincipale.getLocation().getX() - framePrincipale.getInsets().left + offsetx;
-	        int y = (int) b.getY() - (int)framePrincipale.getLocation().getY() - framePrincipale.getInsets().top + offsety;
+	        int x = (int) b.getX() - (int)framePrincipale.getLocation().getX() - framePrincipale.getInsets().left - offsetx;
+	        int y = (int) b.getY() - (int)framePrincipale.getLocation().getY() - framePrincipale.getInsets().top - offsety;
 	        
 	        this.ensCoord.get(ident).setX(x);
 			this.ensCoord.get(ident).setY(y);
