@@ -86,8 +86,8 @@ public class PanelPrc extends JPanel {
 		if(e.getSource() instanceof PanelEntite)
 		{
 			int ident = (((PanelEntite) e.getSource()).getId());
-			int offsetx = e.getX() - this.ensCoord.get(ident).getX();
-			int offsety = e.getY() - this.ensCoord.get(ident).getY();
+			int offsetx = e.getX() - ((PanelEntite)e.getSource()).getX();
+			int offsety = e.getY() - ((PanelEntite)e.getSource()).getY();
 			worker = new Worker(ident, (PanelEntite)e.getSource(), this.ensCoord, this.framePrincipale, offsetx, offsety);
 			worker.start();
 		}
