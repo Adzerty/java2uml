@@ -103,7 +103,7 @@ public class IHMCUI
 				case  2 : this.charger  (0      ); break;
 				case  3 : this.modifier (0      ); break;
 				case  4 : this.supprimer(0, null); break;
-				case  5 : this.parametres(0,this.ctrl.options);break;
+				case  5 : this.parametres(0,this.ctrl.getOptions());break;
 				default : Console.println("\n\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ "/" +this.col("5",'B')+ ")" ); try {Thread.sleep(tpsDebug);}catch(Exception ex){}; break;
 			}
 		}while(choix != 0);
@@ -132,7 +132,7 @@ public class IHMCUI
 			{
 				if(f == selec) { Console.print(this.col("\t────>", 'B')); }
 				else           { Console.print(this.col("\t     ", 'B')); }
-				this.afficherFichier(listeS[f].replace(".class",""), tabSelec[f], tMAxFichier);
+				this.afficherFichier(listeS[f], tabSelec[f], tMAxFichier);
 			}
 			this.finTab(tMAxFichier);
 		}
@@ -434,8 +434,8 @@ public class IHMCUI
 	private void parametres(int selec,boolean[] listeP)
 	{
 		this.entete();
-		String[] parametres = {"affichage diagramme après création","creation fichier diagramme format txt",
-				"creation fichier diagramme format pdf","suppression des fichier diagrammes associé au fichier config"};
+		String[] parametres = {"Afficher diagramme après création","Créer fichier diagramme au format txt",
+				"Créer fichier diagramme au format pdf","Supprimer les fichiers diagrammes associés au fichier config"};
 		int taille=0;
 		for (String s : parametres) if(s.length()>taille)taille=s.length();
 
@@ -534,8 +534,9 @@ public class IHMCUI
 
 	private void afficherFichier(String dataConf, boolean selec, int tMAxFichier)//renvoie une Chaine adapté pour la lecture des tableaux
 	{
+		
 		String[] decConfig = dataConf.split("\\|");
-		Console.print(String.format("│" + ((selec)? (this.col("x", 'B')):" ") + "%-" + tMAxFichier + "s │ %16s │ %16s │\n", decConfig[0],decConfig[1], decConfig[2]));
+		Console.print(String.format("│" + ((selec)? (this.col("x", 'B')):" ") + "%-" + tMAxFichier + "s │ %16s │ %16s │\n", decConfig[0].substring(0,decConfig[0].indexOf(".")),decConfig[1], decConfig[2]));
 	}
 	
 	private void finTab(int tMAxFichier)//renvoie une Chaine adapté pour la fermeture des tableaux
@@ -596,7 +597,10 @@ public class IHMCUI
 		     if (System.getProperty("os.name").contains("Windows"))
 		         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		     else
-		         Runtime.getRuntime().exec("clear");
+		     {
+		    	 new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();
+		     }
+		    	 
 		}
 		catch (Exception ex) {}
 	}

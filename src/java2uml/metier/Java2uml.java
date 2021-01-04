@@ -4,6 +4,7 @@ package java2uml.metier;
 import java.awt.Desktop;
 
 //recuperer fichier dans un rep avec dates
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,6 +17,8 @@ import java.util.logging.Logger;
 import java.io.File;
 import java.io.IOException;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
 import java2uml.Controleur;
 
 public class Java2uml
@@ -42,10 +45,11 @@ public class Java2uml
 			Scanner sc = new Scanner(new File("java2uml.ini"));
 
 			String conf = sc.nextLine();
-			while(!conf.contains("Affichage diagramme après création "))    					  	 conf = sc.nextLine(); this.options[0] =conf.contains("true");
-			while(!conf.contains("Création fichier diagramme format txt"))  					  	 conf = sc.nextLine(); this.options[1] =conf.contains("true");
-			while(!conf.contains("Création fichier diagramme format pdf")) 						  	 conf = sc.nextLine(); this.options[2] =conf.contains("true");
-			while(!conf.contains("Suppression des fichiers diagrammes associées au fichier config")) conf = sc.nextLine(); this.options[3] =conf.contains("true");
+
+			while(!conf.contains("Afficher diagramme après création"))    					  	          conf = sc.nextLine(); this.options[0] = conf.contains("true");
+			while(!conf.contains("Créer fichier diagramme au format txt"))  					            conf = sc.nextLine(); this.options[1] = conf.contains("true");
+			while(!conf.contains("Créer fichier diagramme au format pdf")) 						            conf = sc.nextLine(); this.options[2] = conf.contains("true");
+			while(!conf.contains("Supprimer les fichiers diagrammes associés au fichier config")) conf = sc.nextLine(); this.options[3] = conf.contains("true");
 		}
 		catch (Exception e){}
 	}
@@ -147,7 +151,7 @@ public class Java2uml
         String diagramme = "\n\n\n";
         ConfigReader temp = new ConfigReader(nomFichier);
 		if(options[0]) diagramme+= temp.toString();
-        temp.CreateFile(nomFichier.replace(".txt",""),options[1],options[2]);
+        CreateFile(temp,nomFichier.replace(".txt",""),options[1],options[2]);
         return diagramme;
     }
 	
@@ -220,10 +224,10 @@ public class Java2uml
 				"                                                                               "     + "\n" ;
 		sRet+="------Auteur : InnovAction\n";
 	
-		sRet+="Affichage diagramme après création = "						   		+ this.options[0] + "\n";
-		sRet+="Création fichier diagramme format txt = "					   		+ this.options[1] + "\n";
-		sRet+="Création fichier diagramme format pdf = "					   		+ this.options[2] + "\n";
-		sRet+="Suppression des fichiers diagrammes associées au fichier config = " 	+ this.options[3] + "\n";
+		sRet+="Afficher diagramme après création = "						   		            + this.options[0] + "\n";
+		sRet+="Créer fichier diagramme au format txt = "					   	     	      + this.options[1] + "\n";
+		sRet+="Créer fichier diagramme au format pdf = "					   		          + this.options[2] + "\n";
+		sRet+="Supprimer les fichiers diagrammes associés au fichier config = " 	+ this.options[3] + "\n";
 	
 		PrintWriter writer;
 		try
@@ -235,6 +239,45 @@ public class Java2uml
 		}catch (Exception e) {e.printStackTrace();}
 
 	}
+	public boolean[] getOptions(){return this.options;}
+
+	public void CreateFile(ConfigReader conf,String nomFichier,boolean txt,boolean pdf)
+	{
+		try {
+			if (pdf){
+				Document document = new Document();
+				PdfWriter.getInstance(document, new FileOutputStream(new File("../diagrammes/pdf/", nomFichier + ".pdf")));
+
+				document.open();
+				String sRet = conf.toString().replaceAll("│", "|");
+				sRet = sRet.replaceAll("─", "-");
+				sRet = sRet.replaceAll("┌", "+");
+				sRet = sRet.replaceAll("├", "+");
+				sRet = sRet.replaceAll("└", "+");
+				sRet = sRet.replaceAll("┤", "+");
+				sRet = sRet.replaceAll("┐", "+");
+				sRet = sRet.replaceAll("┘", "+");
+
+				Font font = FontFactory.getFont(FontFactory.COURIER, 8, BaseColor.BLACK);
+				Paragraph p = new Paragraph(sRet, font);
+
+				document.add(p);
+
+				//close
+				document.close();
+			}
+			if(txt) {
+				PrintWriter writer;
+				File f = new File("../diagrammes/txt", nomFichier + ".txt");
+				writer = new PrintWriter(f, "UTF-8");
+				writer.println(conf.toString());
+				writer.close();
+			}
+		} catch (Exception e) {e.printStackTrace();}
+
+
+	}
+
 }
 
 
