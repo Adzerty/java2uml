@@ -88,7 +88,7 @@ public class Controleur
 		for(String s : tabFichierSup)
 		{
 			boolean[] tabSup = this.metier.supprimerConfig(s);
-			this.ihmCUI.confirmSup(s, tabSup[0], tabSup[1], tabSup[2]); //suppression des 2 fichiers
+			this.ihmCUI.confirmSup(s, tabSup[0], tabSup[1], tabSup[2], tabSup[3]); //suppression des 2 fichiers
 		}
 	}
 	

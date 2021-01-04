@@ -46,13 +46,22 @@ public class IHMCUI
 		this.menu();
 	}
 	
-	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiagTxt,boolean supDiagPdf)//
+	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiagTxt, boolean supDiagPdf, boolean optionSup)//
 	{
 		if (supConfig)
 		{
 			if (supDiagTxt && supDiagPdf)
 			{
-				Console.println("\t\t" + this.col("# ", 'V') + "Les fichiers associés à " + this.col(fichierSup, 'B') + " ont été supprimé avec succès.");
+				if(optionSup)
+				{
+					Console.println("\t\t" + this.col("# ", 'V') + "Le fichier de configuration " + this.col(fichierSup, 'B')
+					               +" à été supprimé sans ses fichiers associés avec succès.");
+				}
+				else
+				{
+					Console.println("\t\t" + this.col("# ", 'V') + "Les fichiers associés à " + this.col(fichierSup, 'B')
+					               +" ont été supprimé avec succès.");
+				}
 			}
 			else
 			{
@@ -62,7 +71,8 @@ public class IHMCUI
 		}
 		else
 		{
-			Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'B') + ", le fichier de configuration n'existe plus.");
+			Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'B')
+			               +", le fichier de configuration n'existe plus.");
 		}
 		try {Thread.sleep(tpsDebug);}catch(Exception ex){};
 	}
