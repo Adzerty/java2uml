@@ -165,7 +165,7 @@ public class ConfigGenerator {
 	            //On récupère le type de l'attribut
 	            String type = getFormattedType(f);
 	            
-	            if(type.contains("[")) multiplicite="[0..*]";
+	            if(type.contains("[")) multiplicite="[0..*] ";
 	            if( (! sRet.contains("\\$")))
 	            {
 	            	boolean bOk = true;
@@ -174,7 +174,7 @@ public class ConfigGenerator {
 	            			bOk = false;
 	            	
 	            	if(bOk)
-	            		sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ multiplicite + staticite + finalite + '\n';
+	            		sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' + multiplicite + staticite + finalite + '\n';
 	            }
 			}
 			
