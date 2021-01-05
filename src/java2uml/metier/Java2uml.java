@@ -248,20 +248,20 @@ public class Java2uml
 		String sRet = "";
 	
 		sRet += ""
-              + "				                                                                              \s"
-              + "				      ,--.  ,---.,--.   ,--.,---.       ,---.     ,--. ,--.,--.   ,--.,--.    \s"
-              + "				      |  | /  O  \\\\  `.'  //  O  \\     '.-.  \\    |  | |  ||   `.'   ||  |    \s"
-              + "				 ,--. |  ||  .-.  |\\     /|  .-.  |     .-' .'    |  | |  ||  |'.'|  ||  |    \s"
-              + "				 |  '-'  /|  | |  | \\   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--. \s"
-              + "				  `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----' \s"
-              + "				                                                                              \s"
+              + "\t                                                                              \n"
+              + "\t      ,--.  ,---.,--.   ,--.,---.       ,---.     ,--. ,--.,--.   ,--.,--.    \n"
+              + "\t      |  | /  O  \\\\  `.'  //  O  \\     '.-.  \\    |  | |  ||   `.'   ||  |    \n"
+              + "\t ,--. |  ||  .-.  |\\     /|  .-.  |     .-' .'    |  | |  ||  |'.'|  ||  |    \n"
+              + "\t |  '-'  /|  | |  | \\   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--. \n"
+              + "\t  `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----' \n"
+              + "\t                                                                              \n"
 			  + "";
 		sRet+="------Auteur : InnovAction\n";
 	
-		sRet+="Afficher diagramme après création = "						   	    + this.options[0] + "\n";
-		sRet+="Créer fichier diagramme au format txt = "					   	    + this.options[1] + "\n";
-		sRet+="Créer fichier diagramme au format pdf = "					   		+ this.options[2] + "\n";
-		sRet+="Supprimer les fichiers diagrammes associés au fichier config = " 	+ this.options[3] + "\n";
+		sRet+="Afficher diagramme après création = "						   	       + this.options[0] + "\n";
+		sRet+="Créer fichier diagramme au format txt = "					   	       + this.options[1] + "\n";
+		sRet+="Créer fichier diagramme au format pdf = "					   		   + this.options[2] + "\n";
+		sRet+="Supprimer les fichiers diagrammes associés au fichier configuration = " + this.options[3] + "\n";
 	
 		PrintWriter writer;
 		try

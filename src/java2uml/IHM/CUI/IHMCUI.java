@@ -683,7 +683,7 @@ public class IHMCUI
 	{
 		this.entete();
 		String[] parametres = {"Afficher diagramme après création","Créer fichier diagramme au format txt",
-				"Créer fichier diagramme au format pdf","Supprimer les fichiers diagrammes associés au fichier config"};
+				"Créer fichier diagramme au format pdf","Supprimer les fichiers diagrammes associés au fichier configuration"};
 		int taille = 14; //Pour en-tete stable
 		for (String s : parametres)
 		{
