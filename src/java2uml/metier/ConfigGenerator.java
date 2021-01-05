@@ -273,6 +273,8 @@ public class ConfigGenerator {
 						sRet += c.getNomClasse() + " -.-.-.-|> " + inter.getName() + '\n';
 			}
 			
+			sRet += "\n----Contrainte(s) :\n";
+			
 			
 			
 			sRet += "\n\n";
