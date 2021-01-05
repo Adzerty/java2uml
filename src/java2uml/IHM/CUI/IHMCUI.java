@@ -9,6 +9,7 @@ public class IHMCUI
 {
 	private char coul = '#'; //Couleur d'écriture du prog → BLANC (voir setCE).
 	private int  tpsDebug = 1500;
+	private int  tpsAjust = 2000;
 	
 	private Controleur ctrl;
 	public IHMCUI(Controleur ctrl)
@@ -18,6 +19,7 @@ public class IHMCUI
 
 	public void start()//lancement de l'IHM CUI
 	{
+		this.afficherInnovAction();
 		this.menu();
 	}
 	
@@ -613,7 +615,7 @@ public class IHMCUI
 		this.col("    /&&&. %&&(    ,&&&%.  (&&&.    %&&&*    /@@@@@@@@@@*   ", '#') + this.col("         *####", 'B') + this.col("."                 ,'R') + this.col( "                                                              ,(######(,                     "        + "\n" +
 		         "                                                           "       +          "              "       +          ""                        +          "                                                                                              " , '#') + "\n" +
 		setCE('*') + "\n\n\n\n\n");
-		try {Thread.sleep(2000);} catch (Exception ex) {}//ce temps pourra être utiliser pour adapter la fenêtre de la console
+		try {Thread.sleep(tpsAjust);} catch (Exception ex) {}//ce temps pourra être utiliser pour adapter la fenêtre de la console
 	}
 	
 	//Divers méthode de saisie utilisateur avec l'utilisation de la classe Clavier

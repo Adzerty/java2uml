@@ -6,11 +6,7 @@ import java2uml.IHM.CUI.IHMCUI;
 
 import java2uml.metier.Java2uml;
 
-
-
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 
 public class Controleur
 {
