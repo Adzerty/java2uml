@@ -8,22 +8,69 @@ import java2uml.metier.Java2uml;
 
 import java.io.File;
 
+/**
+ * <b>Controleur est la classe qui permet de faire le lien entre les parties IHM et Métier.</b>
+ * <p>
+ * Controleur possède les attributs suivant :
+ * <ul>
+ * <li>Un IHMCUI qui permet de gérer la console et le mode CUI.</li>
+ * <li>Un Java2uml qui est le métier regroupant les principales méthodes nécessaires aux IHMs.</li>
+ * </ul>
+ * De plus, Le controleur permer d'effectuer la compilation des fichiers Java du repertoire associé.
+ * </p>
+ * 
+ * @see IHMCUI
+ * @see IHMGUI
+ * @see Java2uml
+ * 
+ * @author InnovAction
+ * @version 1.0
+ */
 public class Controleur
 {
+	/**
+	 * l'interface utilisateur en mode console.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Controleur#Controleur(String type)
+	 * @see Controleur#supprimerFichiers(String[] tabFichierSup)
+	 */
 	private IHMCUI    ihmCUI;
+	
+	/**
+	 * le metier qui contient les accès à toutes les méthodes nécessaires a l'application.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Controleur#Controleur(String type)
+	 * @see ...
+	 */
 	private Java2uml  metier;
-
+	
 	public String repConfig    		= "../config/";
 	public String repJava      		= "../fichierJava/";
 	public String repCompile   		= "../fichierCompile/";
 	public String repDiagramme	 	= "../diagrammes/";
 	public String repDiagrammeTxt 	= "../diagrammes/txt/";
 	public String repDiagrammePdf 	= "../diagrammes/pdf/";
-
-	public boolean[] options;
-
+	
+	/**
+     * <b>Constructeur Controleur.</b>
+     * <p>
+     * A l'instanciation d'un objet Controleur, l'IHMCUI est initialisée ainsi que le metier. Les éxécutables permettent,
+     * en fonction de l'argument placé en paramètre d'initialiser le mode GUI ou de lancer le CUI.
+     * </p>
+     * 
+     * @param type 
+     * 		Chaine passée en paramètre au lancement de l'application qui dénit le type d'IHM qui sera utilisée.
+     * 
+     * @see Controleur#ihmCUI
+     * @see Controleur#metier
+     */
 	public Controleur(String type)
 	{
+		this.metier = new Java2uml();
+		this.ihmCUI = new IHMCUI(this);
+		
 		//Création des dossiers
 		File file = new File(repConfig); 	if (!file.exists()) file.mkdir();
 		file = new File(repJava); 			if (!file.exists()) file.mkdir();
@@ -31,15 +78,9 @@ public class Controleur
 		file = new File(repDiagramme); 		if (!file.exists()) file.mkdir();
 		file = new File(repDiagrammeTxt); 	if (!file.exists()) file.mkdir();
 		file = new File(repDiagrammePdf); 	if (!file.exists()) file.mkdir();
-		
-		this.metier = new Java2uml();
 
-		if(type.equals("CUI"))
-		{
-			this.ihmCUI = new IHMCUI (this);
-			this.ihmCUI.start();
-		}
-		else new IHMGUI(this);
+		if(type.equals("CUI")) { this.ihmCUI.start(); } //lancer CUI
+		else                   { new IHMGUI(this);    } //lancer GUI
 
 	}
 	
@@ -111,5 +152,8 @@ public class Controleur
 			t.printStackTrace();
 		}
     }
-    public boolean[] getOptions() { return this.metier.getOptions(); }
+    public boolean[] getOptions()
+    {
+    	return this.metier.getOptions();
+    }
 }
