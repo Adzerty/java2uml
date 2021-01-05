@@ -32,7 +32,7 @@ public class Java2uml
 	public String repDiagrammePdf 	= "../diagrammes/pdf/";
 	
 	private Diagramme diagTemp;
-	private boolean[] options;
+	public boolean[] options;
 	
 	private final boolean H_HIVER = true;
 	
@@ -47,9 +47,9 @@ public class Java2uml
 
 			String conf = sc.nextLine();
 
-			while(!conf.contains("Afficher diagramme après création"))    					  	          conf = sc.nextLine(); this.options[0] = conf.contains("true");
-			while(!conf.contains("Créer fichier diagramme au format txt"))  					            conf = sc.nextLine(); this.options[1] = conf.contains("true");
-			while(!conf.contains("Créer fichier diagramme au format pdf")) 						            conf = sc.nextLine(); this.options[2] = conf.contains("true");
+			while(!conf.contains("Afficher diagramme après création"))    					  	  conf = sc.nextLine(); this.options[0] = conf.contains("true");
+			while(!conf.contains("Créer fichier diagramme au format txt"))  					  conf = sc.nextLine(); this.options[1] = conf.contains("true");
+			while(!conf.contains("Créer fichier diagramme au format pdf")) 						  conf = sc.nextLine(); this.options[2] = conf.contains("true");
 			while(!conf.contains("Supprimer les fichiers diagrammes associés au fichier config")) conf = sc.nextLine(); this.options[3] = conf.contains("true");
 		}
 		catch (Exception ignored){}
@@ -154,7 +154,7 @@ public class Java2uml
     {
         String diagramme = "\n\n\n";
         ConfigReader temp = new ConfigReader(nomFichier);
-		if(options[0]) diagramme+= temp.toString();
+		diagramme+= temp.toString();
         CreateFile(temp,nomFichier.replace(".txt",""),options[1],options[2]);
         return diagramme;
     }
