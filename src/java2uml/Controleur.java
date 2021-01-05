@@ -116,8 +116,9 @@ public class Controleur
 	
 	public String   creerNouvConfig(String nomFichier, String nomAuteur)
 	{
+		boolean optn0 = getOptions()[0];
 		String sRet="";
-		if(this.metier.options[0]) sRet+= this.metier.genNouvConfig(nomFichier, nomAuteur);
+		if(optn0) sRet+= this.metier.genNouvConfig(nomFichier, nomAuteur);
 		else this.metier.genNouvConfig(nomFichier, nomAuteur);
 
 		return sRet;

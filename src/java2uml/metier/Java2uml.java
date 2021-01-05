@@ -186,7 +186,7 @@ public class Java2uml
         return diagramme;
     }
 	
-	public void    genNouvDiagramme(String[] tabNomFichier)//génère les diagrammes des fichiers java en paramètres
+	public void     genNouvDiagramme(String[] tabNomFichier)//génère les diagrammes des fichiers java en paramètres
 	{
 		for(int f = 0; f < tabNomFichier.length; f++)
 			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
@@ -247,15 +247,15 @@ public class Java2uml
 		this.options = options;
 		String sRet = "";
 	
-		sRet += """
-				                                                                              \s
-				      ,--.  ,---.,--.   ,--.,---.       ,---.     ,--. ,--.,--.   ,--.,--.    \s
-				      |  | /  O  \\\\  `.'  //  O  \\     '.-.  \\    |  | |  ||   `.'   ||  |    \s
-				 ,--. |  ||  .-.  |\\     /|  .-.  |     .-' .'    |  | |  ||  |'.'|  ||  |    \s
-				 |  '-'  /|  | |  | \\   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--. \s
-				  `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----' \s
-				                                                                              \s
-				""";
+		sRet += ""
+              + "				                                                                              \s"
+              + "				      ,--.  ,---.,--.   ,--.,---.       ,---.     ,--. ,--.,--.   ,--.,--.    \s"
+              + "				      |  | /  O  \\\\  `.'  //  O  \\     '.-.  \\    |  | |  ||   `.'   ||  |    \s"
+              + "				 ,--. |  ||  .-.  |\\     /|  .-.  |     .-' .'    |  | |  ||  |'.'|  ||  |    \s"
+              + "				 |  '-'  /|  | |  | \\   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--. \s"
+              + "				  `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----' \s"
+              + "				                                                                              \s"
+			  + "";
 		sRet+="------Auteur : InnovAction\n";
 	
 		sRet+="Afficher diagramme après création = "						   	    + this.options[0] + "\n";
@@ -273,6 +273,7 @@ public class Java2uml
 		}catch (Exception e) {e.printStackTrace();}
 
 	}
+
 	public boolean[] getOptions(){return this.options;}
 
 	public void CreateFile(ConfigReader conf,String nomFichier,boolean txt,boolean pdf)
