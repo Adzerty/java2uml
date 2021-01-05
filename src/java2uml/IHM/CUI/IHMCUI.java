@@ -99,7 +99,7 @@ public class IHMCUI
 	}
 
 	/**
-     * Lance le menu du mode CUI a partir du Controleur.
+     * Lance le menu du mode CUI à partir du Controleur.
 
      * 
      * @see ----- Utilisé par les méthodes -----
