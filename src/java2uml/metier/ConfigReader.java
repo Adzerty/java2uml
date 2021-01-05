@@ -79,6 +79,7 @@ public class ConfigReader
                         while (sc.hasNextLine() && temp.length() > 1) {
                             if (temp.charAt(0) != '/' && temp.charAt(1) != '/') {
                                 String nom = "";
+                                String multiplicite="";
                                 char visibilite = temp.charAt(0);
 
                                 String valeurParDefault = "";
@@ -93,6 +94,14 @@ public class ConfigReader
                                 while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
                                     nom += temp.charAt(cpt);
                                     cpt++;
+                                }
+                                if(temp.contains("[")&& temp.contains("["))
+                                {
+                                    cpt++;
+                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                        multiplicite += temp.charAt(cpt);
+                                        cpt++;
+                                    }
                                 }
                                 temp=temp.substring(cpt,temp.length());
 
@@ -110,7 +119,7 @@ public class ConfigReader
                                     for (int i = temp.indexOf("default =") + 9; i < temp.length(); i++)
                                         valeurParDefault += temp.charAt(i);
 
-                                ensAttribut.add(new Attribut(nom, visibilite, estStatique, estFinale, valeurParDefault, type,tabContraintes));
+                                ensAttribut.add(new Attribut(nom, visibilite, estStatique, estFinale, valeurParDefault, type,tabContraintes,multiplicite));
                             }
                             temp = sc.nextLine();
                             compteurLigne ++;

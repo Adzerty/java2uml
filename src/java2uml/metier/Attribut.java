@@ -9,7 +9,8 @@ public class Attribut
     private String valeurParDefault;
     private String type;
     private String [] contrainte;
-    public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault,String type,String[] contrainte) {
+    private String multiplicite;
+    public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault,String type,String[] contrainte,String multiplicite) {
         this.nom = nom;
         this.visibilite = visibilite;
         this.estStatique = estStatique;
@@ -17,6 +18,7 @@ public class Attribut
         this.valeurParDefault = valeurParDefault;
         this.type=type;
         this.contrainte = contrainte;
+        this.multiplicite = multiplicite;
     }
 
     public String getType() {
@@ -72,7 +74,7 @@ public class Attribut
     {
         String sRet="";
         sRet+=visibilite+" ";
-        sRet+=nom + " ";
+        sRet+=nom + " " + multiplicite;
 
         if(valeurParDefault.length()>0)
             sRet+= " = " + valeurParDefault + " ";
@@ -94,7 +96,7 @@ public class Attribut
     {
         String sRet="";
         sRet+=visibilite+" ";
-        sRet+=nom + " ";
+        sRet+=nom + " " + multiplicite;
 
         if(valeurParDefault.length()>0)
             sRet+= " = " + valeurParDefault + " ";
