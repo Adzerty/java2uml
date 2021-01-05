@@ -54,9 +54,15 @@ public class ConfigReader
                     }
 
                     temp=temp.substring(cpt,temp.length());
-
                     entiteEstFinale = temp.contains("final");
                     entiteEstAbstraite = temp.contains("abstract");
+
+                    String [] entiteContraintes= null;
+                    if(temp.contains("{") && temp.contains("}"))
+                    {
+                        String contrainte = temp.substring(temp.indexOf("{")+1,temp.indexOf("}"));
+                        entiteContraintes = contrainte.split(",");
+                    }
 
                     //ATTRIBUTS
                     while (sc.hasNextLine() && !temp.contains("Attribut(s) :"))
@@ -250,7 +256,7 @@ public class ConfigReader
                         }
                     }
                     Entite e = new Entite(ensMethode, ensAttribut, nomEntite, typeEntite,
-                            entiteEstAbstraite, entiteEstFinale, ensAssociation);
+                            entiteEstAbstraite, entiteEstFinale, ensAssociation,entiteContraintes);
                     ensEntite.add(e);
                     }
             }
