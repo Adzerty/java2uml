@@ -95,7 +95,7 @@ public class IHMCUI
 			switch (choix)
 			{
 				case  0 : break;
-				case  1 : Console.print("\n\t\tCompilation des fichiers " +this.col("JAVA",'B')+ " en cours...");this.ctrl.compilation(); this.creer(0, null); break;
+				case  1 : Console.print("\n\t\tCompilation des fichiers " +this.col("JAVA",'B')+ " en cours...");this.ctrl.compilation(); this.clear(); this.creer(0, null); break;
 				case  2 : this.charger  (0      ); break;
 				case  3 : this.modifier (0      ); break;
 				case  4 : this.supprimer(0, null); break;
@@ -131,94 +131,96 @@ public class IHMCUI
 				this.afficherFichier(listeS[f], tabSelec[f], tMAxFichier);
 			}
 			this.finTab(tMAxFichier);
-			
-			char saisie = this.menuSelection(true);
-			if(!this.verifSaisie(saisie, true)) { this.creer(selec, tabSelec); } //si mauvaise saisie true = menuMulti
-			
-			int newSel = selec;
-			
-			if(saisie== '/') { this.menu(); }
-			if(saisie== '.')
-			{
-				
-				if(!tabSelec[selec]) { newSel++; }
-				tabSelec[selec] = !tabSelec[selec];
-				if(newSel > listeS.length -1) { this.creer(0      , tabSelec);  }//torique bas
-				else                          { this.creer(newSel , tabSelec); 	}//on descend
-			}
-			if(saisie == '*')
-	        {
-				boolean all = true;//acc
-	            for(int i = 0; i<tabSelec.length; i++)
-	            {
-	                if(!tabSelec[i]) { all = false; }//on regarde si tout est selectionné
-	            }
-	            //si tout est selectionné on désélectionne tout sinon on selectionne tout
-	            if(all) { for(int v = 0; v < tabSelec.length; v++) tabSelec[v] = false; }
-	            else    { for(int f = 0; f < tabSelec.length; f++) tabSelec[f] = true;  }
-	            
-	            this.creer(0      , tabSelec);
-	        }
-			if(saisie== '=')
-			{
-				int cptTrue = 0;
-				for(boolean b : tabSelec)
-					if(b)
-						cptTrue++;//compter le nombre de fichiers choisis
-				
-				if(cptTrue == 0)//pas de marque
-				{
-					String[] tabFichierJava = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
-					this.ctrl.creerNouvDiagramme(tabFichierJava); 
-				}
-				else
-				{
-					String[] tabFichierJava = new String[cptTrue];//contient le nom de tous les fichiers choisis
-					
-					int cptElt = 0;
-					for(int b = 0; b < tabSelec.length; b++)
-						if(tabSelec[b])
-							tabFichierJava[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
-					
-					this.ctrl.creerNouvDiagramme(tabFichierJava);//envoyé un tabString
-				}
-
-				Console.print("\n\t\tAuteur      : ");
-				Console.print(this.setCE('B'));
-				String auteur = getString() ;
-				Console.print(this.setCE(this.coul));
-				
-				if(auteur.equals("")) { auteur = "?"; }
-				
-				Console.print("\t\tNom Fichier : ");
-				Console.print(this.setCE('B'));
-				String nomFichierConfig = getString() ;
-				Console.print(this.setCE(this.coul));
-				
-				if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }
-				
-				this.entete();
-				Console.println("\t\t" +this.col("1",'B')+ " : CREER UN DIAGRAMME DE CLASSE" );
-				
-				Console.print(this.ctrl.creerNouvConfig(nomFichierConfig, auteur));
-			}
-			if(saisie== '-')
-			{
-				newSel--;
-				if(newSel < 0) { this.creer(listeS.length -1, tabSelec);  } //torique haut
-				else           { this.creer(newSel          , tabSelec);  } //on monte
-			}
-			if(saisie== '+')
-			{
-				newSel++;
-				if(newSel > listeS.length -1) { this.creer(0     , tabSelec);  }//torique bas
-				else                          { this.creer(newSel, tabSelec);  }//on descend
-			}
 		}
-		else { Console.println(this.col("\t\tAucune classe java dans le repertoire fichierJava", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
+		else { Console.print(this.col("\tAucune classe java dans le repertoire fichierJava", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
 
-		Console.print("\n\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
-		this.getString();
+		char saisie = this.menuSelection(true);
+		if(!this.verifSaisie(saisie, true)) { this.creer(selec, tabSelec); } //si mauvaise saisie true = menuMulti
+		
+		int newSel = selec;
+		
+		if(saisie== '/') { this.menu(); }
+		if(saisie== '.')
+		{
+			
+			if(!tabSelec[selec]) { newSel++; }
+			tabSelec[selec] = !tabSelec[selec];
+			if(newSel > listeS.length -1) { this.creer(0      , tabSelec);  }//torique bas
+			else                          { this.creer(newSel , tabSelec); 	}//on descend
+		}
+		if(saisie == '*')
+        {
+			boolean all = true;//acc
+            for(int i = 0; i<tabSelec.length; i++)
+            {
+                if(!tabSelec[i]) { all = false; }//on regarde si tout est selectionné
+            }
+            //si tout est selectionné on désélectionne tout sinon on selectionne tout
+            if(all) { for(int v = 0; v < tabSelec.length; v++) tabSelec[v] = false; }
+            else    { for(int f = 0; f < tabSelec.length; f++) tabSelec[f] = true;  }
+            
+            this.creer(0      , tabSelec);
+        }
+		if(saisie== '=')
+		{
+			int cptTrue = 0;
+			for(boolean b : tabSelec)
+				if(b)
+					cptTrue++;//compter le nombre de fichiers choisis
+			
+			if(cptTrue == 0)//pas de marque
+			{
+				String[] tabFichierJava = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
+				this.ctrl.creerNouvDiagramme(tabFichierJava); 
+			}
+			else
+			{
+				String[] tabFichierJava = new String[cptTrue];//contient le nom de tous les fichiers choisis
+				
+				int cptElt = 0;
+				for(int b = 0; b < tabSelec.length; b++)
+					if(tabSelec[b])
+						tabFichierJava[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
+				
+				this.ctrl.creerNouvDiagramme(tabFichierJava);//envoyé un tabString
+			}
+
+			Console.print("\n\t\tAuteur      : ");
+			Console.print(this.setCE('B'));
+			String auteur = getString() ;
+			Console.print(this.setCE(this.coul));
+			
+			if(auteur.equals("")) { auteur = "?"; }
+			
+			Console.print("\t\tNom Fichier : ");
+			Console.print(this.setCE('B'));
+			String nomFichierConfig = getString() ;
+			Console.print(this.setCE(this.coul));
+			
+			if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }
+			
+			this.entete();
+			Console.println("\t\t" +this.col("1",'B')+ " : CREER UN DIAGRAMME DE CLASSE" );
+			
+			Console.print(this.ctrl.creerNouvConfig(nomFichierConfig, auteur));
+			
+			Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
+			this.getString();
+		}
+		
+		if(saisie== '-')
+		{
+			newSel--;
+			if(newSel < 0) { this.creer(listeS.length -1, tabSelec);  } //torique haut
+			else           { this.creer(newSel          , tabSelec);  } //on monte
+		}
+		if(saisie== '+')
+		{
+			newSel++;
+			if(newSel > listeS.length -1) { this.creer(0     , tabSelec);  }//torique bas
+			else                          { this.creer(newSel, tabSelec);  }//on descend
+		}
+
 	}
 	
 	private void charger(int selec)//permet de charger un diagramme, d'ont la configuration est sauvegardée.

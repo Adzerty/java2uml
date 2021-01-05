@@ -52,6 +52,9 @@ public class ConfigReader
                         typeEntite += temp.charAt(cpt);
                         cpt++;
                     }
+
+                    temp=temp.substring(cpt,temp.length());
+
                     entiteEstFinale = temp.contains("final");
                     entiteEstAbstraite = temp.contains("abstract");
 
@@ -62,7 +65,8 @@ public class ConfigReader
                         temp = sc.nextLine();
                     }
 
-                    if (!temp.contains("//")) {
+                    if (!temp.contains("//"))
+                    {
                         temp = sc.nextLine();
                         compteurLigne ++;
 
@@ -70,9 +74,7 @@ public class ConfigReader
                             if (temp.charAt(0) != '/' && temp.charAt(1) != '/') {
                                 String nom = "";
                                 char visibilite = temp.charAt(0);
-                                boolean estStatique = temp.contains("_");
-                                boolean estFinale = temp.contains("final");
-                                ;
+
                                 String valeurParDefault = "";
                                 String type = "";
 
@@ -86,11 +88,23 @@ public class ConfigReader
                                     nom += temp.charAt(cpt);
                                     cpt++;
                                 }
+                                temp=temp.substring(cpt,temp.length());
+
+                                boolean estStatique = temp.contains("static");
+                                boolean estFinale = temp.contains("final");
+
+                                String [] tabContraintes= null;
+                                if(temp.contains("{") && temp.contains("}"))
+                                {
+                                    String contrainte = temp.substring(temp.indexOf("{")+1,temp.indexOf("}"));
+                                    tabContraintes = contrainte.split(",");
+                                }
+
                                 if (temp.contains("default ="))
                                     for (int i = temp.indexOf("default =") + 9; i < temp.length(); i++)
                                         valeurParDefault += temp.charAt(i);
 
-                                ensAttribut.add(new Attribut(nom, visibilite, estStatique, estFinale, valeurParDefault, type));
+                                ensAttribut.add(new Attribut(nom, visibilite, estStatique, estFinale, valeurParDefault, type,tabContraintes));
                             }
                             temp = sc.nextLine();
                             compteurLigne ++;
@@ -115,9 +129,6 @@ public class ConfigReader
 
                                 ArrayList<Parametre> ensParametre = new ArrayList<>();
 
-                                boolean estStatique = temp.contains("static");
-                                boolean estFinale = temp.contains("final");
-                                boolean estAbstraite = temp.contains("abstract");
 
                                 cpt = 2;
                                 while (temp.charAt(cpt) != ' ') {
@@ -129,7 +140,6 @@ public class ConfigReader
                                     nom += temp.charAt(cpt);
                                     cpt++;
                                 }
-
                                 //ensemblme de parametre
                                 String parametres = temp.substring(temp.indexOf('(') + 1, temp.indexOf(')'));
                                 if (parametres.length() > 1) {
@@ -160,6 +170,10 @@ public class ConfigReader
                                         ensParametre.add(param);
                                     }
                                 }
+                                temp=temp.substring(temp.indexOf(")"),temp.length());
+                                boolean estStatique = temp.contains("static");
+                                boolean estFinale = temp.contains("final");
+                                boolean estAbstraite = temp.contains("abstract");
                                 Methode met = new Methode(nom, visibilite, typeDeRetour, ensParametre, estStatique, estFinale, estAbstraite);
                                 ensMethode.add(met);
                             }

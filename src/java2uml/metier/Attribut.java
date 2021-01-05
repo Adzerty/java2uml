@@ -8,14 +8,15 @@ public class Attribut
     private boolean estFinale;
     private String valeurParDefault;
     private String type;
-
-    public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault,String type) {
+    private String [] contrainte;
+    public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault,String type,String[] contrainte) {
         this.nom = nom;
         this.visibilite = visibilite;
         this.estStatique = estStatique;
         this.estFinale = estFinale;
         this.valeurParDefault = valeurParDefault;
         this.type=type;
+        this.contrainte = contrainte;
     }
 
     public String getType() {
@@ -74,9 +75,10 @@ public class Attribut
         sRet+=nom + " ";
 
         if(valeurParDefault.length()>0)
-            sRet+= " = " + valeurParDefault;
+            sRet+= " = " + valeurParDefault + " ";
 
         if(estFinale)sRet+="{gelée} ";
+        if(contrainte!=null) for (String cont: contrainte) sRet+="{"+cont+"} ";
         sRet+= ": " + type;
         if(estStatique)
         {
@@ -95,9 +97,10 @@ public class Attribut
         sRet+=nom + " ";
 
         if(valeurParDefault.length()>0)
-            sRet+= " = " + valeurParDefault;
+            sRet+= " = " + valeurParDefault + " ";
 
         if(estFinale)sRet+="{gelée} ";
+        if(contrainte!=null) for (String cont: contrainte) sRet+="{"+cont+"} ";
 
         return  sRet;
     }
