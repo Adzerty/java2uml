@@ -20,8 +20,6 @@ public class Controleur
 	public String repDiagrammeTxt 	= "../diagrammes/txt/";
 	public String repDiagrammePdf 	= "../diagrammes/pdf/";
 
-	public boolean[] options;
-
 	public Controleur(String type)
 	{
 		//Création des dossiers

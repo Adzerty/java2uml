@@ -10,6 +10,7 @@ public class Attribut
     private String type;
     private String [] contrainte;
     private String multiplicite;
+
     public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault,String type,String[] contrainte,String multiplicite) {
         this.nom = nom;
         this.visibilite = visibilite;
@@ -19,14 +20,6 @@ public class Attribut
         this.type=type;
         this.contrainte = contrainte;
         this.multiplicite = multiplicite;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getNom() {
@@ -67,6 +60,30 @@ public class Attribut
 
     public void setValeurParDefault(String valeurParDefault) {
         this.valeurParDefault = valeurParDefault;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String[] getContrainte() {
+        return contrainte;
+    }
+
+    public void setContrainte(String[] contrainte) {
+        this.contrainte = contrainte;
+    }
+
+    public String getMultiplicite() {
+        return multiplicite;
+    }
+
+    public void setMultiplicite(String multiplicite) {
+        this.multiplicite = multiplicite;
     }
 
     @Override
