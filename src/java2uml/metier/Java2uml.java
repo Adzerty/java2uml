@@ -20,8 +20,27 @@ import java.io.IOException;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+
 import java2uml.Controleur;
 
+/**
+ * <b>Java2uml est la classe qui permet de faire tout le traitement algorithmique de l'applications (Metier).</b>
+ * <p>
+ * Java2uml possède les attributs suivant :
+ * <ul>
+ * <li>Un Diagramme  ??? .</li>
+ * <li>Un tableau de booléens ??? .</li>
+ * <li>Un constante booléenne ??? .</li>
+ * </ul>
+ * De plus, Le métier permet l'acces à l'ensemble des classes Metier en une seule.
+ * </p>
+ * 
+ * @see Controleur
+ * @see ...
+ * 
+ * @author InnovAction
+ * @version 1.0
+ */
 public class Java2uml
 {
 	public String repConfig    		= "../config/";
@@ -32,7 +51,15 @@ public class Java2uml
 	public String repDiagrammePdf 	= "../diagrammes/pdf/";
 	
 	private Diagramme diagTemp;
-	public boolean[] options;
+	
+	/**
+	 * Un tableau de booléens regroupant les différentes options du programmes et modiable dans l'application.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Java2uml#Java2uml()
+	 * @see ...
+	 */
+	private boolean[] options;
 	
 	private final boolean H_HIVER = true;
 	
@@ -47,10 +74,10 @@ public class Java2uml
 
 			String conf = sc.nextLine();
 
-			while(!conf.contains("Afficher diagramme après création"))    					  	  conf = sc.nextLine(); this.options[0] = conf.contains("true");
-			while(!conf.contains("Créer fichier diagramme au format txt"))  					  conf = sc.nextLine(); this.options[1] = conf.contains("true");
-			while(!conf.contains("Créer fichier diagramme au format pdf")) 						  conf = sc.nextLine(); this.options[2] = conf.contains("true");
-			while(!conf.contains("Supprimer les fichiers diagrammes associés au fichier config")) conf = sc.nextLine(); this.options[3] = conf.contains("true");
+			while(!conf.contains("Afficher diagramme après création"))    					  	         conf = sc.nextLine(); this.options[0] = conf.contains("true");
+			while(!conf.contains("Créer fichier diagramme au format txt"))  					         conf = sc.nextLine(); this.options[1] = conf.contains("true");
+			while(!conf.contains("Créer fichier diagramme au format pdf")) 						         conf = sc.nextLine(); this.options[2] = conf.contains("true");
+			while(!conf.contains("Supprimer les fichiers diagrammes associés au fichier configuration")) conf = sc.nextLine(); this.options[3] = conf.contains("true");
 		}
 		catch (Exception ignored){}
 	}
@@ -155,7 +182,7 @@ public class Java2uml
         String diagramme = "\n\n\n";
         ConfigReader temp = new ConfigReader(nomFichier);
 		diagramme+= temp.toString();
-        CreateFile(temp,nomFichier.replace(".txt",""),options[1],options[2]);
+        CreateFile(temp,nomFichier.replace(".txt",""), this.options[1], this.options[2]);
         return diagramme;
     }
 	
