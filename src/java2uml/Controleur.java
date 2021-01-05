@@ -63,7 +63,7 @@ public class Controleur
 	
 	public String   getContenuConfig(String nomFichier)
     {
-        return this.metier.recupContenuConfig(nomFichier);
+       return this.metier.recupContenuConfig(nomFichier);
     }
 
 	public void     creerNouvDiagramme(String[] tabNomFichier)
@@ -73,7 +73,11 @@ public class Controleur
 	
 	public String   creerNouvConfig(String nomFichier, String nomAuteur)
 	{
-		return this.metier.genNouvConfig(nomFichier, nomAuteur);
+		String sRet="";
+		if(this.metier.options[0]) sRet+= this.metier.genNouvConfig(nomFichier, nomAuteur);
+		else this.metier.genNouvConfig(nomFichier, nomAuteur);
+
+		return sRet;
 	}
 	
 	public void     ouvrirEnEdit(String nomFichier)
