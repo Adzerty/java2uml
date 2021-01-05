@@ -344,7 +344,7 @@ public class IHMCUI
 				if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }//pour éviter null
 				
 				this.entete();
-				Console.println("\t\t" +this.col("1",'B')+ " : CREER UN DIAGRAMME DE CLASSE" );
+				Console.println("\t\t" +this.col("1",'B')+ " : CREER UN DIAGRAMME DE CLASSE\n" );
 				
 				Console.print(this.ctrl.creerNouvConfig(nomFichierConfig, auteur));
 				

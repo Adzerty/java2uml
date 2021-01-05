@@ -256,7 +256,7 @@ public class Java2uml
               + "\t  `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----' \n"
               + "\t                                                                              \n"
 			  + "";
-		sRet+="Développé par InnovAction\n\n";
+		sRet+="Développé par ©InnovAction\n\n";
 	
 		sRet+="Afficher diagramme après création = "						   	       + this.options[0] + "\n";
 		sRet+="Créer fichier diagramme au format txt = "					   	       + this.options[1] + "\n";
