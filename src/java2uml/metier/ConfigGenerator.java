@@ -151,7 +151,7 @@ public class ConfigGenerator {
 	            if(Modifier.isProtected(f.getModifiers())) visibilite='#';
 	            
 	            String staticite = "";
-	            if(Modifier.isStatic(f.getModifiers())) staticite="_ ";
+	            if(Modifier.isStatic(f.getModifiers())) staticite="static ";
 	            
 	            String finalite = "";
 	            if(Modifier.isFinal(f.getModifiers())) finalite="final ";
@@ -214,7 +214,7 @@ public class ConfigGenerator {
 	            if(Modifier.isProtected(m.getModifiers())) visibilite='#';
 	            
 	            String staticite = "";
-	            if(Modifier.isStatic(m.getModifiers())) staticite="_ ";
+	            if(Modifier.isStatic(m.getModifiers())) staticite="static ";
 	            
 	            
 	            //On récupère le type de retour de la méthode
