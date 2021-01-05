@@ -96,10 +96,9 @@ public class Methode
         sRet += ")";
 
         if (estFinale) sRet += "{gelée} ";
+        if (estAbstraite) sRet += "{abstract} ";
 
-        sRet += ": " + typeDeRetour;
-
-        if (estAbstraite) sRet = "\033[3m"+sRet+"\033[0m";
+        if(!typeDeRetour.contains("{constructeur}")) sRet += ": " + typeDeRetour;
 
         if (estStatique) {
             String underline = "";
@@ -125,6 +124,7 @@ public class Methode
         sRet += ")";
 
         if (estFinale) sRet += "{gelée} ";
+        if (estAbstraite) sRet += "{abstract} ";
 
         return sRet;
 

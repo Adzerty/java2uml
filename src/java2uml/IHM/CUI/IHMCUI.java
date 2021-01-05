@@ -8,6 +8,7 @@ import java2uml.Controleur;
 public class IHMCUI
 {
 	private char coul = '#'; //Couleur d'écriture du prog → BLANC (voir setCE)
+	private int  tpsDebug = 1500;
 	
 	private Controleur ctrl;
 	public IHMCUI(Controleur ctrl)
@@ -15,12 +16,12 @@ public class IHMCUI
 		this.ctrl = ctrl;
 	}
 	
-	//Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ?
+	//Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ? 
 	public char choixGraphique()
 	{
 		
 		String ihm = "CUI";//par defaut
-		
+		/*
 		do
 		{
 			Console.print( this.col("\n\tAffichage (", this.coul) + this.col("CUI", 'B') + "/" + this.col("GUI", 'B') + ")? : " + this.setCE('B') );
@@ -28,7 +29,7 @@ public class IHMCUI
 			Console.print(this.setCE('#'));
 		}
 		while( !(ihm.equals("GUI") || ihm.equals("CUI")));
-		
+		*/
 		Console.print("\n\tDemarrage du Mode " + ihm +" ...");
 		
 		this.clear();
@@ -40,129 +41,515 @@ public class IHMCUI
 	}
 	
 	//Lancement de l'IHM CUI
-	public void start()
+	public void start()//lancelent du mode CUI
 	{
 		this.menu();
 	}
 	
-	//Menu de l'application
-	private void menu()
+	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiagTxt,boolean supDiagPdf)//
+	{
+		if (supConfig)
+		{
+			if (supDiagTxt && supDiagPdf)
+			{
+				Console.println("\t\t" + this.col("# ", 'V') + "Les fichiers associés à " + this.col(fichierSup, 'B') + " ont été supprimé avec succès.");
+			}
+			else
+			{
+				Console.println("\t\t" + this.col("# ", 'J') + "Le fichier " + this.col(fichierSup, 'B') 
+				               +" a été supprimé avec succès, aucun diagramme " + ((supDiagTxt)? "pdf associé" : ((supDiagPdf)? "txt associé" : "txt et pdf associés")) + ".");
+			}
+		}
+		else
+		{
+			Console.println("\t\t" + this.col("# ", 'R') + "Erreur lors de la suppression de " + this.col(fichierSup, 'B') + ", le fichier de configuration n'existe plus.");
+		}
+		try {Thread.sleep(tpsDebug);}catch(Exception ex){};
+	}
+	
+	private void menu()//menu principal de l'application
 	{
 		int choix;
 		do
 		{
 			this.entete();
 			
-			Console.println("\t " +this.col("0",'B')+ " : Quitter le programme" );
-			Console.println("\t " +this.col("1",'B')+ " : Creer un diagramme"    );
-			Console.println("\t " +this.col("2",'B')+ " : Charger un diagramme" ); 
-			Console.println("\t " +this.col("3",'B')+ " : Modifier une config"  );
-			Console.print  ("\n saisie : " );
+			Console.println("\t\t " +this.col("0",'B')+ " : Quitter   le  programme." );
+			Console.println("\t\t " +this.col("1",'B')+ " : Créer     un  diagramme." );
+			Console.println("\t\t " +this.col("2",'B')+ " : Charger   un  diagramme." ); 
+			Console.println("\t\t " +this.col("3",'B')+ " : Modifier  une configuration." );
+			Console.println("\t\t " +this.col("4",'B')+ " : Supprimer une configuration." );
+			Console.println("\t\t " +this.col("5",'B')+ " : Modifier  les parametres." );
+			Console.print  ("\n\t saisie : " );
+			
 			Console.print(this.setCE('B'));
 			choix = getInt() ;
 			Console.print(this.setCE(this.coul));
+			
 			switch (choix)
 			{
 				case  0 : break;
-				case  1 : Console.print("\n\tCreation."    ); try{Thread.sleep(800);}catch (Exception ex){} Console.print("."); try {Thread.sleep(800);}catch(Exception ex){} Console.print(".\n"); break;
-				case  2 : Console.print("\n\tchargement."  ); try{Thread.sleep(800);}catch (Exception ex){} Console.print("."); try {Thread.sleep(800);}catch(Exception ex){} Console.print(".\n"); break;
-				case  3 : this.modifier(0); break;
-				default : Console.println("\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ ")" );
+				case  1 : Console.print("\n\t\tCompilation des fichiers " +this.col("JAVA",'B')+ " en cours...");this.ctrl.compilation();this.clear();this.creer(0, null); break;
+				case  2 : this.charger  (0      ); break;
+				case  3 : this.modifier (0      ); break;
+				case  4 : this.supprimer(0, null); break;
+				case  5 : this.parametres(0,this.ctrl.getOptions());break;
+				default : Console.println("\n\t Choix invalide (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ "/" +this.col("5",'B')+ ")" ); try {Thread.sleep(tpsDebug);}catch(Exception ex){}; break;
 			}
-		}while(choix != 0 && choix != 1);
+		}while(choix != 0);
 		Console.print(this.setCE('*'));
+		this.clear();
 		System.exit (0);
 	}
-	
-	private void charger()
+
+	private void creer(int selec ,boolean[] tabSelec)//permet de créer une configuration et de générer son diagramme
 	{
-		//charger un fichier config
-	}
-	
-	private void sauvegarder()
-	{
-		//sauvegarder un fichier en config
-	}
-	
-	private void modifier(int selec)
-	{
-		//Affichage de la selection
 		this.entete();
 		
-		String[] listeC = this.ctrl.getConfig();          //chargement des fichiers
+		Console.println("\t\t" +this.col("1",'B')+ " : CREER UN DIAGRAMME DE CLASSE\n" );
+		
+		String[] listeS = this.ctrl.getClasse(); //chargement des fichiers
+
+		//affichage des fichiers
+		if(listeS != null)
+		{
+			if(tabSelec == null) tabSelec = new boolean[listeS.length];
+			
+			int tMAxFichier  = this.ctrl.getTailleMaxFichier(this.ctrl.repCompile) -6; //recuperation de la taille max dans les fichiers sans les ".class"
+			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
+			this.debTab(tMAxFichier); // création bordure de tableau
+			for (int f = 0; f < listeS.length; f++)
+			{
+				if(f == selec) { Console.print(this.col("\t────>", 'B')); }
+				else           { Console.print(this.col("\t     ", 'B')); }
+				this.afficherFichier(listeS[f], tabSelec[f], tMAxFichier);
+			}
+			this.finTab(tMAxFichier);
+		}
+		else { Console.print(this.col("\tAucune classe java dans le repertoire fichierJava", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
+
+		char saisie = this.menuSelection(true);
+		if(!this.verifSaisie(saisie, true)) { this.creer(selec, tabSelec); } //si mauvaise saisie true = menuMulti
+		
+		int newSel = selec;
+		
+		if(saisie== '/') { this.menu(); }
+		if(saisie== '.')
+		{
+			
+			if(!tabSelec[selec]) { newSel++; }
+			tabSelec[selec] = !tabSelec[selec];
+			if(newSel > listeS.length -1) { this.creer(0      , tabSelec);  }//torique bas
+			else                          { this.creer(newSel , tabSelec); 	}//on descend
+		}
+		if(saisie == '*')
+        {
+			boolean all = true;//acc
+            for(int i = 0; i<tabSelec.length; i++)
+            {
+                if(!tabSelec[i]) { all = false; }//on regarde si tout est selectionné
+            }
+            //si tout est selectionné on désélectionne tout sinon on selectionne tout
+            if(all) { for(int v = 0; v < tabSelec.length; v++) tabSelec[v] = false; }
+            else    { for(int f = 0; f < tabSelec.length; f++) tabSelec[f] = true;  }
+            
+            this.creer(0      , tabSelec);
+        }
+		if(saisie== '=')
+		{
+			int cptTrue = 0;
+			for(boolean b : tabSelec)
+				if(b)
+					cptTrue++;//compter le nombre de fichiers choisis
+			
+			if(cptTrue == 0)//pas de marque
+			{
+				String[] tabFichierJava = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
+				this.ctrl.creerNouvDiagramme(tabFichierJava); 
+			}
+			else
+			{
+				String[] tabFichierJava = new String[cptTrue];//contient le nom de tous les fichiers choisis
+				
+				int cptElt = 0;
+				for(int b = 0; b < tabSelec.length; b++)
+					if(tabSelec[b])
+						tabFichierJava[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
+				
+				this.ctrl.creerNouvDiagramme(tabFichierJava);//envoyé un tabString
+			}
+
+			Console.print("\n\t\tAuteur      : ");
+			Console.print(this.setCE('B'));
+			String auteur = getString() ;
+			Console.print(this.setCE(this.coul));
+			
+			if(auteur.equals("")) { auteur = "?"; }
+			
+			Console.print("\t\tNom Fichier : ");
+			Console.print(this.setCE('B'));
+			String nomFichierConfig = getString() ;
+			Console.print(this.setCE(this.coul));
+			
+			if(nomFichierConfig.equals("")) { nomFichierConfig = "nouveau"; }
+			
+			this.entete();
+			Console.println("\t\t" +this.col("1",'B')+ " : CREER UN DIAGRAMME DE CLASSE" );
+			
+			Console.print(this.ctrl.creerNouvConfig(nomFichierConfig, auteur));
+			
+			Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
+			this.getString();
+		}
+		
+		if(saisie== '-')
+		{
+			newSel--;
+			if(newSel < 0) { this.creer(listeS.length -1, tabSelec);  } //torique haut
+			else           { this.creer(newSel          , tabSelec);  } //on monte
+		}
+		if(saisie== '+')
+		{
+			newSel++;
+			if(newSel > listeS.length -1) { this.creer(0     , tabSelec);  }//torique bas
+			else                          { this.creer(newSel, tabSelec);  }//on descend
+		}
+
+	}
+	
+	private void charger(int selec)//permet de charger un diagramme, d'ont la configuration est sauvegardée.
+	{
+		this.entete();
+		
+		Console.println("\t\t" +this.col("2",'B')+ " : CHARGER UN DIAGRAMME DE CLASSE\n" );
+		
+		String[] listeC = this.ctrl.getConfig();//chargement des fichiers
 		
 		//affichage des fichiers
 		if(listeC != null)
 		{
-			int tMaxConfig  = this.ctrl.getTailleMaxConfig(); //recuperation de la taille max dans les fichiers
-			this.enteteTab(tMaxConfig); // création bordure de tableau
+			int tMAxFichier  = this.ctrl.getTailleMaxFichier(this.ctrl.repConfig); //recuperation de la taille max dans les fichiers
+			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
+			this.debTab(tMAxFichier); // création bordure de tableau
 			for (int f = 0; f < listeC.length; f++)
 			{
-				if(f == selec)
-				{
-					Console.print(this.col("\t---->", 'B'));
-					this.afficherConfig(listeC[f], tMaxConfig);
-				}
-				else
-				{
-					Console.print(this.col("\t     ", 'B'));
-					this.afficherConfig(listeC[f], tMaxConfig);
-				}
+				if(f == selec) { Console.print(this.col("\t────>", 'B')); }
+				else           { Console.print(this.col("\t     ", 'B')); }
+				this.afficherFichier(listeC[f],false, tMAxFichier);
 			}
-			Console.print("\t     +" + nSep( tMaxConfig +2, "-") + "+" + nSep(18, "-") + "+" + nSep(18, "-") + "+\n");
+			this.finTab(tMAxFichier);//Fin du tableau
 			
-			String menu = "\n\t\t (" +this.col("+", 'B')+ ") : monter\n"
-			              + "\t\t (" +this.col("-", 'B')+ ") : descendre\n"
-			              + "\t\t (" +this.col("*", 'B')+ ") : valider\n"
-			              + "\t\t (" +this.col("/", 'B')+ ") : annuler\n"
-			              + "\tsaisie : ";
-		
-			Console.print(menu);
-			
-			Console.print(this.setCE('B'));
-			char saisie = Character.toUpperCase(this.getChar());
-			Console.print(this.setCE(this.coul));
+			char saisie = this.menuSelection(false);
+			if(!this.verifSaisie(saisie, false)) { this.charger(selec); } //si mauvaise saisie false = non menuMulti
 			
 			if(saisie== '/') { this.menu(); }
-			if(saisie== '*')
+			if(saisie== '=')
 			{
-				Console.print("\tOuverture du fichier : " + this.col(listeC[selec].substring(0, listeC[selec].split("\\|")[0].length()), 'B'));
-				try{Thread.sleep(3000);}catch (Exception ex){} }
+				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
+				Console.print("\n\t\tLecture du fichier : " + this.col(nomFichier, 'B'));
+				
+				this.entete();
+				Console.println("\t\t" +this.col("2",'B')+ " : CHARGER UN DIAGRAMME DE CLASSE" );
+				
+				Console.print(this.ctrl.getContenuConfig(nomFichier));
+				
+				Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
+				this.getString();
+			}
+			
 			
 			int newSel = selec;
+			if(saisie== '-')
+			{
+				newSel--;
+				if(newSel < 0) { this.charger(listeC.length -1); } //torique haut
+				else           { this.charger(newSel);           } //on monte
+			}
 			if(saisie== '+')
+			{
+				newSel++;
+				if(newSel > listeC.length -1) { this.charger(0);     }//torique bas
+				else                          { this.charger(newSel); }//on descend
+			}
+		}
+		else { Console.print(this.col("\tAucune configuration sauvegardée dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
+	}
+	
+	
+	private void modifier(int selec)//permet de modifier un fichir de configuration.
+	{
+		//Affichage de la selection
+		this.entete();
+		
+		Console.println("\t\t" +this.col("3",'B')+ " : MODIFIER UNE CONFIGURATION\n" );
+		
+		String[] listeC = this.ctrl.getConfig(); //chargement des fichiers
+		
+		//affichage des fichiers
+		if(listeC != null)
+		{
+			int tMaxConfig  = this.ctrl.getTailleMaxFichier(this.ctrl.repConfig); //recuperation de la taille max dans les fichiers
+			if(tMaxConfig < 16) tMaxConfig = 16;//Pour en-tete stable
+			this.debTab(tMaxConfig); // création bordure de tableau
+			for (int f = 0; f < listeC.length; f++)
+			{
+				if(f == selec) { Console.print(this.col("\t────>", 'B')); }
+				else           { Console.print(this.col("\t     ", 'B')); }
+				this.afficherFichier(listeC[f], false, tMaxConfig);
+			}
+			this.finTab(tMaxConfig);
+			
+			char saisie = this.menuSelection(false);
+			if(!this.verifSaisie(saisie, false)) { this.modifier(selec); } //si mauvaise saisie false = non menuMulti
+			
+			if(saisie== '/') { this.menu(); }//Annuler
+			if(saisie== '=') //Valider
+			{
+				String nomFichier = listeC[selec].substring(0, listeC[selec].split("\\|")[0].length());
+				Console.print("\tOuverture du fichier : " + this.col(nomFichier, 'B'));
+				this.ctrl.ouvrirEnEdit(nomFichier);
+			}
+			
+			int newSel = selec;
+			if(saisie== '-')//Monter
 			{
 				newSel--;
 				if(newSel < 0) { this.modifier(listeC.length -1); } //torique haut
 				else           { this.modifier(newSel);           } //on monte
 			}
-			if(saisie== '-')
+			if(saisie== '+')//Descendre
 			{
 				newSel++;
-				if(newSel > listeC.length -1) { this.modifier(0);     }//torique bas
+				if(newSel > listeC.length -1) { this.modifier(0);      }//torique bas
 				else                          { this.modifier(newSel); }//on descend
 			}
 		}
-		else { Console.print(this.col("\tAucun fichier de config sauvegarde", 'R')); try {Thread.sleep(3000);} catch (Exception ex) {} }
+		else { Console.print(this.col("\tAucune configuration sauvegardée dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
 	}
 	
-
-	private void enteteTab(int tMAxConfig)
+	
+	private void supprimer(int selec, boolean[] tabSelecSup)//permet de supprimer des fichiers de configuration.
 	{
-		Console.print(setCE(this.coul));
-		Console.print("\t     +" + nSep(tMAxConfig +2, "-") + "+" + nSep(18, "-") + "+" + nSep(18, "-") + "+\n");
-		Console.print("\t     "  + String.format("| %-" + tMAxConfig + "s | %-16s | %-16s |\n" , "  NomConfig  ", "  DateCrea  ", "  DateModif  "));
-		Console.print("\t     +" + nSep(tMAxConfig +2, "-") + "+" + nSep(18, "-") + "+" + nSep(18, "-") + "+\n");
-		Console.print(setCE(this.coul));
+		this.entete();
+		
+		Console.println("\t\t" +this.col("4",'B')+ " : SUPPRIMER UNE CONFIGURATION\n" );
+		
+		String[] listeS = this.ctrl.getConfig(); //chargement des fichiers config
+
+		//affichage des fichiers
+		if(listeS != null)
+		{
+			if(tabSelecSup == null)	{ tabSelecSup = new boolean[listeS.length];	}
+			
+			int tMAxFichier  = this.ctrl.getTailleMaxFichier(this.ctrl.repConfig); //recuperation de la taille max dans les fichiers
+			if(tMAxFichier < 16) tMAxFichier = 16;//Pour en-tete stable
+			this.debTab(tMAxFichier); // création bordure de tableau
+			for (int f = 0; f < listeS.length; f++)
+			{
+				if(f == selec) { Console.print(this.col("\t────>", 'B')); }
+				else           { Console.print(this.col("\t     ", 'B')); }
+				this.afficherFichier(listeS[f], tabSelecSup[f], tMAxFichier);
+			}
+			this.finTab(tMAxFichier);
+			
+			char saisie = this.menuSelection(true);
+			if(!this.verifSaisie(saisie, true)) { this.supprimer(selec, tabSelecSup); } //si mauvaise saisie true = menuMulti
+			
+			int newSel = selec;
+			
+			if(saisie== '/') { this.menu(); }
+			if(saisie== '.')
+			{
+				if(!tabSelecSup[selec])
+				{
+					newSel++;
+				}
+				tabSelecSup[selec] = !tabSelecSup[selec];
+				if(newSel > listeS.length -1) { this.supprimer(0      , tabSelecSup);  }//torique bas
+				else                          { this.supprimer(newSel , tabSelecSup); 	}//on descend
+			}
+			if(saisie == '*')
+			{
+				for(int i=0;i<tabSelecSup.length; i++)
+				{
+					if (!tabSelecSup[i]) newSel++;
+					tabSelecSup[i] = !tabSelecSup[i];
+				}
+				this.supprimer(0      , tabSelecSup);
+			}
+			if(saisie== '=')
+			{
+				Console.println();
+				int cptTrue = 0;
+				for(boolean b : tabSelecSup)
+					if(b)
+						cptTrue++;//compter le nombre de fichiers choisis
+				
+				if(cptTrue == 0)//pas de marque
+				{
+					String[] tabFichierConfig = {listeS[selec].substring(0, listeS[selec].split("\\|")[0].length())}; //tableau avec la selection courante
+					this.ctrl.supprimerFichiers(tabFichierConfig);
+				}
+				else
+				{
+					String[] tabFichierConfig = new String[cptTrue];//contient le nom de tous les fichiers choisis
+					
+					int cptElt = 0;
+					for(int b = 0; b < tabSelecSup.length; b++)
+					{
+						if(tabSelecSup[b])
+						{
+							tabFichierConfig[cptElt++] = listeS[b].substring(0, listeS[b].split("\\|")[0].length());//recupere le nom sans les dates de la ligne
+						}
+					}
+					this.ctrl.supprimerFichiers(tabFichierConfig);
+				}
+			}
+			if(saisie== '-')
+			{
+				newSel--;
+				if(newSel < 0) { this.supprimer(listeS.length -1, tabSelecSup);  } //torique haut
+				else           { this.supprimer(newSel          , tabSelecSup);  } //on monte
+			}
+			if(saisie== '+')
+			{
+				newSel++;
+				if(newSel > listeS.length -1) { this.supprimer(0     , tabSelecSup);  }//torique bas
+				else                          { this.supprimer(newSel, tabSelecSup);  }//on descend
+			}
+		}
+		else { Console.print(this.col("\tAucune configuration sauvegardée dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
 	}
 
-	private void afficherConfig(String dataConf, int tMAxConfig)
+	private void parametres(int selec,boolean[] listeP)
+	{
+		this.entete();
+		String[] parametres = {"Afficher diagramme après création","Créer fichier diagramme au format txt",
+				"Créer fichier diagramme au format pdf","Supprimer les fichiers diagrammes associés au fichier config"};
+		int taille=0;
+		for (String s : parametres) if(s.length()>taille)taille=s.length();
+
+		Console.println("\t\t" +this.col("5",'B')+ " : MODIFIER LES PARAMETRES PROGRAMME\n" );
+
+
+
+		Console.println("\t     ┌" + nSep(taille +3, "─")          +   "┬" + nSep(18, "─")+"┐" );
+		Console.println("\t     "+String.format("│  %-"+taille+"s │ %-16s │","parametres","Activé/Désactivé"));
+		Console.println("\t     ├" + nSep(taille +3, "─")          +   "┼" + nSep(18, "─") + "┤");
+
+		for (int f = 0; f < listeP.length; f++)
+		{
+			if(f == selec) { Console.print(this.col("\t────>", 'B')); }
+			else           { Console.print(this.col("\t     ", 'B')); }
+
+			if(listeP[f]) Console.println(String.format("│  %-"+taille+"s │ ",parametres[f])+this.col("Activé",'V')+"           │");
+			else		  Console.println(String.format("│  %-"+taille+"s │ ",parametres[f])+this.col("Désactivé",'R')+"        │");
+
+		}
+		Console.println("\t     └" + nSep(taille +3, "─")          +   "┴" + nSep(18, "─") + "┘");
+
+		char saisie;
+		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
+				+   "\t\t (" +this.col("+", 'B')+ ") : v descendre\n"
+				+   "\t\t (" +this.col("*", 'B')+ ") : * activer tous\n"
+				+   "\t\t (" +this.col(".", 'B')+ ") : . activer\n"
+				+   "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
+				+   "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
+				+   "\n\tsaisie :  ");
+		Console.print(this.setCE('B'));
+		saisie = Character.toUpperCase(this.getChar());
+		Console.print(this.setCE(this.coul));
+
+		int newSel = selec;
+
+		if(saisie== '-')
+		{
+			newSel--;
+			if(newSel < 0) { this.parametres(listeP.length -1, listeP);  } //torique haut
+			else           { this.parametres(newSel          , listeP);  } //on monte
+		}
+		if(saisie== '+')
+		{
+			newSel++;
+			if(newSel > listeP.length -1) { this.parametres(0     , listeP);  }//torique bas
+			else                          { this.parametres(newSel, listeP);  }//on descend
+		}
+		if(saisie== '*')
+		{
+			int cpt=0;
+			for (int f = 0; f < listeP.length; f++) if(listeP[f])cpt++;
+			for (int f = 0; f < listeP.length; f++) listeP[f]=(cpt!=listeP.length);
+
+			this.parametres(0,listeP);
+		}
+		if(saisie== '.')
+		{
+			listeP[selec]=!listeP[selec];
+			newSel++;
+			if(newSel > listeP.length -1) { this.parametres(0      , listeP);  }//torique bas
+			else                          { this.parametres(newSel , listeP); 	}//on descend
+		}
+		if(saisie == '=')
+		{
+			this.ctrl.majOptions(listeP);
+			Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
+			this.getString();
+		}
+		if(saisie== '/') { this.menu(); }
+
+	}
+	
+	private char menuSelection(boolean multi) //affiche un menu de gestion de fichiers et renvoit le choix de l'utilisateur sous forme d'un caractere.
+	{
+		char choix;
+		Console.print( "\n\t\t (" +this.col("-", 'B')+ ") : ^ monter\n"
+	                 +   "\t\t (" +this.col("+", 'B')+ ") : v descendre\n" + ((multi)?
+	                 (   "\t\t (" +this.col(".", 'B')+ ") : x selectionner/deselectionner\n"
+	                 +   "\t\t (" +this.col("*", 'B')+ ") : * selectionner/deselectionner tout\n"):"")
+	                 +   "\t\t (" +this.col("=", 'B')+ ") : > valider\n"
+	                 +   "\t\t (" +this.col("/", 'B')+ ") : < annuler\n"
+	                 +   "\n\tsaisie :  ");
+		Console.print(this.setCE('B'));
+		choix = Character.toUpperCase(this.getChar());
+		Console.print(this.setCE(this.coul));
+		return choix;
+	}
+
+	private void debTab(int tMAxFichier)//renvoie une Chaine adapté pour l'en-tête des tableaux
+	{
+		Console.print("\t     ┌" + nSep(tMAxFichier +2, "─")          +   "┬" + nSep(18, "─") + "┬" + nSep(18, "─") + "┐\n");
+		Console.print("\t     │" + String.format(" %-" + tMAxFichier  + "s │ %-16s │ %-16s │\n" , "  NomFichier  ", "    DateCrea", "    DateModif"));
+		Console.print("\t     ├" + nSep(tMAxFichier +2, "─")          +   "┼" + nSep(18, "─") + "┼" + nSep(18, "─") + "┤\n");
+	}
+
+	private void afficherFichier(String dataConf, boolean selec, int tMAxFichier)//renvoie une Chaine adapté pour la lecture des tableaux
 	{
 		String[] decConfig = dataConf.split("\\|");
-		Console.print(String.format("| %-" + tMAxConfig + "s | %16s | %16s |\n", decConfig[0],decConfig[1], decConfig[2]));
+		Console.print(String.format("│" + ((selec)? (this.col("x", 'B')):" ") + "%-" + tMAxFichier + "s │ %16s │ %16s │\n", decConfig[0].substring(0,decConfig[0].indexOf(".")),decConfig[1], decConfig[2]));
 	}
 	
-	private String nSep(int n, String s)
+	private void finTab(int tMAxFichier)//renvoie une Chaine adapté pour la fermeture des tableaux
+	{
+		Console.print("\t     └─" + nSep( tMAxFichier, "─") + "─┴─" + nSep(16, "─") + "─┴─" + nSep(16, "─") + "─┘\n");
+	}
+	
+	private boolean verifSaisie(char saisie, boolean multi)//renvoie un booléen pour savoir si la saisie l'utilisateur dans les menus est bonne.
+	{
+		if(saisie != '-' && saisie != '+' && saisie != '=' && saisie != '/' && ((multi)? saisie != '.' && saisie != '*' : true))//la saisie ne correspond pas a ces caractères
+		{
+			Console.println(this.col("\tErreur",'R') + " : saisir  (" + this.col("-",'B') + "/" 
+		                                                                      + this.col("+",'B') + "/" + ((multi)?
+					                                                          ( this.col(".",'B') + "/"
+		                                                                      + this.col("*",'B') + "/"):"")
+		                                                                      + this.col("=",'B') + "/"
+					                                                          + this.col("/",'B') + ")" );
+			try {Thread.sleep(tpsDebug);} catch (Exception ex) {}
+			return false;//la saisie est fausse                                                               
+		}
+		return true;// la saisie est bonne
+	}
+	
+	private String nSep(int n, String s)//renvoie une chaine avec le caractere s répété n fois
 	{
 		String sSep = "";
 		for(int i =0; i < n; i++)
@@ -171,13 +558,12 @@ public class IHMCUI
 		return sSep;
 	}
 	
-	//Coloration d'un String s dans la console avec la couleur du caractere c avec la méthode setCe
-	private String col(String s, char c)
+	private String col(String s, char c)//renvoie la coloration d'une Chaine s dans la console avec la couleur du caractère c avec la méthode setCe(char c)
 	{
 		return setCE(c) +s+  setCE(this.coul);
 	}
 	
-	private String setCE(char c)//Renvoie un code en String pour changer la couleur d'ECRITURE dans la console
+	private String setCE(char c)//renvoie un code en Chaine pour changer la couleur d'ECRITURE dans la console
 	{
 		switch(c)
 		{
@@ -187,54 +573,60 @@ public class IHMCUI
 			case 'M' : return CouleurConsole.MAUVE.getFont ();
 			case 'N' : return CouleurConsole.NOIR.getFont ();
 			case 'R' : return CouleurConsole.ROUGE.getFont();
+			case 'V' : return CouleurConsole.VERT.getFont();
 			case '#' : return CouleurConsole.BLANC.getFont ();
 			default  : return "\033[0m"; //par defaut de l'utilisateur;
 		}
 	}
-
+	
 	private void clear()//nettoyer la console
 	{
-		Console.effacerEcran();
+		try
+		{
+		     if (System.getProperty("os.name").contains("Windows"))
+		         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+		     else
+		         Runtime.getRuntime().exec("clear");
+		}
+		catch (Exception ex) {}
 	}
 	
-	//affiche la banniere du programme JAVA2UML
-	private void entete()
+	private void entete()//affiche la banniere du programme JAVA2UML
 	{
 		this.clear();
 		Console.print(this.setCE(this.coul));
-		Console.println( "\t\t\t                                                                         "     + "\n" +
-		                 "\t\t\t      ,--.  ,---.,--.   ,--.,---.       ,---.     ,--. ,--.,--.   ,--.,--.     "     + "\n" +
-		                 "\t\t\t      |  | /  O  \\\\  `.'  //  O  \\     '.-.  \\    |  | |  ||   `.'   ||  |     " + "\n" + 
-		                 "\t\t\t ,--. |  ||  .-.  |\\     /|  .-.  |     .-' .'    |  | |  ||  |'.'|  ||  |     "    + "\n" +
-		                 "\t\t\t |  '-'  /|  | |  | \\   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--.  "    + "\n" +
-		                 "\t\t\t  `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----'  "     + "\n" +
-		                 "\t\t\t                                                                               "     + "© 2020 - InnovAction - IUT du Havre.\n");
-		Console.print(this.setCE('*'));
+		Console.println( "\t\t\t\t\t                 "  +"                  "+ "         " +"                              " + "\n" +
+		                 "\t\t\t\t\t      ,--.  ,---."  +",--.   ,--.,---.  "+ "   ,---. " +"  ,--. ,--.,--.   ,--.,--.    " + "\n" +
+		                 "\t\t\t\t\t      |  | /  O  \\"+"\\  `.'  //  O  \\"+"   '.-.  \\"+"  |  | |  ||   `.'   ||  |    " + "\n" + 
+		                 "\t\t\t\t\t ,--. |  ||  .-.  |"+ "\\     /|  .-.  |"+ "   .-' .'" +"  |  | |  ||  |'.'|  ||  |    " + "\n" +
+		                 "\t\t\t\t\t |  '-'  /|  | |  |"+ " \\   / |  | |  |"+ "  /   '-." +"  '  '-'  '|  |   |  ||  '--. " + "\n" +
+		                 "\t\t\t\t\t  `-----' `--' `--'"+  "  `-'  `--' `--'"+ "  '-----'" +"   `-----' `--'   `--'`-----' " + "\n" +
+		                 "\t\t\t\t\t                           © 2020 - " + this.col("Innov", 'B') + this.col("Action", 'R') + " - IUT du Havre.\n");
 	}
 	
-	//Affiche le logo de l'entreprise InnovAction
-	private void afficherInnovAction()
+	private void afficherInnovAction()//Affiche le logo de l'entreprise InnovAction
 	{
-		Console.print("\n\n\n\n\n\n\n\n\n" +
-		this.col("                                                           "       +          "              "       +          "                  "      +                            "                                                                            " , 'N') + "\n" +
-		this.col("                                                           "       +          "              ", 'N') + this.col("            *(((/.",'R') + this.col(                  "                                                                            " , 'N') + "\n" +
-		this.col("                                                           "       +          "              ", 'N') + this.col("          /((((/"  ,'R') + this.col(                "                                                                              " , 'N')  + "\n" +
-		this.col("                                                           "       +          "              ", 'N') + this.col("        ,(((((,"   ,'R') + this.col(               "                                                                               " , 'N') + "\n" +
-		this.col("                                                           "       +          "              ", 'N') + this.col("       /((((("     ,'R') + this.col(             "                                                                                 " , 'N') + "\n" +
-		this.col("                                                           "       +          "              ", 'N') + this.col("     ,(((((*"      ,'R') + this.col(            "                                                                                  " , 'N') + "\n" +
-		this.col("    *%%%.  *#%%(.   .%%%,  ,#%%#,    (%%(   *%&@@@@@@@%*   ", 'N') + this.col("./###,        ", 'B') + this.col("    /(((((."       ,'R') + this.col(           "  (@@@@@(       .%@@@@@@@@@ .@@@@@@@@@@@@% /@@@.  ,&@@@@@@@@@@&.   /@@@@@,   /@@@. " , 'N') + "\n" +
-		this.col("    (@@@. &@@@@@@,  ,@@@* (@@@@@@#   %@@% *@@@@@%%%%@@@@@* ", 'N') + this.col(" (####/       ", 'B') + this.col("  .(((((*"         ,'R') + this.col(         "   *@@@%@@@*     &@@@#*******  ****%@@@****, /@@@. /@@@%*,,,,*%@@@( ,@@@%@@@.  /@@@. " , 'N') + "\n" +
-		this.col("    (@@@. &@@#/@@@  ,@@@* (@@@*@@@,  %@@% %@@%        %@@& ", 'N') + this.col("  *#####.     ", 'B') + this.col(" *(((((."          ,'R') + this.col(        "   ,@@@( (@@@,   ,@@@*              (@@@.     /@@@. %@@%        #@@& ,@@@*(@@&  /@@@. " , 'N') + "\n" +
-		this.col("    (@@@. &@@# %@@# ,@@@* (@@@./@@@  %@@% %@@%        #@@& ", 'N') + this.col("   .#####/    ", 'B') + this.col("/((((/"            ,'R') + this.col(      "    .&@@#   &@@&   ,@@@,              (@@@.     /@@@. %@@%        #@@& ,@@@* @@@/ /@@@. " , 'N') + "\n" +
-		this.col("    (@@@. &@@# .@@@,,@@@* (@@@. %@@# %@@% %@@%        #@@& ", 'N') + this.col("     /####(.*(", 'B') + this.col("((((,"             ,'R') + this.col(     "     %@@@@@@@@@@@%  ,@@@,              (@@@.     /@@@. %@@%        #@@& ,@@@* .@@@,/@@@. " , 'N') + "\n" +
-		this.col("    (@@@. &@@#  *@@@*@@@* (@@@. .@@@,%@@% %@@%        %@@& ", 'N') + this.col("      .#####((", 'B') + this.col("((/."              ,'R') + this.col(    "     (@@@/*****(@@@/ .@@@(              (@@@.     /@@@. %@@&        %@@% ,@@@*  (@@%/@@@. " , 'N') + "\n" +
-		this.col("    (@@@. &@@#   &@@@@@@* (@@@.  *@@@@@@% *@@@@&%%%%&@@@@* ", 'N') + this.col("        (#####", 'B') + this.col("(*"                ,'R') + this.col(  "      ,@@@/       (@@@, .&@@@@@@@@@@      (@@@.     /@@@. .@@@@@@@@@@@@@@. ,@@@*   &@@@@@@  " , 'N') + "\n" +
-		this.col("    /&&&. %&&(    ,&&&%.  (&&&.    %&&&*    /@@@@@@@@@@*   ", 'N') + this.col("         *####", 'B') + this.col("."                 ,'R') + this.col( "                                                              ,(######(,                     "        + "\n" +
-		         "                                                           "       +          "              "       +          ""                        +          "                                                                                              " , 'N') + "\n" +
-		setCE('*') + "\n");
-		try {Thread.sleep(2000);} catch (Exception ex) {}
+		Console.print("\n\n\n\n\n" +
+		this.col("                                                           "       +          "              "       +          "                  "      +                            "                                                                            " , '#') + "\n" +
+		this.col("                                                           "       +          "              ", 'N') + this.col("            *(((/.",'R') + this.col(                  "                                                                            " , '#') + "\n" +
+		this.col("                                                           "       +          "              ", 'N') + this.col("          /((((/"  ,'R') + this.col(                "                                                                              " , '#')  + "\n" +
+		this.col("                                                           "       +          "              ", 'N') + this.col("        ,(((((,"   ,'R') + this.col(               "                                                                               " , '#') + "\n" +
+		this.col("                                                           "       +          "              ", 'N') + this.col("       /((((("     ,'R') + this.col(             "                                                                                 " , '#') + "\n" +
+		this.col("                                                           "       +          "              ", 'N') + this.col("     ,(((((*"      ,'R') + this.col(            "                                                                                  " , '#') + "\n" +
+		this.col("    *%%%.  *#%%(.   .%%%,  ,#%%#,    (%%(   *%&@@@@@@@%*   ", '#') + this.col("./###,        ", 'B') + this.col("    /(((((."       ,'R') + this.col(           "  (@@@@@(       .%@@@@@@@@@ .@@@@@@@@@@@@% /@@@.  ,&@@@@@@@@@@&.   /@@@@@,   /@@@. " , '#') + "\n" +
+		this.col("    (@@@. &@@@@@@,  ,@@@* (@@@@@@#   %@@% *@@@@@%%%%@@@@@* ", '#') + this.col(" (####/       ", 'B') + this.col("  .(((((*"         ,'R') + this.col(         "   *@@@%@@@*     &@@@#*******  ****%@@@****, /@@@. /@@@%*,,,,*%@@@( ,@@@%@@@.  /@@@. " , '#') + "\n" +
+		this.col("    (@@@. &@@#/@@@  ,@@@* (@@@*@@@,  %@@% %@@%        %@@& ", '#') + this.col("  *#####.     ", 'B') + this.col(" *(((((."          ,'R') + this.col(        "   ,@@@( (@@@,   ,@@@*              (@@@.     /@@@. %@@%        #@@& ,@@@*(@@&  /@@@. " , '#') + "\n" +
+		this.col("    (@@@. &@@# %@@# ,@@@* (@@@./@@@  %@@% %@@%        #@@& ", '#') + this.col("   .#####/    ", 'B') + this.col("/((((/"            ,'R') + this.col(      "    .&@@#   &@@&   ,@@@,              (@@@.     /@@@. %@@%        #@@& ,@@@* @@@/ /@@@. " , '#') + "\n" +
+		this.col("    (@@@. &@@# .@@@,,@@@* (@@@. %@@# %@@% %@@%        #@@& ", '#') + this.col("     /####(.*(", 'B') + this.col("((((,"             ,'R') + this.col(     "     %@@@@@@@@@@@%  ,@@@,              (@@@.     /@@@. %@@%        #@@& ,@@@* .@@@,/@@@. " , '#') + "\n" +
+		this.col("    (@@@. &@@#  *@@@*@@@* (@@@. .@@@,%@@% %@@%        %@@& ", '#') + this.col("      .#####((", 'B') + this.col("((/."              ,'R') + this.col(    "     (@@@/*****(@@@/ .@@@(              (@@@.     /@@@. %@@&        %@@% ,@@@*  (@@%/@@@. " , '#') + "\n" +
+		this.col("    (@@@. &@@#   &@@@@@@* (@@@.  *@@@@@@% *@@@@&%%%%&@@@@* ", '#') + this.col("        (#####", 'B') + this.col("(*"                ,'R') + this.col(  "      ,@@@/       (@@@, .&@@@@@@@@@@      (@@@.     /@@@. .@@@@@@@@@@@@@@. ,@@@*   &@@@@@@  " , '#') + "\n" +
+		this.col("    /&&&. %&&(    ,&&&%.  (&&&.    %&&&*    /@@@@@@@@@@*   ", '#') + this.col("         *####", 'B') + this.col("."                 ,'R') + this.col( "                                                              ,(######(,                     "        + "\n" +
+		         "                                                           "       +          "              "       +          ""                        +          "                                                                                              " , '#') + "\n" +
+		setCE('*') + "\n\n\n\n\n");
+		try {Thread.sleep(2000);} catch (Exception ex) {}//ce temps pourra être utiliser pour adapter la fenêtre de la console
 	}
 	
+	//Divers méthode de saisie utilisateur avec l'utilisation de la classe Clavier
 	private String getString() { return Console.lireString(); }
 	private int    getInt   () { return Console.lireInt()   ; }
 	private char   getChar  () { return Console.lireChar()  ; }

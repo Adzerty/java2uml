@@ -24,7 +24,7 @@ public class PanelCreer extends JPanel implements ItemListener{
 		
 		this.setLayout(new GridLayout(1,2));
 		
-		File fichier = new File("./fichierJavaTest");
+		File fichier = new File("../fichierJava");
 		FilenameFilter filter = new FilenameFilter() {
 			
 	        @Override
@@ -54,6 +54,9 @@ public class PanelCreer extends JPanel implements ItemListener{
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		// TODO Auto-generated method stub
+		if( e.getItem() == this.cbFichier.getSelectedItem()) {
+			this.frame.setFichier((String)this.cbFichier.getSelectedItem());
+		}
 		
 	}
 }

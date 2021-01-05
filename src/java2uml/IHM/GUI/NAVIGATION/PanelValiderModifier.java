@@ -7,13 +7,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class PanelCreerValider extends JPanel implements ActionListener{
+public class PanelValiderModifier extends JPanel  implements ActionListener{
 	
 	private JButton btnValider;
-	private FrameCreer frame;
+	private FrameModifier frame;
 	
-	
-	public PanelCreerValider(FrameCreer frame) {
+	public PanelValiderModifier(FrameModifier frame) {
+		
 		this.frame = frame;
 		
 		this.setLayout(new GridLayout(1,1));
@@ -24,11 +24,13 @@ public class PanelCreerValider extends JPanel implements ActionListener{
 		
 		this.add(this.btnValider);
 	}
-	
+
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==this.btnValider) {
 			this.frame.setValider();
+			System.out.println("oui");
 		}
 	}
-	
+
 }

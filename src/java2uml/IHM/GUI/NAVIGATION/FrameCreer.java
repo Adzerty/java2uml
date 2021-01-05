@@ -6,14 +6,20 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import java2uml.Controleur;
+
 public class FrameCreer extends JFrame{
 	
 	private PanelCreer panelCreer;
 	private PanelCreerValider panelValider;
+	private String nomFichier;
 	
-	public FrameCreer() {
+	private Controleur ctrl;
+	
+	public FrameCreer(Controleur ctrl) {
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.ctrl = ctrl;
 
         int x = dim.width/2;
         int y = dim.height/2;
@@ -33,8 +39,19 @@ public class FrameCreer extends JFrame{
 		this.setVisible(true);
 	}
 
-	public void setFichier(String selectedItem) {
+	public void setFichier(String fichier) {
 		// TODO Auto-generated method stub
+		this.nomFichier = fichier;
 		
+	}
+
+	public void setValider() {
+		// TODO Auto-generated method stub
+		System.out.println(this.nomFichier);
+		
+		String tabNomFichier[] = {this.nomFichier};
+		
+		this.ctrl.creerNouvDiagramme(tabNomFichier);
+		this.ctrl.creerNouvConfig("test", "Colin Pallier");
 	}
 }
