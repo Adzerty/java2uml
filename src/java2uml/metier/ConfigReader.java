@@ -93,11 +93,18 @@ public class ConfigReader
                                 boolean estStatique = temp.contains("static");
                                 boolean estFinale = temp.contains("final");
 
+                                String [] tabContraintes= null;
+                                if(temp.contains("{") && temp.contains("}"))
+                                {
+                                    String contrainte = temp.substring(temp.indexOf("{")+1,temp.indexOf("}"));
+                                    tabContraintes = contrainte.split(",");
+                                }
+
                                 if (temp.contains("default ="))
                                     for (int i = temp.indexOf("default =") + 9; i < temp.length(); i++)
                                         valeurParDefault += temp.charAt(i);
 
-                                ensAttribut.add(new Attribut(nom, visibilite, estStatique, estFinale, valeurParDefault, type));
+                                ensAttribut.add(new Attribut(nom, visibilite, estStatique, estFinale, valeurParDefault, type,tabContraintes));
                             }
                             temp = sc.nextLine();
                             compteurLigne ++;
