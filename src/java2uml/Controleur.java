@@ -102,9 +102,9 @@ public class Controleur
 		String commande = "javac -parameters -d "+ repCompile +' ' +repJava+"*.java";
 		try {
 		     if (System.getProperty("os.name").contains("Windows"))
-		         new ProcessBuilder("cmd", "/c", commande).inheritIO().start().waitFor();
+		         new ProcessBuilder("cmd", "/c", commande).start().waitFor();
 		     else
-		    	 new ProcessBuilder("/bin/bash", "-c", commande).inheritIO().start().waitFor();
+		    	 new ProcessBuilder("/bin/bash", "-c", commande).start().waitFor();
 
 		} catch (Exception t)
 		{

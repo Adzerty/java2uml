@@ -95,7 +95,7 @@ public class IHMCUI
 			switch (choix)
 			{
 				case  0 : break;
-				case  1 : Console.print("\n\t\tCompilation des fichiers " +this.col("JAVA",'B')+ " en cours...");this.ctrl.compilation(); try {Thread.sleep(tpsDebug *2);} catch (Exception ex) {}this.clear(); this.creer(0, null); break;
+				case  1 : Console.print("\n\t\tCompilation des fichiers " +this.col("JAVA",'B')+ " en cours...");this.ctrl.compilation(); this.clear(); this.creer(0, null); break;
 				case  2 : this.charger  (0      ); break;
 				case  3 : this.modifier (0      ); break;
 				case  4 : this.supprimer(0, null); break;

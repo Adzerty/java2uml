@@ -224,9 +224,9 @@ public class Java2uml
 				"                                                                               "     + "\n" ;
 		sRet+="------Auteur : InnovAction\n";
 	
-		sRet+="Afficher diagramme après création = "						   		            + this.options[0] + "\n";
-		sRet+="Créer fichier diagramme au format txt = "					   	     	      + this.options[1] + "\n";
-		sRet+="Créer fichier diagramme au format pdf = "					   		          + this.options[2] + "\n";
+		sRet+="Afficher diagramme après création = "						   	    + this.options[0] + "\n";
+		sRet+="Créer fichier diagramme au format txt = "					   	    + this.options[1] + "\n";
+		sRet+="Créer fichier diagramme au format pdf = "					   		+ this.options[2] + "\n";
 		sRet+="Supprimer les fichiers diagrammes associés au fichier config = " 	+ this.options[3] + "\n";
 	
 		PrintWriter writer;
