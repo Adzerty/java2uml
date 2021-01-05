@@ -225,7 +225,7 @@ public class IHMCUI
 	{
 		this.entete();
 		
-		Console.println("\t\t" +this.col("2",'B')+ " : CHARGER UN DIAGRAMME DE CLAS SE\n" );
+		Console.println("\t\t" +this.col("2",'B')+ " : CHARGER UN DIAGRAMME DE CLASSE\n" );
 		
 		String[] listeC = this.ctrl.getConfig();//chargement des fichiers
 		
