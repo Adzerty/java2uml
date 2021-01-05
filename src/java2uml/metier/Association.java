@@ -90,10 +90,10 @@ public class Association
     }
 
     public String toString() {
-        String sRet="";
+        String sRet="\t\t";
         sRet+="Association " + num + " : "+ getTypeAssociation() + '\n';
 
-        sRet += '\t'+classeGauche +' ' +multipliciteGauche + ' ';
+        sRet += "\t\t\t"+classeGauche +' ' +multipliciteGauche + ' ';
         sRet += typeFleche.replaceAll("\\.", " ");;
         
         sRet += ' ' + multipliciteDroite + ' '+ classeDroite + ' ' + contrainte + '\n' ;

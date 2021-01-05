@@ -15,28 +15,7 @@ public class IHMCUI
 	{
 		this.ctrl = ctrl;
 	}
-	
-	public char choixGraphique() //Demande en quel mode d'affichage le programme se lance →TODO Faire lancement avec args ? 
-	{
-		String ihm = "CUI";//par defaut
-		/*
-		do
-		{
-			Console.print( this.col("\n\tAffichage (", this.coul) + this.col("CUI", 'B') + "/" + this.col("GUI", 'B') + ")? : " + this.setCE('B') );
-			ihm = getString().toUpperCase();
-			Console.print(this.setCE('#'));
-		}
-		while( !(ihm.equals("GUI") || ihm.equals("CUI")));
-		*/
-		Console.print("\n\tDemarrage du Mode " + ihm +" ...");
-		
-		this.clear();
-		this.afficherInnovAction();
-		
-		if( ihm.equals("GUI")){ this.entete(); return 'G'; }
-		else                  {	               return 'C'; }
-	}
-	
+
 	public void start()//lancement de l'IHM CUI
 	{
 		this.menu();

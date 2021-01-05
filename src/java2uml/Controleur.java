@@ -26,7 +26,7 @@ public class Controleur
 
 	public boolean[] options;
 
-	public Controleur()
+	public Controleur(String type)
 	{
 		//Création des dossiers
 		File file = new File(repConfig); 	if (!file.exists()) file.mkdir();
@@ -37,15 +37,19 @@ public class Controleur
 		file = new File(repDiagrammePdf); 	if (!file.exists()) file.mkdir();
 		
 		this.metier = new Java2uml();
-		this.ihmCUI = new IHMCUI (this);
-		
-		if(this.ihmCUI.choixGraphique() == 'G')	{ new IHMGUI(this);    } 
-		else                                    { this.ihmCUI.start(); }
+
+		if(type.equals("CUI"))
+		{
+			this.ihmCUI = new IHMCUI (this);
+			this.ihmCUI.start();
+		}
+		else new IHMGUI(this);
+
 	}
 	
 	public static void main(String[] args)
 	{
-		new Controleur();
+		new Controleur(args[0]);
 	}
 	
 	public String[] getConfig()//renvoie sous forme de tableau de String l'ensemble des fichiers de config
