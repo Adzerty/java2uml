@@ -6,6 +6,7 @@ import java.awt.Desktop;
 //recuperer fichier dans un rep avec dates
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -78,7 +79,7 @@ public class Java2uml
 			while(!conf.contains("Créer fichier diagramme au format pdf")) 						         conf = sc.nextLine(); this.options[2] = conf.contains("true");
 			while(!conf.contains("Supprimer les fichiers diagrammes associés au fichier configuration")) conf = sc.nextLine(); this.options[3] = conf.contains("true");
 		}
-		catch (Exception e){}
+		catch (Exception ignored){}
 	}
 	
 	public String[] recupFichConfig()//renvoie sous forme de tableau de String l'ensemble des fichiers de config
@@ -86,9 +87,10 @@ public class Java2uml
 
 		File repertoire = new File(repConfig);
 		
-		String liste[] = repertoire.list();
-		
-		String tabF [] = new String[liste.length];
+		String[] liste = repertoire.list();
+
+		assert liste != null;
+		String[] tabF = new String[liste.length];
 		
 		String dateC = "????-??-??T??:??:??";
 		String dateM = "????-??-??T??:??:??";
@@ -107,8 +109,8 @@ public class Java2uml
 				}
 				catch (IOException e) { e.printStackTrace(); System.out.println("Impossible de recupérer les dates du fichier"); }
 				
-				tabF[i] += "|" + dateC.substring(0,10) + " " + (Integer.parseInt(dateC.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateC.toString().substring(13,16) 
-						+  "|" + dateM.substring(0,10) + " " + (Integer.parseInt(dateM.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateM.toString().substring(13,16);
+				tabF[i] += "|" + dateC.substring(0,10) + " " + (Integer.parseInt(dateC.substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateC.substring(13,16)
+						+  "|" + dateM.substring(0,10) + " " + (Integer.parseInt(dateM.substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateM.substring(13,16);
 			}
 			return tabF;
 		}
@@ -124,9 +126,10 @@ public class Java2uml
 
 		File repertoire = new File(repCompile);
 
-		String liste[] = repertoire.list();
+		String[] liste = repertoire.list();
 
-		String tabF [] = new String[liste.length];
+		assert liste != null;
+		String[] tabF  = new String[liste.length];
 
 		String dateC = "????-??-??T??:??:??";
 		String dateM = "????-??-??T??:??:??";
@@ -144,8 +147,8 @@ public class Java2uml
 					dateM = attr.lastModifiedTime().toString();
 				}
 				catch (IOException e) { e.printStackTrace(); System.out.println("Erreur lors de la recuperation des dates du fichier");}
-				tabF[i] += "|" + dateC.substring(0,10) + " " + (Integer.parseInt(dateC.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateC.toString().substring(13,16) 
-						+  "|" + dateM.substring(0,10) + " " + (Integer.parseInt(dateM.toString().substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateM.toString().substring(13,16);
+				tabF[i] += "|" + dateC.substring(0,10) + " " + (Integer.parseInt(dateC.substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateC.substring(13,16)
+						+  "|" + dateM.substring(0,10) + " " + (Integer.parseInt(dateM.substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateM.substring(13,16);
 			}
 			return tabF;
 		}
@@ -162,8 +165,9 @@ public class Java2uml
 		
 		int max = 0;
 		File repertoire = new File(rep);
-		String liste[] = repertoire.list();
-		
+		String[] liste = repertoire.list();
+
+		assert liste != null;
 		for(String s : liste)
 		{
 			if(max < s.length())
@@ -177,8 +181,8 @@ public class Java2uml
     {
         String diagramme = "\n\n\n";
         ConfigReader temp = new ConfigReader(nomFichier);
-		if(options[0]) diagramme+= temp.toString();
-        CreateFile(temp,nomFichier.replace(".txt",""),options[1],options[2]);
+		diagramme+= temp.toString();
+        CreateFile(temp,nomFichier.replace(".txt",""), this.options[1], this.options[2]);
         return diagramme;
     }
 	
@@ -209,7 +213,8 @@ public class Java2uml
         }
         try
         {
-            desktop.edit(file);
+			assert desktop != null;
+			desktop.edit(file);
         }
         catch (IOException ex) { Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex); }
 	}
@@ -242,13 +247,15 @@ public class Java2uml
 		this.options = options;
 		String sRet = "";
 	
-		sRet += "                                                                               "     + "\n" +
-				"      ,--.  ,---.,--.   ,--.,---.       ,---.     ,--. ,--.,--.   ,--.,--.     "     + "\n" +
-				"      |  | /  O  \\\\  `.'  //  O  \\     '.-.  \\    |  | |  ||   `.'   ||  |     " + "\n" +
-				" ,--. |  ||  .-.  |\\     /|  .-.  |     .-' .'    |  | |  ||  |'.'|  ||  |     "    + "\n" +
-				" |  '-'  /|  | |  | \\   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--.  "    + "\n" +
-				"  `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----'  "     + "\n" +
-				"                                                                               "     + "\n" ;
+		sRet += """
+				                                                                              \s
+				      ,--.  ,---.,--.   ,--.,---.       ,---.     ,--. ,--.,--.   ,--.,--.    \s
+				      |  | /  O  \\\\  `.'  //  O  \\     '.-.  \\    |  | |  ||   `.'   ||  |    \s
+				 ,--. |  ||  .-.  |\\     /|  .-.  |     .-' .'    |  | |  ||  |'.'|  ||  |    \s
+				 |  '-'  /|  | |  | \\   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--. \s
+				  `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----' \s
+				                                                                              \s
+				""";
 		sRet+="------Auteur : InnovAction\n";
 	
 		sRet+="Afficher diagramme après création = "						   	    + this.options[0] + "\n";
@@ -260,7 +267,7 @@ public class Java2uml
 		try
 		{
 			File f = new File("./java2uml.ini");
-			writer = new PrintWriter(f, "UTF-8");
+			writer = new PrintWriter(f, StandardCharsets.UTF_8);
 			writer.println(sRet);
 			writer.close();
 		}catch (Exception e) {e.printStackTrace();}
@@ -296,7 +303,7 @@ public class Java2uml
 			if(txt) {
 				PrintWriter writer;
 				File f = new File("../diagrammes/txt", nomFichier + ".txt");
-				writer = new PrintWriter(f, "UTF-8");
+				writer = new PrintWriter(f, StandardCharsets.UTF_8);
 				writer.println(conf.toString());
 				writer.close();
 			}

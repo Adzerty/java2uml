@@ -139,11 +139,14 @@ public class ConfigGenerator {
 			sRet += c.getNomClasse();
 			if(c.isAbstraite()) sRet += " abstract";
 			if(c.isFinal()) sRet += " final";
+			
+			
+			
 			sRet += "\n----Attribut(s) :\n";
-			for(Field f : c.getTabAttribut())
+			for(Field f : c.getTabAttribut()) //Pour chaque attribut de l'entite
 			{
-				
 				if(f.getName().contains("$"))continue;
+				
 				//On regarde la visibilité de l'attribut
 				char visibilite = 0;
 				if(Modifier.isPrivate(f.getModifiers())) visibilite='-';
@@ -156,20 +159,22 @@ public class ConfigGenerator {
 	            String finalite = "";
 	            if(Modifier.isFinal(f.getModifiers())) finalite="final ";
 	            
+	            String multiplicite = "";
 
 	            
 	            //On récupère le type de l'attribut
 	            String type = getFormattedType(f);
 	            
+	            if(type.contains("[")) multiplicite="[0..*] ";
 	            if( (! sRet.contains("\\$")))
 	            {
 	            	boolean bOk = true;
-	            	for(String s : ensEntite)
+	            	for(String s : ensEntite) // Permet de ne pas afficher les attributs traduits par les associations
 	            		if(type.contains(s))
 	            			bOk = false;
 	            	
 	            	if(bOk)
-	            		sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' +staticite + finalite + '\n';
+	            		sRet+="" + visibilite + ' ' + type + ' ' +f.getName()+ ' ' + multiplicite + staticite + finalite + '\n';
 	            }
 			}
 			
@@ -267,6 +272,8 @@ public class ConfigGenerator {
 					if(inter.getName().contains(s))
 						sRet += c.getNomClasse() + " -.-.-.-|> " + inter.getName() + '\n';
 			}
+			
+			sRet += "\n----Contrainte(s) :\n";
 			
 			
 			

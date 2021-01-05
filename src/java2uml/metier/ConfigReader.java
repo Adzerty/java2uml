@@ -9,6 +9,7 @@ public class ConfigReader
     private ArrayList<Entite> ensEntite;
     private int compteurLigne=0;
     private String repConfig="../config/";
+    public String globalContrainte="";
 
     public ConfigReader(String fichier)
 {
@@ -54,9 +55,15 @@ public class ConfigReader
                     }
 
                     temp=temp.substring(cpt,temp.length());
-
                     entiteEstFinale = temp.contains("final");
                     entiteEstAbstraite = temp.contains("abstract");
+
+                    String [] entiteContraintes= null;
+                    if(temp.contains("{") && temp.contains("}"))
+                    {
+                        String contrainte = temp.substring(temp.indexOf("{")+1,temp.indexOf("}"));
+                        entiteContraintes = contrainte.split(",");
+                    }
 
                     //ATTRIBUTS
                     while (sc.hasNextLine() && !temp.contains("Attribut(s) :"))
@@ -73,6 +80,7 @@ public class ConfigReader
                         while (sc.hasNextLine() && temp.length() > 1) {
                             if (temp.charAt(0) != '/' && temp.charAt(1) != '/') {
                                 String nom = "";
+                                String multiplicite="";
                                 char visibilite = temp.charAt(0);
 
                                 String valeurParDefault = "";
@@ -87,6 +95,14 @@ public class ConfigReader
                                 while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
                                     nom += temp.charAt(cpt);
                                     cpt++;
+                                }
+                                if(temp.contains("[")&& temp.contains("["))
+                                {
+                                    cpt++;
+                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                        multiplicite += temp.charAt(cpt);
+                                        cpt++;
+                                    }
                                 }
                                 temp=temp.substring(cpt,temp.length());
 
@@ -104,7 +120,7 @@ public class ConfigReader
                                     for (int i = temp.indexOf("default =") + 9; i < temp.length(); i++)
                                         valeurParDefault += temp.charAt(i);
 
-                                ensAttribut.add(new Attribut(nom, visibilite, estStatique, estFinale, valeurParDefault, type,tabContraintes));
+                                ensAttribut.add(new Attribut(nom, visibilite, estStatique, estFinale, valeurParDefault, type,tabContraintes,multiplicite));
                             }
                             temp = sc.nextLine();
                             compteurLigne ++;
@@ -194,12 +210,11 @@ public class ConfigReader
 
                         temp = sc.nextLine();
                         compteurLigne++;
-                        while (!temp.contains("Fin") && temp.length() > 1) {
+                        while (sc.hasNextLine() && temp.length() > 1) {
                             String classeGauche = "";
                             String classeDroite = "";
                             String multipliciteGauche = "";
                             String multipliciteDroite = "";
-                            String contrainte = "";
                             String typeFleche = "";
 
                             cpt = 0;
@@ -234,23 +249,30 @@ public class ConfigReader
                                     classeDroite += temp.charAt(cpt);
                                     cpt++;
                                 }
-                                cpt++;
-                                if (temp.contains("{")) {
-                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                        contrainte += temp.charAt(cpt);
-                                        cpt++;
-                                    }
-                                }
+
                                 Association a = new Association(classeGauche, classeDroite, multipliciteGauche,
-                                        multipliciteDroite, contrainte, typeFleche);
+                                        multipliciteDroite, typeFleche);
                                 ensAssociation.add(a);
                             }
                             temp = sc.nextLine();
                             compteurLigne++;
                         }
+                        while (sc.hasNextLine() && !temp.contains("Contrainte(s)"))
+                        {
+                            temp = sc.nextLine();
+                            compteurLigne++;
+                        }
+                        if(!temp.contains("//")) {
+                            while (sc.hasNextLine() && temp.length() > 1)
+                            {
+                                temp = sc.nextLine();
+                                compteurLigne++;
+                                if(!temp.contains("//")&& temp.length()>1) globalContrainte += "\t\t"+temp + '\n';
+                            }
+                        }
                     }
                     Entite e = new Entite(ensMethode, ensAttribut, nomEntite, typeEntite,
-                            entiteEstAbstraite, entiteEstFinale, ensAssociation);
+                            entiteEstAbstraite, entiteEstFinale, ensAssociation,entiteContraintes);
                     ensEntite.add(e);
                     }
             }
@@ -275,7 +297,7 @@ public class ConfigReader
             ArrayList<Association> temp = ent.getEnsAssociations();
             for (Association a : temp) sRet += a.toString()+"\n";
         }
-
+        sRet+=globalContrainte;
         return sRet;
     }
 

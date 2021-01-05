@@ -4,6 +4,7 @@ public class Departement
 	private String nom;
 	private int population;
 	private int superficie;
+	private String[] test;
 
 	public Departement(String numero, String nom, int population, int superficie)
 	{
