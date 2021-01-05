@@ -119,8 +119,8 @@ public class PanelPrc extends JPanel implements ActionListener {
 		g.drawLine(0, 0, len, 0);
 		if(type == "unidirectionnelle")
 		{	
-			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
-			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+             g.drawLine(len, 0, len+((int)(Math.round(Math.cos(Math.toRadians(135))))*10), ((int)(Math.round(Math.sin(Math.toRadians(135))))*10));
+             g.drawLine(len, 0, len+((int)(Math.round(Math.cos(Math.toRadians(135))))*10), ((int)(Math.round(Math.sin(Math.toRadians(225))))*10));
 		}
 		if(type == "composition")
 		{	
