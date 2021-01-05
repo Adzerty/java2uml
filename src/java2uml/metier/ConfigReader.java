@@ -9,6 +9,7 @@ public class ConfigReader
     private ArrayList<Entite> ensEntite;
     private int compteurLigne=0;
     private String repConfig="../config/";
+    public String globalContrainte="";
 
     public ConfigReader(String fichier)
 {
@@ -209,12 +210,11 @@ public class ConfigReader
 
                         temp = sc.nextLine();
                         compteurLigne++;
-                        while (!temp.contains("Fin") && temp.length() > 1) {
+                        while (sc.hasNextLine() && temp.length() > 1) {
                             String classeGauche = "";
                             String classeDroite = "";
                             String multipliciteGauche = "";
                             String multipliciteDroite = "";
-                            String contrainte = "";
                             String typeFleche = "";
 
                             cpt = 0;
@@ -249,19 +249,26 @@ public class ConfigReader
                                     classeDroite += temp.charAt(cpt);
                                     cpt++;
                                 }
-                                cpt++;
-                                if (temp.contains("{")) {
-                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                        contrainte += temp.charAt(cpt);
-                                        cpt++;
-                                    }
-                                }
+
                                 Association a = new Association(classeGauche, classeDroite, multipliciteGauche,
-                                        multipliciteDroite, contrainte, typeFleche);
+                                        multipliciteDroite, typeFleche);
                                 ensAssociation.add(a);
                             }
                             temp = sc.nextLine();
                             compteurLigne++;
+                        }
+                        while (sc.hasNextLine() && !temp.contains("Contrainte(s)"))
+                        {
+                            temp = sc.nextLine();
+                            compteurLigne++;
+                        }
+                        if(!temp.contains("//")) {
+                            while (sc.hasNextLine() && temp.length() > 1)
+                            {
+                                temp = sc.nextLine();
+                                compteurLigne++;
+                                if(!temp.contains("//")&& temp.length()>1) globalContrainte += "\t\t"+temp + '\n';
+                            }
                         }
                     }
                     Entite e = new Entite(ensMethode, ensAttribut, nomEntite, typeEntite,
@@ -290,7 +297,7 @@ public class ConfigReader
             ArrayList<Association> temp = ent.getEnsAssociations();
             for (Association a : temp) sRet += a.toString()+"\n";
         }
-
+        sRet+=globalContrainte;
         return sRet;
     }
 

@@ -6,18 +6,15 @@ public class Association
     private String classeDroite;
     private String multipliciteGauche;
     private String multipliciteDroite;
-    private String contrainte;
     private String typeFleche;
     private int num;
     public static int compteur = 1;
-    public Association(String classeGauche, String classeDroite, String multipliciteGauche, String multipliciteDroite,
-                       String contrainte, String typeFleche)
+    public Association(String classeGauche, String classeDroite, String multipliciteGauche, String multipliciteDroite, String typeFleche)
     {
         this.classeGauche = classeGauche;
         this.classeDroite = classeDroite;
         this.multipliciteGauche = multipliciteGauche;
         this.multipliciteDroite = multipliciteDroite;
-        this.contrainte = contrainte;
         this.typeFleche = typeFleche;
         this.num = compteur++;
     }
@@ -54,14 +51,6 @@ public class Association
         this.multipliciteDroite = multipliciteDroite;
     }
 
-    public String getContrainte() {
-        return contrainte;
-    }
-
-    public void setContrainte(String contrainte) {
-        this.contrainte = contrainte;
-    }
-
     public String getTypeFleche() {
         return typeFleche;
     }
@@ -96,7 +85,7 @@ public class Association
         sRet += "\t\t\t"+classeGauche +' ' +multipliciteGauche + ' ';
         sRet += typeFleche.replaceAll("\\.", " ");;
         
-        sRet += ' ' + multipliciteDroite + ' '+ classeDroite + ' ' + contrainte + '\n' ;
+        sRet += ' ' + multipliciteDroite + ' '+ classeDroite + " \n" ;
         return  sRet;
     }
 }
