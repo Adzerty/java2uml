@@ -80,6 +80,16 @@ public class PanelEntite extends JPanel implements MouseListener  {
 	public ArrayList<Coord> getEnsCoord() {
 		return this.ensCoord;
 	}
+	
+	public Coord[] reflexive()
+	{
+		Coord[] tab = new Coord[4];
+		tab[0] = new Coord(this.getX(), this.getY()+this.getHeight());
+		tab[1] = new Coord(this.getX(), this.getY()+this.getHeight()+15);
+		tab[2] = new Coord(this.getX()+(this.getWidth()/2), this.getY()+this.getHeight()+15);
+		tab[3] = new Coord(this.getX()+(this.getWidth()/2), this.getY()+this.getHeight());
+		return tab;
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

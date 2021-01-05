@@ -106,7 +106,7 @@ public class PanelPrc extends JPanel implements ActionListener {
 		 }
 	}
 	
-	void drawArrow(Graphics g1, int x1, int y1, int x2, int y2, String type)
+	void drawArrow(Graphics g1, int x1, int y1, int x2, int y2, String type, Association a)
 	{
 		Graphics2D g = (Graphics2D) g1.create();
 		double dx = x2 - x1, dy = y2 - y1;
@@ -142,6 +142,16 @@ public class PanelPrc extends JPanel implements ActionListener {
 			g.setColor(Color.GRAY);
 			g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
 			new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+		}
+		if( type == "réflexive") {
+			PanelEntite pe = null;
+			for( PanelEntite p : ensPanelEntite) {
+				if( p.getNom().equals(a.getClasseGauche())) pe = p;
+			}
+			Coord tmp[] = pe.reflexive();
+			g.drawLine(tmp[0].getX(), tmp[0].getY(), tmp[1].getX(), tmp[1].getY());
+			g.drawLine(tmp[1].getX(), tmp[1].getY(), tmp[2].getX(), tmp[2].getY());
+			g.drawLine(tmp[2].getX(), tmp[2].getY(), tmp[3].getX(), tmp[3].getY());
 		}
 	}
 	
@@ -197,17 +207,14 @@ public class PanelPrc extends JPanel implements ActionListener {
 							xDroite = xTmpDroite;
 							yGauche = yTmpGauche;
 							yDroite = yTmpDroite;
-							longueur = tmpLongueur;
+							longueur = tmpLongueur; 
 						}
 					}
 				}
-				String multGauche;
-				String multDroite;
+				String multGauche = a.getMultipliciteGauche();
+				String multDroite = a.getMultipliciteDroite();
 
-				multGauche = "0..0";
-				multDroite = "1..1";
-
-				drawArrow(g, (int)Math.round(xGauche) , (int)Math.round(yGauche), (int)Math.round(xDroite),(int)Math.round(yDroite), a.getTypeAssociation());	
+				drawArrow(g, (int)Math.round(xGauche) , (int)Math.round(yGauche), (int)Math.round(xDroite),(int)Math.round(yDroite), a.getTypeAssociation(),a);	
 				if((int)xGauche >  (int)xDroite)
 				{
 					if((int)yGauche <  (int)yDroite)		
@@ -291,7 +298,6 @@ public class PanelPrc extends JPanel implements ActionListener {
 			} catch (Exception io) {
 				io.printStackTrace();
 			}
-			System.out.println("appui");
 		}
 	};
 }
