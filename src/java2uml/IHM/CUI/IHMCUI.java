@@ -35,7 +35,7 @@ public class IHMCUI
 				else
 				{
 					Console.println("\t\t" + this.col("# ", 'V') + "Les fichiers associés à " + this.col(fichierSup, 'B')
-					               +" ont été supprimé avec succès.");
+					               +" ont été supprimé avec succè s.");
 				}
 			}
 			else
