@@ -11,9 +11,10 @@ public class Entite
     private boolean estAbstraite;
     private boolean estFinale;
     private ArrayList<Association> ensAssociations;
+    private String [] contraintes;
 
     public Entite(ArrayList<Methode> ensMethode, ArrayList<Attribut> ensAttribut, String nom, String type, boolean estAbstraite,
-                  boolean estFinale, ArrayList<Association> ensAssociations)
+                  boolean estFinale, ArrayList<Association> ensAssociations,String[] contraintes)
     {
         this.ensMethode = ensMethode;
         this.ensAttribut = ensAttribut;
@@ -22,6 +23,7 @@ public class Entite
         this.estAbstraite = estAbstraite;
         this.estFinale = estFinale;
         this.ensAssociations = ensAssociations;
+        this.contraintes = contraintes;
     }
 
     public ArrayList<Methode> getEnsMethode() {
@@ -114,20 +116,16 @@ public class Entite
         {
             String temp="";
             temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
-            if(!m.getTypeDeRetour().contains("{constructeur}"))
+            if(!m.getTypeDeRetour().contains("{constructeur}") && !m.getTypeDeRetour().contains("void"))
                 temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
 
             if(temp.length()>maxTaille)maxTaille=temp.length();
             temp+="\n";
         }
-
-        if (estAbstraite)
-        {
-            String temp = nom + " {abstract}";
-            if(temp.length()>maxTaille) maxTaille = temp.length();
-        }
-        else
-            if(nom.length()>maxTaille) maxTaille = nom.length();
+        String contrainte = nom+" ";
+        if(this.contraintes!=null) for (String cont: this.contraintes) contrainte +="{"+cont+"} ";
+        if (estAbstraite) contrainte = nom + "{abstract}";
+        if(contrainte.length()>maxTaille) maxTaille = contrainte.length();
 
         if(type.contains("Enum"))   if("<<enumeration>>".length()>maxTaille) maxTaille = "<<enumeration>>".length();
         else if(type.contains("Interface")) if("Interface".length()>maxTaille) maxTaille = "Interface".length();
@@ -187,7 +185,7 @@ public class Entite
             String temp="\t\t│";
             String underline="";
             temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
-            if(!m.getTypeDeRetour().contains("{constructeur}"))
+            if(!m.getTypeDeRetour().contains("{constructeur}") && !m.getTypeDeRetour().contains("void"))
                 temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
 
             for (int i = temp.length(); i<=maxTaille;i++) temp+=" ";
@@ -225,22 +223,16 @@ public class Entite
         for (int i = ligneNom.length()-1; i <= maxTaille; i++)  ligneNom+=" ";
         ligneNom+="  │\n";
 
-        if (estAbstraite)
-        {
-            String temp = "\t\t│";
-            for (int i = 0; i < (int) (maxTaille - nom.length()- " {abstract}".length()) /2 ; i++) temp+= ' ';
-            temp+= nom + " {abstract}";
-            for (int i = temp.length(); i <= maxTaille; i++)  temp+=" ";
-            ligneNom+=temp;
-        }
-        else
-        {
-            String temp = "\t\t│";
-            for (int i = 0; i < (int) (maxTaille - nom.length()) /2 ; i++) temp+= ' ';
-            temp+=nom;
-            for (int i = temp.length(); i <= maxTaille; i++)  temp+=" ";
-            ligneNom+=temp;
-        }
+        String temp = "\t\t│";
+        String contrainte=" ";
+        if(this.contraintes!=null) for (String cont: this.contraintes) contrainte +="{"+cont+"} ";
+        if (estAbstraite)contrainte+="{abstract}";
+
+        for (int i = 0; i < (int) (maxTaille - nom.length()- contrainte.length()) /2 ; i++) temp+= ' ';
+        temp+= nom + contrainte;
+        for (int i = temp.length(); i <= maxTaille; i++)  temp+=" ";
+        ligneNom+=temp;
+
 
         ligneNom+="  │\n";
 
