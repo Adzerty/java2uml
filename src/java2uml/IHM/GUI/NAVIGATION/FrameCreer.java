@@ -12,7 +12,9 @@ public class FrameCreer extends JFrame{
 	
 	private PanelCreer panelCreer;
 	private PanelCreerValider panelValider;
-	private String nomFichier;
+	private String[] nomFichier;
+	private String nom;
+	private String titre;
 	
 	private Controleur ctrl;
 	
@@ -25,7 +27,7 @@ public class FrameCreer extends JFrame{
         int y = dim.height/2;
 		
 		this.setTitle("Creer un fichier");
-		this.setSize(300,100);
+		//this.setSize(300,200);
 		this.setLocation(x,y);
 		this.setLayout(new GridLayout(2,1));
 		
@@ -36,22 +38,20 @@ public class FrameCreer extends JFrame{
 		this.add(this.panelValider);
 		 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.pack();
 		this.setVisible(true);
 	}
 
-	public void setFichier(String fichier) {
+	public void setFichier(String[] fichier) {
 		// TODO Auto-generated method stub
 		this.nomFichier = fichier;
 		
 	}
-
+	
 	public void setValider() {
 		// TODO Auto-generated method stub
-		System.out.println(this.nomFichier);
 		
-		String tabNomFichier[] = {this.nomFichier};
-		
-		this.ctrl.creerNouvDiagramme(tabNomFichier);
-		this.ctrl.creerNouvConfig("test", "Colin Pallier");
+		this.ctrl.creerNouvDiagramme(this.nomFichier);
+		this.ctrl.creerNouvConfig(this.panelCreer.getFichier() , this.panelCreer.getUtil());
 	}
 }

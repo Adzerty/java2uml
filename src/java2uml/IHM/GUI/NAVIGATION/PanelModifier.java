@@ -30,7 +30,7 @@ public class PanelModifier extends JPanel implements ItemListener{
 			
 	        @Override
 	        public boolean accept(File f, String name) {
-	            return name.endsWith(".config");
+	            return name.endsWith(".txt");
 	        }
 	    };
 		
