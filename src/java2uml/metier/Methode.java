@@ -98,7 +98,7 @@ public class Methode
         if (estFinale) sRet += "{gelée} ";
         if (estAbstraite) sRet += "{abstract} ";
 
-        if(!typeDeRetour.contains("{constructeur}")) sRet += ": " + typeDeRetour;
+        if(!typeDeRetour.contains("{constructeur}") && !typeDeRetour.contains("void")) sRet += ": " + typeDeRetour;
 
         if (estStatique) {
             String underline = "";
