@@ -217,6 +217,7 @@ public class ConfigGenerator {
 	            if(Modifier.isStatic(m.getModifiers())) staticite="static ";
 	            
 	            
+	            
 	            //On récupère le type de retour de la méthode
 				String type = getFormattedType(m);
 				
