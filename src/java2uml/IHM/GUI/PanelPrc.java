@@ -31,14 +31,17 @@ public class PanelPrc extends JPanel implements ActionListener {
 	//press action
 
 	private final int ARR_SIZE = 7;
+	private String fileName;
 	Thread worker;
 
-	public PanelPrc(ArrayList<Entite> ensEntite , FramePrc framePrincipale) {
+	public PanelPrc(ArrayList<Entite> ensEntite , FramePrc framePrincipale, String name) {
 
 		this.setLayout(null);
-
 		this.framePrincipale = framePrincipale;
 		int identifiant = 0;
+		this.fileName = "";
+		for( int cpt = 0; cpt < name.length() && name.charAt(cpt) != '.'; cpt++)
+			fileName += name.charAt(cpt);
 
 		for(Entite e : ensEntite) {
 
@@ -95,6 +98,8 @@ public class PanelPrc extends JPanel implements ActionListener {
 		}
 
 	}
+	
+	public String getFileName() { return this.fileName;}
 
 
 	public void release(MouseEvent e)
