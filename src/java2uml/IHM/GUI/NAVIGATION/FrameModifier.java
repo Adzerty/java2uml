@@ -62,6 +62,6 @@ public class FrameModifier extends JFrame{
 		this.ctrl.ouvrirEnEdit(this.nomFichier);
 		//System.out.println(this.ctrl +" "+ this.nomFichier);
 	}
-	
+	//comment
 	
 }
