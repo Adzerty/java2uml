@@ -1,15 +1,25 @@
 package java2uml.IHM.GUI;
 
 import java2uml.Controleur;
+import java2uml.IHM.GUI.NAVIGATION.FrameAccueil;
+import java2uml.metier.*;
 
 public class IHMGUI
 {
+	/*private ConfigReader conf;
+	private FramePrc framePrincipale;*/
+	
+	private FrameAccueil frameAccueil;
 	private Controleur ctrl;
-	public IHMGUI(Controleur ctrl)
-	{
+
+	public IHMGUI(Controleur ctrl) {
 		this.ctrl = ctrl;
-		try {Thread.sleep(800);} catch (Exception ex) {}
-		System.out.println("\tAh bah non :D");
-		
+		this.frameAccueil = new FrameAccueil(this.ctrl);
 	}
+	
+	
+	public static void main( String[] argv ) {
+		IHMGUI ihm = new IHMGUI(new Controleur(""));
+	}
+	
 }
