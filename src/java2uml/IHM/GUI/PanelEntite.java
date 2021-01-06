@@ -1,3 +1,10 @@
+/**
+  Classe : PanelEntite
+  @Author : InnovAction
+  @version : 1.0
+  @since : 2021
+*/
+
 package java2uml.IHM.GUI;
 
 import java2uml.metier.*;
