@@ -25,7 +25,7 @@ public class FrameEquipe  extends JFrame{
 		this.ensMembre.add(new Membre("InnovAction"));
 		this.ensMembre.add(new Membre("Pestel","Adrien","./image/adrien.png"));
 		this.ensMembre.add(new Membre("Godefroy","Antoine","./image/antoine.png"));
-		this.ensMembre.add(new Membre("Pallier","Colin","./image/colin.jpg"));
+		this.ensMembre.add(new Membre("Pallier","Colin","../../image/colin.jpg"));
 		this.ensMembre.add(new Membre("Bouyer",",Nathan","./image/nathan.png"));
 		this.ensMembre.add(new Membre("Devos","Nicolas","./image/nicolas.png"));
 		this.ensMembre.add(new Membre("Cohathanay","Victor","./image/victor.png"));
