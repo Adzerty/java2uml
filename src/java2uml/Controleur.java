@@ -157,8 +157,5 @@ public class Controleur
 			t.printStackTrace();
 		}
     }
-    public boolean[] getOptions()
-    {
-    	return this.metier.getOptions();
-    }
+    public boolean[] getOptions() { return this.metier.getOptions(); }
 }

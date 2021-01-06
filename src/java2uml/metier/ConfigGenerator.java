@@ -36,7 +36,6 @@ import java2uml.IHM.CUI.IHMCUI;
  * @author InnovAction
  * @version 1.0
  */
-
 public class ConfigGenerator {
 
 	/**

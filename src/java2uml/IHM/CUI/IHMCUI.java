@@ -214,7 +214,7 @@ public class IHMCUI
 				case  2 : this.charger  (0      ); break;
 				case  3 : this.modifier (0      ); break;
 				case  4 : this.supprimer(0, null); break;
-				case  5 : this.parametres(0,this.ctrl.getOptions());break;
+				case  5 : this.parametres(0,this.ctrl.getOptions().clone());break;
 				default : Console.println(this.col("\n\tErreur",'R') + " : saisir  (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ "/" +this.col("5",'B')+ ")" ); try {Thread.sleep(tpsDebug);}catch(Exception ex){}; break;
 			}
 		}while(choix != 0);
@@ -775,7 +775,7 @@ public class IHMCUI
      * 
      * @see ----- Utilise les méthodes -----
      * @see Character#toUpperCase(char ch)
-     * @see Console#print()
+     * @see Console#print(String) 
      * @see IHMCUI#col(String s, char c)
      * @see IHMCUI#getChar()
      * @see IHMCUI#setCE(char c)
