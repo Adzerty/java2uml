@@ -19,7 +19,7 @@ public class IHMGUI
 	
 	
 	public static void main( String[] argv ) {
-		IHMGUI ihm = new IHMGUI(new Controleur());
+		IHMGUI ihm = new IHMGUI(new Controleur(""));
 	}
 	
 }
