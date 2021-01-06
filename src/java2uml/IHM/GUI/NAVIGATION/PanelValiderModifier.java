@@ -29,7 +29,6 @@ public class PanelValiderModifier extends JPanel  implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==this.btnValider) {
 			this.frame.setValider();
-			System.out.println("oui");
 		}
 	}
 

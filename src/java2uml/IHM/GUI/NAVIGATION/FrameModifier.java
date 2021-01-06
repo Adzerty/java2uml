@@ -63,6 +63,7 @@ public class FrameModifier extends JFrame{
 	//methode permettant ouvrir avec un editeur le fichier .txt
 	public void setValider() {
 		this.ctrl.ouvrirEnEdit(this.nomFichier);
+		this.dispose();
 	}
 	
 }

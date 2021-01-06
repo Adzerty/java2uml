@@ -56,5 +56,6 @@ public class FrameCreer extends JFrame{
 	public void setValider() {
 		this.ctrl.creerNouvDiagramme(this.nomFichier);
 		this.ctrl.creerNouvConfig(this.panelCreer.getFichier() , this.panelCreer.getUtil());
+		this.dispose();
 	}
 }
