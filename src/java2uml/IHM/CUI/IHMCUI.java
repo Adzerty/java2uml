@@ -28,7 +28,6 @@ public class IHMCUI
 	/**
 	 * La couleur d'écriture du programme, définit par défault à blanc avec le caractère '#'.
 	 * 
-	 * @see ----- Utilisé dans les méthodes -----
 	 * @see IHMCUI#setCE(char c)
 	 * @see IHMCUI#col(String s, char c)
 	 */
@@ -37,7 +36,6 @@ public class IHMCUI
 	/**
 	 * Le temps écoulé pour lire le message d'erreur, définit par défault à 1500ms soit 1.5s.
 	 * 
-	 * @see ----- Utilisé dans les méthodes -----
 	 * @see IHMCUI#confirmSup(String fichierSup, boolean supConfig, boolean supDiagTxt, boolean supDiagPdf, boolean optionSup)
 	 * @see IHMCUI#menu()
 	 * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
@@ -52,7 +50,6 @@ public class IHMCUI
 	/**
 	 * Le temps écoulé pour afficher le logo d'InnovAction, définit par défault à 2000ms soit 2s.
 	 * 
-	 * @see ----- Utilisé dans les méthodes -----
 	 * @see IHMCUI#afficherInnovAction()
 	 */
 	private int  tpsAjust;
@@ -60,7 +57,6 @@ public class IHMCUI
 	/**
 	 * Le controleur de l'application qui fait le lien entre la partie métier et la partie IHM.
 	 * 
-	 * @see ----- Utilisé dans les méthodes -----
 	 * @see IHMCUI#menu()
 	 * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
 	 * @see IHMCUI#charger(int selec)
@@ -80,7 +76,6 @@ public class IHMCUI
      * @param ctrl
      *            Le controleur de l'application qui fait le lien entre la partie métier et la partie IHM.
      * 
-     * @see ----- Utilise les attributs -----
      * @see IHMCUI#coul
      * @see IHMCUI#tpsDebug
      * @see IHMCUI#tpsAjust
@@ -100,13 +95,8 @@ public class IHMCUI
 
 	/**
      * Lance le menu du mode CUI à partir du Controleur.
-     * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see Controleur#Controleur(String type)
-     * 
-     * @see ----- Utilise les méthodes -----
+     *
      * @see IHMCUI#menu()
-     * 
      */
 	public void start()
 	{
@@ -127,10 +117,6 @@ public class IHMCUI
      * @param optionSup
      * 		boolean qui définit l'état de l'option "Supprimer les fichiers diagrammes associés au fichier configuration".
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see Controleur#supprimerFichiers(String[] tabFichierSup)
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Console
      * @see IHMCUI#col(String s, char c)
      * @see Thread
@@ -168,10 +154,6 @@ public class IHMCUI
 	/**
      * Affiche dans la console le menu principal avec les différentes fonctionnalités de l'application
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#start()
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Console
      * @see Controleur#compilation()
      * @see Controleur#getOptions()
@@ -250,11 +232,6 @@ public class IHMCUI
      * @param tabSelec
      * 		un tableau de booléen qui est nécessaire pour la selection multiple, car il permet de savoir si un fichier a été préalablement sélectionné, pour la création du fichier de configuration.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
-     * @see IHMCUI#menu()
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Console
      * @see Controleur#getClasse()
      * @see Controleur#getTailleMaxFichier(String rep)
@@ -393,11 +370,6 @@ public class IHMCUI
      * @param selec
      * 		un entier qui définit la position du fichier courant nécessaire pour le menu récursif.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#charger(int selec)
-     * @see IHMCUI#menu()
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Console
      * @see Controleur#getConfig()
      * @see Controleur#getTailleMaxFichier(String rep)
@@ -478,11 +450,6 @@ public class IHMCUI
      * @param selec
      * 		un entier qui définit la position du fichier courant nécessaire pour le menu récursif.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#modifier(int selec)
-     * @see IHMCUI#menu()
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Console
      * @see Controleur#getConfig()
      * @see Controleur#getTailleMaxFichier(String rep)
@@ -566,11 +533,6 @@ public class IHMCUI
      * @param tabSelecSup
      * 		un tableau de booléen qui est nécessaire pour la selection multiple, car il permet de savoir si un fichier a été préalablement sélectionné, pour être supprimé.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#supprimer(int selec, boolean[] tabSelecSup)
-     * @see IHMCUI#menu()
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Console
      * @see Controleur#getConfig()
      * @see Controleur#getTailleMaxFichier(String rep)
@@ -692,11 +654,6 @@ public class IHMCUI
      * @param listeP
      * 		un tableau de booléen associé aux différentes options du programme.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#parametres(int selec,boolean[] listeP)
-     * @see IHMCUI#menu()
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Character#toUpperCase(char ch)
      * @see Console
      * @see Controleur#majOptions(boolean[] options)
@@ -796,13 +753,6 @@ public class IHMCUI
      * 
      * @return l'action de l'utilisateur, sous la forme d'un caractère.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#charger(int selec)
-     * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
-     * @see IHMCUI#modifier(int selec)
-     * @see IHMCUI#supprimer(int selec, boolean[] tabSelecSup)
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Character#toUpperCase(char ch)
      * @see Console#print(String) 
      * @see IHMCUI#col(String s, char c)
@@ -832,13 +782,6 @@ public class IHMCUI
      * @param tMAxFichier
      * 		un entier qui définie la taille de la chaine du plus grand nom de fichier dans le tableau.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
-     * @see IHMCUI#charger(int selec)
-     * @see IHMCUI#modifier(int selec)
-     * @see IHMCUI#supprimer(int selec, boolean[] tabSelecSup)
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see String
      * @see Console#println()
      */
@@ -860,13 +803,6 @@ public class IHMCUI
      * @param tMAxFichier
      * 		un entier qui définie la taille de la chaine du plus grand nom de fichier dans le tableau.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
-     * @see IHMCUI#charger(int selec)
-     * @see IHMCUI#modifier(int selec)
-     * @see IHMCUI#supprimer(int selec, boolean[] tabSelecSup)
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see String
      * @see Console#println()
      */
@@ -883,13 +819,6 @@ public class IHMCUI
      * @param tMAxFichier
      * 		un entier qui définie la taille de la chaine du plus grand nom de fichier dans le tableau.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
-     * @see IHMCUI#charger(int selec)
-     * @see IHMCUI#modifier(int selec)
-     * @see IHMCUI#supprimer(int selec, boolean[] tabSelecSup)
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see IHMCUI#nSep(int n, String s)
      * @see Console#println()
      */
@@ -911,14 +840,6 @@ public class IHMCUI
      * <li>false → la saisie est fausse;</li>
      * <li>true  → la saisie est bonne;</li> 
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
-     * @see IHMCUI#charger(int selec)
-     * @see IHMCUI#modifier(int selec)
-     * @see IHMCUI#supprimer(int selec, boolean[] tabSelecSup)
-     * @see IHMCUI#parametres(int selec,boolean[] listeP)
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Console#println()
      * @see IHMCUI#col(String s, char c)
      * @see Thread
@@ -950,7 +871,6 @@ public class IHMCUI
      * 
      * @return la chaine qui a été répété n fois a la suite
      * 
-     * @see ----- Utilisé par les méthodes -----
      * @see IHMCUI#debTab(int tMAxFichier)
      * @see IHMCUI#finTab(int tMAxFichier)
      * @see IHMCUI#parametres(int selec,boolean[] listeP)
@@ -972,21 +892,6 @@ public class IHMCUI
      * 
      * @return le code couleur choisie pour la console, sous la forme d'une Chaine.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#confirmSup(String fichierSup, boolean supConfig, boolean supDiagTxt, boolean supDiagPdf, boolean optionSup)
-     * @see IHMCUI#menu()
-     * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
-     * @see IHMCUI#charger(int selec)
-     * @see IHMCUI#modifier(int selec)
-     * @see IHMCUI#supprimer(int selec, boolean[] tabSelecSup)
-     * @see IHMCUI#parametres(int selec,boolean[] listeP)
-     * @see IHMCUI#menuSelection(boolean multi)
-     * @see IHMCUI#afficherFichier(String dataConf, boolean selec, int tMAxFichier)
-     * @see IHMCUI#verifSaisie(char saisie, boolean multi)
-     * @see IHMCUI#entete()
-     * @see IHMCUI#afficherInnovAction()
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see IHMCUI#setCE(char c)
      */
 	private String col(String s, char c)
@@ -1002,16 +907,6 @@ public class IHMCUI
      * 
      * @return le code couleur choisie pour la console, sous la forme d'une Chaine.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#menu()
-     * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
-     * @see IHMCUI#parametres(int selec,boolean[] listeP)
-     * @see IHMCUI#menuSelection(boolean multi)
-     * @see IHMCUI#col(String s, char c)
-     * @see IHMCUI#entete()
-     * @see IHMCUI#afficherInnovAction()
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see CouleurConsole
      */
 	private String setCE(char c)
@@ -1033,12 +928,6 @@ public class IHMCUI
 	/**
      * Execute une commande dans la console en fonction du système d'exploitation qui efface la console.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#menu()
-     * @see IHMCUI#entete()
-     * @see IHMCUI#afficherInnovAction()
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see System
      * @see ProcessBuilder
      */
@@ -1056,15 +945,6 @@ public class IHMCUI
      * Affiche sous forme d'une chaine dans la console, la banniere du programme JAVA2UML
      *  sous forme d'en-tête.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#menu()
-     * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
-     * @see IHMCUI#charger(int selec)
-     * @see IHMCUI#modifier(int selec)
-     * @see IHMCUI#supprimer(int selec, boolean[] tabSelecSup)
-     * @see IHMCUI#parametres(int selec,boolean[] listeP)
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see IHMCUI#clear()
      * @see IHMCUI#col(String s, char c)
      * @see Console
@@ -1086,10 +966,6 @@ public class IHMCUI
      * Affiche sous forme d'une chaine dans la console, le logo d'InnovAction
      *  sous sa charte graphique.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#IHMCUI(Controleur ctrl)
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see IHMCUI#col(String s, char c)
      * @see IHMCUI#clear()
      * @see IHMCUI#setCE(char c)
@@ -1124,12 +1000,6 @@ public class IHMCUI
      * 
      * @return la Chaine saisie par l'utilisateur au clavier.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#creer(int selec ,boolean[] tabSelec)
-     * @see IHMCUI#charger(int selec)
-     * @see IHMCUI#modifier(int selec)
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Console#lireString()
      */
 	private String getString() { return Console.lireString(); }
@@ -1139,10 +1009,6 @@ public class IHMCUI
      * 
      * @return l'entier saisie par l'utilisateur au clavier.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#menu()
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Console#lireInt()
      */
 	private int    getInt   () { return Console.lireInt()   ; }
@@ -1152,11 +1018,6 @@ public class IHMCUI
      * 
      * @return le caractère saisie par l'utilisateur au clavier.
      * 
-     * @see ----- Utilisé par les méthodes -----
-     * @see IHMCUI#menuSelection(boolean multi)
-     * @see IHMCUI#parametres(int selec,boolean[] listeP)
-     * 
-     * @see ----- Utilise les méthodes -----
      * @see Console#lireChar()
      */
 	private char   getChar  () { return Console.lireChar()  ; }
