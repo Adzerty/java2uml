@@ -22,7 +22,7 @@ public class PanelCreeDiag extends JPanel implements ActionListener
 		this.ctrl = ctrl;
 		this.setLayout(new GridLayout(1,1));
 		
-		this.btnCreeDiagramme = new JButton("Creer un diagramme");
+		this.btnCreeDiagramme = new JButton("Créer un diagramme");
 		this.btnCreeDiagramme.addActionListener(this);
 		this.btnCreeDiagramme.setFont(new Font( "Verdana" ,Font.BOLD, 30));
 		
