@@ -16,10 +16,4 @@ public class IHMGUI
 		this.ctrl = ctrl;
 		this.frameAccueil = new FrameAccueil(this.ctrl);
 	}
-	
-	
-	public static void main( String[] argv ) {
-		IHMGUI ihm = new IHMGUI(new Controleur(""));
-	}
-	
 }

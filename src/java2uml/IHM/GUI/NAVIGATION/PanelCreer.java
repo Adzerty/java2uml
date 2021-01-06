@@ -41,6 +41,8 @@ public class PanelCreer extends JPanel {
 		
 		this.setLayout(new GridLayout(3,2));
 		
+		// recherche des .java existant 
+		
 		File fichier = new File("../fichierJava");
 		FilenameFilter filter = new FilenameFilter() {
 			
@@ -52,12 +54,10 @@ public class PanelCreer extends JPanel {
 		
 	    this.tabFichier = fichier.list(filter);
 	   
-	    
-	 
+	    // creation de la JList
 	    
 		this.listFichier = new JList(this.tabFichier);
 	    this.listFichier.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-	    
 	    this.listFichier.addListSelectionListener( new ListSelectionListener() {
 	    	
 	    	
@@ -71,16 +71,17 @@ public class PanelCreer extends JPanel {
 			}});
 	    
 	   
-
+	    // creation du label fichier
 		this.lblFichier = new JLabel("Fichier");
 		this.lblFichier.setFont(new Font( "Verdana" ,Font.BOLD, 17));
 		
+		//creation du label nom de fichier
 		this.lblNomFichier = new JLabel("Nom du Fichier");
 		this.lblNomFichier.setFont(new Font( "Verdana" ,Font.BOLD, 17));
 		
 		this.textFichier = new JTextField(10);
 		
-		
+		//creation du label proprietaire
 		this.lblNomUtil = new JLabel("Proprietaire");
 		this.lblNomUtil.setFont(new Font( "Verdana" ,Font.BOLD, 17));
 		
@@ -103,9 +104,12 @@ public class PanelCreer extends JPanel {
 		
 	}
 	
+	//methode permettant de recuperer le nom de l'utilisateur
 	public String getUtil() {
 		return this.textUtil.getText();
 	}
+	
+	//methode permettant de recuperer le nom du fichier 
 	public String getFichier() {
 		return this.textFichier.getText();
 	}

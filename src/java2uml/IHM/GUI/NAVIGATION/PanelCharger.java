@@ -32,6 +32,8 @@ public class PanelCharger extends JPanel implements ItemListener{
 		
 		this.setLayout(new GridLayout(1,2));
 		
+		// recherche des .txt existant 
+		
 		File fichier = new File("../config");
 		FilenameFilter filter = new FilenameFilter() {
 			
@@ -43,7 +45,8 @@ public class PanelCharger extends JPanel implements ItemListener{
 		
 	    this.tabFichier = fichier.list(filter);
 		
-		
+		//Initialisation de la JComboBox 
+	    
 		this.cbFichier = new JComboBox(this.tabFichier);
 		this.cbFichier.addItemListener(this);
 		
@@ -60,7 +63,6 @@ public class PanelCharger extends JPanel implements ItemListener{
 	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		
 		
 		if( e.getItem() == this.cbFichier.getSelectedItem()) {
 			this.frame.setFichier((String)this.cbFichier.getSelectedItem());

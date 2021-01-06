@@ -12,6 +12,8 @@ public class MenuBar extends JMenuBar implements ActionListener{
 	JMenu propos ;
 	JMenuItem credit;
 	
+	
+	// Constructeur de la MenuBar
 	public MenuBar() {
 		
 		this.propos = new JMenu("A propos");
@@ -23,7 +25,6 @@ public class MenuBar extends JMenuBar implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		new FrameEquipe();
 	}
 }
