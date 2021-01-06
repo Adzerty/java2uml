@@ -15,7 +15,16 @@ public class PanelMethode extends JPanel {
 		int size = this.ens.size();
 		this.setLayout( new GridLayout( size, 1 ));
 		for( Methode m : ens ) {
-			this.add( new JLabel(m.toString()));
+			JLabel tmp = new JLabel();
+			if(m.toString().contains("¯"))
+			{
+				tmp.setText("<html><u>"+m.toString().replaceAll("¯", "")+"</u></html>");
+			}
+			else
+			{
+				tmp.setText(m.toString());
+			}
+			this.add(tmp);
 		}
 		this.setVisible(true);
 	}

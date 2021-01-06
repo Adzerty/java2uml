@@ -18,6 +18,8 @@ public class PanelEntite extends JPanel implements MouseListener  {
 	private int identifiant;
 	private String nom;
 	private ArrayList<Coord> ensCoord = new ArrayList<>();
+	private String contrainte = "";
+	private String type;
 	
 	
 	public PanelEntite(Entite e, PanelPrc panelPrincipal, int identifiant){
@@ -45,8 +47,21 @@ public class PanelEntite extends JPanel implements MouseListener  {
 			pCentre.add(met);
 		}
 		
-		JLabel nom = new JLabel(this.entite.getType()+" : "+this.entite.getNom(), JLabel.CENTER);
+		if(this.entite.getContraintes()!=null) for (String cont: this.entite.getContraintes()) contrainte += "{"+cont+"} ";
 		
+		this.entite.setType(this.entite.getType().replaceAll(" ", ""));
+		
+		this.type = this.entite.getType();
+
+		if(this.type.equals("Enum"))      {this.type = "<<Enum>>";}
+		if(this.type.equals("Interface")) {this.type = "<<Interface>>";}
+		if(this.type.equals("Classe"))    {this.type = "";}
+		
+		JLabel type = new JLabel(this.type, JLabel.CENTER);
+		JLabel nom = new JLabel(this.entite.getNom()+" "+contrainte, JLabel.CENTER);
+
+		pNom.setLayout(new GridLayout(2,1));
+		pNom.add(type);
 		pNom.add(nom);
 		
 		this.add(pNom, "North");

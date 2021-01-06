@@ -19,13 +19,12 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class PanelPrc extends JPanel implements ActionListener {
+public class PanelPrc extends JPanel {
 
 	private ArrayList<PanelEntite> ensPanelEntite = new ArrayList<>();
 	private ArrayList<Coord> ensCoord = new ArrayList<>();
 	private ArrayList<Association> ensAssociation = new ArrayList<>();
 	private FramePrc framePrincipale;
-	private JButton buttonSave = new JButton("sauvegarder");
 	private int heightBar;
 	private int widthBar;
 	//press action
@@ -79,9 +78,6 @@ public class PanelPrc extends JPanel implements ActionListener {
 			x = (Math.cos(Math.toRadians(angle))*hauteurMax) + centerx;
 			y = (Math.sin(Math.toRadians(angle))*hauteurMax) + centery;
 		}
-		this.buttonSave.setSize(this.buttonSave.getPreferredSize());
-		this.buttonSave.addActionListener( this );
-		this.add(this.buttonSave);
 		this.setVisible(true);
 		this.repaint();
 	}
@@ -255,7 +251,6 @@ public class PanelPrc extends JPanel implements ActionListener {
 			}
 			this.widthBar = framePrincipale.getInsets().left;
 			this.heightBar = framePrincipale.getInsets().top;
-			this.buttonSave.setLocation(framePrincipale.getWidth()-this.buttonSave.getWidth()-15-widthBar, framePrincipale.getHeight()-this.buttonSave.getHeight()-heightBar-15);
 		}
 	}
 
@@ -296,19 +291,5 @@ public class PanelPrc extends JPanel implements ActionListener {
 			}
 		}
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if( e.getSource() == this.buttonSave) {
-			BufferedImage image = new BufferedImage(getWidth(),getHeight(), BufferedImage.TYPE_INT_RGB);
-			Graphics2D g2 = image.createGraphics();
-			paint(g2);
-			try{
-				ImageIO.write(image, "png",new File("./diagramme/blabla.png"));
-			} catch (Exception io) {
-				io.printStackTrace();
-			}
-		}
-	};
 }
 
