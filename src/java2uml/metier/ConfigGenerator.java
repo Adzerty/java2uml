@@ -102,10 +102,10 @@ public class ConfigGenerator {
      *            Le nom de l'auteur du fichier.
      * 
      * @see ----- Utilise les attributs -----
-     * @see IHMCUI#diag
-     * @see IHMCUI#nomFic
-     * @see IHMCUI#nomAuteur
-     * @see IHMCUI#bandeauClasse
+     * @see ConfigGenerator#diag
+     * @see ConfigGenerator#nomFic
+     * @see ConfigGenerator#nomAuteur
+     * @see ConfigGenerator#bandeauClasse
      */
 	public ConfigGenerator(Diagramme diag, String nomFic, String auteur) 
 	{
