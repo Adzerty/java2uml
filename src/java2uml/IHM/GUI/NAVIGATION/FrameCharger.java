@@ -12,7 +12,6 @@ import java2uml.metier.ConfigReader;
 
 public class FrameCharger extends JFrame{
 	
-	
 	private PanelCharger panelCharger;
 	private PanelValiderCharger panelValider;
 	private String nomFichier;
@@ -25,30 +24,37 @@ public class FrameCharger extends JFrame{
         int x = dim.width/2;
         int y = dim.height/2;
 		
-		this.setTitle("Charger un fichier");
-		this.setSize(300,100);
-		this.setLocation(x,y);
-		this.setLayout(new GridLayout(2,1));
+		this.setTitle("Charger un fichier");//Affichage du titre
+		this.setSize(300,100);              //Taille de la frame
+		this.setLocation(x,y);              //Placement de la frame au centre de l'ecran
+		this.setLayout(new GridLayout(2,1));//Gridlayout de 2 par 1
+		
+		//creation des differents panel
 		
 		this.panelCharger = new PanelCharger(this);
 		this.panelValider = new PanelValiderCharger(this);
 		
+		//ajout des differents panel
+		
 		this.add(panelCharger);
 		this.add(panelValider);
 		
-		//this.pack();
+		
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 	}
-
+	
+	//Methode recuperant le nom du fichier à charger
+	
 	public void setFichier(String fichier) {
 		this.nomFichier = fichier;
 		
 	}
-
+	
+	//Methode permettant de charger un fichier .txt apres la validation
+	
 	public void setValider() {
-		// TODO Auto-generated method stub
-		new FramePrc(new ConfigReader(this.nomFichier));
+		new FramePrc(new ConfigReader(this.nomFichier), this.nomFichier);
 	}
 
 	

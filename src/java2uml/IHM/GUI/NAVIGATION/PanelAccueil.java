@@ -17,12 +17,10 @@ public class PanelAccueil extends JPanel {
 	{
 		this.setLayout(new BorderLayout());
 		
-		this.titre = new JLabel("JAVA 2 UML");
-		this.titre.setFont(new Font( "Verdana" ,Font.BOLD, 35));
-		this.titre.setHorizontalAlignment(SwingConstants.CENTER); 
+		this.titre = new JLabel("JAVA 2 UML");                     //Affichage du titre
+		this.titre.setFont(new Font( "Verdana" ,Font.BOLD, 35));   //Changement de la police 
+		this.titre.setHorizontalAlignment(SwingConstants.CENTER);  //Aligmement du texte au centre 
 	
-		
-		
 		this.add(this.titre,BorderLayout.CENTER);
 		this.setVisible(true);
 	}

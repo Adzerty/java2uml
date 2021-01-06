@@ -28,6 +28,8 @@ public class PanelSupprimer extends JPanel implements ItemListener{
 		
 		this.setLayout(new GridLayout(1,2));
 		
+		// recherche des .txt existant 
+		
 		File fichier = new File("../config");
 		FilenameFilter filter = new FilenameFilter() {
 			
@@ -36,13 +38,14 @@ public class PanelSupprimer extends JPanel implements ItemListener{
 	            return name.endsWith(".txt");
 	        }
 	    };
-		
 	    this.tabFichier = fichier.list(filter);
 		
-		
+		// creation du JComboBox
+	    
 		this.cbFichier = new JComboBox(this.tabFichier);
 		this.cbFichier.addItemListener(this);
 		
+		//creation du label fichier
 		
 		this.lblFichier = new JLabel("Fichier");
 		this.lblFichier.setFont(new Font( "Verdana" ,Font.BOLD, 17));
