@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import java2uml.Controleur;
+
 
 public class FrameAccueil extends JFrame{
 	
@@ -14,10 +16,13 @@ public class FrameAccueil extends JFrame{
 	private PanelCreeDiag panelCreeDiag;
 	private PanelChargMod panelChargMod;
 
+	private Controleur ctrl;
 	
-	public FrameAccueil() {
+	public FrameAccueil(Controleur ctrl) {
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		this.ctrl = ctrl;
 
         int x = dim.width/2;
         int y = dim.height/2;
@@ -29,8 +34,8 @@ public class FrameAccueil extends JFrame{
 		this.setLayout(new GridLayout(3,1));
 		
 		this.panelAccueil = new PanelAccueil();
-		this.panelCreeDiag = new PanelCreeDiag(this);
-		this.panelChargMod = new PanelChargMod(this);
+		this.panelCreeDiag = new PanelCreeDiag(this,this.ctrl);
+		this.panelChargMod = new PanelChargMod(this,this.ctrl);
 				
 		this.add(this.panelAccueil);
 		this.add(this.panelCreeDiag);

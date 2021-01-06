@@ -1,19 +1,29 @@
 package java2uml.metier;
 
+
+
+
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.text.Document;
 
 public class ConfigReader
 {
     private ArrayList<Entite> ensEntite;
+    private int compteurLigne=0;
+    private String repConfig="../config/";
 
     public ConfigReader(String fichier)
-    {
+{
+    	Association.compteur = 1;
         ensEntite = new ArrayList<>();
         try
         {
-            Scanner sc = new Scanner(new File("./config/"+fichier));
+            Scanner sc = new Scanner(new File(repConfig+fichier));
             while(sc.hasNextLine()) {
                 String nomEntite = "";
                 ArrayList<Attribut> ensAttribut = new ArrayList<>();
@@ -25,8 +35,12 @@ public class ConfigReader
 
                 //nom Entite
                 String temp = sc.nextLine();
+                compteurLigne ++;
                 while (sc.hasNextLine() && !temp.contains("Entité :"))
+                {
                     temp = sc.nextLine();
+                    compteurLigne ++;
+                }
                 if (!temp.contains("//")) {
                     if (!sc.hasNextLine()) break;
 
@@ -34,6 +48,7 @@ public class ConfigReader
                         typeEntite += temp.charAt(i);
 
                     temp = sc.nextLine();
+                    compteurLigne ++;
 
                     int cpt = 0;
                     while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
@@ -49,10 +64,14 @@ public class ConfigReader
 
                     //ATTRIBUTS
                     while (sc.hasNextLine() && !temp.contains("Attribut(s) :"))
+                    {
+                        compteurLigne ++;
                         temp = sc.nextLine();
+                    }
 
                     if (!temp.contains("//")) {
                         temp = sc.nextLine();
+                        compteurLigne ++;
 
                         while (sc.hasNextLine() && temp.length() > 1) {
                             if (temp.charAt(0) != '/' && temp.charAt(1) != '/') {
@@ -81,14 +100,19 @@ public class ConfigReader
                                 ensAttribut.add(new Attribut(nom, visibilite, estStatique, estFinale, valeurParDefault, type));
                             }
                             temp = sc.nextLine();
+                            compteurLigne ++;
                         }
                     }
                     //METHODE
                     while (sc.hasNextLine() && !temp.contains("Méthode(s) :"))
+                    {
+                        compteurLigne ++;
                         temp = sc.nextLine();
+                    }
 
                     if (!temp.contains("//")) {
                         temp = sc.nextLine();
+                        compteurLigne ++;
 
                         while (sc.hasNextLine() && temp.length() > 1) {
                             if (temp.charAt(0) != '/' && temp.charAt(1) != '/') {
@@ -118,13 +142,14 @@ public class ConfigReader
                                 if (parametres.length() > 1) {
                                     String[] tabParam;
                                     if (parametres.contains(";")) {
-                                        tabParam = parametres.split(";");
+                                        tabParam = parametres.split("; ");
                                     } else {
                                         tabParam = new String[1];
                                         tabParam[0] = parametres;
                                     }
 
-                                    for (String str : tabParam) {
+                                    for (String str : tabParam)
+                                    {
                                         String nomVar = "";
                                         String typeParam = "";
                                         cpt = 0;
@@ -133,6 +158,7 @@ public class ConfigReader
                                             typeParam += str.charAt(cpt);
                                             cpt++;
                                         }
+                                        cpt++;
                                         while (cpt < str.length()) {
                                             nomVar += str.charAt(cpt);
                                             cpt++;
@@ -145,77 +171,89 @@ public class ConfigReader
                                 ensMethode.add(met);
                             }
                             temp = sc.nextLine();
+                            compteurLigne ++;
 
                         }
                     }
 
                     //ASSOCIATIONS
                     while (sc.hasNextLine() && !temp.contains("Association(s) :"))
+                    {
                         temp = sc.nextLine();
-
-                    temp = sc.nextLine();
-                    while (!temp.contains("Fin") && temp.length() > 1) {
-                        String classeGauche = "";
-                        String classeDroite = "";
-                        String multipliciteGauche = "";
-                        String multipliciteDroite = "";
-                        String contrainte = "";
-                        String typeFleche = "";
-
-                        cpt = 0;
-                        while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                            classeGauche += temp.charAt(cpt);
-                            cpt++;
-                        }
-                        cpt++;
-                        if (temp.charAt(cpt) == '[') {
-                            while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                multipliciteGauche += temp.charAt(cpt);
-                                cpt++;
-                            }
-                            cpt++;
-                        }
-                        while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                            typeFleche += temp.charAt(cpt);
-                            cpt++;
-                        }
-                        cpt++;
-                        if (temp.charAt(cpt) == '[') {
-                            while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                multipliciteDroite += temp.charAt(cpt);
-                                cpt++;
-                            }
-                            cpt++;
-                        }
-                        while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                            classeDroite += temp.charAt(cpt);
-                            cpt++;
-                        }
-                        cpt++;
-                        if (temp.contains("{")) {
-                            while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                contrainte += temp.charAt(cpt);
-                                cpt++;
-                            }
-                        }
-                        Association a = new Association(classeGauche, classeDroite, multipliciteGauche,
-                                multipliciteDroite, contrainte, typeFleche);
-                        ensAssociation.add(a);
-                        temp = sc.nextLine();
+                        compteurLigne ++;
                     }
 
+                    if(!temp.contains("//")) {
+
+                        temp = sc.nextLine();
+                        compteurLigne++;
+                        while (!temp.contains("Fin") && temp.length() > 1) {
+                            String classeGauche = "";
+                            String classeDroite = "";
+                            String multipliciteGauche = "";
+                            String multipliciteDroite = "";
+                            String contrainte = "";
+                            String typeFleche = "";
+
+                            cpt = 0;
+                            if (temp.charAt(0) != '/' && temp.charAt(1) != '/')
+                            {
+
+                                while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                    classeGauche += temp.charAt(cpt);
+                                    cpt++;
+                                }
+                                cpt++;
+                                if (temp.charAt(cpt) == '[') {
+                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                        multipliciteGauche += temp.charAt(cpt);
+                                        cpt++;
+                                    }
+                                    cpt++;
+                                }
+                                while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                    typeFleche += temp.charAt(cpt);
+                                    cpt++;
+                                }
+                                cpt++;
+                                if (temp.charAt(cpt) == '[') {
+                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                        multipliciteDroite += temp.charAt(cpt);
+                                        cpt++;
+                                    }
+                                    cpt++;
+                                }
+                                while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                    classeDroite += temp.charAt(cpt);
+                                    cpt++;
+                                }
+                                cpt++;
+                                if (temp.contains("{")) {
+                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                        contrainte += temp.charAt(cpt);
+                                        cpt++;
+                                    }
+                                }
+                                Association a = new Association(classeGauche, classeDroite, multipliciteGauche,
+                                        multipliciteDroite, contrainte, typeFleche);
+                                ensAssociation.add(a);
+                            }
+                            temp = sc.nextLine();
+                            compteurLigne++;
+                        }
+                    }
                     Entite e = new Entite(ensMethode, ensAttribut, nomEntite, typeEntite,
                             entiteEstAbstraite, entiteEstFinale, ensAssociation);
                     ensEntite.add(e);
-                }
+                    }
             }
+            sc.close();
         }
         catch(Exception e)
         {
-            e.printStackTrace();
+            System.err.println("erreur fichier de config ligne :" + compteurLigne);
         }
     }
-
     public ArrayList<Entite> getEnsEntite() {
         return ensEntite;
     }
@@ -233,9 +271,43 @@ public class ConfigReader
 
         return sRet;
     }
+    public void CreateFile(String nomFichier,boolean txt,boolean pdf)
+    {
+        try {
+        	/*
+            if (pdf){
+                Document document = new Document();
+                PdfWriter.getInstance(document, new FileOutputStream(new File("../diagrammes/pdf/", nomFichier + ".pdf")));
 
-    public static void main(String[] args) {
-       ConfigReader conf = new ConfigReader("FichierTest.config");
-        System.out.println(conf.toString());
+                document.open();
+                String sRet = this.toString().replaceAll("│", "|");
+                sRet = sRet.replaceAll("─", "-");
+                sRet = sRet.replaceAll("┌", "+");
+                sRet = sRet.replaceAll("├", "+");
+                sRet = sRet.replaceAll("└", "+");
+                sRet = sRet.replaceAll("┤", "+");
+                sRet = sRet.replaceAll("┐", "+");
+                sRet = sRet.replaceAll("┘", "+");
+
+                Font font = FontFactory.getFont(FontFactory.COURIER, 8, BaseColor.BLACK);
+                Paragraph p = new Paragraph(sRet, font);
+
+                document.add(p);
+
+                //close
+                document.close();
+            }
+            */
+            if(txt) {
+                PrintWriter writer;
+                File f = new File("../diagrammes/txt", nomFichier + ".txt");
+                writer = new PrintWriter(f, "UTF-8");
+                writer.println(this.toString());
+                writer.close();
+            }
+        } catch (Exception e) {e.printStackTrace();}
+
+
     }
+
 }

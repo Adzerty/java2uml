@@ -27,7 +27,7 @@ public class Parametre
 
     @Override
     public String toString() {
-        return  type +  " : " + nomVar;
+        return  nomVar +  " : " + type;
     }
 }
 
