@@ -7,12 +7,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class PanelValiderSupprimer extends JPanel implements ActionListener{
+public class PanelValiderSupprimer extends JPanel implements ActionListener
+{
 	
 	private JButton btnValider;
 	private FrameSupprimer frame;
 
-	public PanelValiderSupprimer(FrameSupprimer frame) {
+	public PanelValiderSupprimer(FrameSupprimer frame)
+	{
 
 		this.frame = frame;
 		
@@ -26,9 +28,11 @@ public class PanelValiderSupprimer extends JPanel implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e)
+	{
 		// TODO Auto-generated method stub
-		if(e.getSource()==this.btnValider) {
+		if(e.getSource()==this.btnValider)
+		{
 			this.frame.setValider();
 		}
 	}

@@ -2,17 +2,10 @@ package java2uml.IHM.GUI.NAVIGATION;
 
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -21,9 +14,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class PanelCreer extends JPanel {
+public class PanelCreer extends JPanel 
+{
 
-	private FrameCreer frame;
 	private String[] tabFichier;
 	private JLabel lblFichier;
 	private JList listFichier;
@@ -35,19 +28,20 @@ public class PanelCreer extends JPanel {
 	private JTextField textUtil;
 	
 
-	public PanelCreer(FrameCreer frame) {
-		
-		this.frame = frame;
+	public PanelCreer(FrameCreer frame)
+	{
 		
 		this.setLayout(new GridLayout(3,2));
 		
 		// recherche des .java existant 
 		
 		File fichier = new File("../fichierJava");
-		FilenameFilter filter = new FilenameFilter() {
+		FilenameFilter filter = new FilenameFilter()
+		{
 			
 	        @Override
-	        public boolean accept(File f, String name) {
+	        public boolean accept(File f, String name)
+	        {
 	            return name.endsWith(".java");
 	        }
 	    };
@@ -58,17 +52,20 @@ public class PanelCreer extends JPanel {
 	    
 		this.listFichier = new JList(this.tabFichier);
 	    this.listFichier.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-	    this.listFichier.addListSelectionListener( new ListSelectionListener() {
-	    	
+	    
+	    this.listFichier.addListSelectionListener( new ListSelectionListener()
+	    {
 	    	
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
+			public void valueChanged(ListSelectionEvent e)
+			{
 				// TODO Auto-generated method stub
 				List<String> list = listFichier.getSelectedValuesList();
 				String[] array = list.toArray(new String[0]);
 				frame.setFichier(array);
 				
-			}});
+			}
+		});
 	    
 	   
 	    // creation du label fichier
@@ -87,8 +84,6 @@ public class PanelCreer extends JPanel {
 		
 		this.textUtil = new JTextField(10);
 		
-		
-		
 		this.add(lblFichier);
 		this.add(listFichier);
 		
@@ -105,12 +100,14 @@ public class PanelCreer extends JPanel {
 	}
 	
 	//methode permettant de recuperer le nom de l'utilisateur
-	public String getUtil() {
+	public String getUtil()
+	{
 		return this.textUtil.getText();
 	}
 	
 	//methode permettant de recuperer le nom du fichier 
-	public String getFichier() {
+	public String getFichier()
+	{
 		return this.textFichier.getText();
 	}
 	

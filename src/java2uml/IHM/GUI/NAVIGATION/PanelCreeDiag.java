@@ -10,15 +10,18 @@ import javax.swing.JPanel;
 
 import java2uml.Controleur;
 
-public class PanelCreeDiag extends JPanel implements ActionListener{
+public class PanelCreeDiag extends JPanel implements ActionListener
+{
 	
 	private JButton btnCreeDiagramme;
 	private Controleur ctrl;
 	
-	public PanelCreeDiag(FrameAccueil frame,Controleur ctrl) {
+	public PanelCreeDiag(Controleur ctrl) 
+	{
 		
 		this.ctrl = ctrl;
 		this.setLayout(new GridLayout(1,1));
+		
 		this.btnCreeDiagramme = new JButton("Creer un diagramme");
 		this.btnCreeDiagramme.addActionListener(this);
 		this.btnCreeDiagramme.setFont(new Font( "Verdana" ,Font.BOLD, 30));
@@ -29,9 +32,10 @@ public class PanelCreeDiag extends JPanel implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getSource() == this.btnCreeDiagramme) {
+	public void actionPerformed(ActionEvent e) 
+	{
+		if(e.getSource() == this.btnCreeDiagramme) 
+		{
 			this.ctrl.compilation();
 			new FrameCreer(this.ctrl);
 		}

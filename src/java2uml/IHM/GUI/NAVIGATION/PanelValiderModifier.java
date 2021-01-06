@@ -7,12 +7,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class PanelValiderModifier extends JPanel  implements ActionListener{
+public class PanelValiderModifier extends JPanel  implements ActionListener
+{
 	
 	private JButton btnValider;
 	private FrameModifier frame;
 	
-	public PanelValiderModifier(FrameModifier frame) {
+	public PanelValiderModifier(FrameModifier frame)
+	{
 		
 		this.frame = frame;
 		
@@ -26,8 +28,10 @@ public class PanelValiderModifier extends JPanel  implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==this.btnValider) {
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getSource()==this.btnValider)
+		{
 			this.frame.setValider();
 		}
 	}

@@ -8,17 +8,17 @@ import javax.swing.JFrame;
 
 import java2uml.Controleur;
 
-public class FrameCreer extends JFrame{
+public class FrameCreer extends JFrame
+{
 	
 	private PanelCreer panelCreer;
 	private PanelCreerValider panelValider;
 	private String[] nomFichier;
-	private String nom;
-	private String titre;
 	
 	private Controleur ctrl;
 	
-	public FrameCreer(Controleur ctrl) {
+	public FrameCreer(Controleur ctrl)
+	{
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.ctrl = ctrl;
@@ -47,13 +47,15 @@ public class FrameCreer extends JFrame{
 	
 	//methode recuperant un tableau des fichiers a incorporer dans un .txt
 	
-	public void setFichier(String[] fichier) {
+	public void setFichier(String[] fichier)
+	{
 		this.nomFichier = fichier;
 	}
 	
 	//mathode qui genere un .txt suite a la validation de l'utilisateur 
 	
-	public void setValider() {
+	public void setValider()
+	{
 		this.ctrl.creerNouvDiagramme(this.nomFichier);
 		this.ctrl.creerNouvConfig(this.panelCreer.getFichier() , this.panelCreer.getUtil());
 		this.dispose();

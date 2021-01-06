@@ -7,11 +7,13 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-public class FrameEquipe  extends JFrame{
+public class FrameEquipe  extends JFrame
+{
 	
 	private ArrayList<Membre> ensMembre = new ArrayList<>();
 	
-	public FrameEquipe() {
+	public FrameEquipe()
+	{
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -23,23 +25,21 @@ public class FrameEquipe  extends JFrame{
 		this.setLocation(x, y);      //Placement de la frame au centre de l'ecran
 		
 		this.ensMembre.add(new Membre("InnovAction"));
-		this.ensMembre.add(new Membre("Pestel","Adrien","Chef de projet , developeur CUI","../image/adrien.jpg"));
-		this.ensMembre.add(new Membre("Godefroy","Antoine","Developpeur GUI","../image/antoine.jpg"));
-		this.ensMembre.add(new Membre("Pallier","Colin","Developpeur GUI ","../image/colin.jpg"));
-		this.ensMembre.add(new Membre("Bouyer","Nathan","Developpeur GUI","../image/nathan.jpg"));
-		this.ensMembre.add(new Membre("Devos","Nicolas","Developpeur CUI","../image/nicolas.jpg"));
-		this.ensMembre.add(new Membre("Cohathanay","Victor","Developpeur CUI","../image/victor.jpg"));
+		this.ensMembre.add(new Membre("Pestel","Adrien","Chef de projet, dévelopeur CUI","../image/adrien.jpg"));
+		this.ensMembre.add(new Membre("Godefroy","Antoine","Développeur GUI","../image/antoine.jpg"));
+		this.ensMembre.add(new Membre("Pallier","Colin","Développeur GUI","../image/colin.jpg"));
+		this.ensMembre.add(new Membre("Bouyer","Nathan","Développeur GUI","../image/nathan.jpg"));
+		this.ensMembre.add(new Membre("Devos","Nicolas","Chef développeur, développeur CUI","../image/nicolas.jpg"));
+		this.ensMembre.add(new Membre("Cohathanay","Victor","Responsable CUI et testeur, développeur CUI","../image/victor.jpg"));
 		
 		
 		this.setLayout(new GridLayout(this.ensMembre.size(),1)); //Frame en GridLayout
 		
 		//ajout des panel membre dans la frame 
-		int cpt=0;
-		for(Membre m: ensMembre) {
-			this.add(new PanelMembre(m, cpt));
-			cpt++;
-		}
 		
+		int cpt=0;
+		
+		for(Membre m: ensMembre){this.add(new PanelMembre(m, cpt));cpt++;}
 		
 		this.setVisible(true);
 	}

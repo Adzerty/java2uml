@@ -8,8 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class PanelAccueil extends JPanel {
-	
+public class PanelAccueil extends JPanel
+{
 	
 	private JLabel titre;
 	

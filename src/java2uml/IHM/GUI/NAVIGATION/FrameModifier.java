@@ -1,23 +1,14 @@
 package java2uml.IHM.GUI.NAVIGATION;
 
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.io.File;
-import java.io.IOException;
-import java.lang.System.Logger;
-
 import javax.swing.JFrame;
 
-
-
 import java2uml.Controleur;
-import java2uml.IHM.GUI.FramePrc;
-import java2uml.metier.ConfigReader;
 
-public class FrameModifier extends JFrame{
-	
+public class FrameModifier extends JFrame
+{
 	
 	private PanelModifier panelModifier;
 	private PanelValiderModifier panelValider;
@@ -25,7 +16,8 @@ public class FrameModifier extends JFrame{
 	
 	private Controleur ctrl;
 	
-	public FrameModifier(Controleur ctrl) {
+	public FrameModifier(Controleur ctrl)
+	{
 		
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -55,13 +47,16 @@ public class FrameModifier extends JFrame{
 	}
 	
 	//methode recuperant fichier .txt a incorporer dans un .txt
-	public void setFichier(String fichier) {
+	
+	public void setFichier(String fichier)
+	{
 		this.nomFichier = fichier;
 		
 	}
 	
 	//methode permettant ouvrir avec un editeur le fichier .txt
-	public void setValider() {
+	public void setValider()
+	{
 		this.ctrl.ouvrirEnEdit(this.nomFichier);
 		this.dispose();
 	}

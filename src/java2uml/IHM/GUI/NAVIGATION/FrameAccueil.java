@@ -1,16 +1,14 @@
 package java2uml.IHM.GUI.NAVIGATION;
 
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 
 import java2uml.Controleur;
 
 
-public class FrameAccueil extends JFrame{
+public class FrameAccueil extends JFrame
+{
 	
 	private PanelAccueil panelAccueil;
 	private PanelCreeDiag panelCreeDiag;
@@ -18,7 +16,8 @@ public class FrameAccueil extends JFrame{
 	
 	private Controleur ctrl;
 	
-	public FrameAccueil(Controleur ctrl) {
+	public FrameAccueil(Controleur ctrl)
+		{
 		
 		
 		//Dimension dim = Toolkit.getDefaultToolkit().getScreenSize(); 
@@ -37,8 +36,8 @@ public class FrameAccueil extends JFrame{
 		//creation des differents panel
 		
 		this.panelAccueil = new PanelAccueil();
-		this.panelCreeDiag = new PanelCreeDiag(this,this.ctrl);
-		this.panelChargMod = new PanelChargMod(this,this.ctrl);
+		this.panelCreeDiag = new PanelCreeDiag(this.ctrl);
+		this.panelChargMod = new PanelChargMod(this.ctrl);
 				
 		//ajout des differents panel
 		

@@ -7,13 +7,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class PanelCreerValider extends JPanel implements ActionListener{
+public class PanelCreerValider extends JPanel implements ActionListener
+{
 	
 	private JButton btnValider;
 	private FrameCreer frame;
 	
 	
-	public PanelCreerValider(FrameCreer frame) {
+	public PanelCreerValider(FrameCreer frame)
+	{
 		this.frame = frame;
 		
 		this.setLayout(new GridLayout(1,1));
@@ -27,8 +29,10 @@ public class PanelCreerValider extends JPanel implements ActionListener{
 	}
 	
 	//Methode de validation du bouton
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==this.btnValider) {
+	public void actionPerformed(ActionEvent e) 
+	{
+		if(e.getSource()==this.btnValider)
+		{
 			this.frame.setValider();
 		}
 	}

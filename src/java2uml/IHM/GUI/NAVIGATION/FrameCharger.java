@@ -10,13 +10,15 @@ import javax.swing.JFrame;
 import java2uml.IHM.GUI.FramePrc;
 import java2uml.metier.ConfigReader;
 
-public class FrameCharger extends JFrame{
+public class FrameCharger extends JFrame
+{
 	
 	private PanelCharger panelCharger;
 	private PanelValiderCharger panelValider;
 	private String nomFichier;
 	
-	public FrameCharger() {
+	public FrameCharger()
+	{
 		
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -46,14 +48,15 @@ public class FrameCharger extends JFrame{
 	
 	//Methode recuperant le nom du fichier à charger
 	
-	public void setFichier(String fichier) {
+	public void setFichier(String fichier) 
+	{
 		this.nomFichier = fichier;
-		
 	}
 	
 	//Methode permettant de charger un fichier .txt apres la validation
 	
-	public void setValider() {
+	public void setValider()
+	{
 		new FramePrc(new ConfigReader(this.nomFichier), this.nomFichier);
 		this.dispose();
 	}

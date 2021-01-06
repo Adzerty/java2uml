@@ -1,6 +1,5 @@
 package java2uml.IHM.GUI.NAVIGATION;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -9,7 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class PanelMembre  extends JPanel{
+public class PanelMembre  extends JPanel
+{
 	
 	private Membre membre;
 	private int num;
@@ -29,7 +29,8 @@ public class PanelMembre  extends JPanel{
 		this.membre = membre;
 		this.num = num;
 		
-		if(this.num == 0){
+		if(this.num == 0)
+		{
 			this.setLayout(new GridLayout(1,1));
 			this.titre = new JLabel(this.membre.getTitre());
 			this.titre.setFont(new Font( "Verdana" ,Font.BOLD, 35));
@@ -71,10 +72,7 @@ public class PanelMembre  extends JPanel{
 			this.add(this.image);
 			
 		}
-		
-		
 
 	}
-
 
 }
