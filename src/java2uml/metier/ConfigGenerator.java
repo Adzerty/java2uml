@@ -91,7 +91,7 @@ public class ConfigGenerator {
 	/**
      * <b>Constructeur ConfigGenerator.</b>
      * <p>
-     * A l'instanciation d'un objet de type ConfigGenerator
+     * A l'instanciation d'un objet de type ConfigGenerator on crée un fichier de configuration du diagramme passé en paramètre
      * </p>
      * 
      * @param diag

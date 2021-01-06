@@ -7,32 +7,205 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Scanner;
 
+/**
+ * <b>JavaReader est la classe qui permet de lire un fichier Java et d'en ressortir les infos nécessaires.</b>
+ * <p>
+ * JavaReader possède les attributs suivant :
+ * <ul>
+ * <li>Une chaine qui va définir le nom de la classe à analyser</li>
+ * <li>Un tableau de Field qui va stocker les attributs</li>
+ * <li>Un tableau de Constructor qui va stocker les constructeurs</li>
+ * <li>Un tableau à deux dimensions de Parameter qui va stocker les paramètres des constructeurs</li>
+ * <li>Un tableau de Method qui va stocker les méthodes</li>
+ * <li>Un tableau à deux dimensions de Parameter qui va stocker les paramètres des méthodes</li>
+ * <li>Un tableau de Classe qui va stocker les classes implémentées</li>
+ * <li>Un booléen qui permet de définir si on affiche les méthodes</li>
+ * <li>Un booléen qui permet de définir si on affiche les attributs</li>
+ * <li>Un booléen qui permet de définir si la classe est abstraite</li>
+ * <li>Un booléen qui permet de définir si on classe est finale</li>
+ * <li>Une chaine qui permet de stocker le nom de la classe mere</li>
+ * <li>Une chaine qui permet de stocker le type de l'entite (classe, interface, enum ...)</li>
+ * <li>Une chaine qui permet de stocker le nom de la classe dans laquelle est cette classe interne</li>
+ * <li>Une chaine qui permet de stocker le chemin des classes compiles</li>
+ * </ul>
+ * </p>
+ * 
+ * 
+ * @author InnovAction
+ * @version 1.0
+ */
 public class JavaReader
 {
+	
+	/**
+	 * Le nom de la classe.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#toString()
+	 * @see JavaReader#getNomClasse()
+	 */
     private String nomClasse;
 
+    /**
+	 * Le tableau stockant les attributs.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#attribut_toString()
+	 * @see JavaReader#size()
+	 */
     private Field[] tabAttribut;
 
-    @SuppressWarnings("rawtypes")
+    /**
+	 * Le tableau stockant les constructeurs.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 */   
 	private Constructor[] tabConstruct;
+	
+	/**
+	 * Le tableau stockant les paramètres des constructeurs.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#getTabParamConstruct()
+	 */
     private Parameter[][] tabParamConstruct;
+    
+    /**
+	 * Le tableau stockant les méthodes.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#methode_toString()
+	 * @see JavaReader#size()
+	 * @see JavaReader#getTabMeth()
+	 */
     private Method[] tabMeth;
+    
+    /**
+	 * Le tableau stockant les paramètres des méthodes.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#getTabParamMethod()
+	 */
     private Parameter[][] tabParamMethod;
+    
+    /**
+	 * Le tableau stockant les noms des classes implémentées.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#getInterface()
+	 */
     private Class[] tabInterface;
 
+	/**
+	 * Le booléen qui indique si on affiche ou non les méthodes.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#toString()
+	 * @see JavaReader#isAfficheMethode()
+	 */
     private boolean afficheMethode;
+    
+    /**
+	 * Le booléen qui indique si on affiche ou non les attributs.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#toString()
+	 * @see JavaReader#isAfficheAttributs()
+	 */
     private boolean afficheAttributs;
+    
+    /**
+	 * Le booléen qui indique si la classe est abstraite.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#isAbstraite()
+	 */
     private boolean estAbstraite;
+    
+    /**
+	 * Le booléen qui indique si la classe est finale.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#isFinal()
+	 */
     private boolean estFinal;
+    
+    /**
+	 * La chaine qui stocke le nom de la classe mere de cette classe.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#aMere()
+	 * @see JavaReader#getMere()
+	 */
     private String mere;
+    
+    /**
+	 * La chaine qui stocke le type d'entité
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 */
     private String typeEntite;
+    
+    /**
+	 * La chaine qui stocke le nom de la classe dans laquelle est la classe, si elle est interne
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 * @see JavaReader#aClasseGlobale()
+	 * @see JavaReader#getClasseGlobale()
+	 */
     private String classeGlobale;
+    
+    /**
+	 * La chaine qui stocke le chemin où sont compilées les classes
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see JavaReader#JavaReader()
+	 */
     private String repCompile="../fichierCompile/";
+    
+    
+    /**
+     * <b>Constructeur JavaReader.</b>
+     * <p>
+     * A l'instanciation d'un objet de type JavaReader, on lit un fichier java passé en paramètre
+     * </p>
+     * 
+     * @param nomClasse
+     *            Le nom de la classe.
+     * 
+     * @see ----- Utilise les attributs -----
+     * @see JavaReader#nomClasse
+     * @see JavaReader#tabAttribut
+     * @see JavaReader#tabConstruct
+     * @see JavaReader#tabParamConstruct
+     * @see JavaReader#tabMeth
+     * @see JavaReader#tabParamMethod
+     * @see JavaReader#tabInterface
+     * @see JavaReader#afficheMethode
+     * @see JavaReader#afficheAttributs
+     * @see JavaReader#estAbstraite
+     * @see JavaReader#estFinal
+     * @see JavaReader#mere
+     * @see JavaReader#typeEntite
+     * @see JavaReader#classeGlobale
+     * @see JavaReader#repCompile
+     */
     public JavaReader(String nomClasse)
     {
-        // CONSTRUCTEUR
-    	
-    	
     	try
 		{
 			/* Permet d'accéder à un .class dans un autre dossier ici : ./fichierJava/ */
@@ -45,7 +218,7 @@ public class JavaReader
 			// Récupère le nom de la classe
 			this.nomClasse = c.getName();
 			
-			if(this.nomClasse.contains("$"))
+			if(this.nomClasse.contains("$")) // On récupère le nom de la classe si elle est interne
 			{
 				int indexDollar = this.nomClasse.indexOf('$');
 				this.nomClasse = this.getNomClasse().substring(indexDollar+1);
@@ -57,6 +230,7 @@ public class JavaReader
 			//Récupère les constructeurs de la classe
 			this.tabConstruct = c.getConstructors();
 
+			//Récupère les params des constructeurs
 			this.tabParamConstruct = new Parameter[tabConstruct.length][];
 			for(int i = 0; i<tabConstruct.length; i++)
 			{ 
@@ -67,16 +241,19 @@ public class JavaReader
 			//Récupère les méthodes de la classe
 			this.tabMeth = c.getDeclaredMethods();
 
+			//Recupère les params methodes
 			this.tabParamMethod = new Parameter[tabMeth.length][];
 			/*for(int i = 0; i<tabMeth.length; i++)
 			{
 				tabParamMethod[i] = tabMeth[i].getParameters();
 			}*/	
 
+			//On affecte les booléens
 			this.afficheAttributs = this.afficheMethode =  true;
 			this.estAbstraite = Modifier.isAbstract(c.getModifiers());
 			this.estFinal = Modifier.isFinal(c.getModifiers());
 			
+			//On gère les classes mères
 			try {
 			this.mere = c.getSuperclass().getName();
 			if(mere.contains("Object") || mere.contains("Enum"))
@@ -90,6 +267,7 @@ public class JavaReader
 			}
 			}catch(Exception e) {}
 			
+			//On gère les classes globales si classe interne
 			try {
 				this.classeGlobale = c.getEnclosingClass().getName();
 				}catch(Exception e) {}
@@ -101,15 +279,11 @@ public class JavaReader
 			
 			this.tabInterface = c.getInterfaces();
 
-            urlcl.close();
+            urlcl.close();//on ferme la classe
 			
 
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		}catch(Exception e){e.printStackTrace();}
     }
-
 
 	public boolean isAbstraite() {
 		return estAbstraite;
@@ -157,6 +331,7 @@ public class JavaReader
         return  sRet;
     }
 
+	/* Permet de générer un toString pour les méthodes (pour aérer le toString global) */
     private String methode_toString(int taille)
     {
         String sRet="";
@@ -169,7 +344,8 @@ public class JavaReader
         }
         return sRet;
     }
-
+    
+	/* Permet de générer un toString pour les attributs (pour aérer le toString global) */
     private String attribut_toString(int taille)
     {
         String sRet="";
@@ -214,6 +390,13 @@ public class JavaReader
         return sRet;
     }
 
+    /**
+     * Permet de récupérer la taille de la ligne (pour l'affichage console)
+     * 
+     * @see ----- Utilisé par les méthodes -----
+     * @see JavaReader#toString()
+     * 
+     */
     public int size()
     {
         int taille = 0 ;
@@ -256,13 +439,7 @@ public class JavaReader
 
         return  taille;
     }
-
-    public static void main(String[] args)
-    {
-    	JavaReader c = new JavaReader("Train");
-    	System.out.println(c.toString());
-    }
-
+    
 	public String getNomClasse() {
 		return nomClasse;
 	}
