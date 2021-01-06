@@ -34,7 +34,7 @@ public class MenuBarPrc extends JMenuBar implements ActionListener{
 			Graphics2D g2 = image.createGraphics();
 			paint(g2);
 			try{
-				ImageIO.write(image, "png",new File("./diagramme/blabla.png"));
+				ImageIO.write(image, "png",new File("./diagramme/" + panelPrc.getFileName() + ".png"));
 			} catch (Exception io) {
 				io.printStackTrace();
 			}
