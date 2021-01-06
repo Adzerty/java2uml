@@ -167,7 +167,8 @@ public class Association
         return sRet;
     }
 
-    public String toString() {
+    public String toString()
+    {
         String sRet="\t\t";
         sRet+="Association " + num + " : "+ getTypeAssociation() + '\n';
 
