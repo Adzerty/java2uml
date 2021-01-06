@@ -2,8 +2,6 @@ package java2uml.metier;
 
 import java.util.ArrayList;
 
-import java2uml.metier.JavaReader;
-
 public class Diagramme {
 
 	private ArrayList<JavaReader> ensFile;
@@ -13,33 +11,12 @@ public class Diagramme {
 	{
 		this.ensFile = new ArrayList<JavaReader>();
 		
-		if(nomsClasses.length > 1)
-			this.ensAssociations = new ArrayList<Association>();
-		else
-			this.ensAssociations = null;
-		
-		
-		
-		for(int i = 0; i<nomsClasses.length;i++)
-		{
-			this.ensFile.add(new JavaReader(nomsClasses[i]));	
-		}
-		
-	}
-	
-	public Diagramme(String nomFichierConfig, boolean estFichierConfig)
-	{
-		this.ensFile = new ArrayList<JavaReader>();
-		this.ensAssociations = new ArrayList<Association>();
-	}
-	
-	public ArrayList<JavaReader> getEnsFile() 
-	{
-		return ensFile;
-	}
-	public ArrayList<Association> getEnsAssociations() 
-	{
-		return ensAssociations;
-	}
+		if(nomsClasses.length > 1) this.ensAssociations = new ArrayList<Association>();
+		else this.ensAssociations = null;
 
+		for(int i = 0; i<nomsClasses.length;i++) this.ensFile.add(new JavaReader(nomsClasses[i]));
+
+	}
+	public ArrayList<JavaReader> getEnsFile() { return ensFile; }
+	public ArrayList<Association> getEnsAssociations() { return ensAssociations; }
 }

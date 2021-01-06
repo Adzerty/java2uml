@@ -81,50 +81,10 @@ public class Java2uml
 		}
 		catch (Exception ignored){}
 	}
-	
-	public String[] recupFichConfig()//renvoie sous forme de tableau de String l'ensemble des fichiers de config
+	public String[] recupFich(String rep)//renvoie sous forme de tableau de String l'ensemble des fichiers compilés
 	{
 
-		File repertoire = new File(repConfig);
-		
-		String[] liste = repertoire.list();
-
-		assert liste != null;
-		String[] tabF = new String[liste.length];
-		
-		String dateC = "????-??-??T??:??:??";
-		String dateM = "????-??-??T??:??:??";
-
-		if (liste.length != 0)//si il existe des anciennes config
-		{
-			for (int i = 0; i < liste.length; i++)
-			{
-				tabF[i] = liste[i];
-				try
-				{
-					Path file = Paths.get(repConfig + liste[i]);
-					BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
-					dateC = attr.creationTime().toString();
-					dateM = attr.lastModifiedTime().toString();
-				}
-				catch (IOException e) { e.printStackTrace(); System.out.println("Impossible de recupérer les dates du fichier"); }
-				
-				tabF[i] += "|" + dateC.substring(0,10) + " " + (Integer.parseInt(dateC.substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateC.substring(13,16)
-						+  "|" + dateM.substring(0,10) + " " + (Integer.parseInt(dateM.substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateM.substring(13,16);
-			}
-			return tabF;
-		}
-		else
-		{
-			//Aucune sauvegarde de .config
-			return null;
-		}
-	}
-	
-	public String[] recupFichClasse()//renvoie sous forme de tableau de String l'ensemble des fichiers compilés
-	{
-
-		File repertoire = new File(repCompile);
+		File repertoire = new File(rep);
 
 		String[] liste = repertoire.list();
 
@@ -141,22 +101,22 @@ public class Java2uml
 				tabF[i] = liste[i];
 				try
 				{
-					Path file = Paths.get(repCompile + liste[i]);
+					Path file = Paths.get(rep + liste[i]);
 					BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 					dateC = attr.creationTime().toString();
 					dateM = attr.lastModifiedTime().toString();
 				}
-				catch (IOException e) { e.printStackTrace(); System.out.println("Erreur lors de la recuperation des dates du fichier");}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+					System.out.println("Erreur lors de la recuperation des dates du fichier");
+				}
 				tabF[i] += "|" + dateC.substring(0,10) + " " + (Integer.parseInt(dateC.substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateC.substring(13,16)
 						+  "|" + dateM.substring(0,10) + " " + (Integer.parseInt(dateM.substring(11,13)) + ((this.H_HIVER)? 1 : 0)) + dateM.substring(13,16);
 			}
 			return tabF;
 		}
-		else
-		{
-			//Aucune sauvegarde de classe
-			return null;
-		}
+		else { return null; } //Aucune sauvegarde de classe
 	}
 	
 	public int      recupTailleMaxFichier(String rep)
@@ -168,11 +128,7 @@ public class Java2uml
 		String[] liste = repertoire.list();
 
 		assert liste != null;
-		for(String s : liste)
-		{
-			if(max < s.length())
-				max = s.length();
-		}
+		for(String s : liste) { if(max < s.length()) max = s.length(); }
 		if(max > tailleMax) return tailleMax;
 		return max;
 	}
@@ -188,8 +144,7 @@ public class Java2uml
 	
 	public void     genNouvDiagramme(String[] tabNomFichier)//génère les diagrammes des fichiers java en paramètres
 	{
-		for(int f = 0; f < tabNomFichier.length; f++)
-			tabNomFichier[f] = tabNomFichier[f].replace(".java","");
+		for(int f = 0; f < tabNomFichier.length; f++) tabNomFichier[f] = tabNomFichier[f].replace(".java","");
 		this.diagTemp = new Diagramme(tabNomFichier);
 	}
 	
@@ -235,7 +190,11 @@ public class Java2uml
 				tabRetSup[1] = tmpT.delete();
 				tabRetSup[2] = tmpP.delete();
 			}
-			else { tabRetSup[1] = true; tabRetSup[2] = true; }
+			else
+			{
+				tabRetSup[1] = true;
+				tabRetSup[2] = true;
+			}
 		}
 		catch(Exception e) { e.printStackTrace(); }
 		tabRetSup[3] = this.options[3];
@@ -278,8 +237,10 @@ public class Java2uml
 
 	public void CreateFile(ConfigReader conf,String nomFichier,boolean txt,boolean pdf)
 	{
-		try {
-			if (pdf){
+		try
+		{
+			if (pdf)
+			{
 				Document document = new Document();
 				PdfWriter.getInstance(document, new FileOutputStream(new File("../diagrammes/pdf/", nomFichier + ".pdf")));
 
@@ -301,18 +262,17 @@ public class Java2uml
 				//close
 				document.close();
 			}
-			if(txt) {
+			if(txt)
+			{
 				PrintWriter writer;
 				File f = new File("../diagrammes/txt", nomFichier + ".txt");
 				writer = new PrintWriter(f, StandardCharsets.UTF_8);
 				writer.println(conf.toString());
 				writer.close();
 			}
-		} catch (Exception e) {e.printStackTrace();}
-
-
+		}
+		catch (Exception e) {e.printStackTrace();}
 	}
-
 }
 
 

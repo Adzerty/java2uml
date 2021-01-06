@@ -158,21 +158,23 @@ public class Entite
         this.ensAssociations = ensAssociations;
         this.contraintes = contraintes;
     }
-    public ArrayList<Methode> getEnsMethode() { return ensMethode;    }
-    public void setEnsMethode(ArrayList<Methode> ensMethode) { this.ensMethode = ensMethode;    }
-    public ArrayList<Attribut> getEnsAttribut() { return ensAttribut;    }
-    public void setEnsAttribut(ArrayList<Attribut> ensAttribut) { this.ensAttribut = ensAttribut;    }
-    public String getNom() { return nom;    }
-    public void setNom(String nom) {        this.nom = nom;    }    public String getType() {        return type;    }
-    public void setType(String type) {this.type = type;    }
-    public boolean isEstAbstraite() { return estAbstraite; }
-    public void setEstAbstraite(boolean estAbstraite) { this.estAbstraite = estAbstraite; }
-    public boolean isEstFinale() { return estFinale; }
-    public void setEstFinale(boolean estFinale) {this.estFinale = estFinale;}
-    public ArrayList<Association> getEnsAssociations() {return ensAssociations; }
-    public void setEnsAssociations(ArrayList<Association> ensAssociations) {this.ensAssociations = ensAssociations; }
-    public String[] getContraintes() { return contraintes; }
-    public void setContraintes(String[] contraintes) {this.contraintes = contraintes; }
+    public ArrayList<Methode>   getEnsMethode           (){ return ensMethode;      }
+    public ArrayList<Attribut>  getEnsAttribut          (){ return ensAttribut;     }
+    public String               getNom                  (){ return nom;             }
+    public String               getType                 (){ return type;            }
+    public boolean              isEstAbstraite          (){ return estAbstraite;    }
+    public boolean              isEstFinale             (){ return estFinale;       }
+    public String[]             getContraintes          (){ return contraintes;     }
+    public ArrayList<Association> getEnsAssociations    (){ return ensAssociations; }
+
+    public void setEnsMethode      (ArrayList<Methode> ensMethode)          { this.ensMethode = ensMethode;          }
+    public void setEnsAttribut     (ArrayList<Attribut> ensAttribut)        { this.ensAttribut = ensAttribut;        }
+    public void setNom             (String nom)                             { this.nom = nom;                        }
+    public void setType            (String type)                            { this.type = type;                      }
+    public void setEstAbstraite    (boolean estAbstraite)                   { this.estAbstraite = estAbstraite;      }
+    public void setEstFinale       (boolean estFinale)                      { this.estFinale = estFinale;            }
+    public void setEnsAssociations (ArrayList<Association> ensAssociations) { this.ensAssociations = ensAssociations;}
+    public void setContraintes     (String[] contraintes)                   { this.contraintes = contraintes;        }
 
 
     /**
@@ -306,15 +308,12 @@ public class Entite
                         underline+=" ";
                 temp+="\n\t\t│"+underline+"│";
             }
-
-
             methode+=temp+"\n";
         }
 
         //MISE EN FORME
         String separation="";
-        for (int i = 0; i < maxTaille ; i++)
-            separation+="─";
+        for (int i = 0; i < maxTaille ; i++) separation+="─";
 
         String ligneNom="\n\t\t│";
         if(type.contains("Enum"))
@@ -339,7 +338,6 @@ public class Entite
         temp+= nom + contrainte;
         for (int i = temp.length(); i <= maxTaille; i++)  temp+=" ";
         ligneNom+=temp;
-
 
         ligneNom+="  │\n";
 

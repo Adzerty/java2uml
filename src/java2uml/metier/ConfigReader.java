@@ -63,7 +63,8 @@ public class ConfigReader
         try
         {
             Scanner sc = new Scanner(new File(repConfig+fichier));
-            while(sc.hasNextLine()) {
+            while(sc.hasNextLine())
+            {
                 String nomEntite = "";
                 ArrayList<Attribut> ensAttribut = new ArrayList<>();
                 ArrayList<Methode> ensMethode = new ArrayList<>();
@@ -80,7 +81,8 @@ public class ConfigReader
                     temp = sc.nextLine();
                     compteurLigne ++;
                 }
-                if (!temp.contains("//")) {
+                if (!temp.contains("//"))
+                {
                     if (!sc.hasNextLine()) break;
 
                     for (int i = temp.indexOf(':') + 1; i < temp.length(); i++)
@@ -90,7 +92,8 @@ public class ConfigReader
                     compteurLigne ++;
 
                     int cpt = 0;
-                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                    while (cpt < temp.length() && temp.charAt(cpt) != ' ')
+                    {
                         nomEntite += temp.charAt(cpt);                              //STOCKAGE NOM ENTITE
                         cpt++;
                     }
@@ -118,8 +121,10 @@ public class ConfigReader
                         temp = sc.nextLine();
                         compteurLigne ++;
 
-                        while (sc.hasNextLine() && temp.length() > 1) {
-                            if (temp.charAt(0) != '/' && temp.charAt(1) != '/') {
+                        while (sc.hasNextLine() && temp.length() > 1)
+                        {
+                            if (temp.charAt(0) != '/' && temp.charAt(1) != '/')
+                            {
                                 String nom = "";
                                 String multiplicite="";
                                 char visibilite = temp.charAt(0);
@@ -128,19 +133,22 @@ public class ConfigReader
                                 String type = "";
 
                                 cpt = 2;
-                                while (temp.charAt(cpt) != ' ') {
+                                while (temp.charAt(cpt) != ' ')
+                                {
                                     type += temp.charAt(cpt);                               //TYPE ATTRIBUT
                                     cpt++;
                                 }
                                 cpt++;
-                                while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                while (cpt < temp.length() && temp.charAt(cpt) != ' ')
+                                {
                                     nom += temp.charAt(cpt);                                //NOM ATTRIBUT
                                     cpt++;
                                 }
                                 if(temp.contains("[")&& temp.contains("["))
                                 {
                                     cpt++;
-                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ')
+                                    {
                                         multiplicite += temp.charAt(cpt);                  //MULTIPLICITE ATTRIBUT
                                         cpt++;
                                     }
@@ -178,8 +186,10 @@ public class ConfigReader
                         temp = sc.nextLine();
                         compteurLigne ++;
 
-                        while (sc.hasNextLine() && temp.length() > 1) {
-                            if (temp.charAt(0) != '/' && temp.charAt(1) != '/') {
+                        while (sc.hasNextLine() && temp.length() > 1)
+                        {
+                            if (temp.charAt(0) != '/' && temp.charAt(1) != '/')
+                            {
                                 String nom = "";
                                 char visibilite = temp.charAt(0);                       //VISIBILITE METHODE
                                 String typeDeRetour = "";
@@ -188,22 +198,25 @@ public class ConfigReader
 
 
                                 cpt = 2;
-                                while (temp.charAt(cpt) != ' ') {
+                                while (temp.charAt(cpt) != ' ')
+                                {
                                     typeDeRetour += temp.charAt(cpt);                   //TYPE RETOUR METHODE
                                     cpt++;
                                 }
                                 cpt++;
-                                while (cpt < temp.length() && temp.charAt(cpt) != '(') {
+                                while (cpt < temp.length() && temp.charAt(cpt) != '(')
+                                {
                                     nom += temp.charAt(cpt);                            //NOM METHODE
                                     cpt++;
                                 }
                                 //ensemblme de parametre
                                 String parametres = temp.substring(temp.indexOf('(') + 1, temp.indexOf(')'));
-                                if (parametres.length() > 1) {
+                                if (parametres.length() > 1)
+                                {
                                     String[] tabParam;
-                                    if (parametres.contains(";")) {
-                                        tabParam = parametres.split("; ");
-                                    } else {
+                                    if (parametres.contains(";")) tabParam = parametres.split("; ");
+                                    else
+                                    {
                                         tabParam = new String[1];
                                         tabParam[0] = parametres;
                                     }
@@ -214,12 +227,14 @@ public class ConfigReader
                                         String typeParam = "";
                                         cpt = 0;
 
-                                        while (str.charAt(cpt) != ' ') {
+                                        while (str.charAt(cpt) != ' ')
+                                        {
                                             typeParam += str.charAt(cpt);
                                             cpt++;
                                         }
                                         cpt++;
-                                        while (cpt < str.length()) {
+                                        while (cpt < str.length())
+                                        {
                                             nomVar += str.charAt(cpt);
                                             cpt++;
                                         }
@@ -236,7 +251,6 @@ public class ConfigReader
                             }
                             temp = sc.nextLine();
                             compteurLigne ++;
-
                         }
                     }
 
@@ -247,11 +261,13 @@ public class ConfigReader
                         compteurLigne ++;
                     }
 
-                    if(!temp.contains("//")) {
+                    if(!temp.contains("//"))
+                    {
 
                         temp = sc.nextLine();
                         compteurLigne++;
-                        while (sc.hasNextLine() && temp.length() > 1) {
+                        while (sc.hasNextLine() && temp.length() > 1)
+                        {
                             String classeGauche = "";
                             String classeDroite = "";
                             String multipliciteGauche = "";
@@ -262,31 +278,38 @@ public class ConfigReader
                             if (temp.charAt(0) != '/' && temp.charAt(1) != '/')
                             {
 
-                                while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                while (cpt < temp.length() && temp.charAt(cpt) != ' ')
+                                {
                                     classeGauche += temp.charAt(cpt);                               //CLASSE GAUCHE
                                     cpt++;
                                 }
                                 cpt++;
-                                if (temp.charAt(cpt) == '[') {
-                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                if (temp.charAt(cpt) == '[')
+                                {
+                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ')
+                                    {
                                         multipliciteGauche += temp.charAt(cpt);                     //MULTILPLICITE GAUCHE
                                         cpt++;
                                     }
                                     cpt++;
                                 }
-                                while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                while (cpt < temp.length() && temp.charAt(cpt) != ' ')
+                                {
                                     typeFleche += temp.charAt(cpt);                                 //TYPE FLECHE
                                     cpt++;
                                 }
                                 cpt++;
-                                if (temp.charAt(cpt) == '[') {
-                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                if (temp.charAt(cpt) == '[')
+                                {
+                                    while (cpt < temp.length() && temp.charAt(cpt) != ' ')
+                                    {
                                         multipliciteDroite += temp.charAt(cpt);                     //MULTIPLICITE DROITE
                                         cpt++;
                                     }
                                     cpt++;
                                 }
-                                while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
+                                while (cpt < temp.length() && temp.charAt(cpt) != ' ')
+                                {
                                     classeDroite += temp.charAt(cpt);                               //CLASSE DROITE
                                     cpt++;
                                 }
@@ -303,7 +326,8 @@ public class ConfigReader
                             temp = sc.nextLine();
                             compteurLigne++;
                         }
-                        if(!temp.contains("//")) {
+                        if(!temp.contains("//"))
+                        {
                             while (sc.hasNextLine() && temp.length() > 1)
                             {
                                 temp = sc.nextLine();
@@ -329,11 +353,10 @@ public class ConfigReader
         return ensEntite;
     }
 
-    public String toString() {
+    public String toString()
+    {
         String sRet="";
-        for (Entite ent : ensEntite)
-            sRet+=ent.toString();
-
+        for (Entite ent : ensEntite) sRet+=ent.toString();
         for (Entite ent : ensEntite)
         {
             ArrayList<Association> temp = ent.getEnsAssociations();

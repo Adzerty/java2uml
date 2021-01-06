@@ -123,7 +123,8 @@ public class ConfigGenerator {
 		String classes  = genererClasses();
 		
 		PrintWriter writer;//On écrit le fichier au chemin indiqué
-		try {
+		try
+		{
 			File f = new File(CHEMIN,this.nomFic+".txt");
 			writer = new PrintWriter(f, "UTF-8");
 			writer.println(banniere);
@@ -131,7 +132,8 @@ public class ConfigGenerator {
 			writer.println(classes);
 			writer.println("------Fin");
 			writer.close();
-		} catch (Exception e) {e.printStackTrace();}
+		}
+		catch (Exception e) {e.printStackTrace();}
 		
 	}
 	
@@ -244,9 +246,7 @@ public class ConfigGenerator {
 			sRet += c.getNomClasse();
 			if(c.isAbstraite()) sRet += " abstract";
 			if(c.isFinal()) sRet += " final";
-			
-			
-			
+
 			sRet += "\n----Attribut(s) :\n";
 			for(Field f : c.getTabAttribut()) //Pour chaque attribut de l'entite
 			{
@@ -274,7 +274,6 @@ public class ConfigGenerator {
 	            //On récupère les multiplicités de l'attribut
 	            if(type.contains("[")) multiplicite="[0..*] ";
 	            
-	            
 	            if( (! sRet.contains("\\$")))//On regarde si on doit afficher l'attribut ou non
 	            {
 	            	boolean bOk = true;
@@ -297,8 +296,7 @@ public class ConfigGenerator {
 				if(Modifier.isPrivate(co.getModifiers())) visibilite='-';
 	            if(Modifier.isPublic(co.getModifiers())) visibilite='+';
 	            if(Modifier.isProtected(co.getModifiers())) visibilite='#';
-	            
-				
+
 				sRet+="" + visibilite + ' ' +  "{constructeur}" + ' ' + co.getName() +"(";
 				
 				//Pour chaque paramètres du constructeur
@@ -332,7 +330,6 @@ public class ConfigGenerator {
 	            String staticite = "";
 	            if(Modifier.isStatic(m.getModifiers())) staticite="static ";
 	            
-	            
 	            //On récupère le type de retour de la méthode au format UML
 				String type = getFormattedType(m);
 				
@@ -360,16 +357,10 @@ public class ConfigGenerator {
 			}
 			sRet += "\n----Association(s) :\n";
 			//On génère les associations qu'on peut déduire du fichier Java
-			if(c.aMere()) //Association de généralisation / spécialisation
-			{
-				sRet += c.getNomClasse() + " -------|> "+ c.getMere() +'\n';
-			}
-			
-			if(c.aClasseGlobale()) //Classe interne
-			{
-				sRet += c.getNomClasse() + " -------(+) "+ c.getClasseGlobale() +'\n';
-			}
-			
+			if(c.aMere()) sRet += c.getNomClasse() + " -------|> "+ c.getMere() +'\n';  //Association de généralisation / spécialisation
+
+			if(c.aClasseGlobale()) sRet += c.getNomClasse() + " -------(+) "+ c.getClasseGlobale() +'\n'; //Classe interne
+
 			//Pour chaque attribut de l'entite on regarde si le type fait parti des classe du diagramme
 			for(Field f : c.getTabAttribut())
 			{
@@ -378,8 +369,7 @@ public class ConfigGenerator {
 					if(getFormattedType(f).contains(s))
 						sRet += c.getNomClasse() + " ------- " + s + '\n';
 			}
-			
-			
+
 			for(Class inter : c.getInterface())// Implémentation d'interface
 			{
 				for(String s : ensEntite)
@@ -388,15 +378,11 @@ public class ConfigGenerator {
 			}
 			
 			sRet += "\n----Contrainte(s) :\n";
-			
-			
-			
 			sRet += "\n\n";
 		}
 		return sRet;
 	}
-	
-	
+
 	/**
      * Permet de retourner le type au format UML de l'objet fourni en paramètre
      * 
@@ -468,7 +454,6 @@ public class ConfigGenerator {
 			sRet+=scNext;
     	}
 
-        
         //On traduit tous les types primitifs (+ String ) en français
         sRet = sRet.replaceAll("int"	,"entier"		);
         sRet = sRet.replaceAll("long"	,"entier"		);

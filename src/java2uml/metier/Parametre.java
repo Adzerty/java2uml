@@ -56,19 +56,18 @@ public class Parametre
      * @see Parametre#nomVar
      * @see Parametre#type
      */
-    public Parametre(String nomVar, String type) {
+    public Parametre(String nomVar, String type)
+    {
         this.nomVar = nomVar;
         this.type = type;
     }
 
-    public String getNomVar() { return nomVar; }
-    public void setNomVar(String nomVar) { this.nomVar = nomVar; }
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public String getNomVar()   { return nomVar; }
+    public String getType()     { return type;   }
 
-    @Override
-    public String toString() {
-        return  nomVar +  " : " + type;
-    }
+    public void setNomVar(String nomVar) { this.nomVar = nomVar; }
+    public void setType(String type)     { this.type = type;     }
+
+    public String toString() { return  nomVar +  " : " + type; }
 }
 

@@ -128,49 +128,19 @@ public class Association
         this.num = compteur++;
     }
 
-    public String getClasseGauche() {
-        return classeGauche;
-    }
+    public String   getClasseGauche      () { return classeGauche;          }
+    public String   getClasseDroite      () { return classeDroite;          }
+    public String   getMultipliciteGauche() { return multipliciteGauche;    }
+    public String   getMultipliciteDroite() { return multipliciteDroite;    }
+    public String   getTypeFleche        () { return typeFleche;            }
+    public int      getNum               () { return num;                   }
 
-    public void setClasseGauche(String classeGauche) {
-        this.classeGauche = classeGauche;
-    }
-
-    public String getClasseDroite() {
-        return classeDroite;
-    }
-
-    public void setClasseDroite(String classeDroite) {
-        this.classeDroite = classeDroite;
-    }
-
-    public String getMultipliciteGauche() {
-        return multipliciteGauche;
-    }
-
-    public void setMultipliciteGauche(String multipliciteGauche) {
-        this.multipliciteGauche = multipliciteGauche;
-    }
-
-    public String getMultipliciteDroite() {
-        return multipliciteDroite;
-    }
-
-    public void setMultipliciteDroite(String multipliciteDroite) {
-        this.multipliciteDroite = multipliciteDroite;
-    }
-
-    public String getTypeFleche() {
-        return typeFleche;
-    }
-
-    public void setTypeFleche(String typeFleche) {
-        this.typeFleche = typeFleche;
-    }
-
-    public int getNum() { return num; }
-
-    public void setNum(int num) { this.num = num;}
+    public void     setClasseGauche         (String classeGauche)       { this.classeGauche = classeGauche;                     }
+    public void     setClasseDroite         (String classeDroite)       {  this.classeDroite = classeDroite;                    }
+    public void     setMultipliciteGauche   (String multipliciteGauche) {        this.multipliciteGauche = multipliciteGauche;  }
+    public void     setMultipliciteDroite   (String multipliciteDroite) { this.multipliciteDroite = multipliciteDroite;         }
+    public void     setTypeFleche           (String typeFleche)         { this.typeFleche = typeFleche;                         }
+    public void     setNum                  (int num)                   { this.num = num;                                       }
 
     /**
      * Permet de renvoyer au format texte le type de l'association en fonction du type de fleche utilisé.

@@ -209,12 +209,32 @@ public class IHMCUI
 			switch (choix)
 			{
 				case  0 : break;
-				case  1 : Console.print("\n\t\tCompilation des fichiers " +this.col("JAVA",'B')+ " en cours...");this.ctrl.compilation(); this.clear(); this.creer(0, null); break;
-				case  2 : this.charger  (0      ); break;
-				case  3 : this.modifier (0      ); break;
-				case  4 : this.supprimer(0, null);Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ..."); this.getString(); break;
-				case  5 : this.parametres(0,this.ctrl.getOptions().clone());break;
-				default : Console.println(this.col("\n\tErreur",'R') + " : saisir  (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/" +this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ "/" +this.col("5",'B')+ ")" ); try {Thread.sleep(tpsDebug);}catch(Exception ex){}; break;
+				case  1 :
+					Console.print("\n\t\tCompilation des fichiers " +this.col("JAVA",'B')+ " en cours...");
+					this.ctrl.compilation();
+					this.clear();
+					this.creer(0, null);
+					break;
+				case  2 :
+					this.charger  (0      );
+					break;
+				case  3 :
+					this.modifier (0      );
+					break;
+				case  4 :
+					this.supprimer(0, null);
+					Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
+					this.getString();
+					break;
+				case  5 :
+					this.parametres(0,this.ctrl.getOptions().clone());
+					break;
+				default :
+					Console.println(this.col("\n\tErreur",'R') + " : saisir  (" +this.col("0",'B')+ "/" +this.col("1",'B')+ "/"
+							+this.col("2",'B')+ "/" +this.col("3",'B')+ "/" +this.col("4",'B')+ "/" +this.col("5",'B')+ ")" );
+					try {Thread.sleep(tpsDebug);}
+					catch(Exception ex){};
+					break;
 			}
 		}while(choix != 0);
 		Console.print(this.setCE('*'));
@@ -530,7 +550,12 @@ public class IHMCUI
 				else                          { this.modifier(newSel); }//on descend
 			}
 		}
-		else { Console.print(this.col("\tAucune configuration sauvegardée dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
+		else
+		{
+			Console.print(this.col("\tAucune configuration sauvegardée dans le dossier config", 'R'));
+			try {Thread.sleep(tpsDebug);}
+			catch (Exception ex) {}
+		}
 	}
 	
 	/**
@@ -651,7 +676,12 @@ public class IHMCUI
 				else                          { this.supprimer(newSel, tabSelecSup);  }//on descend
 			}
 		}
-		else { Console.print(this.col("\tAucune configuration sauvegardée dans le dossier config", 'R')); try {Thread.sleep(tpsDebug);} catch (Exception ex) {} }
+		else
+		{
+			Console.print(this.col("\tAucune configuration sauvegardée dans le dossier config", 'R'));
+			try {Thread.sleep(tpsDebug);}
+			catch (Exception ex) {}
+		}
 	}
 
 	/**
@@ -903,7 +933,8 @@ public class IHMCUI
 		                                                                      + this.col("*",'B') + "/"):"")
 		                                                                      + this.col("=",'B') + "/"
 					                                                          + this.col("/",'B') + ")" );
-			try {Thread.sleep(tpsDebug);} catch (Exception ex) {}
+			try {Thread.sleep(tpsDebug);}
+			catch (Exception ex) {}
 			return false;//la saisie est fausse                                                               
 		}
 		return true;// la saisie est bonne
@@ -1015,13 +1046,8 @@ public class IHMCUI
 	{
 		try
 		{
-		     if (System.getProperty("os.name").contains("Windows"))
-		         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-		     else
-		     {
-		    	 new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();
-		     }
-		    	 
+		     if (System.getProperty("os.name").contains("Windows")) new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+		     else new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();
 		}
 		catch (Exception ex) {}
 	}
@@ -1089,7 +1115,8 @@ public class IHMCUI
 		this.col("    /&&&. %&&(    ,&&&%.  (&&&.    %&&&*    /@@@@@@@@@@*   ", '#') + this.col("         *####", 'B') + this.col("."                 ,'R') + this.col( "                                                              ,(######(,                     "        + "\n" +
 		         "                                                           "       +          "              "       +          ""                        +          "                                                                                              " , '#') + "\n" +
 		setCE('*') + "\n\n\n\n\n");
-		try {Thread.sleep(tpsAjust);} catch (Exception ex) {}//ce temps pourra être utiliser pour adapter la fenêtre de la console
+		try {Thread.sleep(tpsAjust);}
+		catch (Exception ex) {}//ce temps pourra être utiliser pour adapter la fenêtre de la console
 	}
 	
 	/**
