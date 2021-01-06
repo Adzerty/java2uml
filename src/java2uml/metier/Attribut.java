@@ -1,16 +1,143 @@
 package java2uml.metier;
 
+/**
+ * <b>Attribut est la classe qui permet de stocker un Attribut avec ses infos</b>
+ * <p>
+ * Attribut possède les attributs suivant :
+ * <ul>
+ * <li>Une chaine qui va définir le nom de l'attribut</li>
+ * <li>Un caractère qui définit sa visibilité</li>
+ * <li>Un booléen qui définit si l'attribut est static</li>
+ * <li>Un booléen qui définit si l'attribut est final</li>
+ * <li>Une chaine qui donne sa valeur par defaut </li>
+ * <li>Une chaine qui donne son type </li>
+ * <li>Un tableau de chaine qui va stocker les propriétés de cet attribut</li>
+ * <li>Une chaine qui permet de définir la multiplicite de l'attribut</li>
+ * </ul>
+ * </p>
+ * 
+ * 
+ * @author InnovAction
+ * @version 1.0
+ */
 public class Attribut
 {
+	/**
+	 * Le nom de l'attribut.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Attribut#Attribut()
+	 * @see Attribut#getNom()
+	 * @see Attribut#setNom(String)
+	 * @see Attribut#toString()
+	 * @see Attribut#toStringNoType()
+	 */
     private String nom;
+    
+    /**
+	 * La visibilité de l'attribut.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Attribut#Attribut()
+	 * @see Attribut#getVisibilite()
+	 * @see Attribut#setVisibilite(char)
+	 * @see Attribut#toString()
+	 * @see Attribut#toStringNoType()
+	 */
     private char visibilite;
+    
+    /**
+	 * Si l'attribut est static.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Attribut#Attribut()
+	 * @see Attribut#isEstStatique()()
+	 * @see Attribut#setEstStatique(boolean)
+	 * @see Attribut#toString()
+	 */
     private boolean estStatique;
+    
+    /**
+	 * Si l'attribut est final.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Attribut#Attribut()
+	 * @see Attribut#isEstFinale()()
+	 * @see Attribut#setEstFinale(boolean)
+	 * @see Attribut#toString()
+	 * @see Attribut#toStringNoType()
+	 */
     private boolean estFinale;
+    
+    /**
+	 * La valeur par défaut de l'attribut.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Attribut#Attribut()
+	 * @see Attribut#getValeurParDefault()
+	 * @see Attribut#setValeurParDefault(String)
+	 * @see Attribut#toString()
+	 * @see Attribut#toStringNoType()
+	 */
     private String valeurParDefault;
+    
+    /**
+	 * La type de l'attribut.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Attribut#Attribut()
+	 * @see Attribut#getType()
+	 * @see Attribut#setType(String)
+	 * @see Attribut#toString()
+	 */
     private String type;
+    
+    /**
+	 * Le tableau de propriétes de l'attribut.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Attribut#Attribut()
+	 * @see Attribut#getContrainte()
+	 * @see Attribut#setContrainte(String[])
+	 * @see Attribut#toString()
+	 * @see Attribut#toStringNoType()
+	 */
     private String [] contrainte;
+    
+    /**
+	 * La multiplicité de l'attribut.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see Attribut#Attribut()
+	 * @see Attribut#getMultiplicite()
+	 * @see Attribut#setMultiplicite(String)
+	 * @see Attribut#toString()
+	 * @see Attribut#toStringNoType()
+	 */
     private String multiplicite;
 
+    
+    /**
+     * <b>Constructeur Attribut.</b>
+     * <p>
+     * On crée un Attribut pour l'affichage du diagramme
+     * </p>
+     * 
+     * @param nom
+     *            Le nom de l'attribut.
+     * @param visibilite
+     *            La visibilite de l'attribut.
+     * @param estStatique
+     *            La staticité de l'attribut.
+     * @param estStatique
+     *            La staticité de l'attribut.
+     * 
+     * @see ----- Utilise les attributs -----
+     * @see ConfigGenerator#diag
+     * @see ConfigGenerator#nomFic
+     * @see ConfigGenerator#nomAuteur
+     * @see ConfigGenerator#bandeauClasse
+     */
     public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault,String type,String[] contrainte,String multiplicite) {
         this.nom = nom;
         this.visibilite = visibilite;
