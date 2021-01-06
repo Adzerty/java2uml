@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"java2uml"},{"l":"java2uml.IHM.CUI"},{"l":"java2uml.IHM.GUI"},{"l":"java2uml.IHM.GUI.NAVIGATION"},{"l":"java2uml.metier"}];updateSearchResults();
