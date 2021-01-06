@@ -19,16 +19,16 @@ public class FrameEquipe  extends JFrame{
         int y = (int)(dim.height*0.5);
         
 		this.setTitle("L'équipe");   //Affichage du titre
-		this.setSize(600,500);       //Taille de la frame
+		this.setSize(800,800);       //Taille de la frame
 		this.setLocation(x, y);      //Placement de la frame au centre de l'ecran
 		
 		this.ensMembre.add(new Membre("InnovAction"));
-		this.ensMembre.add(new Membre("Pestel","Adrien","./image/adrien.png"));
-		this.ensMembre.add(new Membre("Godefroy","Antoine","./image/antoine.png"));
-		this.ensMembre.add(new Membre("Pallier","Colin","../../image/colin.jpg"));
-		this.ensMembre.add(new Membre("Bouyer",",Nathan","./image/nathan.png"));
-		this.ensMembre.add(new Membre("Devos","Nicolas","./image/nicolas.png"));
-		this.ensMembre.add(new Membre("Cohathanay","Victor","./image/victor.png"));
+		this.ensMembre.add(new Membre("Pestel","Adrien","Chef de projet , developeur CUI","../image/adrien.jpg"));
+		this.ensMembre.add(new Membre("Godefroy","Antoine","Developpeur GUI","../image/antoine.jpg"));
+		this.ensMembre.add(new Membre("Pallier","Colin","Developpeur GUI ","../image/colin.jpg"));
+		this.ensMembre.add(new Membre("Bouyer","Nathan","Developpeur GUI","../image/nathan.jpg"));
+		this.ensMembre.add(new Membre("Devos","Nicolas","Developpeur CUI","../image/nicolas.jpg"));
+		this.ensMembre.add(new Membre("Cohathanay","Victor","Developpeur CUI","../image/victor.jpg"));
 		
 		
 		this.setLayout(new GridLayout(this.ensMembre.size(),1)); //Frame en GridLayout
@@ -39,7 +39,8 @@ public class FrameEquipe  extends JFrame{
 			this.add(new PanelMembre(m, cpt));
 			cpt++;
 		}
-	
+		
+		
 		this.setVisible(true);
 	}
 }
