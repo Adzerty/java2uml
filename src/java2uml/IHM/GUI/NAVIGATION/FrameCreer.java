@@ -27,7 +27,6 @@ public class FrameCreer extends JFrame{
         int y = dim.height/2;
 		
 		this.setTitle("Creer un fichier");
-		//this.setSize(300,200);
 		this.setLocation(x,y);
 		this.setLayout(new GridLayout(2,1));
 		
