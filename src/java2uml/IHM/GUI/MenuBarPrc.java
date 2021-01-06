@@ -30,11 +30,11 @@ public class MenuBarPrc extends JMenuBar implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if( e.getSource() == this.sauvegarder) {
-			BufferedImage image = new BufferedImage(getWidth(),getHeight(), BufferedImage.TYPE_INT_RGB);
+			BufferedImage image = new BufferedImage(this.panelPrc.getWidth(),this.panelPrc.getHeight(), BufferedImage.TYPE_INT_RGB);
 			Graphics2D g2 = image.createGraphics();
-			paint(g2);
+			this.panelPrc.paint(g2);
 			try{
-				ImageIO.write(image, "png",new File("./diagramme/" + panelPrc.getFileName() + ".png"));
+				ImageIO.write(image, "png",new File("../diagrammes/pdf/" + panelPrc.getFileName() + ".png"));
 			} catch (Exception io) {
 				io.printStackTrace();
 			}
