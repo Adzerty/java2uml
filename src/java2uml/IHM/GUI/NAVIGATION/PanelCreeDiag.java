@@ -8,12 +8,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import java2uml.Controleur;
+
 public class PanelCreeDiag extends JPanel implements ActionListener{
 	
 	private JButton btnCreeDiagramme;
+	private Controleur ctrl;
 	
-	public PanelCreeDiag(FrameAccueil frame) {
+	public PanelCreeDiag(FrameAccueil frame,Controleur ctrl) {
 		
+		this.ctrl = ctrl;
 		this.setLayout(new GridLayout(1,1));
 		this.btnCreeDiagramme = new JButton("Creer un diagramme");
 		this.btnCreeDiagramme.addActionListener(this);
@@ -28,7 +32,7 @@ public class PanelCreeDiag extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == this.btnCreeDiagramme) {
-			new FrameCreer();
+			new FrameCreer(this.ctrl);
 		}
 		
 	}

@@ -9,19 +9,23 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import java2uml.Controleur;
+
 public class PanelChargMod extends JPanel implements ActionListener {
 	
 	private JButton btnCharger;
 	private JButton btnModifier;
 	private JButton btnSupprimer;
 	
+	private Controleur ctrl;
 	
 	private FrameAccueil frame;
 	
-	public PanelChargMod(FrameAccueil frame){
+	public PanelChargMod(FrameAccueil frame ,Controleur ctrl){
 		
 		
 		this.frame = frame;
+		this.ctrl = ctrl;
 		
 		
 		this.setLayout(new GridLayout(1,3));
@@ -58,10 +62,10 @@ public class PanelChargMod extends JPanel implements ActionListener {
 			
 		}
 		else if(e.getSource() == this.btnModifier) {
-			System.out.println("btnmodifier");
+			new FrameModifier(this.ctrl);
 		}
 		else {
-			new FrameSupprimer();
+			new FrameSupprimer(this.ctrl);
 		}
 		
 	}

@@ -114,20 +114,24 @@ public class Entite
         {
             String temp="";
             temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
-            temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
+            if(!m.getTypeDeRetour().contains("{constructeur}"))
+                temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
 
             if(temp.length()>maxTaille)maxTaille=temp.length();
             temp+="\n";
         }
 
-        String ligneNom="\n│";
-        for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()-3) /2 ; i++)
-            ligneNom+=" ";
-        ligneNom+= type + " : ";
-        ligneNom+= nom;
-        if(ligneNom.length()>maxTaille) maxTaille = ligneNom.length();
+        if (estAbstraite)
+        {
+            String temp = nom + " {abstract}";
+            if(temp.length()>maxTaille) maxTaille = temp.length();
+        }
+        else
+            if(nom.length()>maxTaille) maxTaille = nom.length();
 
-        return  maxTaille;
+        if(type.contains("Enum"))   if("<<enumeration>>".length()>maxTaille) maxTaille = "<<enumeration>>".length();
+        else if(type.contains("Interface")) if("Interface".length()>maxTaille) maxTaille = "Interface".length();
+        return  maxTaille+2;
     }
     @Override
     public String toString()
@@ -148,20 +152,20 @@ public class Entite
         String attribut="\n";
         for (Attribut a: ensAttribut )
         {
-            String temp = "│";
+            String temp = "\t\t│";
             temp+=String.format("%-"+String.valueOf(tailleAttNoType)+ 's',a.toStringNoType());
             temp+=String.format("%-"+String.valueOf(tailleAttType-tailleAttNoType)+ 's'," : "+ a.getType());
             for (int i = temp.length(); i<=maxTaille;i++) temp+=" ";
-            temp+="│";
+            temp+="  │";
             if(a.isEstStatique())
             {
                 String underline="";
                 for (int i = 0; i <maxTaille; i++)
-                    if(i<a.toStringNoType().length())
+                    if(i<tailleAttType)
                         underline+="¯";
                     else
                         underline+=" ";
-                temp+="\n│"+underline+"│";
+                temp+="\n\t\t│"+underline+"│";
             }
 
             attribut+=temp+"\n";
@@ -180,22 +184,25 @@ public class Entite
         String methode="\n";
         for (Methode m: ensMethode )
         {
-            String temp="│";
+            String temp="\t\t│";
+            String underline="";
             temp+=String.format("%-"+String.valueOf(tailleMetNoType)+ 's',m.toStringNoReturnType());
-            temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
+            if(!m.getTypeDeRetour().contains("{constructeur}"))
+                temp+=String.format("%-"+String.valueOf(tailleMetType-tailleMetNoType)+ 's'," : "+ m.getTypeDeRetour());
+
             for (int i = temp.length(); i<=maxTaille;i++) temp+=" ";
-            temp+="│";
-            if (m.isEstAbstraite()) temp = "│\033[3m"+temp.substring(1,temp.length()-1)+"\033[0m│";
+            temp+="  │";
             if(m.isEstStatique())
             {
-                String underline="";
                 for (int i = 0; i <maxTaille; i++)
-                    if(i<m.toStringNoReturnType().length())
+                    if(i<tailleMetType)
                         underline+="¯";
                     else
                         underline+=" ";
-                temp+="\n│"+underline+"│";
+                temp+="\n\t\t│"+underline+"│";
             }
+
+
             methode+=temp+"\n";
         }
 
@@ -204,25 +211,46 @@ public class Entite
         for (int i = 0; i < maxTaille ; i++)
             separation+="─";
 
-        String ligneNom="\n│";
-        for (int i = 0; i < (int) (maxTaille - nom.length()- type.length()-3) /2 ; i++)
-            ligneNom+=" ";
-        ligneNom+= type + " : ";
-        ligneNom+= nom;
-        for (int i = ligneNom.length(); i <=maxTaille+1; i++)
-            ligneNom+=" ";
+        String ligneNom="\n\t\t│";
+        if(type.contains("Enum"))
+        {
+            for (int i = 0; i < (int) (maxTaille - "<<enumeration>>".length()) /2 ; i++)  ligneNom+=" ";
+            ligneNom+= "<<enumeration>>";
+        }
+        else if(type.contains("Interface"))
+        {
+            for (int i = 0; i < (int) (maxTaille - "<<interface>>".length()) /2 ; i++)  ligneNom+=" ";
+            ligneNom+= "<<interface>>";
+        }
+        for (int i = ligneNom.length()-1; i <= maxTaille; i++)  ligneNom+=" ";
+        ligneNom+="  │\n";
 
-        ligneNom+="│";
-        if (estAbstraite) ligneNom = "\n│\033[3m"+ligneNom.substring(2,ligneNom.length()-1)+"\033[0m│";
-        ligneNom+="\n";
+        if (estAbstraite)
+        {
+            String temp = "\t\t│";
+            for (int i = 0; i < (int) (maxTaille - nom.length()- " {abstract}".length()) /2 ; i++) temp+= ' ';
+            temp+= nom + " {abstract}";
+            for (int i = temp.length(); i <= maxTaille; i++)  temp+=" ";
+            ligneNom+=temp;
+        }
+        else
+        {
+            String temp = "\t\t│";
+            for (int i = 0; i < (int) (maxTaille - nom.length()) /2 ; i++) temp+= ' ';
+            temp+=nom;
+            for (int i = temp.length(); i <= maxTaille; i++)  temp+=" ";
+            ligneNom+=temp;
+        }
 
-        sRet += "┌" + separation + "┐";
+        ligneNom+="  │\n";
+
+        sRet += "\t\t┌" + separation + "┐";
         sRet += ligneNom;
-        sRet += "├"+separation+"┤";
+        sRet += "\t\t├"+separation+"┤";
         sRet += attribut;
-        sRet += "├"+separation+"┤";
+        sRet += "\t\t├"+separation+"┤";
         sRet += methode;
-        sRet += "└" + separation + "┘\n\n\n";
+        sRet += "\t\t└" + separation + "┘\n\n\n";
 
         return sRet;
     }

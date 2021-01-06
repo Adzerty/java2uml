@@ -5,12 +5,12 @@
  |  '-'  /|  | |  | \   / |  | |  |    /   '-.    '  '-'  '|  |   |  ||  '--.  
   `-----' `--' `--'  `-'  `--' `--'    '-----'     `-----' `--'   `--'`-----'  
                                                                                
-+--------------------------+
- TestNouvelMethodeSelection
-+--------------------------+
++-----+
+ colin
++-----+
 
-------Date de création : 18/12/2020 00:33
-------Auteur : Adrien PESTEL
+------Date de création : 06/01/2021 09:50
+------Auteur : colin
 ------Proposé par : InnovAction
 
 
@@ -39,40 +39,25 @@ Pour d'autres renseignements, consultez la documentation
 
 
 
-+-------+
- Entités 
-+-------+
++------+
+ Entité 
++------+
 ------ Entité : Classe
-Train
+Departement
 ----Attribut(s) :
-- int MAX_V final 
-- int nbVehicule 
-- Vehicule[] ensVehicule 
-- ArrayList<Vehicule> alVehi 
+- Chaine numero 
+- Chaine nom 
+- entier population 
+- entier superficie 
 
 ----Méthode(s) :
-+ void main(String[] arg0) _ 
-+ String toString() 
-+ Iterator<Vehicule> iterator() 
-- String colorier(String arg0) 
-- String setCF(String arg0) 
-+ boolean ajouterVehicule(Vehicule arg0) 
-- String setCE(char arg0) 
-
-----Association(s) :
-Train [1..1] -----> [0..*] Vehicule
-Train [1..1] -----> [0..*] Train
-
------- Entité : Classe
-Vehicule
-----Attribut(s) :
-- int nbVehicule _ 
-- String couleur 
-- int numV 
-
-----Méthode(s) :
-+ String toString() 
-+ String getCouleur() 
++ {constructeur} Departement(Chaine numero; Chaine nom; entier population; entier superficie)
++ Chaine toString() 
++ entier getSuperficie() 
++ double densite() 
++ Chaine getNumero() 
++ Chaine getNom() 
++ entier getPopulation() 
 
 ----Association(s) :
 
