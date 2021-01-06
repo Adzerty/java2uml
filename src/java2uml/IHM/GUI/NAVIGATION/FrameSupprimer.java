@@ -61,7 +61,7 @@ public class FrameSupprimer extends JFrame {
 		String tabFichierSup[] =  new String[1];
 		tabFichierSup[0] = this.nomFichier;
 		this.ctrl.supprimerFichiers(tabFichierSup);
-		
+		this.dispose();
 	}
 	
 }

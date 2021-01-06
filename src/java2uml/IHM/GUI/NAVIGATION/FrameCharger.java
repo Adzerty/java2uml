@@ -55,6 +55,7 @@ public class FrameCharger extends JFrame{
 	
 	public void setValider() {
 		new FramePrc(new ConfigReader(this.nomFichier), this.nomFichier);
+		this.dispose();
 	}
 
 	
