@@ -151,7 +151,8 @@ public class Attribut
      * @see Attribut#multiplicite
      *
      */
-    public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault,String type,String[] contrainte,String multiplicite) {
+    public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault,String type,String[] contrainte,String multiplicite)
+    {
         this.nom = nom;
         this.visibilite = visibilite;
         this.estStatique = estStatique;
@@ -162,67 +163,44 @@ public class Attribut
         this.multiplicite = multiplicite;
     }
 
-    public String getNom() {
+    public String   getNom() {
         return nom;
     }
-
-    public void setNom(String nom) {
+    public void     setNom(String nom) {
         this.nom = nom;
     }
-
-    public char getVisibilite() {
+    public char     getVisibilite() {
         return visibilite;
     }
-
-    public void setVisibilite(char visibilite) {
+    public void     setVisibilite(char visibilite) {
         this.visibilite = visibilite;
     }
-
-    public boolean isEstStatique() {
+    public boolean  isEstStatique() {
         return estStatique;
     }
-
-    public void setEstStatique(boolean estStatique) {
+    public void     setEstStatique(boolean estStatique) {
         this.estStatique = estStatique;
     }
-
-    public boolean isEstFinale() {
+    public boolean  isEstFinale() {
         return estFinale;
     }
-
-    public void setEstFinale(boolean estFinale) {
+    public void     setEstFinale(boolean estFinale) {
         this.estFinale = estFinale;
     }
-
-    public String getValeurParDefault() {
-        return valeurParDefault;
-    }
-
-    public void setValeurParDefault(String valeurParDefault) {
+    public String   getValeurParDefault() { return valeurParDefault; }
+    public void     setValeurParDefault(String valeurParDefault) {
         this.valeurParDefault = valeurParDefault;
     }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String[] getContrainte() {
-        return contrainte;
-    }
-
-    public void setContrainte(String[] contrainte) {
+    public String   getType() { return type; }
+    public void     setType(String type) { this.type = type; }
+    public String[] getContrainte() { return contrainte; }
+    public void     setContrainte(String[] contrainte) {
         this.contrainte = contrainte;
     }
-
-    public String getMultiplicite() {
+    public String   getMultiplicite() {
         return multiplicite;
     }
-
-    public void setMultiplicite(String multiplicite) {
+    public void     setMultiplicite(String multiplicite) {
         this.multiplicite = multiplicite;
     }
 

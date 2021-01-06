@@ -141,61 +141,21 @@ public class Methode
         this.nom = nom;
     }
 
-    public String getNom() {
-        return nom;
-    }
+    public void setVisibilite   (char visibilite)                   { this.visibilite = visibilite;     }
+    public void setTypeDeRetour (String typeDeRetour)               { this.typeDeRetour = typeDeRetour; }
+    public void setEnsParametre (ArrayList<Parametre> ensParametre) { this.ensParametre = ensParametre; }
+    public void setEstStatique  (boolean estStatique)               { this.estStatique = estStatique;   }
+    public void setEstFinale    (boolean estFinale)                 { this.estFinale = estFinale;       }
+    public void setEstAbstraite (boolean estAbstraite)              { this.estAbstraite = estAbstraite; }
+    public void setNom          (String nom)                        { this.nom = nom;                   }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public char getVisibilite() {
-        return visibilite;
-    }
-
-    public void setVisibilite(char visibilite) {
-        this.visibilite = visibilite;
-    }
-
-    public String getTypeDeRetour() {
-        return typeDeRetour;
-    }
-
-    public void setTypeDeRetour(String typeDeRetour) {
-        this.typeDeRetour = typeDeRetour;
-    }
-
-    public ArrayList<Parametre> getEnsParametre() {
-        return ensParametre;
-    }
-
-    public void setEnsParametre(ArrayList<Parametre> ensParametre) {
-        this.ensParametre = ensParametre;
-    }
-
-    public boolean isEstStatique() {
-        return estStatique;
-    }
-
-    public void setEstStatique(boolean estStatique) {
-        this.estStatique = estStatique;
-    }
-
-    public boolean isEstFinale() {
-        return estFinale;
-    }
-
-    public void setEstFinale(boolean estFinale) {
-        this.estFinale = estFinale;
-    }
-
-    public boolean isEstAbstraite() {
-        return estAbstraite;
-    }
-
-    public void setEstAbstraite(boolean estAbstraite) {
-        this.estAbstraite = estAbstraite;
-    }
+    public ArrayList<Parametre> getEnsParametre()   { return ensParametre;  }
+    public boolean              isEstFinale()       { return estFinale;     }
+    public boolean              isEstStatique()     { return estStatique;   }
+    public boolean              isEstAbstraite()    { return estAbstraite;  }
+    public String               getTypeDeRetour()   { return typeDeRetour;  }
+    public String               getNom()            { return nom;           }
+    public char                 getVisibilite()     { return visibilite;    }
 
     @Override
     public String toString() {
@@ -246,8 +206,7 @@ public class Methode
         sRet += "(";
         if (ensParametre.size() > 0)
         {
-            for (Parametre p : ensParametre)
-                sRet += p.toString() + ", ";
+            for (Parametre p : ensParametre) sRet += p.toString() + ", ";
             sRet = sRet.substring(0, sRet.length() - 2);
         }
         sRet += ")";

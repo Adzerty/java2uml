@@ -83,36 +83,17 @@ public class Controleur
 		else                   { new IHMGUI(this);    } //lancer GUI
 
 	}
-	
-	public static void main(String[] args)
-	{
-		new Controleur(args[0]);
-	}
-	
-	public String[] getConfig()//renvoie sous forme de tableau de String l'ensemble des fichiers de config
-	{
-		return this.metier.recupFichConfig();
-	}
-	
-	public String[] getClasse()//renvoie sous forme de tableau de String l'ensemble des fichiers class
-	{
-		return this.metier.recupFichClasse();
-	}
-	
-	public int      getTailleMaxFichier(String rep)// renvoie la taille du fichier le plus grand dans un repertoire
-	{
-		return this.metier.recupTailleMaxFichier(rep);
-	}
-	
-	public String   getContenuConfig(String nomFichier)
-    {
-       return this.metier.recupContenuConfig(nomFichier);
-    }
 
-	public void     creerNouvDiagramme(String[] tabNomFichier)
-	{
-		this.metier.genNouvDiagramme(tabNomFichier);
-	}
+	public static void main(String[] args) { new Controleur(args[0]); }
+
+	public String[] getConfig			() 						{ return this.metier.recupFich(repConfig); 			}//renvoie sous forme de tableau de String l'ensemble des fichiers de config
+	public String[] getClasse			() 						{ return this.metier.recupFich(repCompile); 		} //renvoie sous forme de tableau de String l'ensemble des fichiers class
+	public int 		getTailleMaxFichier	(String rep)			{ return this.metier.recupTailleMaxFichier(rep); 	} // renvoie la taille du fichier le plus grand dans un repertoire
+	public String   getContenuConfig	(String nomFichier)		{ return this.metier.recupContenuConfig(nomFichier);}
+	public void     creerNouvDiagramme	(String[] tabNomFichier){ this.metier.genNouvDiagramme(tabNomFichier); 		}
+	public void     ouvrirEnEdit		(String nomFichier) 	{ this.metier.modifierConfig(nomFichier); 			}
+	public void 	majOptions			(boolean[] options) 	{ this.metier.modifierFichierIni(options); 			}
+	public boolean[] getOptions			() 						{ return this.metier.getOptions(); 					}
 	
 	public String   creerNouvConfig(String nomFichier, String nomAuteur)
 	{
@@ -123,12 +104,7 @@ public class Controleur
 
 		return sRet;
 	}
-	
-	public void     ouvrirEnEdit(String nomFichier)
-	{
-		this.metier.modifierConfig(nomFichier);
-	}
-	
+
 	public void supprimerFichiers(String[] tabFichierSup)
 	{
 		for(String s : tabFichierSup)
@@ -137,25 +113,16 @@ public class Controleur
 			this.ihmCUI.confirmSup(s, tabSup[0], tabSup[1], tabSup[2], tabSup[3]); //suppression des 2 fichiers
 		}
 	}
-	
-	public void majOptions(boolean[] options)
-	{
-		this.metier.modifierFichierIni(options);
-	}
-	 
+
 	public void compilation()
 	{
 		String commande = "javac -parameters -d "+ repCompile +' ' +repJava+"*.java";
-		try {
-		     if (System.getProperty("os.name").contains("Windows"))
-		         new ProcessBuilder("cmd", "/c", commande).start().waitFor();
-		     else
-		    	 new ProcessBuilder("/bin/bash", "-c", commande).start().waitFor();
-
-		} catch (Exception t)
+		try
 		{
-			t.printStackTrace();
+		     if (System.getProperty("os.name").contains("Windows"))  new ProcessBuilder("cmd", "/c", commande).start().waitFor();
+		     else new ProcessBuilder("/bin/bash", "-c", commande).start().waitFor();
 		}
+		catch (Exception t) { t.printStackTrace(); }
     }
-    public boolean[] getOptions() { return this.metier.getOptions(); }
+
 }
