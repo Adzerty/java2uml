@@ -6,11 +6,56 @@ import java.util.Scanner;
 
 public class ConfigReader
 {
+    /**
+     * La liste utilisé pour stocker les entité.
+     *
+     * @see ----- Utilisé dans les méthodes -----
+     * @see ConfigReader#ConfigReader(String fichier)
+     * @see ConfigReader#toString()
+     */
     private ArrayList<Entite> ensEntite;
+
+    /**
+     * Le numero de la ligne lu en cours.
+     *
+     * @see ----- Utilisé dans les méthodes -----
+     * @see ConfigReader#ConfigReader(String fichier)
+     */
     private int compteurLigne=0;
+
+    /**
+     * Le chemin vers le dossier d'enregistrement config.
+     *
+     * @see ----- Utilisé dans les méthodes -----
+     * @see ConfigReader#ConfigReader(String fichier)
+     */
     private String repConfig="../config/";
+
+    /**
+     * Contraintes d'associations écrites par l'utilisateur
+     *
+     * @see ----- Utilisé dans les méthodes -----
+     * @see ConfigReader#ConfigReader(String fichier)
+     * @see ConfigReader#toString()
+     */
     public String globalContrainte="";
 
+
+    /**
+     * <b>Constructeur ConfigReader.</b>
+     * <p>
+     * A l'instanciation d'un objet de type ConfigReader
+     * </p>
+     *
+     * @param fichier
+     *            Le fichier.
+     *
+     * @see ----- Utilise les attributs -----
+     * @see ConfigReader#ensEntite
+     * @see ConfigReader#compteurLigne
+     * @see ConfigReader#repConfig
+     * @see ConfigReader#globalContrainte
+     */
     public ConfigReader(String fichier)
 {
     	Association.compteur = 1;
@@ -39,18 +84,14 @@ public class ConfigReader
                     if (!sc.hasNextLine()) break;
 
                     for (int i = temp.indexOf(':') + 1; i < temp.length(); i++)
-                        typeEntite += temp.charAt(i);
+                        typeEntite += temp.charAt(i);                               //STOCKAGE DU TYPE ENTITE
 
                     temp = sc.nextLine();
                     compteurLigne ++;
 
                     int cpt = 0;
                     while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                        nomEntite += temp.charAt(cpt);
-                        cpt++;
-                    }
-                    while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                        typeEntite += temp.charAt(cpt);
+                        nomEntite += temp.charAt(cpt);                              //STOCKAGE NOM ENTITE
                         cpt++;
                     }
 
@@ -61,7 +102,7 @@ public class ConfigReader
                     String [] entiteContraintes= null;
                     if(temp.contains("{") && temp.contains("}"))
                     {
-                        String contrainte = temp.substring(temp.indexOf("{")+1,temp.indexOf("}"));
+                        String contrainte = temp.substring(temp.indexOf("{")+1,temp.indexOf("}"));      //STOCKAGE DES CONTRAINTES ENTITE
                         entiteContraintes = contrainte.split(",");
                     }
 
@@ -88,19 +129,19 @@ public class ConfigReader
 
                                 cpt = 2;
                                 while (temp.charAt(cpt) != ' ') {
-                                    type += temp.charAt(cpt);
+                                    type += temp.charAt(cpt);                               //TYPE ATTRIBUT
                                     cpt++;
                                 }
                                 cpt++;
                                 while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                    nom += temp.charAt(cpt);
+                                    nom += temp.charAt(cpt);                                //NOM ATTRIBUT
                                     cpt++;
                                 }
                                 if(temp.contains("[")&& temp.contains("["))
                                 {
                                     cpt++;
                                     while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                        multiplicite += temp.charAt(cpt);
+                                        multiplicite += temp.charAt(cpt);                  //MULTIPLICITE ATTRIBUT
                                         cpt++;
                                     }
                                 }
@@ -113,7 +154,7 @@ public class ConfigReader
                                 if(temp.contains("{") && temp.contains("}"))
                                 {
                                     String contrainte = temp.substring(temp.indexOf("{")+1,temp.indexOf("}"));
-                                    tabContraintes = contrainte.split(",");
+                                    tabContraintes = contrainte.split(",");                               //CONTRAINTE ATTRIBUT
                                 }
 
                                 if (temp.contains("default ="))
@@ -140,7 +181,7 @@ public class ConfigReader
                         while (sc.hasNextLine() && temp.length() > 1) {
                             if (temp.charAt(0) != '/' && temp.charAt(1) != '/') {
                                 String nom = "";
-                                char visibilite = temp.charAt(0);
+                                char visibilite = temp.charAt(0);                       //VISIBILITE METHODE
                                 String typeDeRetour = "";
 
                                 ArrayList<Parametre> ensParametre = new ArrayList<>();
@@ -148,12 +189,12 @@ public class ConfigReader
 
                                 cpt = 2;
                                 while (temp.charAt(cpt) != ' ') {
-                                    typeDeRetour += temp.charAt(cpt);
+                                    typeDeRetour += temp.charAt(cpt);                   //TYPE RETOUR METHODE
                                     cpt++;
                                 }
                                 cpt++;
                                 while (cpt < temp.length() && temp.charAt(cpt) != '(') {
-                                    nom += temp.charAt(cpt);
+                                    nom += temp.charAt(cpt);                            //NOM METHODE
                                     cpt++;
                                 }
                                 //ensemblme de parametre
@@ -222,31 +263,31 @@ public class ConfigReader
                             {
 
                                 while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                    classeGauche += temp.charAt(cpt);
+                                    classeGauche += temp.charAt(cpt);                               //CLASSE GAUCHE
                                     cpt++;
                                 }
                                 cpt++;
                                 if (temp.charAt(cpt) == '[') {
                                     while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                        multipliciteGauche += temp.charAt(cpt);
+                                        multipliciteGauche += temp.charAt(cpt);                     //MULTILPLICITE GAUCHE
                                         cpt++;
                                     }
                                     cpt++;
                                 }
                                 while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                    typeFleche += temp.charAt(cpt);
+                                    typeFleche += temp.charAt(cpt);                                 //TYPE FLECHE
                                     cpt++;
                                 }
                                 cpt++;
                                 if (temp.charAt(cpt) == '[') {
                                     while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                        multipliciteDroite += temp.charAt(cpt);
+                                        multipliciteDroite += temp.charAt(cpt);                     //MULTIPLICITE DROITE
                                         cpt++;
                                     }
                                     cpt++;
                                 }
                                 while (cpt < temp.length() && temp.charAt(cpt) != ' ') {
-                                    classeDroite += temp.charAt(cpt);
+                                    classeDroite += temp.charAt(cpt);                               //CLASSE DROITE
                                     cpt++;
                                 }
 
@@ -283,6 +324,7 @@ public class ConfigReader
             System.err.println("erreur fichier de config ligne :" + compteurLigne);
         }
     }
+
     public ArrayList<Entite> getEnsEntite() {
         return ensEntite;
     }
