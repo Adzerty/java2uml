@@ -3,3 +3,4 @@
 *.xml
 /bin/
 /.idea/
+src/java2uml/IHM/GUI/PanelPrc.java
