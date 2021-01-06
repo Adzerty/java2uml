@@ -26,30 +26,34 @@ public class FrameCreer extends JFrame{
         int x = dim.width/2;
         int y = dim.height/2;
 		
-		this.setTitle("Creer un fichier");
-		this.setLocation(x,y);
-		this.setLayout(new GridLayout(2,1));
+		this.setTitle("Créer un fichier");  //Affichage du titre
+		this.setLocation(x,y);              //Placement de la frame au centre de l'ecran
+		this.setLayout(new GridLayout(2,1));//Gridlayout de 2 par 1
+		
+		//creation des differents panel
 		
 		this.panelCreer = new PanelCreer(this);
 		this.panelValider = new PanelCreerValider(this);
+		
+		//ajout des differents panel
 		
 		this.add(this.panelCreer);
 		this.add(this.panelValider);
 		 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.pack();
+		this.pack();                     //Taille de la frame
 		this.setVisible(true);
 	}
-
+	
+	//methode recuperant un tableau des fichiers a incorporer dans un .txt
+	
 	public void setFichier(String[] fichier) {
-		// TODO Auto-generated method stub
 		this.nomFichier = fichier;
-		
 	}
 	
+	//mathode qui genere un .txt suite a la validation de l'utilisateur 
+	
 	public void setValider() {
-		// TODO Auto-generated method stub
-		
 		this.ctrl.creerNouvDiagramme(this.nomFichier);
 		this.ctrl.creerNouvConfig(this.panelCreer.getFichier() , this.panelCreer.getUtil());
 	}

@@ -18,8 +18,8 @@ public class PanelValiderModifier extends JPanel  implements ActionListener{
 		
 		this.setLayout(new GridLayout(1,1));
 		
+		//creation du bouton valider
 		this.btnValider = new JButton("Valider");
-		
 		this.btnValider.addActionListener(this);
 		
 		this.add(this.btnValider);

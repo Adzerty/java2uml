@@ -29,16 +29,18 @@ public class PanelChargMod extends JPanel implements ActionListener {
 		
 		
 		this.setLayout(new GridLayout(1,3));
+		
+		//creation des JButton
 		this.btnCharger = new JButton("Charger un diagramme");
 		this.btnModifier = new JButton("Modifier un diagramme");
 		this.btnSupprimer = new JButton("Supprimer un fichier");
 		
-		
+		//initialisation des polices des boutons
 		this.btnCharger.setFont(new Font( "Verdana" ,Font.BOLD, 13));
 		this.btnModifier.setFont(new Font( "Verdana" ,Font.BOLD, 13));
 		this.btnSupprimer.setFont(new Font( "Verdana" ,Font.BOLD, 13));
 		
-		
+		//ajout d'un listner sur chaque bouton
 		this.btnCharger.addActionListener(this);
 		this.btnModifier.addActionListener(this);
 		this.btnSupprimer.addActionListener(this);
