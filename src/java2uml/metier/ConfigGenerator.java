@@ -1,13 +1,9 @@
 package java2uml.metier;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
@@ -18,18 +14,99 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import java2uml.Controleur;
+import java2uml.IHM.CUI.IHMCUI;
+
+
+/**
+ * <b>ConfigGenerator est la classe qui sert, à partir d'un Diagramme, à générer un fichier de configuration de diagramme.</b>
+ * <p>
+ * ConfigGenerator possède les attributs suivant :
+ * <ul>
+ * <li>Un Diagramme qui permet de générer le fichier de configuration.</li>
+ * <li>Une chaine qui définit le nom du fichier.</li>
+ * <li>Une chaine qui définit le nom d'auteur.</li>
+ * <li>Une chaine qui définit le bandeau des classes.</li>
+ * <li>Une liste de chaines qui stock l'ensemble des entites du diagrammes pour trouver les associations.</li>
+ * <li>Une chaine qui définit le chemin où enregistrer le fichier.</li>
+ * </ul>
+ * </p>
+ * 
+ * 
+ * @author InnovAction
+ * @version 1.0
+ */
+
 public class ConfigGenerator {
 
+	/**
+	 * Le diagramme utilisé pour généré le fichier.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see ConfigGenerator#genererClasses()
+	 */
 	private Diagramme diag;
+	
+	/**
+	 * Le nom du fichier à enregister.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see ConfigGenerator#genererBanniere()
+	 */
 	private String nomFic;
+	
+	/**
+	 * Le nom de l'auteur du fichier.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see ConfigGenerator#genererBanniere()
+	 */
 	private String nomAuteur;
 	
+	/**
+	 * Le bandeau +------+ Entité(s) +------+.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see ConfigGenerator#genererClasses()
+	 */
 	private String bandeauClasse = "";
 	
+	/**
+	 * La liste des entités du diagramme.
+	 * 
+	 * @see ----- Utilisée dans les méthodes -----
+	 * @see ConfigGenerator#genererClasses()
+	 */
 	private ArrayList<String> ensEntite = new ArrayList<String>();
 	
+	/**
+	 * Le chemin où enregistré le fichier.
+	 * 
+	 * @see ----- Utilisé dans les méthodes -----
+	 * @see ConfigGenerator#ConfigGenerator(Diagramme diag, String nomFic, String auteur)
+	 */
 	private static final String CHEMIN = "../config/";
 	
+	
+	/**
+     * <b>Constructeur ConfigGenerator.</b>
+     * <p>
+     * A l'instanciation d'un objet de type ConfigGenerator
+     * </p>
+     * 
+     * @param diag
+     *            Le diagramme.
+     * @param nomFic
+     *            Le nom du fichier.
+     * @param auteur
+     *            Le nom de l'auteur du fichier.
+     * 
+     * @see ----- Utilise les attributs -----
+     * @see IHMCUI#diag
+     * @see IHMCUI#nomFic
+     * @see IHMCUI#nomAuteur
+     * @see IHMCUI#bandeauClasse
+     */
 	public ConfigGenerator(Diagramme diag, String nomFic, String auteur) 
 	{
 		this.diag = diag;
@@ -41,11 +118,12 @@ public class ConfigGenerator {
 				"+------+\n Entité \n+------+\n";
 		
 		
+		//On génére le fichier avec la bannière / les consignes / les entites
 		String banniere = genererBanniere();
 		String consignes = genererConsignes();
 		String classes  = genererClasses();
 		
-		PrintWriter writer;
+		PrintWriter writer;//On écrit le fichier au chemin indiqué
 		try {
 			File f = new File(CHEMIN,this.nomFic+".txt");
 			writer = new PrintWriter(f, "UTF-8");
@@ -58,6 +136,14 @@ public class ConfigGenerator {
 		
 	}
 	
+	
+	/**
+     * Permet de générer la bannière du fichier (infos, rappels etc.)
+     * 
+     * @see ----- Utilisé par les méthodes -----
+     * @see ConfigGenerator#ConfigGenerator(Diagramme diag, String nomFic, String auteur)
+     * 
+     */
 	private String genererBanniere() 
 	{
 		
@@ -79,7 +165,8 @@ public class ConfigGenerator {
         sRet += separation;
         sRet += ' ' + this.nomFic+'\n';
         sRet += separation+'\n';
-        
+
+        //Récupère la date du jour
         Date dateDuJour = new Date();
 
         DateFormat shortDateFormat = DateFormat.getDateTimeInstance(
@@ -94,6 +181,14 @@ public class ConfigGenerator {
         return sRet;
 	}
 	
+	
+	/**
+     * Permet de générer quelques rappels sur les consignes de modification des fichiers
+     * 
+     * @see ----- Utilisé par les méthodes -----
+     * @see ConfigGenerator#ConfigGenerator(Diagramme diag, String nomFic, String auteur)
+     * 
+     */
 	private String genererConsignes() 
 	{
 		
@@ -107,14 +202,14 @@ public class ConfigGenerator {
         sRet += "\tExemple : //- int entierA <-- pour masquer UN attribut\n\n";
         sRet += "\tExemple : //-----Attributs <-- pour masquer TOUS les attributs\n\n";
         
-        sRet += "Pour ajouter une contrainte sur une association :"+ '\n';
-        sRet += "\tClasseA ------> ClasseB {contrainte}\n\n";
+        sRet += "Pour ajouter une contrainte sur les associations :"+ '\n';
+        sRet += "\tAssociation1 Association2 {contrainte}\n\n";
         
         sRet += "Pour ajouter des multiplicités sur une association :"+ '\n';
         sRet += "\tClasseA [0..1] ------> [1..*] ClasseB\n\n";
         
         sRet += "Pour modifier une valeur par défault d'un attribut :"+ '\n';
-        sRet += "\tExemple : - int entierA default = 10 \n\n";
+        sRet += "\tExemple : - int entierA static final default = 10 \n\n";
         
         sRet += "Pour d'autres renseignements, consultez la documentation\n\n";
         
@@ -122,7 +217,16 @@ public class ConfigGenerator {
         return sRet;
 	}
 	
-	//Méthode permettant de générer les classes dans le fichier config
+	/**
+     * Permet de générer le corps du fichier (les classes et leur(s) attributs/méthodes/associations etc.)
+     * 
+     * @see ----- Utilisé par les méthodes -----
+     * @see ConfigGenerator#ConfigGenerator(Diagramme diag, String nomFic, String auteur)
+     * 
+     * @see ----- Utilise les méthodes -----
+     * @see ConfigGenerator#getFormattedType(Object o)
+     * 
+     */
 	private String genererClasses()
 	{
 		String sRet = this.bandeauClasse;
@@ -132,10 +236,12 @@ public class ConfigGenerator {
 			if(! ensEntite.contains(c.getNomClasse()))
 				ensEntite.add(c.getNomClasse());
 		
+		//Pour chaque entite du diagramme
 		for(JavaReader c : this.diag.getEnsFile())
 		{
 			sRet += "------ Entité : " + c.getTypeEntite()+'\n';				
 				
+			//On regarde si l'entite est abstraite et finale
 			sRet += c.getNomClasse();
 			if(c.isAbstraite()) sRet += " abstract";
 			if(c.isFinal()) sRet += " final";
@@ -153,20 +259,24 @@ public class ConfigGenerator {
 	            if(Modifier.isPublic(f.getModifiers())) visibilite='+';
 	            if(Modifier.isProtected(f.getModifiers())) visibilite='#';
 	            
+	            //On regarde la staticite de l'attribut
 	            String staticite = "";
 	            if(Modifier.isStatic(f.getModifiers())) staticite="static ";
 	            
+	            //On regarde la finalite de l'attribut
 	            String finalite = "";
 	            if(Modifier.isFinal(f.getModifiers())) finalite="final ";
 	            
 	            String multiplicite = "";
 
-	            
 	            //On récupère le type de l'attribut
 	            String type = getFormattedType(f);
 	            
+	            //On récupère les multiplicités de l'attribut
 	            if(type.contains("[")) multiplicite="[0..*] ";
-	            if( (! sRet.contains("\\$")))
+	            
+	            
+	            if( (! sRet.contains("\\$")))//On regarde si on doit afficher l'attribut ou non
 	            {
 	            	boolean bOk = true;
 	            	for(String s : ensEntite) // Permet de ne pas afficher les attributs traduits par les associations
@@ -180,10 +290,10 @@ public class ConfigGenerator {
 			
 			sRet += "\n----Méthode(s) :\n";
 			
-			//Génération des constructeurs
+			//Pour chaque constructeur de l'entite
 			for(Constructor co : c.getTabConstruct())
 			{
-				//On regarde la visibilité de la méthode
+				//On regarde la visibilité du constructeur
 				char visibilite = 0;
 				if(Modifier.isPrivate(co.getModifiers())) visibilite='-';
 	            if(Modifier.isPublic(co.getModifiers())) visibilite='+';
@@ -198,9 +308,8 @@ public class ConfigGenerator {
 				{
 					Parameter p = params[i];
 					
+					//On récupère leur type formatté au format UML
 					String typeParam = getFormattedType(p);
-					//String[] typeParamSplitted = t.getTypeName().split("\\.");
-					//String typeParam = typeParamSplitted[typeParamSplitted.length-1];
 					
 					sRet+=typeParam + ' ' +p.getName();
 					if( i != params.length-1)
@@ -210,6 +319,8 @@ public class ConfigGenerator {
 				
 				sRet+='\n';	
 			}
+			
+			//Pour chaque méthode de l'entite
 			for(Method m : c.getTabMeth())
 			{
 				//On regarde la visibilité de la méthode
@@ -218,12 +329,12 @@ public class ConfigGenerator {
 	            if(Modifier.isPublic(m.getModifiers())) visibilite='+';
 	            if(Modifier.isProtected(m.getModifiers())) visibilite='#';
 	            
+	            //On regarde la staticite de la méthode
 	            String staticite = "";
 	            if(Modifier.isStatic(m.getModifiers())) staticite="static ";
 	            
 	            
-	            
-	            //On récupère le type de retour de la méthode
+	            //On récupère le type de retour de la méthode au format UML
 				String type = getFormattedType(m);
 				
 				sRet+="" + visibilite + ' ' + type + ' ' +m.getName()+"(";
@@ -234,29 +345,33 @@ public class ConfigGenerator {
 				{
 					Parameter p = params[i];
 					
+					//On récupère leur type formatté au format UML
 					String typeParam = getFormattedType(p);
-					//String[] typeParamSplitted = t.getTypeName().split("\\.");
-					//String typeParam = typeParamSplitted[typeParamSplitted.length-1];
-					
+
 					sRet+=typeParam + ' ' +p.getName();
 					if( i != params.length-1)
 						sRet += "; ";
 				}
 				sRet += ")";
+				//Si la méthode est abstraite
 				sRet += Modifier.isAbstract(m.getModifiers()) ? " abstract " : "";
 				sRet += ' ' +staticite;
 				
 				sRet+='\n';
 			}
 			sRet += "\n----Association(s) :\n";
-			if(c.aMere()) 
+			//On génère les associations qu'on peut déduire du fichier Java
+			if(c.aMere()) //Association de généralisation / spécialisation
 			{
 				sRet += c.getNomClasse() + " -------|> "+ c.getMere() +'\n';
 			}
-			if(c.aClasseGlobale()) 
+			
+			if(c.aClasseGlobale()) //Classe interne
 			{
 				sRet += c.getNomClasse() + " -------(+) "+ c.getClasseGlobale() +'\n';
 			}
+			
+			//Pour chaque attribut de l'entite on regarde si le type fait parti des classe du diagramme
 			for(Field f : c.getTabAttribut())
 			{
 				if(f.getName().contains("$"))continue;
@@ -266,7 +381,7 @@ public class ConfigGenerator {
 			}
 			
 			
-			for(Class inter : c.getInterface())
+			for(Class inter : c.getInterface())// Implémentation d'interface
 			{
 				for(String s : ensEntite)
 					if(inter.getName().contains(s))
@@ -283,8 +398,13 @@ public class ConfigGenerator {
 	}
 	
 	
-	//Méthode qui permet de retourner le type au format uml (sans java.*** etc et avec les
-	//types génériques
+	/**
+     * Permet de retourner le type au format UML de l'objet fourni en paramètre
+     * 
+     * @see ----- Utilisé par les méthodes -----
+     * @see ConfigGenerator#genererClasses()
+     * 
+     */
 	private String getFormattedType(Object o) {
 		Type type = null;
 		String sRet = "";
@@ -294,7 +414,7 @@ public class ConfigGenerator {
         if(o instanceof Method) type = ((Method) o).getGenericReturnType();
         if(o instanceof Parameter) type = ((Parameter) o).getParameterizedType();
         
-        //Si on des <> (ParameterizedType)
+        //Si on a des <> (ParameterizedType) on recupère le type et le type entre chevron
         if (type instanceof ParameterizedType) 
         {
         	String sTypeName = type.getTypeName();
@@ -325,7 +445,7 @@ public class ConfigGenerator {
         			
         			sRet = sRet.substring(0, sRet.length()-1);
         		}
-        		else
+        		else 
         		{
         			Scanner sc2 = new Scanner(scChevronNext);
             		sc2.useDelimiter("\\.");
@@ -337,7 +457,7 @@ public class ConfigGenerator {
         		}
         		
         	}
-        }
+        } //Si non on affiche normalement
         else 
     	{
 	    	String sTypeName = type.getTypeName();
@@ -349,6 +469,8 @@ public class ConfigGenerator {
 			sRet+=scNext;
     	}
 
+        
+        //On traduit tous les types primitifs (+ String ) en français
         sRet = sRet.replaceAll("int"	,"entier"		);
         sRet = sRet.replaceAll("long"	,"entier"		);
         
