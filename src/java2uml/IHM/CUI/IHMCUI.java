@@ -205,8 +205,6 @@ public class IHMCUI
 					break;
 				case  4 :
 					this.supprimer(0, null);
-					Console.print("\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
-					this.getString();
 					break;
 				case  5 :
 					this.parametres(0,this.ctrl.getOptions().clone());
@@ -624,6 +622,8 @@ public class IHMCUI
 					}
 					this.ctrl.supprimerFichiers(tabFichierConfig);
 				}
+				Console.print("\n\t\tAppuyer sur " + this.col("Entrée", 'B') + " pour continuer ...");
+				this.getString();
 			}
 			if(saisie== '-')
 			{
