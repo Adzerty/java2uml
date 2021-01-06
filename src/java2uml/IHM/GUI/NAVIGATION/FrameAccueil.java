@@ -21,12 +21,12 @@ public class FrameAccueil extends JFrame{
 	public FrameAccueil(Controleur ctrl) {
 		
 		
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize(); 
+		//Dimension dim = Toolkit.getDefaultToolkit().getScreenSize(); 
 		
 		this.ctrl = ctrl;
 
-        int x = dim.width;
-        int y = dim.height;
+        int x = 200;//dim.width;
+        int y = 200;//dim.height;
         
   
 		this.setTitle("Java2UML");          //Affichage du titre
