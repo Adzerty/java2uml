@@ -6,12 +6,13 @@ public class Membre {
 	private String prenom;
 	private String image;
 	private String titre;
+	private String description;
 	
-	public Membre(String nom , String prenom , String image ) {
+	public Membre(String nom , String prenom ,String description, String image ) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.image = image;
-		
+		this.description = description;
 	}
 	
 	public Membre(String titre ) {
@@ -30,6 +31,8 @@ public class Membre {
 	public String getTitre() {
 		return this.titre;
 	}
-
+	public String getDescription() {
+		return this.description;
+	}
 	
 }
