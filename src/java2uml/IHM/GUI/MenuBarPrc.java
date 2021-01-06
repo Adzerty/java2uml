@@ -5,11 +5,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.text.Document;
+
+import com.itextpdf.text.Image;
 
 public class MenuBarPrc extends JMenuBar implements ActionListener{
 	
@@ -34,7 +38,8 @@ public class MenuBarPrc extends JMenuBar implements ActionListener{
 			Graphics2D g2 = image.createGraphics();
 			this.panelPrc.paint(g2);
 			try{
-				ImageIO.write(image, "png",new File("../diagrammes/pdf/" + panelPrc.getFileName() + ".png"));
+				ImageIO.write(image, "png",new File("../diagrammes/png/" + panelPrc.getFileName() + ".png"));
+				
 			} catch (Exception io) {
 				io.printStackTrace();
 			}
