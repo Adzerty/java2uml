@@ -2,6 +2,24 @@ package java2uml.metier;
 
 import java.util.ArrayList;
 
+    /**
+     * <b>Methode est la classe qui sert a stocker les informations d'une methode.</b>
+     * <p>
+     * Methode possède les attributs suivant :
+     * <ul>
+     * <li>Une Chaine qui définit le type de retour.</li>
+     * <li>Une Liste de chaine qui stocke l'ensemble de parametres de la methode</li>
+     * <li>Un  booléen qui définit si la methode est Statique.</li>
+     * <li>Un  booléen qui définit si la methode est Finale.</li>
+     * <li>Un  booléen qui définit si la methode est Abstraite.</li>
+     * <li>Un  Chaine  qui définit le nom de la methode.</li>
+     * </ul>
+     * </p>
+     *
+     * @author InnovAction
+     * @version 1.0
+     */
+
 public class Methode
 {
     /**
@@ -14,7 +32,7 @@ public class Methode
      * @see Methode#toString()
      */
     private String nom;
-    
+
     /**
      * Visibilité de la methode
      *
@@ -60,27 +78,67 @@ public class Methode
     private boolean estStatique;
 
     /**
-     * Verifie si la methode est statique ou non
+     * Verifie si la methode est Finale ou non
      *
      * @see ----- Utilisé dans les méthodes -----
      * @see Methode#Methode(String, char, String, ArrayList, boolean, boolean, boolean)
-     * @see Methode#isEstFinale() 
+     * @see Methode#isEstFinale()
      * @see Methode#setEstFinale(boolean) 
      * @see Methode#toString()
      */
     private boolean estFinale;
+
+    /**
+     * Verifie si la methode est Abstraite ou non
+     *
+     * @see ----- Utilisé dans les méthodes -----
+     * @see Methode#Methode(String, char, String, ArrayList, boolean, boolean, boolean)
+     * @see Methode#isEstAbstraite()
+     * @see Methode#setEstAbstraite(boolean)
+     * @see Methode#toString()
+     */
     private boolean estAbstraite;
 
+    /**
+     * <b>Constructeur ConfigGenerator.</b>
+     * <p>
+     * A l'instanciation d'un objet de type Methode
+     * </p>
+     *
+     * @param nom
+     *            Nom de la methode.
+     * @param visibilite
+     *            visibilite de la methode.
+     * @param typeDeRetour
+     *            Le type de retour de la methode.
+     * @param ensParametre
+     *            Ensemble des parametres de la methode.
+     * @param estAbstraite
+     *            Verifie si la methode est abstraite
+     * @param estFinale
+     *            Verifie si la methode est Finale
+     * @param estStatique
+     *            Verifie si la methode est Statique
+     *
+     * @see ----- Utilise les attributs -----
+     * @see Methode#visibilite
+     * @see Methode#typeDeRetour
+     * @see Methode#ensParametre
+     * @see Methode#estStatique
+     * @see Methode#estFinale
+     * @see Methode#estAbstraite
+     * @see Methode#nom
+     */
     public Methode(String nom, char visibilite, String typeDeRetour, ArrayList<Parametre> ensParametre,
                    boolean estStatique, boolean estFinale, boolean estAbstraite)
     {
-        this.nom = nom;
         this.visibilite = visibilite;
         this.typeDeRetour = typeDeRetour;
         this.ensParametre = ensParametre;
         this.estStatique = estStatique;
         this.estFinale = estFinale;
         this.estAbstraite = estAbstraite;
+        this.nom = nom;
     }
 
     public String getNom() {
@@ -139,7 +197,6 @@ public class Methode
         this.estAbstraite = estAbstraite;
     }
 
-
     @Override
     public String toString() {
 
@@ -169,6 +226,18 @@ public class Methode
         sRet += "\n";
         return sRet;
     }
+
+    /**
+     * Permet de renvoyer au format texte l'attribut sans son type de retour
+     *
+     * @see ----- Utilise les attributs -----
+     * @see Methode#visibilite
+     * @see Methode#ensParametre
+     * @see Methode#estStatique
+     * @see Methode#estFinale
+     * @see Methode#estAbstraite
+     * @see Methode#nom
+     */
     public String toStringNoReturnType()
     {
         String sRet = "";

@@ -1,5 +1,22 @@
 package java2uml.metier;
 
+    /**
+     * <b>Association est la classe qui sert a stocker les informations d'une association.</b>
+     * <p>
+     * Association possède les attributs suivant :
+     * <ul>
+     * <li>Une Chaine qui définit le nom de la classe de droite.</li>
+     * <li>Une Chaine qui définit le nom de la classe de gauche.</li>
+     * <li>Une Chaine qui définit la multiplicite de l'association.</li>
+     * <li>Une chaine qui définit le type de fleche de l'association.</li>
+     * <li>Un entier qui définit le numero de l'association</li>
+     * </ul>
+     * </p>
+     *
+     * @author InnovAction
+     * @version 1.0
+     */
+
 public class Association
 {
     /**
