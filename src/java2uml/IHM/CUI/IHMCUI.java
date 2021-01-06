@@ -117,9 +117,9 @@ public class IHMCUI
      * @param optionSup
      * 		boolean qui définit l'état de l'option "Supprimer les fichiers diagrammes associés au fichier configuration".
      * 
-     * @see Console
+     * @see iut.algo.Console
      * @see IHMCUI#col(String s, char c)
-     * @see Thread
+     * @see java.lang.Thread
      */
 	public void confirmSup(String fichierSup, boolean supConfig, boolean supDiagTxt, boolean supDiagPdf, boolean optionSup)//gestion des types d'erreurs lors de la suppression.
 	{
@@ -154,7 +154,7 @@ public class IHMCUI
 	/**
      * Affiche dans la console le menu principal avec les différentes fonctionnalités de l'application
      * 
-     * @see Console
+     * @see iut.algo.Console
      * @see Controleur#compilation()
      * @see Controleur#getOptions()
      * @see IHMCUI#charger(int selec)
@@ -166,8 +166,8 @@ public class IHMCUI
      * @see IHMCUI#col(String s, char c)
      * @see IHMCUI#setCE(char c)
      * @see IHMCUI#getInt()
-     * @see Thread
-     * @see System#exit(int status)
+     * @see java.lang.Thread
+     * @see java.lang.System#exit(int status)
      */
 	private void menu()
 	{
@@ -230,7 +230,7 @@ public class IHMCUI
      * @param tabSelec
      * 		un tableau de booléen qui est nécessaire pour la selection multiple, car il permet de savoir si un fichier a été préalablement sélectionné, pour la création du fichier de configuration.
      * 
-     * @see Console
+     * @see iut.algo.Console
      * @see Controleur#getClasse()
      * @see Controleur#getTailleMaxFichier(String rep)
      * @see Controleur#creerNouvDiagramme(String[] tabNomFichier)
@@ -244,8 +244,8 @@ public class IHMCUI
      * @see IHMCUI#menu()
      * @see IHMCUI#verifSaisie(char saisie, boolean multi)
      * @see IHMCUI#getString()
-     * @see String
-     * @see Thread
+     * @see java.lang.String
+     * @see java.lang.Thread
      */
 	private void creer(int selec ,boolean[] tabSelec)
 	{
@@ -368,7 +368,7 @@ public class IHMCUI
      * @param selec
      * 		un entier qui définit la position du fichier courant nécessaire pour le menu récursif.
      * 
-     * @see Console
+     * @see iut.algo.Console
      * @see Controleur#getConfig()
      * @see Controleur#getTailleMaxFichier(String rep)
      * @see Controleur#getContenuConfig(String nomFichier)
@@ -381,8 +381,8 @@ public class IHMCUI
      * @see IHMCUI#menu()
      * @see IHMCUI#verifSaisie(char saisie, boolean multi)
      * @see IHMCUI#getString()
-     * @see String
-     * @see Thread
+     * @see java.lang.String
+     * @see java.lang.Thread
      */
 	private void charger(int selec)
 	{
@@ -448,7 +448,7 @@ public class IHMCUI
      * @param selec
      * 		un entier qui définit la position du fichier courant nécessaire pour le menu récursif.
      * 
-     * @see Console
+     * @see iut.algo.Console
      * @see Controleur#getConfig()
      * @see Controleur#getTailleMaxFichier(String rep)
      * @see Controleur#ouvrirEnEdit(String nomFichier)
@@ -461,8 +461,8 @@ public class IHMCUI
      * @see IHMCUI#menu()
      * @see IHMCUI#verifSaisie(char saisie, boolean multi)
      * @see IHMCUI#getString()
-     * @see String
-     * @see Thread
+     * @see java.lang.String
+     * @see java.lang.Thread
      */
 	private void modifier(int selec)
 	{
@@ -531,7 +531,7 @@ public class IHMCUI
      * @param tabSelecSup
      * 		un tableau de booléen qui est nécessaire pour la selection multiple, car il permet de savoir si un fichier a été préalablement sélectionné, pour être supprimé.
      * 
-     * @see Console
+     * @see iut.algo.Console
      * @see Controleur#getConfig()
      * @see Controleur#getTailleMaxFichier(String rep)
      * @see Controleur#supprimerFichiers(String[] tabFichierSup)
@@ -543,8 +543,8 @@ public class IHMCUI
      * @see IHMCUI#menuSelection(boolean multi)
      * @see IHMCUI#menu()
      * @see IHMCUI#verifSaisie(char saisie, boolean multi)
-     * @see String
-     * @see Thread
+     * @see java.lang.String
+     * @see java.lang.Thread
      */
 	private void supprimer(int selec, boolean[] tabSelecSup)
 	{
@@ -654,8 +654,8 @@ public class IHMCUI
      * @param listeP
      * 		un tableau de booléen associé aux différentes options du programme.
      * 
-     * @see Character#toUpperCase(char ch)
-     * @see Console
+     * @see java.lang.Character#toUpperCase(char ch)
+     * @see iut.algo.Console
      * @see Controleur#majOptions(boolean[] options)
      * @see IHMCUI#entete()
      * @see IHMCUI#col(String s, char c)
@@ -663,7 +663,7 @@ public class IHMCUI
      * @see IHMCUI#getChar()
      * @see IHMCUI#menu()
      * @see IHMCUI#verifSaisie(char saisie, boolean multi)
-     * @see String
+     * @see java.lang.String
      */
 	private void parametres(int selec,boolean[] listeP)
 	{
@@ -753,8 +753,8 @@ public class IHMCUI
      * 
      * @return l'action de l'utilisateur, sous la forme d'un caractère.
      * 
-     * @see Character#toUpperCase(char ch)
-     * @see Console#print(String) 
+     * @see java.lang.Character#toUpperCase(char ch)
+     * @see iut.algo.Console#print(String) 
      * @see IHMCUI#col(String s, char c)
      * @see IHMCUI#getChar()
      * @see IHMCUI#setCE(char c)
@@ -782,8 +782,8 @@ public class IHMCUI
      * @param tMAxFichier
      * 		un entier qui définie la taille de la chaine du plus grand nom de fichier dans le tableau.
      * 
-     * @see String
-     * @see Console#println()
+     * @see iut.algo.Console#println()
+     * @see java.lang.String
      */
 	private void debTab(int tMAxFichier)
 	{
@@ -803,8 +803,8 @@ public class IHMCUI
      * @param tMAxFichier
      * 		un entier qui définie la taille de la chaine du plus grand nom de fichier dans le tableau.
      * 
-     * @see String
-     * @see Console#println()
+     * @see java.lang.String
+     * @see iut.algo.Console#println()
      */
 	private void afficherFichier(String dataConf, boolean selec, int tMAxFichier)
 	{
@@ -820,7 +820,7 @@ public class IHMCUI
      * 		un entier qui définie la taille de la chaine du plus grand nom de fichier dans le tableau.
      * 
      * @see IHMCUI#nSep(int n, String s)
-     * @see Console#println()
+     * @see iut.algo.Console#println()
      */
 	private void finTab(int tMAxFichier)
 	{
@@ -840,9 +840,9 @@ public class IHMCUI
      * <li>false → la saisie est fausse;</li>
      * <li>true  → la saisie est bonne;</li> 
      * 
-     * @see Console#println()
+     * @see iut.algo.Console#println()
      * @see IHMCUI#col(String s, char c)
-     * @see Thread
+     * @see java.lang.Thread
      */
 	private boolean verifSaisie(char saisie, boolean multi)
 	{
@@ -907,7 +907,7 @@ public class IHMCUI
      * 
      * @return le code couleur choisie pour la console, sous la forme d'une Chaine.
      * 
-     * @see CouleurConsole
+     * @see iut.algo.CouleurConsole
      */
 	private String setCE(char c)
 	{
@@ -928,8 +928,8 @@ public class IHMCUI
 	/**
      * Execute une commande dans la console en fonction du système d'exploitation qui efface la console.
      * 
-     * @see System
-     * @see ProcessBuilder
+     * @see java.lang.System
+     * @see java.lang.ProcessBuilder
      */
 	private void clear()
 	{
@@ -947,7 +947,7 @@ public class IHMCUI
      * 
      * @see IHMCUI#clear()
      * @see IHMCUI#col(String s, char c)
-     * @see Console
+     * @see iut.algo.Console
      */
 	private void entete()
 	{
@@ -969,7 +969,7 @@ public class IHMCUI
      * @see IHMCUI#col(String s, char c)
      * @see IHMCUI#clear()
      * @see IHMCUI#setCE(char c)
-     * @see Thread
+     * @see java.lang.Thread
      */
 	private void afficherInnovAction()
 	{
@@ -1000,7 +1000,7 @@ public class IHMCUI
      * 
      * @return la Chaine saisie par l'utilisateur au clavier.
      * 
-     * @see Console#lireString()
+     * @see iut.algo.Console#lireString()
      */
 	private String getString() { return Console.lireString(); }
 	
@@ -1009,7 +1009,7 @@ public class IHMCUI
      * 
      * @return l'entier saisie par l'utilisateur au clavier.
      * 
-     * @see Console#lireInt()
+     * @see iut.algo.Console#lireInt()
      */
 	private int    getInt   () { return Console.lireInt()   ; }
 	
@@ -1018,7 +1018,7 @@ public class IHMCUI
      * 
      * @return le caractère saisie par l'utilisateur au clavier.
      * 
-     * @see Console#lireChar()
+     * @see iut.algo.Console#lireChar()
      */
 	private char   getChar  () { return Console.lireChar()  ; }
 }
