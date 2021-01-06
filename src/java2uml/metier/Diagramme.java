@@ -33,23 +33,13 @@ public class Diagramme {
 		this.ensAssociations = new ArrayList<Association>();
 	}
 	
-	public static void main(String[] args) {
-		
-		String[] tabNoms = {"Coord"};
-		Diagramme d = new Diagramme(tabNoms);
-	}
-
 	public ArrayList<JavaReader> getEnsFile() 
 	{
 		return ensFile;
 	}
-
-
 	public ArrayList<Association> getEnsAssociations() 
 	{
 		return ensAssociations;
 	}
-
-	
 
 }
