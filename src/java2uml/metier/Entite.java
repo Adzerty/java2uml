@@ -2,17 +2,150 @@ package java2uml.metier;
 
 import java.util.ArrayList;
 
+    /**
+     * <b>Entite est la classe qui sert a stocker les information d'une entite.</b>
+     * <p>
+     * entite possède les attributs suivant :
+     * <ul>
+     * <li>Une Liste de methodes qui stock toutes les methodes d'une entite</li>
+     * <li>Une Liste d'attributs qui stock tous les attributs d'une entite</li>
+     * <li>Une Chaine qui définit le nom de la methode.</li>
+     * <li>Une Chaine qui définit le type de la methode.</li>
+     * <li>Un  Boolean qui définit si l'entite est abstraite</li>
+     * <li>Un  Boolean qui définit si l'entite est finale</li>
+     * <li>Une Liste d'associations qui stock toutes les associations d'une entite</li> 
+     * <li>Une Liste de contrainte qui stock toutes les contraintes d'une entite</li> 
+     * </ul>
+     * </p>
+     *
+     * @author InnovAction
+     * @version 1.0
+     */
+    
 public class Entite
 {
+    /**
+     * Liste des methodes de l'entité
+     *
+     * @see ----- Utilisé dans les méthodes -----
+     * @see Entite#Entite(ArrayList, ArrayList, String, String, boolean, boolean, ArrayList, String[]) 
+     * @see Entite#getEnsMethode() 
+     * @see Entite#setEnsMethode(ArrayList) 
+     * @see Entite#toString() 
+     */
     private ArrayList<Methode> ensMethode;
+    
+    /**
+     * Liste des attribut de l'entité
+     *
+     * @see ----- Utilisé dans les attribut -----
+     * @see Entite#Entite(ArrayList, ArrayList, String, String, boolean, boolean, ArrayList, String[])
+     * @see Entite#getEnsAttribut() 
+     * @see Entite#setEnsAttribut(ArrayList) 
+     * @see Entite#toString()
+     */
     private ArrayList<Attribut> ensAttribut;
+
+    /**
+     * Le nom de l'entité.
+     *
+     * @see ----- Utilisé dans les méthodes -----
+     * @see Entite#Entite(ArrayList, ArrayList, String, String, boolean, boolean, ArrayList, String[])
+     * @see Entite#getNom()
+     * @see Entite#setNom(String)
+     * @see Entite#toString()
+     */
     private String nom;
+
+    /**
+     * Le type de l'entité.
+     *
+     * @see ----- Utilisé dans les méthodes -----
+     * @see Entite#Entite(ArrayList, ArrayList, String, String, boolean, boolean, ArrayList, String[])
+     * @see Entite#getType() 
+     * @see Entite#setType(String) 
+     * @see Entite#toString()
+     */
     private String type;
+    /**
+     * Si l'entité est abstraite.
+     *
+     * @see ----- Utilisé dans les méthodes -----
+     * @see Entite#Entite(ArrayList, ArrayList, String, String, boolean, boolean, ArrayList, String[]) 
+     * @see Entite#isEstAbstraite()
+     * @see Entite#setEstAbstraite(boolean)
+     * @see Entite#toString()
+     */
     private boolean estAbstraite;
+
+    /**
+     * Si l'entité est Finale.
+     *
+     * @see ----- Utilisé dans les méthodes -----
+     * @see Entite#Entite(ArrayList, ArrayList, String, String, boolean, boolean, ArrayList, String[])
+     * @see Entite#isEstFinale()
+     * @see Entite#setEstFinale(boolean)
+     * @see Entite#toString()
+     */
     private boolean estFinale;
+
+    /**
+     * Liste des associations de l'entité
+     *
+     * @see ----- Utilisé dans les attribut -----
+     * @see Entite#Entite(ArrayList, ArrayList, String, String, boolean, boolean, ArrayList, String[])
+     * @see Entite#getEnsAssociations()
+     * @see Entite#setEnsAssociations(ArrayList)
+     * @see Entite#toString()
+     */
     private ArrayList<Association> ensAssociations;
+
+    /**
+     * Tableau de contraintes de l'entité
+     *
+     * @see ----- Utilisé dans les attribut -----
+     * @see Entite#Entite(ArrayList, ArrayList, String, String, boolean, boolean, ArrayList, String[])
+     * @see Entite#getContraintes()
+     * @see Entite#setContraintes(String[])
+     * @see Entite#toString()
+     */
     private String [] contraintes;
 
+
+    /**
+     * <b>Constructeur Entite.</b>
+     * <p>
+     * On crée une Entite pour l'affichage du diagramme
+     * </p>
+     *
+     * @param ensMethode
+     *            Ensemble des methodes de l'entité
+     * @param ensAttribut
+     *            Ensemble de attributs de l'entité
+     * @param nom
+     *            Nom de l'entité
+     * @param type
+     *            Type de l'entité
+     * @param estAbstraite
+     *            Verifie si l'entité est abstraite.
+     * @param estFinale
+     *            La finalité de l'entité
+     * @param ensAssociations
+     *             L'ensemble des associations de l'entité
+     * @param contraintes
+     *             Les contraintes de l'entité
+     *
+     * @see ----- Utilise les attributs ----
+     * @see Entite#ensMethode
+     * @see Entite#ensAttribut
+     * @see Entite#nom
+     * @see Entite#type
+     * @see Entite#estAbstraite
+     * @see Entite#estFinale
+     * @see Entite#ensAssociations
+     * @see Entite#contraintes
+     *
+     */
     public Entite(ArrayList<Methode> ensMethode, ArrayList<Attribut> ensAttribut, String nom, String type, boolean estAbstraite,
                   boolean estFinale, ArrayList<Association> ensAssociations,String[] contraintes)
     {
@@ -25,67 +158,37 @@ public class Entite
         this.ensAssociations = ensAssociations;
         this.contraintes = contraintes;
     }
-
-    public ArrayList<Methode> getEnsMethode() {
-        return ensMethode;
-    }
-
-    public void setEnsMethode(ArrayList<Methode> ensMethode) {
-        this.ensMethode = ensMethode;
-    }
-
-    public ArrayList<Attribut> getEnsAttribut() {
-        return ensAttribut;
-    }
-
-    public void setEnsAttribut(ArrayList<Attribut> ensAttribut) {
-        this.ensAttribut = ensAttribut;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public boolean isEstAbstraite() {
-        return estAbstraite;
-    }
-
-    public void setEstAbstraite(boolean estAbstraite) {
-        this.estAbstraite = estAbstraite;
-    }
-
-    public boolean isEstFinale() {
-        return estFinale;
-    }
-
-    public void setEstFinale(boolean estFinale) {
-        this.estFinale = estFinale;
-    }
-
-    public ArrayList<Association> getEnsAssociations() {
-        return ensAssociations;
-    }
-
-    public void setEnsAssociations(ArrayList<Association> ensAssociations) {
-        this.ensAssociations = ensAssociations;
-    }
-
+    public ArrayList<Methode> getEnsMethode() { return ensMethode;    }
+    public void setEnsMethode(ArrayList<Methode> ensMethode) { this.ensMethode = ensMethode;    }
+    public ArrayList<Attribut> getEnsAttribut() { return ensAttribut;    }
+    public void setEnsAttribut(ArrayList<Attribut> ensAttribut) { this.ensAttribut = ensAttribut;    }
+    public String getNom() { return nom;    }
+    public void setNom(String nom) {        this.nom = nom;    }    public String getType() {        return type;    }
+    public void setType(String type) {this.type = type;    }
+    public boolean isEstAbstraite() { return estAbstraite; }
+    public void setEstAbstraite(boolean estAbstraite) { this.estAbstraite = estAbstraite; }
+    public boolean isEstFinale() { return estFinale; }
+    public void setEstFinale(boolean estFinale) {this.estFinale = estFinale;}
+    public ArrayList<Association> getEnsAssociations() {return ensAssociations; }
+    public void setEnsAssociations(ArrayList<Association> ensAssociations) {this.ensAssociations = ensAssociations; }
     public String[] getContraintes() { return contraintes; }
-
     public void setContraintes(String[] contraintes) {this.contraintes = contraintes; }
 
+
+    /**
+     * Permet de connaitre la taille de la ligne la plus longue.
+     *
+     * @see ----- Utilise les attributs ----
+     * @see Entite#ensMethode
+     * @see Entite#ensAttribut
+     * @see Entite#nom
+     * @see Entite#type
+     * @see Entite#estAbstraite
+     * @see Entite#estFinale
+     * @see Entite#ensAssociations
+     * @see Entite#contraintes
+     *
+     */
     public int getTailleMax()
     {
         int maxTaille=0;

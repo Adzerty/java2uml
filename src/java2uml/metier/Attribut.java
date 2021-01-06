@@ -26,7 +26,7 @@ public class Attribut
 	 * Le nom de l'attribut.
 	 * 
 	 * @see ----- Utilisé dans les méthodes -----
-	 * @see Attribut#Attribut()
+	 * @see Attribut#Attribut(String, char, boolean, boolean, String, String, String[], String)
 	 * @see Attribut#getNom()
 	 * @see Attribut#setNom(String)
 	 * @see Attribut#toString()
@@ -38,7 +38,7 @@ public class Attribut
 	 * La visibilité de l'attribut.
 	 * 
 	 * @see ----- Utilisé dans les méthodes -----
-	 * @see Attribut#Attribut()
+	 * @see Attribut#Attribut(String, char, boolean, boolean, String, String, String[], String)
 	 * @see Attribut#getVisibilite()
 	 * @see Attribut#setVisibilite(char)
 	 * @see Attribut#toString()
@@ -50,8 +50,8 @@ public class Attribut
 	 * Si l'attribut est static.
 	 * 
 	 * @see ----- Utilisé dans les méthodes -----
-	 * @see Attribut#Attribut()
-	 * @see Attribut#isEstStatique()()
+	 * @see Attribut#Attribut(String, char, boolean, boolean, String, String, String[], String)
+	 * @see Attribut#isEstStatique()
 	 * @see Attribut#setEstStatique(boolean)
 	 * @see Attribut#toString()
 	 */
@@ -61,8 +61,8 @@ public class Attribut
 	 * Si l'attribut est final.
 	 * 
 	 * @see ----- Utilisé dans les méthodes -----
-	 * @see Attribut#Attribut()
-	 * @see Attribut#isEstFinale()()
+	 * @see Attribut#Attribut(String, char, boolean, boolean, String, String, String[], String)
+	 * @see Attribut#isEstFinale()
 	 * @see Attribut#setEstFinale(boolean)
 	 * @see Attribut#toString()
 	 * @see Attribut#toStringNoType()
@@ -73,7 +73,7 @@ public class Attribut
 	 * La valeur par défaut de l'attribut.
 	 * 
 	 * @see ----- Utilisé dans les méthodes -----
-	 * @see Attribut#Attribut()
+	 * @see Attribut#Attribut(String, char, boolean, boolean, String, String, String[], String)
 	 * @see Attribut#getValeurParDefault()
 	 * @see Attribut#setValeurParDefault(String)
 	 * @see Attribut#toString()
@@ -85,7 +85,7 @@ public class Attribut
 	 * La type de l'attribut.
 	 * 
 	 * @see ----- Utilisé dans les méthodes -----
-	 * @see Attribut#Attribut()
+	 * @see Attribut#Attribut(String, char, boolean, boolean, String, String, String[], String)
 	 * @see Attribut#getType()
 	 * @see Attribut#setType(String)
 	 * @see Attribut#toString()
@@ -96,7 +96,7 @@ public class Attribut
 	 * Le tableau de propriétes de l'attribut.
 	 * 
 	 * @see ----- Utilisé dans les méthodes -----
-	 * @see Attribut#Attribut()
+	 * @see Attribut#Attribut(String, char, boolean, boolean, String, String, String[], String) ()
 	 * @see Attribut#getContrainte()
 	 * @see Attribut#setContrainte(String[])
 	 * @see Attribut#toString()
@@ -108,7 +108,7 @@ public class Attribut
 	 * La multiplicité de l'attribut.
 	 * 
 	 * @see ----- Utilisé dans les méthodes -----
-	 * @see Attribut#Attribut()
+	 * @see Attribut#Attribut(String, char, boolean, boolean, String, String, String[], String) ()
 	 * @see Attribut#getMultiplicite()
 	 * @see Attribut#setMultiplicite(String)
 	 * @see Attribut#toString()
@@ -129,14 +129,27 @@ public class Attribut
      *            La visibilite de l'attribut.
      * @param estStatique
      *            La staticité de l'attribut.
-     * @param estStatique
-     *            La staticité de l'attribut.
+     * @param estFinale
+     *            La Finalité de l'attribut.
+     * @param contrainte
+     *            Les contraintes de l'attribut
+     * @param multiplicite
+     *            Les multiplicité de l'attribut
+     * @param type
+     *            Le type de l'attribut
+     * @param valeurParDefault
+     *            La valeur par defaut de l'attribut
      * 
-     * @see ----- Utilise les attributs -----
-     * @see ConfigGenerator#diag
-     * @see ConfigGenerator#nomFic
-     * @see ConfigGenerator#nomAuteur
-     * @see ConfigGenerator#bandeauClasse
+     * @see ----- Utilise les attributs ----
+     * @see Attribut#nom
+     * @see Attribut#visibilite
+     * @see Attribut#estStatique
+     * @see Attribut#estFinale
+     * @see Attribut#valeurParDefault
+     * @see Attribut#type
+     * @see Attribut#contrainte
+     * @see Attribut#multiplicite
+     *
      */
     public Attribut(String nom, char visibilite, boolean estStatique, boolean estFinale, String valeurParDefault,String type,String[] contrainte,String multiplicite) {
         this.nom = nom;
@@ -236,6 +249,18 @@ public class Attribut
        return sRet;
 
     }
+    /**
+     * Permet de renvoyer au format texte l'attribut sans son type de retour
+     *
+     * @see ----- Utilise les attributs -----
+     * @see Attribut#nom
+     * @see Attribut#visibilite
+     * @see Attribut#estStatique
+     * @see Attribut#estFinale
+     * @see Attribut#valeurParDefault
+     * @see Attribut#contrainte
+     * @see Attribut#multiplicite
+     */
     public String toStringNoType()
     {
         String sRet="";
