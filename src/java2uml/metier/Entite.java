@@ -82,6 +82,10 @@ public class Entite
         this.ensAssociations = ensAssociations;
     }
 
+    public String[] getContraintes() { return contraintes; }
+
+    public void setContraintes(String[] contraintes) {this.contraintes = contraintes; }
+
     public int getTailleMax()
     {
         int maxTaille=0;
