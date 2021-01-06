@@ -53,9 +53,9 @@ public class PanelEntite extends JPanel implements MouseListener  {
 		
 		this.type = this.entite.getType();
 
-		if(this.type.equals("Enum : "))      {this.type = "<<Enum>>";}
-		if(this.type.equals("Interface : ")) {this.type = "<<Interface>>";}
-		if(this.type.equals("Classe : "))    {this.type = "";}
+		if(this.type.equals("Enum"))      {this.type = "<<Enum>>";}
+		if(this.type.equals("Interface")) {this.type = "<<Interface>>";}
+		if(this.type.equals("Classe"))    {this.type = "";}
 		
 		JLabel type = new JLabel(this.type, JLabel.CENTER);
 		JLabel nom = new JLabel(this.entite.getNom()+" "+contrainte, JLabel.CENTER);
