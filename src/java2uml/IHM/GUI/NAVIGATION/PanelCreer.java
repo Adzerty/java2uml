@@ -76,17 +76,17 @@ public class PanelCreer extends JPanel
 	    
 	   
 	    // creation du label fichier
-		this.lblFichier = new JLabel("Fichier");
+		this.lblFichier = new JLabel("Fichier(s)");
 		this.lblFichier.setFont(new Font( "Verdana" ,Font.BOLD, 17));
 		
 		//creation du label nom de fichier
-		this.lblNomFichier = new JLabel("Nom du Fichier");
+		this.lblNomFichier = new JLabel("Nom des fichiers");
 		this.lblNomFichier.setFont(new Font( "Verdana" ,Font.BOLD, 17));
 		
 		this.textFichier = new JTextField(10);
 		
 		//creation du label proprietaire
-		this.lblNomUtil = new JLabel("Proprietaire");
+		this.lblNomUtil = new JLabel("Auteur");
 		this.lblNomUtil.setFont(new Font( "Verdana" ,Font.BOLD, 17));
 		
 		this.textUtil = new JTextField(10);
