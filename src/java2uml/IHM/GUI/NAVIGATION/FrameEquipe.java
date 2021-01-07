@@ -26,10 +26,10 @@ public class FrameEquipe  extends JFrame
 		
 		this.ensMembre.add(new Membre("InnovAction"));
 		this.ensMembre.add(new Membre("Pestel","Adrien","Chef de projet, dévelopeur CUI","../image/adrien.jpg"));
-		this.ensMembre.add(new Membre("Godefroy","Antoine","Développeur GUI","../image/antoine.jpg"));
-		this.ensMembre.add(new Membre("Pallier","Colin","Développeur GUI","../image/colin.jpg"));
-		this.ensMembre.add(new Membre("Bouyer","Nathan","Développeur GUI","../image/nathan.jpg"));
-		this.ensMembre.add(new Membre("Devos","Nicolas","Chef développeur, développeur CUI","../image/nicolas.jpg"));
+		this.ensMembre.add(new Membre("Godefroy","Antoine","Développeur GUI et liaison CUI / GUI","../image/antoine.jpg"));
+		this.ensMembre.add(new Membre("Pallier","Colin","Développeur GUI et développeur UX & UI","../image/colin.jpg"));
+		this.ensMembre.add(new Membre("Bouyer","Nathan","Responsable GUI, développeur GUI","../image/nathan.jpg"));
+		this.ensMembre.add(new Membre("Devos","Nicolas","Chef développeur, développeur CUI ","../image/nicolas.jpg"));
 		this.ensMembre.add(new Membre("Cohathanay","Victor","Responsable CUI et testeur, développeur CUI","../image/victor.jpg"));
 		
 		
