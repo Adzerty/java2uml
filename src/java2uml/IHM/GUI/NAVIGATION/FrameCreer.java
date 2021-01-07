@@ -29,6 +29,7 @@ public class FrameCreer extends JFrame
 		this.setTitle("Créer un fichier");  //Affichage du titre
 		this.setLocation(x,y);              //Placement de la frame au centre de l'ecran
 		this.setLayout(new GridLayout(2,1));//Gridlayout de 2 par 1
+		this.setSize(500,300);              //Taille de la frame
 		
 		//creation des differents panel
 		
@@ -41,7 +42,7 @@ public class FrameCreer extends JFrame
 		this.add(this.panelValider);
 		 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.pack();                     //Taille de la frame
+           
 		this.setVisible(true);
 	}
 	

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -26,6 +27,8 @@ public class PanelCreer extends JPanel
 	
 	private JTextField textFichier;
 	private JTextField textUtil;
+	
+	private JScrollPane scrollPan;
 	
 
 	public PanelCreer(FrameCreer frame)
@@ -52,6 +55,10 @@ public class PanelCreer extends JPanel
 	    
 		this.listFichier = new JList(this.tabFichier);
 	    this.listFichier.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+	    
+	    this.scrollPan = new JScrollPane();
+	    this.scrollPan.setViewportView(this.listFichier);
+	    this.listFichier.setLayoutOrientation(JList.VERTICAL);
 	    
 	    this.listFichier.addListSelectionListener( new ListSelectionListener()
 	    {
@@ -85,7 +92,7 @@ public class PanelCreer extends JPanel
 		this.textUtil = new JTextField(10);
 		
 		this.add(lblFichier);
-		this.add(listFichier);
+		this.add(scrollPan);
 		
 		this.add(lblNomFichier);
 		this.add(textFichier);
