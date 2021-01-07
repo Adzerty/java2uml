@@ -2,12 +2,9 @@ package java2uml.IHM.GUI.NAVIGATION;
 
 import java.awt.BorderLayout;
 
-import java.awt.Font;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class PanelAccueil extends JPanel
 {
