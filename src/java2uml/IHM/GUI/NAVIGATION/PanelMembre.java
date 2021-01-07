@@ -31,8 +31,9 @@ public class PanelMembre  extends JPanel
 		
 		if(this.num == 0)
 		{
+			String titre1 = "<html><p color=\"rgb(51,102,152)\">Innov<span color=\"rgb(223,90,39)\">Action</span></p></html>";
 			this.setLayout(new GridLayout(1,1));
-			this.titre = new JLabel(this.membre.getTitre());
+			this.titre = new JLabel(titre1);
 			this.titre.setFont(new Font( "Verdana" ,Font.BOLD, 35));
 			this.titre.setHorizontalAlignment(SwingConstants.CENTER); 
 			this.add(this.titre);

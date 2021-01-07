@@ -1,5 +1,6 @@
 package java2uml.IHM.GUI.NAVIGATION;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
