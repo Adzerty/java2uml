@@ -7,29 +7,32 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class PanelValiderModifier extends JPanel  implements ActionListener{
+public class PanelValiderModifier extends JPanel  implements ActionListener
+{
 	
 	private JButton btnValider;
 	private FrameModifier frame;
 	
-	public PanelValiderModifier(FrameModifier frame) {
+	public PanelValiderModifier(FrameModifier frame)
+	{
 		
 		this.frame = frame;
 		
 		this.setLayout(new GridLayout(1,1));
 		
+		//creation du bouton valider
 		this.btnValider = new JButton("Valider");
-		
 		this.btnValider.addActionListener(this);
 		
 		this.add(this.btnValider);
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==this.btnValider) {
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getSource()==this.btnValider)
+		{
 			this.frame.setValider();
-			System.out.println("oui");
 		}
 	}
 

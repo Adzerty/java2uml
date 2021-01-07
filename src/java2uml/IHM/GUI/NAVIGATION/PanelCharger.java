@@ -1,22 +1,18 @@
 package java2uml.IHM.GUI.NAVIGATION;
 
-import java.awt.Checkbox;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FilenameFilter;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PanelCharger extends JPanel implements ItemListener{
+public class PanelCharger extends JPanel implements ItemListener
+{
 	
 	private JLabel lblFichier;
 	private JComboBox cbFichier;
@@ -24,17 +20,20 @@ public class PanelCharger extends JPanel implements ItemListener{
 	
 	private FrameCharger frame;
 	
-	private JCheckBox[] tabCb;
 	
-	public PanelCharger(FrameCharger frame) {
+	public PanelCharger(FrameCharger frame) 
+	{
 		
 		this.frame = frame;
 		
 		this.setLayout(new GridLayout(1,2));
 		
+		// recherche des .txt existant 
+		
 		File fichier = new File("../config");
-		FilenameFilter filter = new FilenameFilter() {
-			
+		
+		FilenameFilter filter = new FilenameFilter() 
+		{
 	        @Override
 	        public boolean accept(File f, String name) {
 	            return name.endsWith(".txt");
@@ -43,7 +42,8 @@ public class PanelCharger extends JPanel implements ItemListener{
 		
 	    this.tabFichier = fichier.list(filter);
 		
-		
+		//Initialisation de la JComboBox 
+	    
 		this.cbFichier = new JComboBox(this.tabFichier);
 		this.cbFichier.addItemListener(this);
 		
@@ -59,10 +59,11 @@ public class PanelCharger extends JPanel implements ItemListener{
 	}
 	
 	@Override
-	public void itemStateChanged(ItemEvent e) {
+	public void itemStateChanged(ItemEvent e) 
+	{
 		
-		
-		if( e.getItem() == this.cbFichier.getSelectedItem()) {
+		if( e.getItem() == this.cbFichier.getSelectedItem())
+		{
 			this.frame.setFichier((String)this.cbFichier.getSelectedItem());
 		}
 		

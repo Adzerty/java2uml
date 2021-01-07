@@ -11,7 +11,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PanelModifier extends JPanel implements ItemListener{
+public class PanelModifier extends JPanel implements ItemListener
+{
 	
 	private JLabel lblFichier;
 	private JComboBox cbFichier;
@@ -19,30 +20,37 @@ public class PanelModifier extends JPanel implements ItemListener{
 	
 	private FrameModifier frame;
 	
-	public PanelModifier(FrameModifier frame) {
+	public PanelModifier(FrameModifier frame)
+	{
 		
 		this.frame = frame;
 		
 		this.setLayout(new GridLayout(1,2));
 		
+		// recherche des .txt existant 
+		
 		File fichier = new File("../config");
-		FilenameFilter filter = new FilenameFilter() {
-			
+		FilenameFilter filter = new FilenameFilter()
+		{
 	        @Override
-	        public boolean accept(File f, String name) {
+	        public boolean accept(File f, String name)
+	        {
 	            return name.endsWith(".txt");
 	        }
 	    };
 		
 	    this.tabFichier = fichier.list(filter);
 		
-		
+		// creation du JComboBox
+	    
 		this.cbFichier = new JComboBox(this.tabFichier);
 		this.cbFichier.addItemListener(this);
 		
+		// creation du label fichier 
 		
 		this.lblFichier = new JLabel("Fichier");
 		this.lblFichier.setFont(new Font( "Verdana" ,Font.BOLD, 17));
+		
 		
 		this.add(lblFichier);
 		this.add(cbFichier);
@@ -52,10 +60,10 @@ public class PanelModifier extends JPanel implements ItemListener{
 	}
 	
 	@Override
-	public void itemStateChanged(ItemEvent e) {
-		
-		
-		if( e.getItem() == this.cbFichier.getSelectedItem()) {
+	public void itemStateChanged(ItemEvent e)
+	{
+		if( e.getItem() == this.cbFichier.getSelectedItem()) 
+		{
 			this.frame.setFichier((String)this.cbFichier.getSelectedItem());
 		}
 		

@@ -7,46 +7,40 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-
-
-
-public class FrameEquipe  extends JFrame{
+public class FrameEquipe  extends JFrame
+{
 	
 	private ArrayList<Membre> ensMembre = new ArrayList<>();
-	private ArrayList<PanelMembre> ensPanelMembre = new ArrayList<>();
 	
-	public FrameEquipe() {
+	public FrameEquipe()
+	{
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-        int x = dim.width/2;
-        int y = dim.height/2;
+        int x = (int)(dim.width);
+        int y = (int)(dim.height*0.5);
         
-		this.setTitle("L'équipe");
-		this.setSize(600,500);
-		this.setLocation(x, y);
+		this.setTitle("L'équipe");   //Affichage du titre
+		this.setSize(800,800);       //Taille de la frame
+		this.setLocation(x, y);      //Placement de la frame au centre de l'ecran
 		
 		this.ensMembre.add(new Membre("InnovAction"));
-		this.ensMembre.add(new Membre("Pestel","Adrien","./image/adrien.png"));
-		this.ensMembre.add(new Membre("Godefroy","Antoine","./image/antoine.png"));
-		this.ensMembre.add(new Membre("Pallier","Colin","./image/colin.jpg"));
-		this.ensMembre.add(new Membre("Bouyer",",Nathan","./image/nathan.png"));
-		this.ensMembre.add(new Membre("Devos","Nicolas","./image/nicolas.png"));
-		this.ensMembre.add(new Membre("Cohathanay","Victor","./image/victor.png"));
+		this.ensMembre.add(new Membre("Pestel","Adrien","Chef de projet, dévelopeur CUI","../image/adrien.jpg"));
+		this.ensMembre.add(new Membre("Godefroy","Antoine","Développeur GUI et liaison CUI / GUI","../image/antoine.jpg"));
+		this.ensMembre.add(new Membre("Pallier","Colin","Développeur GUI et développeur UX & UI","../image/colin.jpg"));
+		this.ensMembre.add(new Membre("Bouyer","Nathan","Responsable GUI, développeur GUI","../image/nathan.jpg"));
+		this.ensMembre.add(new Membre("Devos","Nicolas","Chef développeur, développeur CUI ","../image/nicolas.jpg"));
+		this.ensMembre.add(new Membre("Cohathanay","Victor","Responsable CUI et testeur, développeur CUI","../image/victor.jpg"));
 		
-		this.setLayout(new GridLayout(this.ensMembre.size(),1));
+		
+		this.setLayout(new GridLayout(this.ensMembre.size(),1)); //Frame en GridLayout
+		
+		//ajout des panel membre dans la frame 
 		
 		int cpt=0;
-		for(Membre m: ensMembre) {
-			this.ensPanelMembre.add(new PanelMembre(m, cpt));
-			cpt++;
-		}
 		
-		for(PanelMembre p: ensPanelMembre) {
-			this.add(p);
-		}
+		for(Membre m: ensMembre){this.add(new PanelMembre(m, cpt));cpt++;}
 		
-		this.pack();
 		this.setVisible(true);
 	}
 }

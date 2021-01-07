@@ -7,12 +7,16 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class MenuBar extends JMenuBar implements ActionListener{
+public class MenuBar extends JMenuBar implements ActionListener
+{
 	
 	JMenu propos ;
 	JMenuItem credit;
 	
-	public MenuBar() {
+	// Constructeur de la MenuBar
+	
+	public MenuBar()
+	{
 		
 		this.propos = new JMenu("A propos");
 		this.credit = new JMenuItem("L'équipe");
@@ -22,8 +26,8 @@ public class MenuBar extends JMenuBar implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent e) 
+	{
 		new FrameEquipe();
 	}
 }
